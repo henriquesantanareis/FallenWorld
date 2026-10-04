@@ -74,6 +74,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -87,6 +88,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\attacks\" />
+    <Folder Include="Assets\backgrounds\" />
+    <Folder Include="Assets\ui\knight_ui\" />
+    <Folder Include="Assets\ui\mage_ui\" />
+    <Folder Include="Assets\ui\princess_ui\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\characters\sprite-fusion-pixel-art-generator-60x60.png" />
+    <Content Include="Assets\characters\sprite-fusion-pixel-art-generator-60x62.png" />
+    <Content Include="Assets\characters\sprite-fusion-pixel-art-generator-75x81.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

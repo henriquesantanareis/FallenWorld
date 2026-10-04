@@ -15,6 +15,7 @@ namespace FallenWorld
         public FormGame()
         {
             InitializeComponent();
+
         }
 
         #region Global Variables
