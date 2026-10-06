@@ -22,7 +22,7 @@ namespace FallenWorld.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace FallenWorld.Properties {
         ///   Retorna a instância de ResourceManager armazenada em cache usada por essa classe.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FallenWorld.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace FallenWorld.Properties {
         ///   pesquisas de recursos que usam essa classe de recurso de tipo de alta segurança.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap background_choose_character {
+        public static System.Drawing.Bitmap background_choose_character {
             get {
                 object obj = ResourceManager.GetObject("background_choose_character", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,7 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap duckMageFrame {
+        public static System.Drawing.Bitmap duckMageFrame {
             get {
                 object obj = ResourceManager.GetObject("duckMageFrame", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,7 +83,37 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Jogar {
+        public static System.Drawing.Bitmap Exit_hover {
+            get {
+                object obj = ResourceManager.GetObject("Exit_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Exit_normal {
+            get {
+                object obj = ResourceManager.GetObject("Exit_normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Exit_pressed {
+            get {
+                object obj = ResourceManager.GetObject("Exit_pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Jogar {
             get {
                 object obj = ResourceManager.GetObject("Jogar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -93,7 +123,27 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap knightFrame {
+        public static System.Drawing.Bitmap Jogarhover {
+            get {
+                object obj = ResourceManager.GetObject("Jogarhover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap JogarPressed {
+            get {
+                object obj = ResourceManager.GetObject("JogarPressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap knightFrame {
             get {
                 object obj = ResourceManager.GetObject("knightFrame", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +153,7 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Menu {
+        public static System.Drawing.Bitmap Menu {
             get {
                 object obj = ResourceManager.GetObject("Menu", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -113,7 +163,37 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap princessFrame {
+        public static System.Drawing.Bitmap Play_hover {
+            get {
+                object obj = ResourceManager.GetObject("Play_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Play_normal {
+            get {
+                object obj = ResourceManager.GetObject("Play_normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Play_pressed {
+            get {
+                object obj = ResourceManager.GetObject("Play_pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap princessFrame {
             get {
                 object obj = ResourceManager.GetObject("princessFrame", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -123,9 +203,29 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Sair {
+        public static System.Drawing.Bitmap Sair {
             get {
                 object obj = ResourceManager.GetObject("Sair", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap SairHouver {
+            get {
+                object obj = ResourceManager.GetObject("SairHouver", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap SairPressed {
+            get {
+                object obj = ResourceManager.GetObject("SairPressed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

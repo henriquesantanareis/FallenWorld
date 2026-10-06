@@ -16,7 +16,14 @@ namespace FallenWorld
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormSelecaoPersonagem());
+            using (var selecaoPersonagem = new FormSelecaoPersonagem())
+            {
+                if (selecaoPersonagem.ShowDialog() == DialogResult.OK)
+                {
+                    Application.Run(new FormGame(TipoPersonagem.PersonagemEscolhido));
+                    selecaoPersonagem.Close();
+                }
+            }
         }
     }
 }

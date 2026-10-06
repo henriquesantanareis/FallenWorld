@@ -148,7 +148,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;RDB_Mage.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="RDB_Knight.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -181,10 +181,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;RDB_Knight.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="RDB_Princess.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
+  </data>
+  <data name="RDB_Princess.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="RDB_Princess.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -214,13 +217,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;RDB_Princess.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="BTN_PLAY.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="BTN_PLAY.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
+    <value>3</value>
   </data>
   <data name="BTN_PLAY.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Center</value>
@@ -238,7 +235,7 @@
     <value>346, 454</value>
   </data>
   <data name="BTN_PLAY.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 48</value>
+    <value>102, 42</value>
   </data>
   <data name="BTN_PLAY.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -253,65 +250,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BTN_PLAY.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="BTN_MENU.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="BTN_MENU.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="BTN_MENU.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="BTN_MENU.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAFoAAAAjCAYAAAAUhR0LAAAABGdBTUEAALGPC/xhBQAAAzRJREFUaEPt
-        mU2K1FAURhsRnDl1qM4EwR9wKujIqS5A6VHPRNyAG+hZr0JwP26n5FRz4PJVUpW8JBKqcuEjyc3LvXnn
-        /Vbl6mqzzTbbbDl79PDBbtOhklOzGfD68/vdr5/fdr9vbzbd3ux5/Pj6aR7YQr67frMXgUmgvnx8e7GC
-        hTwm924ephcLmgTPnj4/0Id3Lw+G1DmIer1+cV/H6ue6woYR/uQ3yHiQICRDBBOqL4D64J+DhErdra/S
-        X/mMhm3LAZr5KEFzxG9C/ecogVPXZOCa5T25Jc9eozABAP3qyeN9ryWQiTxeoqy7mwMguzCOWhwr5Bwu
-        BDZYvsClyJEOXDph5TNqvhY0gQhMAK5N5HDJF7gEwYZNAQyAjJxWuA8z2DSDtpVM6Bw1RnU+71K9nyPp
-        mMY801c232WoYAIneUwCbcBMMkZ//3zfq28keB/ldYpKEcdrQXHMsrXcsbL5PmNUG2sS6LkWvqxs+rPC
-        XT63mwmqxszn6nX26ozfIng192jg1h49h7qAkqfLX0F6ncM8Qavqq+WygS2b/hbVnchqQLuI1B51DHQt
-        2wXa8z7QTh+1MWqOOUCrVYHmvK7aFQ73EpiiAn2gicO5x1Oga45VgJ66CFZVAFZ+CGh8AuwCrc/r9J8C
-        ne85RZNAzwW7gquqUBOC5YXWB7oLtuX+B+jmOdpdB+dzTCEJru9eQqigK1DU9Uz1Wy5B13hd79MicnCc
-        BHqun9wJQI0Bza+yvH8KdPVl/HyXVjG1cYTZqJ/guRjWvXTLdELDqdyX13v2jPRVAYkY6TMeAIfmaVHW
-        n9zuo/3zrQl0DeSvsikvuoQEXYEvpdqIHptB8wCghe05ojJr/bM/p5GlBFg/aXGdn7kGgcZcBFH9RkZQ
-        KkGr5hBai5aE7Wg3PufNkDF7NXLRqFMJxyX22nNpCciuC9Q3v7BUXqNAYz5s61XQVoQyc+1K1ihHraMZ
-        +acW5/XjSBNkTHi2FKBJYnJl8vSfg2ovTVUm9vBkONgMajDkt7EUSf2U45Bybs+t1VIyd6tqnKxfqjKR
-        U/IbZRV2TvznIoGlv08JOZlNshw6m+6VnDbbbLPNZrR/K/1R5cA6GSkAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="BTN_MENU.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="BTN_MENU.Location" type="System.Drawing.Point, System.Drawing">
-    <value>676, 23</value>
-  </data>
-  <data name="BTN_MENU.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 41</value>
-  </data>
-  <data name="BTN_MENU.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;BTN_MENU.Name" xml:space="preserve">
-    <value>BTN_MENU</value>
-  </data>
-  <data name="&gt;&gt;BTN_MENU.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;BTN_MENU.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;BTN_MENU.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="BTN_EXIT.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="BTN_EXIT.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
+  <data name="BTN_EXIT.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
   </data>
   <data name="BTN_EXIT.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -323,7 +265,7 @@
     <value>12, 23</value>
   </data>
   <data name="BTN_EXIT.Size" type="System.Drawing.Size, System.Drawing">
-    <value>109, 46</value>
+    <value>106, 41</value>
   </data>
   <data name="BTN_EXIT.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -339,55 +281,6 @@
   </data>
   <data name="&gt;&gt;BTN_EXIT.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="object_628b8b28_5e26_40ac_91b9_3afcb0fe528f.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="object_628b8b28_5e26_40ac_91b9_3afcb0fe528f.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="object_628b8b28_5e26_40ac_91b9_3afcb0fe528f.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAFoAAAAjCAYAAAAUhR0LAAAABGdBTUEAALGPC/xhBQAAAzRJREFUaEPt
-        mU2K1FAURhsRnDl1qM4EwR9wKujIqS5A6VHPRNyAG+hZr0JwP26n5FRz4PJVUpW8JBKqcuEjyc3LvXnn
-        /Vbl6mqzzTbbbDl79PDBbtOhklOzGfD68/vdr5/fdr9vbzbd3ux5/Pj6aR7YQr67frMXgUmgvnx8e7GC
-        hTwm924ephcLmgTPnj4/0Id3Lw+G1DmIer1+cV/H6ue6woYR/uQ3yHiQICRDBBOqL4D64J+DhErdra/S
-        X/mMhm3LAZr5KEFzxG9C/ecogVPXZOCa5T25Jc9eozABAP3qyeN9ryWQiTxeoqy7mwMguzCOWhwr5Bwu
-        BDZYvsClyJEOXDph5TNqvhY0gQhMAK5N5HDJF7gEwYZNAQyAjJxWuA8z2DSDtpVM6Bw1RnU+71K9nyPp
-        mMY801c232WoYAIneUwCbcBMMkZ//3zfq28keB/ldYpKEcdrQXHMsrXcsbL5PmNUG2sS6LkWvqxs+rPC
-        XT63mwmqxszn6nX26ozfIng192jg1h49h7qAkqfLX0F6ncM8Qavqq+WygS2b/hbVnchqQLuI1B51DHQt
-        2wXa8z7QTh+1MWqOOUCrVYHmvK7aFQ73EpiiAn2gicO5x1Oga45VgJ66CFZVAFZ+CGh8AuwCrc/r9J8C
-        ne85RZNAzwW7gquqUBOC5YXWB7oLtuX+B+jmOdpdB+dzTCEJru9eQqigK1DU9Uz1Wy5B13hd79MicnCc
-        BHqun9wJQI0Bza+yvH8KdPVl/HyXVjG1cYTZqJ/guRjWvXTLdELDqdyX13v2jPRVAYkY6TMeAIfmaVHW
-        n9zuo/3zrQl0DeSvsikvuoQEXYEvpdqIHptB8wCghe05ojJr/bM/p5GlBFg/aXGdn7kGgcZcBFH9RkZQ
-        KkGr5hBai5aE7Wg3PufNkDF7NXLRqFMJxyX22nNpCciuC9Q3v7BUXqNAYz5s61XQVoQyc+1K1ihHraMZ
-        +acW5/XjSBNkTHi2FKBJYnJl8vSfg2ovTVUm9vBkONgMajDkt7EUSf2U45Bybs+t1VIyd6tqnKxfqjKR
-        U/IbZRV2TvznIoGlv08JOZlNshw6m+6VnDbbbLPNZrR/K/1R5cA6GSkAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="object_628b8b28_5e26_40ac_91b9_3afcb0fe528f.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="object_628b8b28_5e26_40ac_91b9_3afcb0fe528f.Location" type="System.Drawing.Point, System.Drawing">
-    <value>241, 323</value>
-  </data>
-  <data name="object_628b8b28_5e26_40ac_91b9_3afcb0fe528f.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 105</value>
-  </data>
-  <data name="object_628b8b28_5e26_40ac_91b9_3afcb0fe528f.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="object_628b8b28_5e26_40ac_91b9_3afcb0fe528f.Text" xml:space="preserve">
-    <value>button1</value>
-  </data>
-  <data name="object_628b8b28_5e26_40ac_91b9_3afcb0fe528f.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;object_628b8b28_5e26_40ac_91b9_3afcb0fe528f.Name" xml:space="preserve">
-    <value>object_628b8b28_5e26_40ac_91b9_3afcb0fe528f</value>
-  </data>
-  <data name="&gt;&gt;object_628b8b28_5e26_40ac_91b9_3afcb0fe528f.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <metadata name="TMR_Duck_Mage.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>75, 25</value>
@@ -412,6 +305,9 @@
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
+  </data>
+  <data name="panel1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;panel1.Name" xml:space="preserve">
     <value>panel1</value>
@@ -10583,7 +10479,7 @@
     <value>None</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>784, 561</value>
+    <value>786, 586</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -13501,9 +13397,6 @@
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Seleção de personagem</value>
   </data>
   <data name="&gt;&gt;TMR_Duck_Mage.Name" xml:space="preserve">
     <value>TMR_Duck_Mage</value>
