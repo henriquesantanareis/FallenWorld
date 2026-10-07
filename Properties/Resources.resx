@@ -121,9 +121,6 @@
   <data name="background_choose_character" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\background_choose_character.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="duckMageFrame" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\duckMageFrame.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Exit_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Exit_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -133,20 +130,8 @@
   <data name="Exit_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Exit_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Jogar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Jogar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Jogarhover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="JogarPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="knightFrame" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\knightFrame.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Menu" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\Downloads\Ui_choose_character\Create_a_professional_medieval_fantasy_pixel-art_R\elements\Menu\Menu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="knight_Avatar_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\knight_Avatar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Play_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Play_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -157,16 +142,40 @@
   <data name="Play_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Play_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="princessFrame" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\princessFrame.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Princess_Avatar_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_Avatar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Sair" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sair.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Princess_Avatar_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_Avatar_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SairHouver" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Princess_Avatar_Pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_Avatar_Pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SairPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="duckMage_Avatar_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_Avatar_normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_Avatar_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_Avatar_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_Avatar_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_Avatar_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMafe_Avatar_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dukMage_Avatar_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="knight_Avatar_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\knight_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="knight_Avatar_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\knight_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="knight_Avatar_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\knight_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_Avatar_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_Avatar_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Fallen_World" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fallen_World.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

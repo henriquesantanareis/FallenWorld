@@ -121,20 +121,26 @@
   <data name="RDB_Mage.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="RDB_Mage.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="RDB_Mage.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Stretch</value>
+    <value>None</value>
   </data>
   <data name="RDB_Mage.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
+  </data>
+  <data name="RDB_Mage.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="RDB_Mage.Location" type="System.Drawing.Point, System.Drawing">
     <value>214, 101</value>
   </data>
   <data name="RDB_Mage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 87</value>
+    <value>98, 96</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="RDB_Mage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
@@ -148,10 +154,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;RDB_Mage.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="RDB_Knight.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
+  </data>
+  <data name="RDB_Knight.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="RDB_Knight.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -166,7 +175,7 @@
     <value>361, 101</value>
   </data>
   <data name="RDB_Knight.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 87</value>
+    <value>85, 85</value>
   </data>
   <data name="RDB_Knight.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -181,7 +190,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;RDB_Knight.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="RDB_Princess.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -202,7 +211,7 @@
     <value>499, 101</value>
   </data>
   <data name="RDB_Princess.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 87</value>
+    <value>80, 80</value>
   </data>
   <data name="RDB_Princess.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -217,7 +226,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;RDB_Princess.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="BTN_PLAY.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Center</value>
@@ -250,7 +259,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BTN_PLAY.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="BTN_EXIT.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Center</value>
@@ -280,10 +289,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BTN_EXIT.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <metadata name="TMR_Duck_Mage.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>75, 25</value>
+    <value>60, 27</value>
   </metadata>
   <metadata name="TMR_Music_Knight.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>231, 23</value>
@@ -319,6 +328,30 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="PNL_Description_Character.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="PNL_Description_Character.Location" type="System.Drawing.Point, System.Drawing">
+    <value>553, 349</value>
+  </data>
+  <data name="PNL_Description_Character.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 100</value>
+  </data>
+  <data name="PNL_Description_Character.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;PNL_Description_Character.Name" xml:space="preserve">
+    <value>PNL_Description_Character</value>
+  </data>
+  <data name="&gt;&gt;PNL_Description_Character.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PNL_Description_Character.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PNL_Description_Character.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

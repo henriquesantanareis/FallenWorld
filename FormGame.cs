@@ -26,9 +26,9 @@ namespace FallenWorld
         {
             switch (_personagem)
             {
-                case Personagem.Mago: panel1.BackgroundImage = Properties.Resources.duckMageFrame; break;
-                case Personagem.Cavaleiro: panel1.BackgroundImage = Properties.Resources.knightFrame; break;
-                case Personagem.Princesa: panel1.BackgroundImage = Properties.Resources.princessFrame; break;
+                case Personagem.Mago: panel1.BackgroundImage = Properties.Resources.duckMage_Avatar_normal; break;
+                case Personagem.Cavaleiro: panel1.BackgroundImage = Properties.Resources.knight_Avatar_normal; break;
+                case Personagem.Princesa: panel1.BackgroundImage = Properties.Resources.Princess_Avatar_normal; break;
             }
 
         }

@@ -73,9 +73,39 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap duckMageFrame {
+        public static System.Drawing.Bitmap duckMafe_Avatar_pressed {
             get {
-                object obj = ResourceManager.GetObject("duckMageFrame", resourceCulture);
+                object obj = ResourceManager.GetObject("duckMafe_Avatar_pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_Avatar_hover {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_Avatar_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_Avatar_normal {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_Avatar_normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_Avatar_selected {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_Avatar_selected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -111,11 +141,21 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Icon semelhante a (Ícone).
+        /// </summary>
+        public static System.Drawing.Icon Fallen_World {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_World", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Jogar {
+        public static System.Drawing.Bitmap knight_Avatar_hover {
             get {
-                object obj = ResourceManager.GetObject("Jogar", resourceCulture);
+                object obj = ResourceManager.GetObject("knight_Avatar_hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +163,9 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Jogarhover {
+        public static System.Drawing.Bitmap knight_Avatar_normal {
             get {
-                object obj = ResourceManager.GetObject("Jogarhover", resourceCulture);
+                object obj = ResourceManager.GetObject("knight_Avatar_normal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +173,9 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap JogarPressed {
+        public static System.Drawing.Bitmap knight_Avatar_pressed {
             get {
-                object obj = ResourceManager.GetObject("JogarPressed", resourceCulture);
+                object obj = ResourceManager.GetObject("knight_Avatar_pressed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,19 +183,9 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap knightFrame {
+        public static System.Drawing.Bitmap knight_Avatar_selected {
             get {
-                object obj = ResourceManager.GetObject("knightFrame", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Menu {
-            get {
-                object obj = ResourceManager.GetObject("Menu", resourceCulture);
+                object obj = ResourceManager.GetObject("knight_Avatar_selected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -193,9 +223,9 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap princessFrame {
+        public static System.Drawing.Bitmap Princess_Avatar_hover {
             get {
-                object obj = ResourceManager.GetObject("princessFrame", resourceCulture);
+                object obj = ResourceManager.GetObject("Princess_Avatar_hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,9 +233,9 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Sair {
+        public static System.Drawing.Bitmap Princess_Avatar_normal {
             get {
-                object obj = ResourceManager.GetObject("Sair", resourceCulture);
+                object obj = ResourceManager.GetObject("Princess_Avatar_normal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -213,9 +243,9 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap SairHouver {
+        public static System.Drawing.Bitmap Princess_Avatar_Pressed {
             get {
-                object obj = ResourceManager.GetObject("SairHouver", resourceCulture);
+                object obj = ResourceManager.GetObject("Princess_Avatar_Pressed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -223,9 +253,9 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap SairPressed {
+        public static System.Drawing.Bitmap Princess_Avatar_selected {
             get {
-                object obj = ResourceManager.GetObject("SairPressed", resourceCulture);
+                object obj = ResourceManager.GetObject("Princess_Avatar_selected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
