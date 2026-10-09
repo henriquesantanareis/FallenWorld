@@ -85,22 +85,20 @@ namespace FallenWorld
         #endregion
 
         #region Skip Intro
-        protected override bool ProcessCmdKey(ref Message msg,Keys keyData)
+        private void FormIntro_KeyDown(object sender, KeyEventArgs e)
         {
-            if (keyData == Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
             {
-                //AbrirSelecao();
-                return true;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
+                AbrirSelecao();
+            }            
         }
 
-        protected override void OnFormClosed(FormClosedEventArgs e)
+        private void OnFormClosed(object sender, FormClosedEventArgs e)
         {
             mediaPlayer?.Stop();
             mediaPlayer?.Dispose();
             LibVLC?.Dispose();
+            videoView?.Dispose();
             base.OnFormClosed(e);
         }
         #endregion

@@ -125,6 +125,7 @@ namespace FallenWorld
             this.BTN_EXIT.Name = "BTN_EXIT";
             this.BTN_EXIT.UseVisualStyleBackColor = false;
             this.BTN_EXIT.Click += new System.EventHandler(this.BTN_EXIT_Click);
+            this.BTN_EXIT.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BTN_EXIT_KeyDown);
             this.BTN_EXIT.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BTN_EXIT_MouseDown);
             this.BTN_EXIT.MouseEnter += new System.EventHandler(this.BTN_EXIT_MouseEnter);
             this.BTN_EXIT.MouseLeave += new System.EventHandler(this.BTN_EXIT_MouseLeave);

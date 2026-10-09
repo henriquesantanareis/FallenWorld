@@ -27,22 +27,17 @@ namespace FallenWorld
 
         #region Varriáveis globais
         private SoundPlayer musicChooseCharacters;
-        private SoundPlayer selectionMusicMage;
+        //private SoundPlayer selectionMusicMage;
         private SoundPlayer selectionMusicKnight;
         private SoundPlayer selectionMusicPrincess;
-        private string pathMusicMenu = Path.Combine(Application.StartupPath, "Audio", "Musics", "Shadows_of_Three_Heroes.wav");
-        //private string pathMusicMage = Path.Combine(Application.StartupPath, "Audio", "Musics", "musica_mago.wav");
-        private string pathMusicKnight = Path.Combine(Application.StartupPath, "Audio", "Musics", "Rise_of_the_Ashen_Knight.wav");
-        private string pathMusicPrincess = Path.Combine(Application.StartupPath, "Audio", "Musics", "Crown_of_Ashes_and_Dawn.wav");
         #endregion
 
         #region Load Form
         private void FormSelecaoPersonagem_Load(object sender, EventArgs e)
         {
             //music menu
-            
-            musicChooseCharacters = new SoundPlayer(pathMusicMenu);
-            musicChooseCharacters.PlayLooping();   
+            musicChooseCharacters = new SoundPlayer(Properties.Resources.Shadows_of_Three_Heroes);
+            musicChooseCharacters.PlayLooping();
         }
         #endregion
 
@@ -53,33 +48,25 @@ namespace FallenWorld
             {
                 case Personagem.Mago:
                     musicChooseCharacters.Stop();
-                    //selectionMusicKnight.Stop();
-                    //selectionMusicPrincess.Stop();
-                    //string pathMusicMage = Path.Combine(Application.StartupPath, "Audio", "Musics", "musica_mago.wav");
-                    //selectionMusicMage = new SoundPlayer(pathMusicMage);
+                    //selectionMusicMage = new SoundPlayer(Properties.Resources.musica_mago);
                     break;
 
                 case Personagem.Cavaleiro:
                     musicChooseCharacters.Stop();
-                    //selectionMusicPrincess.Stop();
-                    //selectionMusicMage.Stop();
-                    selectionMusicKnight = new SoundPlayer(pathMusicKnight);
+                    selectionMusicKnight = new SoundPlayer(Properties.Resources.Rise_of_the_Ashen_Knight);
                     selectionMusicKnight.Play();
                     break;
 
                 case Personagem.Princesa:
                     musicChooseCharacters.Stop();
-                    //musicChooseCharacters.Dispose();
-                    selectionMusicPrincess = new SoundPlayer(pathMusicPrincess);
+                    selectionMusicPrincess = new SoundPlayer(Properties.Resources.Crown_of_Ashes_and_Dawn);
                     selectionMusicPrincess.Play();
                     break;
 
                 default:
-                    musicChooseCharacters = new SoundPlayer(pathMusicMenu);
+                    musicChooseCharacters = new SoundPlayer(Properties.Resources.Shadows_of_Three_Heroes);
                     return;
             }
-
-            //selectionMusicMage?.Play();
         }
         #endregion
 
@@ -102,7 +89,7 @@ namespace FallenWorld
                 RDB_Princess.Image = Properties.Resources.Princess_Avatar_normal;
                 TipoPersonagem.EscolherPersonagem(Personagem.Cavaleiro);
                 TocarMusicaPersonagem(Personagem.Cavaleiro);
-                // mostrar a imagem do personagem selecionado
+                // mostrar a imagem idle do personagem selecionado
             }
             else if (RDB_Princess.Checked == true)
             {
@@ -111,7 +98,7 @@ namespace FallenWorld
                 RDB_Mage.Image = Properties.Resources.duckMage_Avatar_normal;
                 TipoPersonagem.EscolherPersonagem(Personagem.Princesa);
                 TocarMusicaPersonagem(Personagem.Princesa);
-                // mostrar a imagem do personagem selecionado
+                // mostrar a imagem idle do personagem selecionado
             }
             else
             {
@@ -233,6 +220,8 @@ namespace FallenWorld
         {
             if (TipoPersonagem.PersonagemEscolhido != Personagem.Nenhum)
             {
+                musicChooseCharacters.Stop();
+                musicChooseCharacters.Dispose();
                 this.DialogResult = DialogResult.OK;
             }
             else
@@ -276,6 +265,14 @@ namespace FallenWorld
         {
             BTN_EXIT.Image = Properties.Resources.Exit_pressed;
             this.Close();
+        }
+        private void BTN_EXIT_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Escape)
+            {
+                BTN_EXIT.Image = Properties.Resources.Exit_pressed;
+                this.Close();
+            }
         }
         
         private void BTN_EXIT_MouseEnter(object sender, EventArgs e)

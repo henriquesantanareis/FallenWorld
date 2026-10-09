@@ -178,4 +178,145 @@
   <data name="Fallen_World" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fallen_World.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Rise_of_the_Ashen_Knight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Rise of the Ashen Knight.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Shadows_of_Three_Heroes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shadows of Three Heroes.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Crown_of_Ashes_and_Dawn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Crown of Ashes and Dawn.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="duckMage_Skill2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_Skill2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_Skill2_disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_Skill2_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_Skill2_locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_Skill2_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_Skill2_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_Skill2_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duck_Mage_Skill1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duck_Mage_Skill1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duck_Mage_Skill1_disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duck_Mage_Skill1_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duck_Mage_Skill1_locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duck_Mage_Skill1_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duck_Mage_Skill1_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duck_Mage_Skill1_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_Skill3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_Skill3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_Skill3_disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_Skill3_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_Skill3_locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_Skill3_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_Skill3_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_Skill3_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_Avatar_death" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_Avatar_death.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="knight_Avatar_death" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\knight_death.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="princess_Skill1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\princess_Skill1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="princess_Skill1_disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\princess_Skill1_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="princess_Skill1_locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\princess_Skill1_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="princess_Skill1_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\princess_Skill1_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="princess_Skill2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\princess_Skill2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="princess_Skill2_disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\princess_Skill2_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="princess_Skill2_locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\princess_Skill2_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="princess_Skill2_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\princess_Skill2_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_critical_damage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mage_HealthBar_CriticalDamage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_damage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mage_HealthBar_Damage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_death" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mage_HealthBar_Death.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_death_doors" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mage_HealthBar_DeathDoors.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_Full" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mage_HealthBar_Full.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_little_damage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mage_HealthBar_LittleDamage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_MagicBar_Full" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_MagicBar_Full.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_CriticalDamage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knight_HealthBar_CriticalDamage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_Damage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knight_HealthBar_Damage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_Death" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knight_HealthBar_Death.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_DeathDoors" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knight_HealthBar_DeathDoors.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_Full" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knight_HealthBar_Full.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_LittleDamage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knight_HealthBar_LittleDamage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_CriticalDamage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_CriticalDamage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_Damage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_Damage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_Death" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_Death.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_DeathDoors" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_DeathDoors.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_Full" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_Full.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_LittleDamage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_LittleDamage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_Avatar_death" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_Avatar_death.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_Spritesheet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Patolino_o_mago-Idle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_spriteSheet_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Patolino_o_mago-Idle.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

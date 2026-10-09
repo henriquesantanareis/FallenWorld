@@ -71,11 +71,70 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Crown_of_Ashes_and_Dawn {
+            get {
+                return ResourceManager.GetStream("Crown_of_Ashes_and_Dawn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duck_Mage_Skill1 {
+            get {
+                object obj = ResourceManager.GetObject("duck_Mage_Skill1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duck_Mage_Skill1_disabled {
+            get {
+                object obj = ResourceManager.GetObject("duck_Mage_Skill1_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duck_Mage_Skill1_locked {
+            get {
+                object obj = ResourceManager.GetObject("duck_Mage_Skill1_locked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duck_Mage_Skill1_pressed {
+            get {
+                object obj = ResourceManager.GetObject("duck_Mage_Skill1_pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap duckMafe_Avatar_pressed {
             get {
                 object obj = ResourceManager.GetObject("duckMafe_Avatar_pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_Avatar_death {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_Avatar_death", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -107,6 +166,179 @@ namespace FallenWorld.Properties {
             get {
                 object obj = ResourceManager.GetObject("duckMage_Avatar_selected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_HealthBar_critical_damage {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_HealthBar_critical_damage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_HealthBar_damage {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_HealthBar_damage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_HealthBar_death {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_HealthBar_death", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_HealthBar_death_doors {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_HealthBar_death_doors", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_HealthBar_Full {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_HealthBar_Full", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_HealthBar_little_damage {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_HealthBar_little_damage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_MagicBar_Full {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_MagicBar_Full", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_Skill2 {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_Skill2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_Skill2_disabled {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_Skill2_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_Skill2_locked {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_Skill2_locked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_Skill2_pressed {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_Skill2_pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_Skill3 {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_Skill3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_Skill3_disabled {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_Skill3_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_Skill3_locked {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_Skill3_locked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_Skill3_pressed {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_Skill3_pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap duckMage_Spritesheet {
+            get {
+                object obj = ResourceManager.GetObject("duckMage_Spritesheet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;character&quot;: {
+        ///    &quot;id&quot;: &quot;bc79ba7c-7159-41c8-ba33-471751d48731&quot;,
+        ///    &quot;name&quot;: &quot;Idle&quot;,
+        ///    &quot;prompt&quot;: &quot;Small anthropomorphic black duck wizard with a compact body and short stature, wearing a dark purple pointed wizard hat with a small orange/gold detail, a dark purple wizard robe with matching accents, and carrying a magical staff. His silhouette is simple and compact, with a mischievous cartoon-like expression, designed in medieval fantasy RPG pixel-art style. Keep the character visually small compared t [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string duckMage_spriteSheet_js {
+            get {
+                return ResourceManager.GetString("duckMage_spriteSheet_js", resourceCulture);
             }
         }
         
@@ -153,6 +385,16 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap knight_Avatar_death {
+            get {
+                object obj = ResourceManager.GetObject("knight_Avatar_death", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap knight_Avatar_hover {
             get {
                 object obj = ResourceManager.GetObject("knight_Avatar_hover", resourceCulture);
@@ -193,6 +435,66 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Knight_HealthBar_CriticalDamage {
+            get {
+                object obj = ResourceManager.GetObject("Knight_HealthBar_CriticalDamage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Knight_HealthBar_Damage {
+            get {
+                object obj = ResourceManager.GetObject("Knight_HealthBar_Damage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Knight_HealthBar_Death {
+            get {
+                object obj = ResourceManager.GetObject("Knight_HealthBar_Death", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Knight_HealthBar_DeathDoors {
+            get {
+                object obj = ResourceManager.GetObject("Knight_HealthBar_DeathDoors", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Knight_HealthBar_Full {
+            get {
+                object obj = ResourceManager.GetObject("Knight_HealthBar_Full", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Knight_HealthBar_LittleDamage {
+            get {
+                object obj = ResourceManager.GetObject("Knight_HealthBar_LittleDamage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Play_hover {
             get {
                 object obj = ResourceManager.GetObject("Play_hover", resourceCulture);
@@ -216,6 +518,16 @@ namespace FallenWorld.Properties {
         public static System.Drawing.Bitmap Play_pressed {
             get {
                 object obj = ResourceManager.GetObject("Play_pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Princess_Avatar_death {
+            get {
+                object obj = ResourceManager.GetObject("Princess_Avatar_death", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -257,6 +569,164 @@ namespace FallenWorld.Properties {
             get {
                 object obj = ResourceManager.GetObject("Princess_Avatar_selected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Princess_HealthBar_CriticalDamage {
+            get {
+                object obj = ResourceManager.GetObject("Princess_HealthBar_CriticalDamage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Princess_HealthBar_Damage {
+            get {
+                object obj = ResourceManager.GetObject("Princess_HealthBar_Damage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Princess_HealthBar_Death {
+            get {
+                object obj = ResourceManager.GetObject("Princess_HealthBar_Death", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Princess_HealthBar_DeathDoors {
+            get {
+                object obj = ResourceManager.GetObject("Princess_HealthBar_DeathDoors", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Princess_HealthBar_Full {
+            get {
+                object obj = ResourceManager.GetObject("Princess_HealthBar_Full", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Princess_HealthBar_LittleDamage {
+            get {
+                object obj = ResourceManager.GetObject("Princess_HealthBar_LittleDamage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap princess_Skill1 {
+            get {
+                object obj = ResourceManager.GetObject("princess_Skill1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap princess_Skill1_disabled {
+            get {
+                object obj = ResourceManager.GetObject("princess_Skill1_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap princess_Skill1_locked {
+            get {
+                object obj = ResourceManager.GetObject("princess_Skill1_locked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap princess_Skill1_pressed {
+            get {
+                object obj = ResourceManager.GetObject("princess_Skill1_pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap princess_Skill2 {
+            get {
+                object obj = ResourceManager.GetObject("princess_Skill2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap princess_Skill2_disabled {
+            get {
+                object obj = ResourceManager.GetObject("princess_Skill2_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap princess_Skill2_locked {
+            get {
+                object obj = ResourceManager.GetObject("princess_Skill2_locked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap princess_Skill2_pressed {
+            get {
+                object obj = ResourceManager.GetObject("princess_Skill2_pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Rise_of_the_Ashen_Knight {
+            get {
+                return ResourceManager.GetStream("Rise_of_the_Ashen_Knight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Shadows_of_Three_Heroes {
+            get {
+                return ResourceManager.GetStream("Shadows_of_Three_Heroes", resourceCulture);
             }
         }
     }

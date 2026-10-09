@@ -25,6 +25,5 @@ namespace FallenWorld
             _personagem = escolhido;
         }
         
-    }
-    
+    }        
 }
