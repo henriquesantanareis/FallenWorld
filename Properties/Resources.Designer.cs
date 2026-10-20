@@ -73,6 +73,15 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
         /// </summary>
+        public static System.IO.UnmanagedMemoryStream Cinderwick_s_Crooked_Grin {
+            get {
+                return ResourceManager.GetStream("Cinderwick\'s_Crooked_Grin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
         public static System.IO.UnmanagedMemoryStream Crown_of_Ashes_and_Dawn {
             get {
                 return ResourceManager.GetStream("Crown_of_Ashes_and_Dawn", resourceCulture);
@@ -727,6 +736,25 @@ namespace FallenWorld.Properties {
         public static System.IO.UnmanagedMemoryStream Shadows_of_Three_Heroes {
             get {
                 return ResourceManager.GetStream("Shadows_of_Three_Heroes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {&quot;tileSize&quot;:32,&quot;mapWidth&quot;:212,&quot;mapHeight&quot;:25,&quot;layers&quot;:[{&quot;name&quot;:&quot;scene_objects&quot;,&quot;tiles&quot;:[],&quot;collider&quot;:false},{&quot;name&quot;:&quot;forest_floor&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:0,&quot;y&quot;:20},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:0,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:0,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:0,&quot;y&quot;:23},{&quot;id&quot;:&quot;1&quot;,&quot;x&quot;:0,&quot;y&quot;:24},{&quot;id&quot;:&quot;2&quot;,&quot;x&quot;:1,&quot;y&quot;:24},{&quot;id&quot;:&quot;2&quot;,&quot;x&quot;:2,&quot;y&quot;:24},{&quot;id&quot;:&quot;2&quot;,&quot;x&quot;:3,&quot;y&quot;:24},{&quot;id&quot;:&quot;2&quot;,&quot;x&quot;:4,&quot;y&quot;:24},{&quot;id&quot;:&quot;2&quot;,&quot;x&quot;:5,&quot;y&quot;:24},{&quot;id&quot;:&quot;2&quot;,&quot;x&quot;:6,&quot;y&quot;:24},{&quot;id&quot;:&quot;2&quot;,&quot;x&quot;:7,&quot;y&quot;:24},{&q....
+        /// </summary>
+        public static string tutorial_Map_Js {
+            get {
+                return ResourceManager.GetString("tutorial_Map_Js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap tutorial_Map_sprite {
+            get {
+                object obj = ResourceManager.GetObject("tutorial_Map_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

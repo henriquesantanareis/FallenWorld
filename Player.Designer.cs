@@ -36,11 +36,12 @@
             // 
             // PBX_PLAYER
             // 
+            this.PBX_PLAYER.BackColor = System.Drawing.Color.Transparent;
+            this.PBX_PLAYER.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.PBX_PLAYER.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PBX_PLAYER.Location = new System.Drawing.Point(0, 0);
             this.PBX_PLAYER.Name = "PBX_PLAYER";
-            this.PBX_PLAYER.Size = new System.Drawing.Size(107, 115);
-            this.PBX_PLAYER.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.PBX_PLAYER.Size = new System.Drawing.Size(64, 64);
             this.PBX_PLAYER.TabIndex = 0;
             this.PBX_PLAYER.TabStop = false;
             // 
@@ -53,13 +54,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
+            this.BackColor = System.Drawing.Color.Transparent;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Controls.Add(this.PBX_PLAYER);
+            this.DoubleBuffered = true;
             this.Name = "Player";
-            this.Size = new System.Drawing.Size(107, 115);
+            this.Size = new System.Drawing.Size(64, 64);
             ((System.ComponentModel.ISupportInitialize)(this.PBX_PLAYER)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

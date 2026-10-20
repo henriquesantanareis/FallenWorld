@@ -27,7 +27,7 @@ namespace FallenWorld
 
         #region Varriáveis globais
         private SoundPlayer musicChooseCharacters;
-        //private SoundPlayer selectionMusicMage;
+        private SoundPlayer selectionMusicMage;
         private SoundPlayer selectionMusicKnight;
         private SoundPlayer selectionMusicPrincess;
         #endregion
@@ -48,7 +48,8 @@ namespace FallenWorld
             {
                 case Personagem.Mago:
                     musicChooseCharacters.Stop();
-                    //selectionMusicMage = new SoundPlayer(Properties.Resources.musica_mago);
+                    selectionMusicMage = new SoundPlayer(Properties.Resources.Cinderwick_s_Crooked_Grin);
+                    selectionMusicMage.Play();
                     break;
 
                 case Personagem.Cavaleiro:
@@ -79,7 +80,7 @@ namespace FallenWorld
                 RDB_Knight.Image = Properties.Resources.knight_Avatar_normal;
                 RDB_Princess.Image = Properties.Resources.Princess_Avatar_normal;
                 TipoPersonagem.EscolherPersonagem(Personagem.Mago);
-                // reproduzir musica tema personagem 
+                TocarMusicaPersonagem(Personagem.Mago);
                 // mostrar a imagem do personagem selecionado
             }
             else if (RDB_Knight.Checked == true)

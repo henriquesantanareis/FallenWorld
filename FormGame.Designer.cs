@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGame));
             this.PBX_MagicBar = new System.Windows.Forms.PictureBox();
             this.PBX_HealthBar = new System.Windows.Forms.PictureBox();
@@ -35,9 +36,9 @@
             this.BTN_Skill2 = new System.Windows.Forms.Button();
             this.BTN_Skill3 = new System.Windows.Forms.Button();
             this.PNL_ViewPort = new System.Windows.Forms.Panel();
-            this.player1 = new FallenWorld.Player();
             this.BTN_EXIT = new System.Windows.Forms.Button();
             this.PBX_Avatar = new System.Windows.Forms.PictureBox();
+            this.TMR_Game = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.PBX_MagicBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_HealthBar)).BeginInit();
             this.PNL_ViewPort.SuspendLayout();
@@ -74,6 +75,7 @@
             // 
             this.BTN_Skill1.AutoSize = true;
             this.BTN_Skill1.BackColor = System.Drawing.Color.Transparent;
+            this.BTN_Skill1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.BTN_Skill1.FlatAppearance.BorderSize = 0;
             this.BTN_Skill1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BTN_Skill1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
@@ -82,7 +84,7 @@
             this.BTN_Skill1.Name = "BTN_Skill1";
             this.BTN_Skill1.Size = new System.Drawing.Size(75, 25);
             this.BTN_Skill1.TabIndex = 0;
-            this.BTN_Skill1.Text = "Staff Attack";
+            this.BTN_Skill1.TabStop = false;
             this.BTN_Skill1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.BTN_Skill1.UseVisualStyleBackColor = false;
             // 
@@ -90,6 +92,7 @@
             // 
             this.BTN_Skill2.AutoSize = true;
             this.BTN_Skill2.BackColor = System.Drawing.Color.Transparent;
+            this.BTN_Skill2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.BTN_Skill2.FlatAppearance.BorderSize = 0;
             this.BTN_Skill2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BTN_Skill2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
@@ -98,7 +101,7 @@
             this.BTN_Skill2.Name = "BTN_Skill2";
             this.BTN_Skill2.Size = new System.Drawing.Size(75, 23);
             this.BTN_Skill2.TabIndex = 1;
-            this.BTN_Skill2.Text = "Fire Ball";
+            this.BTN_Skill2.TabStop = false;
             this.BTN_Skill2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.BTN_Skill2.UseVisualStyleBackColor = false;
             // 
@@ -106,6 +109,7 @@
             // 
             this.BTN_Skill3.AutoSize = true;
             this.BTN_Skill3.BackColor = System.Drawing.Color.Transparent;
+            this.BTN_Skill3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.BTN_Skill3.FlatAppearance.BorderSize = 0;
             this.BTN_Skill3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BTN_Skill3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
@@ -114,7 +118,7 @@
             this.BTN_Skill3.Name = "BTN_Skill3";
             this.BTN_Skill3.Size = new System.Drawing.Size(88, 23);
             this.BTN_Skill3.TabIndex = 2;
-            this.BTN_Skill3.Text = "Recover Mana";
+            this.BTN_Skill3.TabStop = false;
             this.BTN_Skill3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.BTN_Skill3.UseVisualStyleBackColor = false;
             // 
@@ -122,7 +126,7 @@
             // 
             this.PNL_ViewPort.AutoSize = true;
             this.PNL_ViewPort.BackColor = System.Drawing.Color.Transparent;
-            this.PNL_ViewPort.Controls.Add(this.player1);
+            this.PNL_ViewPort.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.PNL_ViewPort.Controls.Add(this.BTN_EXIT);
             this.PNL_ViewPort.Controls.Add(this.PBX_HealthBar);
             this.PNL_ViewPort.Controls.Add(this.PBX_MagicBar);
@@ -135,14 +139,6 @@
             this.PNL_ViewPort.Name = "PNL_ViewPort";
             this.PNL_ViewPort.Size = new System.Drawing.Size(784, 561);
             this.PNL_ViewPort.TabIndex = 1;
-            // 
-            // player1
-            // 
-            this.player1.AutoSize = true;
-            this.player1.Location = new System.Drawing.Point(89, 316);
-            this.player1.Name = "player1";
-            this.player1.Size = new System.Drawing.Size(107, 115);
-            this.player1.TabIndex = 5;
             // 
             // BTN_EXIT
             // 
@@ -157,7 +153,10 @@
             this.BTN_EXIT.Name = "BTN_EXIT";
             this.BTN_EXIT.Size = new System.Drawing.Size(109, 46);
             this.BTN_EXIT.TabIndex = 4;
+            this.BTN_EXIT.TabStop = false;
             this.BTN_EXIT.UseVisualStyleBackColor = true;
+            this.BTN_EXIT.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
+            this.BTN_EXIT.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUp);
             // 
             // PBX_Avatar
             // 
@@ -172,14 +171,22 @@
             this.PBX_Avatar.TabIndex = 3;
             this.PBX_Avatar.TabStop = false;
             // 
+            // TMR_Game
+            // 
+            this.TMR_Game.Enabled = true;
+            this.TMR_Game.Interval = 16;
+            this.TMR_Game.Tick += new System.EventHandler(this.TMR_Game_Tick);
+            // 
             // FormGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.ControlBox = false;
             this.Controls.Add(this.PNL_ViewPort);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "FormGame";
@@ -187,6 +194,7 @@
             this.Text = "Jogo";
             this.Load += new System.EventHandler(this.FormGame_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.PBX_MagicBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_HealthBar)).EndInit();
             this.PNL_ViewPort.ResumeLayout(false);
@@ -206,7 +214,7 @@
         private System.Windows.Forms.Panel PNL_ViewPort;
         private System.Windows.Forms.PictureBox PBX_Avatar;
         private System.Windows.Forms.Button BTN_EXIT;
-        private Player player1;
+        private System.Windows.Forms.Timer TMR_Game;
     }
 }
 
