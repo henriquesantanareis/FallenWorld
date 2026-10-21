@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5F92D44D-4C58-44E3-953A-33D440A4277F}</ProjectGuid>
+    <ProjectGuid>{466BC857-9002-E508-7EED-A1FFB02CFE9E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>FallenWorld</RootNamespace>
     <AssemblyName>FallenWorld</AssemblyName>
@@ -203,6 +203,9 @@
     </Compile>
     <Compile Include="Player.Designer.cs">
       <DependentUpon>Player.cs</DependentUpon>
+    </Compile>
+    <Compile Include="World.cs">
+      <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="FormGame.resx">
       <DependentUpon>FormGame.cs</DependentUpon>

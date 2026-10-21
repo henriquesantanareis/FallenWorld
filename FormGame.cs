@@ -14,8 +14,7 @@ using static FallenWorld.Player;
 
 namespace FallenWorld
 {
-    //, IMessageFilter
-    public partial class FormGame : Form
+    public partial class FormGame : Form, IMessageFilter
     {
         #region Global Variables
         private readonly Personagem _personagem;
@@ -27,6 +26,10 @@ namespace FallenWorld
         //private Enemy enemyOrc;
         private Maps map;
         private Bitmap _imageMap;
+        private int _playerWorldX;
+        private int _playerWorldY;
+        private int _cameraX;
+        private int _cameraY;
         #endregion
 
         public FormGame(Personagem personagem)
@@ -40,9 +43,8 @@ namespace FallenWorld
         {
             // Esconder o cursor.
             Cursor.Hide();
-
             // Bloquear os eventos do mouse.
-            //Application.AddMessageFilter(this);
+            Application.AddMessageFilter(this);
             Load_Map();
             switch (_personagem)
             {
@@ -57,8 +59,8 @@ namespace FallenWorld
                 case Personagem.Cavaleiro:
                     PBX_Avatar.BackgroundImage = Properties.Resources.knight_Avatar_normal;
                     PBX_HealthBar.BackgroundImage = Properties.Resources.Knight_HealthBar_Full;
-                    //BTN_Skill1.Image = Properties.Resources.knight_Skill1_disabled;
-                    //BTN_Skill2.Image = Properties.Resources.knight_Skill2_disabled;
+                    //BTN_Skill1.BackgroundImage = Properties.Resources.knight_Skill1_disabled;
+                    //BTN_Skill2.BackgroundImage = Properties.Resources.knight_Skill2_disabled;
                     PBX_MagicBar.Visible = false; // Assuming the knight doesn't have a magic bar
                     BTN_Skill3.Visible = false; // Assuming the knight has only 2 skills
                     break;
@@ -91,9 +93,14 @@ namespace FallenWorld
             int playerX = spawnX + (map.tileSize - player.Width) / 2;
             int playerY = spawnY - player.Height;
 
+            _playerWorldX = playerX;
+            _playerWorldY = playerY;
+
             player.Location = new Point(playerX, playerY);
 
-            PNL_ViewPort.Controls.Add(player);
+            world1.Controls.Add(player);
+            AtualizarCamera();
+            AtualizarPosicaoPlayerNaTela();
             player.BringToFront();
         }
         #endregion
@@ -165,17 +172,27 @@ namespace FallenWorld
 
         private bool TentarMoverHorizontal(int deslocamento)
         {
-            int proximoX = player.Left + deslocamento;
+            // Calcula a próxima posição no mundo.
+            int proximoX = _playerWorldX + deslocamento;
 
+            // Verifica a colisão usando as coordenadas do mundo.
             Rectangle hitbox = player.GetHitboxAt(
                 proximoX,
-                player.Top
+                _playerWorldY
             );
 
             if (!map.PodeMover(hitbox))
                 return false;
 
-            player.Left = proximoX;
+            // Atualiza a posição real do personagem.
+            _playerWorldX = proximoX;
+
+            // A câmera acompanha o personagem.
+            AtualizarCamera();
+
+            // Atualiza a posição visual e solicita o redesenho.
+            AtualizarPosicaoPlayerNaTela();
+
             return true;
         }
         #endregion
@@ -267,8 +284,18 @@ namespace FallenWorld
                 _imageMap.Dispose();
 
             _imageMap = novaImagem;
+            // Remove o uso da imagem como BackgroundImage.
+            world1.BackgroundImage = null;
+            world1.Invalidate();
+        }
+        private void world1_Paint(object sender, PaintEventArgs e)
+        {
+            if (_imageMap == null)
+                return;
 
-            PNL_ViewPort.BackgroundImage = _imageMap;
+            // Desenha o mapa na posição inicial.
+            // O painel exibirá apenas a parte que cabe na tela.
+            e.Graphics.DrawImageUnscaled(_imageMap, -_cameraX, -_cameraY);
         }
         #endregion
 
@@ -282,6 +309,51 @@ namespace FallenWorld
                 return true;
             }
             return false;
+        }
+        #endregion
+
+        #region Camera and player position
+        private void AtualizarCamera()
+        {
+            if (_imageMap == null || player == null)
+                return;
+
+            int larguraTela = world1.ClientSize.Width;
+            int alturaTela = world1.ClientSize.Height;
+
+            int centroPlayerX = _playerWorldX + player.Width / 2;
+            int centroPlayerY = _playerWorldY + player.Height / 2;
+
+            int maxCameraX = Math.Max(
+                0, _imageMap.Width - larguraTela
+            );
+
+            int maxCameraY = Math.Max(
+                0, _imageMap.Height - alturaTela
+            );
+
+            _cameraX = Math.Max(
+                0,
+                Math.Min(centroPlayerX - larguraTela / 2, maxCameraX)
+            );
+
+            _cameraY = Math.Max(
+                0,
+                Math.Min(centroPlayerY - alturaTela / 2, maxCameraY)
+            );
+        }
+
+        private void AtualizarPosicaoPlayerNaTela()
+        {
+            if (player == null)
+                return;
+
+            player.Location = new Point(
+                _playerWorldX - _cameraX,
+                _playerWorldY - _cameraY
+            );
+
+            world1.Invalidate();
         }
         #endregion
     }

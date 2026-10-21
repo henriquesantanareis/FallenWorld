@@ -3,5 +3,5 @@
     <File Path=".gitattributes" />
     <File Path=".gitignore" />
   </Folder>
-  <Project Path="FallenWorld.csproj" Id="5f92d44d-4c58-44e3-953a-33d440a4277f" />
+  <Project Path="FallenWorld.csproj" />
 </Solution>
