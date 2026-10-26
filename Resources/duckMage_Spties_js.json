@@ -1,0 +1,173 @@
+{
+  "character": {
+    "id": "bc79ba7c-7159-41c8-ba33-471751d48731",
+    "name": "Idle",
+    "prompt": "Small anthropomorphic black duck wizard with a compact body and short stature, wearing a dark purple pointed wizard hat with a small orange/gold detail, a dark purple wizard robe with matching accents, and carrying a magical staff. His silhouette is simple and compact, with a mischievous cartoon-like expression, designed in medieval fantasy RPG pixel-art style. Keep the character visually small compared to the human characters while maintaining clear readable details, consistent with a 64\u00d764 gameplay canvas.",
+    "size": {
+      "width": 64,
+      "height": 64
+    },
+    "directions": 8,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Patolino_o_mago-Idle.png",
+    "cell_size": {
+      "width": 64,
+      "height": 64
+    },
+    "sheet_size": {
+      "width": 576,
+      "height": 1088
+    },
+    "columns": 9,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Jump",
+        "animation_group_id": "27e9d21b-8192-40a5-b6df-26bf2cb6b2c2",
+        "direction": "east"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Jump",
+        "animation_group_id": "27e9d21b-8192-40a5-b6df-26bf2cb6b2c2",
+        "direction": "west"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Basic Attack",
+        "animation_group_id": "3d9b9425-b058-4c97-9d32-19e51cd1dd5e",
+        "direction": "east"
+      },
+      {
+        "row": 4,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Basic Attack",
+        "animation_group_id": "3d9b9425-b058-4c97-9d32-19e51cd1dd5e",
+        "direction": "west"
+      },
+      {
+        "row": 5,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Idle",
+        "animation_group_id": "634979d6-3e95-4068-a8b7-035c1cdf20e4",
+        "direction": "east"
+      },
+      {
+        "row": 6,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Idle",
+        "animation_group_id": "634979d6-3e95-4068-a8b7-035c1cdf20e4",
+        "direction": "west"
+      },
+      {
+        "row": 7,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Recover mana",
+        "animation_group_id": "734c0c24-fdd5-43e0-8e0c-7b00c17c34e1",
+        "direction": "east"
+      },
+      {
+        "row": 8,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Recover mana",
+        "animation_group_id": "734c0c24-fdd5-43e0-8e0c-7b00c17c34e1",
+        "direction": "west"
+      },
+      {
+        "row": 9,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Casting Fire Ball",
+        "animation_group_id": "ce6bd7a3-29f1-4e4e-a61c-c1d7690bf522",
+        "direction": "east"
+      },
+      {
+        "row": 10,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Casting Fire Ball",
+        "animation_group_id": "ce6bd7a3-29f1-4e4e-a61c-c1d7690bf522",
+        "direction": "west"
+      },
+      {
+        "row": 11,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Death",
+        "animation_group_id": "df2fe9e2-4f1f-4bf2-92b0-76b6aeeff359",
+        "direction": "east"
+      },
+      {
+        "row": 12,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Death",
+        "animation_group_id": "df2fe9e2-4f1f-4bf2-92b0-76b6aeeff359",
+        "direction": "west"
+      },
+      {
+        "row": 13,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Hurt",
+        "animation_group_id": "e8d8c958-349b-49bd-902d-ed8d43b28e7f",
+        "direction": "east"
+      },
+      {
+        "row": 14,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Hurt",
+        "animation_group_id": "e8d8c958-349b-49bd-902d-ed8d43b28e7f",
+        "direction": "west"
+      },
+      {
+        "row": 15,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Walk",
+        "animation_group_id": "f110c262-fb42-4a04-b09d-f8e12fe9bbcd",
+        "direction": "east"
+      },
+      {
+        "row": 16,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Walk",
+        "animation_group_id": "f110c262-fb42-4a04-b09d-f8e12fe9bbcd",
+        "direction": "west"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-10-21T20:03:29.067031+00:00"
+}

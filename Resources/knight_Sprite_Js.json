@@ -1,0 +1,189 @@
+{
+  "character": {
+    "id": "2386bfe9-6df9-494f-bcfd-b41a57338e3a",
+    "name": "Idle",
+    "prompt": "Medieval knight character, dark blue and gold armor, ornate shoulder pauldrons with golden trim, horned helmet covering the face, holding a sword, sturdy and heroic build, fantasy RPG style",
+    "size": {
+      "width": 96,
+      "height": 96
+    },
+    "directions": 8,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Knight_Fallen_World-Idle.png",
+    "cell_size": {
+      "width": 104,
+      "height": 104
+    },
+    "sheet_size": {
+      "width": 936,
+      "height": 1976
+    },
+    "columns": 9,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Idle",
+        "animation_group_id": "066eca3a-0abb-4d11-935e-3d64c591b323",
+        "direction": "east"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Idle",
+        "animation_group_id": "066eca3a-0abb-4d11-935e-3d64c591b323",
+        "direction": "west"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Stab",
+        "animation_group_id": "364ecb02-bf81-4b77-80a9-4b1087a4a502",
+        "direction": "east"
+      },
+      {
+        "row": 4,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Stab",
+        "animation_group_id": "364ecb02-bf81-4b77-80a9-4b1087a4a502",
+        "direction": "west"
+      },
+      {
+        "row": 5,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attack 2",
+        "animation_group_id": "4ae56be6-314f-470c-bc3f-40df208e3054",
+        "direction": "east"
+      },
+      {
+        "row": 6,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attack 2",
+        "animation_group_id": "4ae56be6-314f-470c-bc3f-40df208e3054",
+        "direction": "west"
+      },
+      {
+        "row": 7,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Jump",
+        "animation_group_id": "5d3c5c7c-afa3-4a23-ac76-c331614ff94b",
+        "direction": "east"
+      },
+      {
+        "row": 8,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Jump",
+        "animation_group_id": "5d3c5c7c-afa3-4a23-ac76-c331614ff94b",
+        "direction": "west"
+      },
+      {
+        "row": 9,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attack 1",
+        "animation_group_id": "a8113e6c-43a2-4c61-bd38-c028939051ec",
+        "direction": "east"
+      },
+      {
+        "row": 10,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attack 1",
+        "animation_group_id": "a8113e6c-43a2-4c61-bd38-c028939051ec",
+        "direction": "west"
+      },
+      {
+        "row": 11,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Death",
+        "animation_group_id": "e0124797-6632-482b-9836-1d2277bd4f1a",
+        "direction": "east"
+      },
+      {
+        "row": 12,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Death",
+        "animation_group_id": "e0124797-6632-482b-9836-1d2277bd4f1a",
+        "direction": "west"
+      },
+      {
+        "row": 13,
+        "type": "animation",
+        "frame_count": 7,
+        "animation": "hurt",
+        "animation_group_id": "e5532636-84e6-4fa6-a18c-cc085b6b5faf",
+        "direction": "east"
+      },
+      {
+        "row": 14,
+        "type": "animation",
+        "frame_count": 7,
+        "animation": "hurt",
+        "animation_group_id": "e5532636-84e6-4fa6-a18c-cc085b6b5faf",
+        "direction": "west"
+      },
+      {
+        "row": 15,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Reforce Force",
+        "animation_group_id": "ee2863a6-d8fb-4d2a-b000-d525c6e2712e",
+        "direction": "east"
+      },
+      {
+        "row": 16,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Reforce Force",
+        "animation_group_id": "ee2863a6-d8fb-4d2a-b000-d525c6e2712e",
+        "direction": "west"
+      },
+      {
+        "row": 17,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Walk",
+        "animation_group_id": "f41594cd-d858-4a46-a07d-7685f27b9be7",
+        "direction": "east"
+      },
+      {
+        "row": 18,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Walk",
+        "animation_group_id": "f41594cd-d858-4a46-a07d-7685f27b9be7",
+        "direction": "west"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-10-21T23:47:39.730217+00:00"
+}

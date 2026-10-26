@@ -494,10 +494,125 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Knight_HealthBar_LittleDamage {
+        public static System.Drawing.Bitmap Knight_HealthBar_LitttleDamage {
             get {
-                object obj = ResourceManager.GetObject("Knight_HealthBar_LittleDamage", resourceCulture);
+                object obj = ResourceManager.GetObject("Knight_HealthBar_LitttleDamage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap knight_Skill1 {
+            get {
+                object obj = ResourceManager.GetObject("knight_Skill1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap knight_Skill1_disabled {
+            get {
+                object obj = ResourceManager.GetObject("knight_Skill1_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap knight_Skill1_locked {
+            get {
+                object obj = ResourceManager.GetObject("knight_Skill1_locked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap knight_Skill1_pressed {
+            get {
+                object obj = ResourceManager.GetObject("knight_Skill1_pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Knight_Skill2 {
+            get {
+                object obj = ResourceManager.GetObject("Knight_Skill2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap knight_Skill2_disabled {
+            get {
+                object obj = ResourceManager.GetObject("knight_Skill2_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap knight_Skill2_locked {
+            get {
+                object obj = ResourceManager.GetObject("knight_Skill2_locked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap knight_Skill2_pressed {
+            get {
+                object obj = ResourceManager.GetObject("knight_Skill2_pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap knight_Spritesheet {
+            get {
+                object obj = ResourceManager.GetObject("knight_Spritesheet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;character&quot;: {
+        ///    &quot;id&quot;: &quot;2386bfe9-6df9-494f-bcfd-b41a57338e3a&quot;,
+        ///    &quot;name&quot;: &quot;Idle&quot;,
+        ///    &quot;prompt&quot;: &quot;Medieval knight character, dark blue and gold armor, ornate shoulder pauldrons with golden trim, horned helmet covering the face, holding a sword, sturdy and heroic build, fantasy RPG style&quot;,
+        ///    &quot;size&quot;: {
+        ///      &quot;width&quot;: 96,
+        ///      &quot;height&quot;: 96
+        ///    },
+        ///    &quot;directions&quot;: 8,
+        ///    &quot;view&quot;: &quot;side&quot;
+        ///  },
+        ///  &quot;spritesheet&quot;: {
+        ///    &quot;path&quot;: &quot;Knight_Fallen_World-Idle.png&quot;,
+        ///    &quot;cell_size&quot;: {
+        ///      &quot;width&quot;: 104,
+        ///      &quot;hei [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string knight_Spritesheet_Js {
+            get {
+                return ResourceManager.GetString("knight_Spritesheet_Js", resourceCulture);
             }
         }
         
@@ -718,6 +833,29 @@ namespace FallenWorld.Properties {
             get {
                 object obj = ResourceManager.GetObject("princess_Skill2_pressed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap princess_spritesheet {
+            get {
+                object obj = ResourceManager.GetObject("princess_spritesheet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;character&quot;: {
+        ///    &quot;id&quot;: &quot;c0ea8b0c-604a-41a1-bf84-3d978cbc95df&quot;,
+        ///    &quot;name&quot;: &quot;Idle&quot;,
+        ///    &quot;prompt&quot;: &quot;Agile female swordswoman for a dark fantasy pixel-art platformer. Long brown braided hair, silver and ivory light armor with gold accents, flowing dark green cape, and brown leather details. She carries a slender sword with a vivid emerald-green blade and matching green hilt. The entire blade must be green, never silver, representing her poison ability.\n\nAthletic, lightweight build, elegant and dangerou [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string princess_spritesheet_js {
+            get {
+                return ResourceManager.GetString("princess_spritesheet_js", resourceCulture);
             }
         }
         

@@ -12,7 +12,7 @@ namespace FallenWorld
         //keys movement
         public static readonly Keys MoveLeft = Keys.A;
         public static readonly Keys MoveRight = Keys.D;
-        public static readonly Keys jump = Keys.W;
+        public static readonly Keys jump = Keys.Space;
 
         //bools for movement
         public static bool isMovingLeft = false;

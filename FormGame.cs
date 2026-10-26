@@ -30,6 +30,17 @@ namespace FallenWorld
         private int _playerWorldY;
         private int _cameraX;
         private int _cameraY;
+        // Física vertical do personagem
+        private const float ForcaPulo = -10.0f;
+        private const float Gravidade = 0.55f;
+
+        private float _velocidadeVertical = 0f;
+        private bool _estaNoChao = false;
+
+        // Impede que o W pressionado continuamente
+        // dispare vários pulos automaticamente.
+        private bool _jumpKeyHeld = false;
+        private bool _pedidoPulo = false;
         #endregion
 
         public FormGame(Personagem personagem)
@@ -49,28 +60,28 @@ namespace FallenWorld
             switch (_personagem)
             {
                 case Personagem.Mago:
-                    PBX_Avatar.BackgroundImage = Properties.Resources.duckMage_Avatar_normal;
-                    PBX_HealthBar.BackgroundImage = Properties.Resources.duckMage_HealthBar_Full;
-                    PBX_MagicBar.BackgroundImage = Properties.Resources.duckMage_MagicBar_Full;
-                    BTN_Skill1.BackgroundImage = Properties.Resources.duck_Mage_Skill1_disabled;
-                    BTN_Skill2.BackgroundImage = Properties.Resources.duckMage_Skill2_disabled;
-                    BTN_Skill3.BackgroundImage = Properties.Resources.duckMage_Skill3_disabled;
+                    PBX_Avatar.Image = Properties.Resources.duckMage_Avatar_normal;
+                    PBX_HealthBar.Image = Properties.Resources.duckMage_HealthBar_Full;
+                    PBX_MagicBar.Image = Properties.Resources.duckMage_MagicBar_Full;
+                    BTN_Skill1.Image = Properties.Resources.duck_Mage_Skill1_disabled;
+                    BTN_Skill2.Image = Properties.Resources.duckMage_Skill2_disabled;
+                    BTN_Skill3.Image = Properties.Resources.duckMage_Skill3_disabled;
                     break;
                 case Personagem.Cavaleiro:
-                    PBX_Avatar.BackgroundImage = Properties.Resources.knight_Avatar_normal;
-                    PBX_HealthBar.BackgroundImage = Properties.Resources.Knight_HealthBar_Full;
-                    //BTN_Skill1.BackgroundImage = Properties.Resources.knight_Skill1_disabled;
-                    //BTN_Skill2.BackgroundImage = Properties.Resources.knight_Skill2_disabled;
-                    PBX_MagicBar.Visible = false; // Assuming the knight doesn't have a magic bar
-                    BTN_Skill3.Visible = false; // Assuming the knight has only 2 skills
+                    PBX_Avatar.Image = Properties.Resources.knight_Avatar_normal;
+                    PBX_HealthBar.Image = Properties.Resources.Knight_HealthBar_Full;
+                    BTN_Skill1.Image = Properties.Resources.knight_Skill1_disabled;
+                    BTN_Skill2.Image = Properties.Resources.knight_Skill2_disabled;
+                    PBX_MagicBar.Visible = false;
+                    BTN_Skill3.Visible = false;
                     break;
                 case Personagem.Princesa:
-                    PBX_Avatar.BackgroundImage = Properties.Resources.Princess_Avatar_normal;
-                    PBX_HealthBar.BackgroundImage = Properties.Resources.Princess_HealthBar_Full;
-                    BTN_Skill1.BackgroundImage = Properties.Resources.princess_Skill1_disabled;
-                    BTN_Skill2.BackgroundImage = Properties.Resources.princess_Skill2_disabled;
-                    PBX_MagicBar.Visible = false; // Assuming the knight doesn't have a magic bar
-                    BTN_Skill3.Visible = false; // Assuming the princess has only 2 skills
+                    PBX_Avatar.Image = Properties.Resources.Princess_Avatar_normal;
+                    PBX_HealthBar.Image = Properties.Resources.Princess_HealthBar_Full;
+                    BTN_Skill1.Image = Properties.Resources.princess_Skill1_disabled;
+                    BTN_Skill2.Image = Properties.Resources.princess_Skill2_disabled;
+                    PBX_MagicBar.Visible = false;
+                    BTN_Skill3.Visible = false;
                     break;
             }
             player = new Player(_personagem);
@@ -99,13 +110,15 @@ namespace FallenWorld
             player.Location = new Point(playerX, playerY);
 
             world1.Controls.Add(player);
+            _velocidadeVertical = 0f;
+            _estaNoChao = TemChaoAbaixo();
             AtualizarCamera();
             AtualizarPosicaoPlayerNaTela();
             player.BringToFront();
         }
         #endregion
 
-        #region Movement and attack logic
+        #region Movement
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Core.MoveLeft)
@@ -113,7 +126,11 @@ namespace FallenWorld
             if (e.KeyCode == Core.MoveRight)
                 Core.isMovingRight = true;
             if (e.KeyCode == Core.jump)
+            {
                 Core.isJumping = true;
+                _jumpKeyHeld = true;
+                _pedidoPulo = true;
+            }
             // BASIC ATTACKS
             if (e.KeyCode == Core.Attack0 && !_attack0KeyHeld)
             {
@@ -126,13 +143,13 @@ namespace FallenWorld
                 _attack1KeyHeld = true;
                 Core.isAttacking1 = true;
             }
-            // Skill 2
+            // Skill 3
             if (e.KeyCode == Core.Attack2 && !_attack2KeyHeld)
             {
                 _attack2KeyHeld = true;
                 Core.isAttacking2 = true;
             }
-            // Skill 3
+            // Exit game
             if (e.KeyCode == Core.Exit)
             {
                 BTN_EXIT.Image = Properties.Resources.Exit_pressed;
@@ -146,7 +163,11 @@ namespace FallenWorld
             if (e.KeyCode == Core.MoveRight)
                 Core.isMovingRight = false;
             if (e.KeyCode == Core.jump)
+            {
                 Core.isJumping = false;
+                _jumpKeyHeld = false;
+                _pedidoPulo = false;
+            }
             if (e.KeyCode == Core.Attack0)
             {
                 _attack0KeyHeld = false;
@@ -195,6 +216,99 @@ namespace FallenWorld
 
             return true;
         }
+
+        private bool TentarMoverVertical(int deslocamento)
+        {
+            if (deslocamento == 0)
+                return true;
+
+            int direcao = Math.Sign(deslocamento);
+            int quantidadePassos = Math.Abs(deslocamento);
+
+            for (int i = 0; i < quantidadePassos; i++)
+            {
+                int proximoY = _playerWorldY + direcao;
+
+                Rectangle hitbox = player.GetHitboxAt(
+                    _playerWorldX,
+                    proximoY
+                );
+
+                if (!map.PodeMover(hitbox))
+                {
+                    // Parou ao tocar o teto ou o chão.
+                    _velocidadeVertical = 0f;
+
+                    // Colisão durante a descida significa aterrissagem.
+                    if (direcao > 0)
+                        _estaNoChao = true;
+
+                    return false;
+                }
+
+                _playerWorldY = proximoY;
+            }
+
+            return true;
+        }
+
+        private bool TemChaoAbaixo()
+        {
+            Rectangle hitbox = player.GetHitboxAt(
+                _playerWorldX,
+                _playerWorldY
+            );
+
+            // Uma faixa de 1 pixel na parte inferior da hitbox.
+            Rectangle faixaDosPes = new Rectangle(
+                hitbox.Left + 2,
+                hitbox.Bottom,
+                Math.Max(1, hitbox.Width - 4),
+                1
+            );
+
+            return !map.PodeMover(faixaDosPes);
+        }
+
+        private void AtualizarFisicaVertical()
+        {
+            if (player == null || map == null)
+                return;
+
+            int yAnterior = _playerWorldY;
+            bool estavaNoChao = _estaNoChao;
+
+            // Se saiu da borda de uma plataforma, começa a cair.
+            if (_estaNoChao && !TemChaoAbaixo())
+            {
+                _estaNoChao = false;
+                player.SetJump();
+            }
+
+            // Enquanto não estiver apoiado no chão, aplica gravidade.
+            if (!_estaNoChao)
+            {
+                _velocidadeVertical += Gravidade;
+
+                int deslocamentoY = (int)Math.Round(
+                    _velocidadeVertical
+                );
+
+                if (deslocamentoY != 0)
+                    TentarMoverVertical(deslocamentoY);
+            }
+
+            // Ao aterrissar, encerra a animação de pulo.
+            if (!estavaNoChao && _estaNoChao)
+                player.SetGrounded();
+
+            // Atualiza câmera e desenho se a posição vertical mudou.
+            if (_playerWorldY != yAnterior)
+            {
+                AtualizarCamera();
+                AtualizarPosicaoPlayerNaTela();
+            }
+        }
         #endregion
 
         #region Perda de vida e morte do personagem
@@ -214,50 +328,118 @@ namespace FallenWorld
             if (player == null || player.IsDisposed)
                 return;
 
-            // Ataque básico
-            if (Core.isAttacking0)
+            switch (_personagem)
             {
-                Core.isAttacking0 = false;
-                player.SetAttack();
+                case Personagem.Mago:
+                    // Habilidade 0: Staff Attack
+                    if (Core.isAttacking0)
+                    {
+                        Core.isAttacking0 = false;
+                        player.SetAttack();
+                    }
+
+                    // Habilidade 1: Fireball
+                    if (Core.isAttacking1)
+                    {
+                        Core.isAttacking1 = false;
+                        player.SetFireball();
+                    }
+
+                    // Habilidade 2: Recover Mana
+                    if (Core.isAttacking2)
+                    {
+                        Core.isAttacking2 = false;
+                        player.SetRecover_Mana();
+                    }
+                    break;
+                case Personagem.Cavaleiro:
+                    // Habilidade 1: Reforço
+                    if (Core.isAttacking0)
+                    {
+                        Core.isAttacking0 = false;
+                        player.SetAura();
+                    }
+
+                    // Habilidade 2: Sword Slash
+                    if (Core.isAttacking1)
+                    {
+                        Core.isAttacking1 = false;
+                        player.SetAttack();
+                    }
+                    break;
+                case Personagem.Princesa:
+                    /*if (Core.isAttack0)
+                    {
+                        
+                    }*/
+                    //Habilidade 2: Poison Attack
+                    if (Core.isAttacking1)
+                    {
+                        Core.isAttacking1 = false;
+                        player.SetPoisonAttack();
+                    }
+                    break;
+            }
+            
+
+            // Guarda a solicitação e consome o pressionamento.
+            bool solicitouPulo = _pedidoPulo;
+            _pedidoPulo = false;
+
+            // Só inicia o pulo se o jogador estiver no chão
+            // e não estiver executando uma ação bloqueante.
+            if (!player.IsPerformingAction &&
+                solicitouPulo &&
+                _estaNoChao)
+            {
+                _velocidadeVertical = ForcaPulo;
+                _estaNoChao = false;
+
+                player.SetJump();
             }
 
-            // Habilidade 1: Fireball
-            if (Core.isAttacking1)
+            // O movimento horizontal continua permitido no ar.
+            if (!player.IsPerformingAction)
             {
-                Core.isAttacking1 = false;
-                player.SetFireball();
-            }
-
-            // Habilidade 2: ataque temporário
-            if (Core.isAttacking2)
-            {
-                Core.isAttacking2 = false;
-                player.SetAttack();
-            }
-
-            // Não movimenta o personagem durante uma ação.
-            if (player.IsPerformingAction)
-                return;
-
-            // Movimentação
-            if (Core.isMovingLeft && !Core.isMovingRight)
-            {
-                if (TentarMoverHorizontal(-VelocidadePlayer))
-                    player.SetWalk(false);
+                if (Core.isMovingLeft && !Core.isMovingRight)
+                {
+                    if (TentarMoverHorizontal(-VelocidadePlayer))
+                    {
+                        if (_estaNoChao)
+                            player.SetWalk(false);
+                        else
+                            player.SetJump(false);
+                    }
+                    else if (_estaNoChao)
+                    {
+                        player.SetIdle();
+                    }
+                }
+                else if (Core.isMovingRight && !Core.isMovingLeft)
+                {
+                    if (TentarMoverHorizontal(VelocidadePlayer))
+                    {
+                        if (_estaNoChao)
+                            player.SetWalk(true);
+                        else
+                            player.SetJump(true);
+                    }
+                    else if (_estaNoChao)
+                    {
+                        player.SetIdle();
+                    }
+                }
                 else
-                    player.SetIdle();
+                {
+                    if (_estaNoChao)
+                        player.SetIdle();
+                    else
+                        player.SetJump();
+                }
             }
-            else if (Core.isMovingRight && !Core.isMovingLeft)
-            {
-                if (TentarMoverHorizontal(VelocidadePlayer))
-                    player.SetWalk(true);
-                else
-                    player.SetIdle();
-            }
-            else
-            {
-                player.SetIdle();
-            }
+
+            // A física deve continuar mesmo durante animações de ataque.
+            AtualizarFisicaVertical();
         }
         #endregion
 

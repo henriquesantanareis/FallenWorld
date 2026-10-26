@@ -133,10 +133,7 @@ namespace FallenWorld
             int alturaMapa = mapHeight * tileSize;
 
             // Impedir que a hitbox saia dos limites do mapa.
-            if (hitbox.Left < 0 ||
-                hitbox.Top < 0 ||
-                hitbox.Right > larguraMapa ||
-                hitbox.Bottom > alturaMapa)
+            if (hitbox.Left < 0 || hitbox.Top < 0 || hitbox.Right > larguraMapa || hitbox.Bottom > alturaMapa)
             {
                 return false;
             }
@@ -154,23 +151,16 @@ namespace FallenWorld
                 {
                     if (_solidTilePositions.Contains(new Point(x, y)))
                     {
-                        Rectangle tile = new Rectangle(
-                            x * tileSize,
-                            y * tileSize,
-                            tileSize,
-                            tileSize
-                        );
+                        Rectangle tile = new Rectangle(x * tileSize,y * tileSize,tileSize,tileSize);
 
                         if (hitbox.IntersectsWith(tile))
                             return false;
                     }
                 }
             }
-
             return true;
         }
         #endregion
-
     }
 
     #region Classes auxiliares
