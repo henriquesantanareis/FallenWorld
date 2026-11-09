@@ -206,6 +206,12 @@
     <Compile Include="FormSelecaoPersonagem.Designer.cs">
       <DependentUpon>FormSelecaoPersonagem.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormTransicaoPortal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTransicaoPortal.Designer.cs">
+      <DependentUpon>FormTransicaoPortal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Maps.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -234,6 +240,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormSelecaoPersonagem.resx">
       <DependentUpon>FormSelecaoPersonagem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTransicaoPortal.resx">
+      <DependentUpon>FormTransicaoPortal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -274,6 +283,18 @@
     <Content Include="Assets\characters\sprite-fusion-pixel-art-generator-60x60.png" />
     <Content Include="Assets\characters\sprite-fusion-pixel-art-generator-60x62.png" />
     <Content Include="Assets\characters\sprite-fusion-pixel-art-generator-75x81.png" />
+    <Content Include="Cutscenes\Ancient_Forest_Rune_Portal.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cutscenes\Celestial_Galaxy_Portal.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cutscenes\Lava_Inferno_Portal.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cutscenes\Shadow_Void_Portal.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Fallen_World.ico" />
     <Content Include="Cutscenes\intro_game.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

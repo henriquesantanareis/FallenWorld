@@ -223,6 +223,13 @@ namespace FallenWorld
             {
                 musicChooseCharacters.Stop();
                 musicChooseCharacters.Dispose();
+                using (FormTransicaoPortal portal = new FormTransicaoPortal("Celestial_Galaxy_Portal.mp4"))
+                {
+                    DialogResult resultado = portal.ShowDialog();
+
+                    if (resultado != DialogResult.OK)
+                        return;
+                }
                 this.DialogResult = DialogResult.OK;
             }
             else

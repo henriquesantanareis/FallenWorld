@@ -148,6 +148,7 @@ namespace FallenWorld
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.ControlBox = false;
             this.Controls.Add(this.PNL_Description_Character);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.BTN_EXIT);
