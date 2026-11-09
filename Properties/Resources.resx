@@ -253,62 +253,14 @@
   <data name="princess_Skill2_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\princess_Skill2_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="duckMage_HealthBar_critical_damage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Mage_HealthBar_CriticalDamage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Knight_HealthBar_HP0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knight_HealthBar_HP0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="duckMage_HealthBar_damage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Mage_HealthBar_Damage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Knight_HealthBar_HP5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knight_HealthBar_HP5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="duckMage_HealthBar_death" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Mage_HealthBar_Death.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="duckMage_HealthBar_death_doors" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Mage_HealthBar_DeathDoors.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="duckMage_HealthBar_Full" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Mage_HealthBar_Full.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="duckMage_HealthBar_little_damage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Mage_HealthBar_LittleDamage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="duckMage_MagicBar_Full" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\duckMage_MagicBar_Full.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Knight_HealthBar_CriticalDamage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Knight_HealthBar_CriticalDamage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Knight_HealthBar_Damage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Knight_HealthBar_Damage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Knight_HealthBar_Death" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Knight_HealthBar_Death.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Knight_HealthBar_DeathDoors" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Knight_HealthBar_DeathDoors.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Knight_HealthBar_LitttleDamage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Knight_HealthBar_Full.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Knight_HealthBar_Full" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Knight_HealthBar_LittleDamage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Princess_HealthBar_CriticalDamage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Princess_HealthBar_CriticalDamage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Princess_HealthBar_Damage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Princess_HealthBar_Damage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Princess_HealthBar_Death" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Princess_HealthBar_Death.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Princess_HealthBar_DeathDoors" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Princess_HealthBar_DeathDoors.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Princess_HealthBar_Full" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Princess_HealthBar_Full.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Princess_HealthBar_LittleDamage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Princess_HealthBar_LittleDamage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Knight_HealthBar_HP100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knight_HealthBar_HP100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="duckMage_Avatar_death" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\duckMage_Avatar_death.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -323,10 +275,10 @@
     <value>..\Resources\Cinderwick's Crooked Grin.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="tutorial_Map_Js" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tutorialMapJs.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>..\Resources\TutorialMapJs.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="tutorial_Map_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tutorialMap.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\TutorialMapSpritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="knight_Spritesheet_Js" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\knight_Sprite_Js.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
@@ -363,5 +315,227 @@
   </data>
   <data name="princess_spritesheet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\princess_spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Orc_Spritesheet_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Orc_Spritesheet_js.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Orc_Spritesheet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Orc_Spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knight_HealthBar_HP10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP25.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP45" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP45.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP55" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP55.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP60" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP60.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP65" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP65.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP70" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP70.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP75" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP75.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP80" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP80.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP85" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP85.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP90" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP95" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP95.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP40" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knigth_HealtBar_HP40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_HealthBar_HP15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knight_HealthBar_HP15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP25.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP40" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP45" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP45.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP55" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP55.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP60" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP60.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP65" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP65.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP70" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP70.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP75" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP75.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP80" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP80.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP85" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP85.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP90" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP95" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP95.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Princess_HealthBar_HP100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_HealthBar_HP100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP25.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP40" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP45" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP45.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP55" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP55.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP60" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP60.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP65" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP65.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP70" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP70.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP75" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP75.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP80" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP80.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP85" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP85.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP90" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP95" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP95.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_HealthBar_HP100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_HealthBar_HP100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Fireball_Js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fireball.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Fireball" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fireball.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_Fireball_Explosion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mage_Fireball_Explosion.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="duckMage_Fireball_Casting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mage_Fireball_Casting.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="duckMage_Fireball_Flight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mage_Fireball_Flight.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="duckMage_RecoveryMana" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mage_RecoveryMana.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="duckMage_MagicBar_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_MagicBar_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_MagicBar_Half" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_MagicBar_Half.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="duckMage_MagicBar_Full" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\duckMage_MagicBar_Full.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Knight_Aura_Activation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knight_Aura_Activation.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Knight_Aura" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Knight_Aura.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Princess_Poison_Attack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Princess_Poison_Attack.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

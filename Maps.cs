@@ -106,6 +106,55 @@ namespace FallenWorld
         }
         #endregion
 
+        #region Spawn Inimigo
+        public List<MapTile> GetEnemySpawns(string enemyType)
+        {
+            List<MapTile> spawns = new List<MapTile>();
+
+            if (layers == null)
+                return null;
+
+            foreach (MapLayer camada in layers)
+            {
+                if (camada.tiles == null)
+                    continue;
+
+                foreach (MapTile tile in camada.tiles)
+                {
+                    if (tile.attributes == null)
+                        continue;
+
+                    string valor;
+
+                    bool encontrou = tile.attributes.TryGetValue(
+                        "Spawn", out valor
+                    ) &&
+                    string.Equals(
+                        valor, enemyType,
+                        StringComparison.OrdinalIgnoreCase
+                    );
+
+                    // Aceita também o possível atributo antigo "Spawm".
+                    if (!encontrou)
+                    {
+                        encontrou = tile.attributes.TryGetValue(
+                            "Spawm", out valor
+                        ) &&
+                        string.Equals(
+                            valor, enemyType,
+                            StringComparison.OrdinalIgnoreCase
+                        );
+                    }
+
+                    if (encontrou)
+                        spawns.Add(tile);
+                }
+            }
+
+            return spawns;
+        }
+        #endregion
+
         #region Colisão
         public void PrepararColisoes()
         {

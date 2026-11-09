@@ -1,0 +1,61 @@
+{
+  "object": {
+    "id": "42de93a1-8a5c-429f-8158-d95486a0878a",
+    "name": "base",
+    "prompt": "fireball projectile",
+    "size": {
+      "width": 32,
+      "height": 32
+    },
+    "directions": 8,
+    "view": "low top-down"
+  },
+  "spritesheet": {
+    "path": "Fireball.png",
+    "cell_size": {
+      "width": 32,
+      "height": 32
+    },
+    "sheet_size": {
+      "width": 416,
+      "height": 96
+    },
+    "columns": 13,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 13,
+        "animation": "A compact magical fireball travels rapidly forward",
+        "animation_group_id": "e4203539-19fb-4dfa-b96f-53faa1744df8",
+        "direction": "east"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 13,
+        "animation": "A compact magical fireball travels rapidly forward",
+        "animation_group_id": "e4203539-19fb-4dfa-b96f-53faa1744df8",
+        "direction": "west"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-10-29T18:46:45.561950+00:00"
+}
