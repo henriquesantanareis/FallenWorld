@@ -1,0 +1,141 @@
+{
+  "character": {
+    "id": "f8db7648-4d40-46a9-9e59-c2dfe6e28413",
+    "name": "Idle",
+    "prompt": "Small, slim green orc warrior for a 2D side-scrolling pixel-art game. Brown leather armor, shoulder pads, belt, curved steel sword. Less muscular, simpler armor, shorter than the boss. Full body, side view, crisp pixel art, transparent background. No skull armor, no oversized muscles, no extra weapons.",
+    "size": {
+      "width": 80,
+      "height": 80
+    },
+    "directions": 8,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Orc_padrao-Idle.png",
+    "cell_size": {
+      "width": 112,
+      "height": 112
+    },
+    "sheet_size": {
+      "width": 1008,
+      "height": 1456
+    },
+    "columns": 9,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "The character flinches as an impact strikes the chest, causing the torso to arch sharply backward while the arms recoil in a pained spasm. The body then rhythmically settles back into the original idle stance, recovering balance with a subtle shift in weight and posture. The subject faces to the left. The impact hits the left side, causing the body to jerk to the left before settling. Static camera, completely locked-off shot. Maintain the crisp 2D pixel art aesthetic, thick outlines, flat colors, and the strict original perspective throughout the entire fluid animation.",
+        "animation_group_id": "35b644c5-a5c1-4050-a07b-93f3f34484a1",
+        "direction": "east"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "The character flinches as an impact strikes the chest, causing the torso to arch sharply backward while the arms recoil in a pained spasm. The body then rhythmically settles back into the original idle stance, recovering balance with a subtle shift in weight and posture. The subject faces to the left. The impact hits the left side, causing the body to jerk to the left before settling. Static camera, completely locked-off shot. Maintain the crisp 2D pixel art aesthetic, thick outlines, flat colors, and the strict original perspective throughout the entire fluid animation.",
+        "animation_group_id": "35b644c5-a5c1-4050-a07b-93f3f34484a1",
+        "direction": "west"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Parring",
+        "animation_group_id": "564eac8e-22a0-48ef-b722-174fab2806b2",
+        "direction": "east"
+      },
+      {
+        "row": 4,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Parring",
+        "animation_group_id": "564eac8e-22a0-48ef-b722-174fab2806b2",
+        "direction": "west"
+      },
+      {
+        "row": 5,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Walk",
+        "animation_group_id": "6703eba2-c305-4d09-9274-221555e7f773",
+        "direction": "east"
+      },
+      {
+        "row": 6,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Walk",
+        "animation_group_id": "6703eba2-c305-4d09-9274-221555e7f773",
+        "direction": "west"
+      },
+      {
+        "row": 7,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Death",
+        "animation_group_id": "982e0a51-70ca-4060-abaa-a8e09c36a863",
+        "direction": "east"
+      },
+      {
+        "row": 8,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Death",
+        "animation_group_id": "982e0a51-70ca-4060-abaa-a8e09c36a863",
+        "direction": "west"
+      },
+      {
+        "row": 9,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Create an 8-frame idle animation for the exact orc in the reference. Subtle breathing, slight shoulder movement, gentle head motion, and minimal sword movement. Keep both feet planted and maintain the same combat stance. Preserve green skin, brown leather armor, shoulder pads, belt, and curved sword. Consistent proportions, side view, crisp pixel art. Seamless loop, no walking, attacking, blur, or redesign.",
+        "animation_group_id": "b97cc918-b1e5-4575-ac23-b7f817f298b1",
+        "direction": "east"
+      },
+      {
+        "row": 10,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Create an 8-frame idle animation for the exact orc in the reference. Subtle breathing, slight shoulder movement, gentle head motion, and minimal sword movement. Keep both feet planted and maintain the same combat stance. Preserve green skin, brown leather armor, shoulder pads, belt, and curved sword. Consistent proportions, side view, crisp pixel art. Seamless loop, no walking, attacking, blur, or redesign.",
+        "animation_group_id": "b97cc918-b1e5-4575-ac23-b7f817f298b1",
+        "direction": "west"
+      },
+      {
+        "row": 11,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attack",
+        "animation_group_id": "bfa51c6c-1e4a-430f-89a2-243a5dd1e2c7",
+        "direction": "east"
+      },
+      {
+        "row": 12,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attack",
+        "animation_group_id": "bfa51c6c-1e4a-430f-89a2-243a5dd1e2c7",
+        "direction": "west"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-10-26T20:52:51.662199+00:00"
+}

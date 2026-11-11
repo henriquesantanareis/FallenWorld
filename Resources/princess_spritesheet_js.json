@@ -1,0 +1,173 @@
+{
+  "character": {
+    "id": "c0ea8b0c-604a-41a1-bf84-3d978cbc95df",
+    "name": "Idle",
+    "prompt": "Agile female swordswoman for a dark fantasy pixel-art platformer. Long brown braided hair, silver and ivory light armor with gold accents, flowing dark green cape, and brown leather details. She carries a slender sword with a vivid emerald-green blade and matching green hilt. The entire blade must be green, never silver, representing her poison ability.\n\nAthletic, lightweight build, elegant and dangerous. Full body, side view, facing right, in a natural combat-ready stance. Create a complete, well-proportioned face with a clear visible eye, natural nose and jaw, and consistent facial features. The face must not look cut off or distorted.\n\nPreserve the reference outfit, colors, and character identity. Detailed pixel art with crisp outlines, clean color separation, refined shading, and readable details at 96-pixel character height. No heavy armor, no shield, no extra weapons, no background, no text, no blur.",
+    "size": {
+      "width": 96,
+      "height": 96
+    },
+    "directions": 8,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Princess-Idle.png",
+    "cell_size": {
+      "width": 136,
+      "height": 136
+    },
+    "sheet_size": {
+      "width": 1224,
+      "height": 2312
+    },
+    "columns": 9,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Poison Attack",
+        "animation_group_id": "39ca82e5-7745-4afb-9436-337bff609297",
+        "direction": "east"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Poison Attack",
+        "animation_group_id": "39ca82e5-7745-4afb-9436-337bff609297",
+        "direction": "west"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Posion prepeare",
+        "animation_group_id": "58c38eaf-ff0d-4e35-ae43-885b0f6038fe",
+        "direction": "east"
+      },
+      {
+        "row": 4,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Posion prepeare",
+        "animation_group_id": "58c38eaf-ff0d-4e35-ae43-885b0f6038fe",
+        "direction": "west"
+      },
+      {
+        "row": 5,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Idle",
+        "animation_group_id": "7b0be27c-d0b4-4e90-a323-04de83867ab2",
+        "direction": "east"
+      },
+      {
+        "row": 6,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Idle",
+        "animation_group_id": "7b0be27c-d0b4-4e90-a323-04de83867ab2",
+        "direction": "west"
+      },
+      {
+        "row": 7,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Create an 8-frame walking animation for the exact princess in the reference. Preserve her face, brown braided hair, silver and ivory light armor, gold details, dark green cape, and emerald-green sword with green hilt.\n\nShe walks with quick, light, agile steps while holding her green sword firmly in a ready position. Her legs alternate naturally, her body moves slightly up and down, and her hair and cape sway with each step. Keep her face consistent and her sword green in every frame.\n\nCreate a smooth, seamless walking cycle. Keep the full character, sword, and cape inside the 96x96 canvas. Crisp side-view pixel art. No running, attacking, poison effects, background, blur, or redesign.",
+        "animation_group_id": "84cca3ff-3292-47ef-a483-54e729b32608",
+        "direction": "east"
+      },
+      {
+        "row": 8,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Create an 8-frame walking animation for the exact princess in the reference. Preserve her face, brown braided hair, silver and ivory light armor, gold details, dark green cape, and emerald-green sword with green hilt.\n\nShe walks with quick, light, agile steps while holding her green sword firmly in a ready position. Her legs alternate naturally, her body moves slightly up and down, and her hair and cape sway with each step. Keep her face consistent and her sword green in every frame.\n\nCreate a smooth, seamless walking cycle. Keep the full character, sword, and cape inside the 96x96 canvas. Crisp side-view pixel art. No running, attacking, poison effects, background, blur, or redesign.",
+        "animation_group_id": "84cca3ff-3292-47ef-a483-54e729b32608",
+        "direction": "west"
+      },
+      {
+        "row": 9,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Death",
+        "animation_group_id": "b5d41ddc-b990-4e14-a838-9cead79b1487",
+        "direction": "east"
+      },
+      {
+        "row": 10,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Death",
+        "animation_group_id": "b5d41ddc-b990-4e14-a838-9cead79b1487",
+        "direction": "west"
+      },
+      {
+        "row": 11,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attack",
+        "animation_group_id": "ebec788c-280b-426a-b1d3-4172713d5210",
+        "direction": "east"
+      },
+      {
+        "row": 12,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attack",
+        "animation_group_id": "ebec788c-280b-426a-b1d3-4172713d5210",
+        "direction": "west"
+      },
+      {
+        "row": 13,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Hurt",
+        "animation_group_id": "f06b6555-448f-4a8c-aab8-ed750fba246e",
+        "direction": "east"
+      },
+      {
+        "row": 14,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Hurt",
+        "animation_group_id": "f06b6555-448f-4a8c-aab8-ed750fba246e",
+        "direction": "west"
+      },
+      {
+        "row": 15,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Jump",
+        "animation_group_id": "fcb7c48d-a457-4b91-81ff-674101587f55",
+        "direction": "east"
+      },
+      {
+        "row": 16,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Jump",
+        "animation_group_id": "fcb7c48d-a457-4b91-81ff-674101587f55",
+        "direction": "west"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-10-26T17:13:43.459405+00:00"
+}

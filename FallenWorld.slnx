@@ -1,3 +1,7 @@
 <Solution>
+  <Folder Name="/Itens de Solução/">
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+  </Folder>
   <Project Path="FallenWorld.csproj" />
 </Solution>
