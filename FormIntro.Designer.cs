@@ -37,14 +37,15 @@
             this.PNL_INTRO.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PNL_INTRO.Location = new System.Drawing.Point(0, 0);
             this.PNL_INTRO.Name = "PNL_INTRO";
-            this.PNL_INTRO.Size = new System.Drawing.Size(784, 561);
+            this.PNL_INTRO.Size = new System.Drawing.Size(798, 598);
             this.PNL_INTRO.TabIndex = 0;
             // 
             // FormIntro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(798, 598);
+            this.ControlBox = false;
             this.Controls.Add(this.PNL_INTRO);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -53,6 +54,7 @@
             this.MinimizeBox = false;
             this.Name = "FormIntro";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormIntro_FormClosing);
             this.Load += new System.EventHandler(this.FormIntro_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormIntro_KeyDown);
             this.ResumeLayout(false);

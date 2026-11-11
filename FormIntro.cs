@@ -65,7 +65,7 @@ namespace FallenWorld
         #region Abre Seleção de Personagem
         private void AbrirSelecao()
         {
-            mediaPlayer.Stop();
+            mediaPlayer?.Stop();
 
             this.Hide();
 
@@ -93,14 +93,15 @@ namespace FallenWorld
             }            
         }
 
-        private void OnFormClosed(object sender, FormClosedEventArgs e)
+        private void FormIntro_FormClosing(object sender, FormClosingEventArgs e)
         {
+            videoView?.Dispose();
+            media?.Dispose();
             mediaPlayer?.Stop();
             mediaPlayer?.Dispose();
             LibVLC?.Dispose();
-            videoView?.Dispose();
-            base.OnFormClosed(e);
         }
         #endregion
+
     }
 }
