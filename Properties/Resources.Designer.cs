@@ -549,7 +549,7 @@ namespace FallenWorld.Properties {
         ///  &quot;character&quot;: {
         ///    &quot;id&quot;: &quot;bc79ba7c-7159-41c8-ba33-471751d48731&quot;,
         ///    &quot;name&quot;: &quot;Idle&quot;,
-        ///    &quot;prompt&quot;: &quot;Small anthropomorphic black duck wizard with a compact body and short stature, wearing a dark purple pointed wizard hat with a small orange/gold detail, a dark purple wizard robe with matching accents, and carrying a magical staff. His silhouette is simple and compact, with a mischievous cartoon-like expression, designed in medieval fantasy RPG pixel-art style. Keep the character visually small compared t [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;Small anthropomorphic black duck wizard with a compact body and short stature, wearing a dark purple pointed wizard hat with a small orange/gold detail, a dark purple wizard robe with matching accents, and carrying a magical staff. His silhouette is simple and compact, with a mischievous cartoon-like expression, designed in medieval fantasy RPG pixel-art style. Keep the character visually small compar [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string duckMage_spriteSheet_js {
             get {
@@ -634,8 +634,7 @@ namespace FallenWorld.Properties {
         ///    &quot;pivot&quot;: &quot;cell-center&quot;,
         ///    &quot;rows&quot;: [
         ///      {
-        ///        &quot;row&quot;: 0,
-        ///        &quot;type [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///      [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Fireball_Js {
             get {
@@ -1027,8 +1026,7 @@ namespace FallenWorld.Properties {
         ///  &quot;spritesheet&quot;: {
         ///    &quot;path&quot;: &quot;Knight_Fallen_World-Idle.png&quot;,
         ///    &quot;cell_size&quot;: {
-        ///      &quot;width&quot;: 104,
-        ///      &quot;hei [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///      &quot;width&quot;:  [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string knight_Spritesheet_Js {
             get {
@@ -1057,8 +1055,7 @@ namespace FallenWorld.Properties {
         ///      &quot;height&quot;: 80
         ///    },
         ///    &quot;directions&quot;: 8,
-        ///    &quot;view&quot;: &quot;side&quot;
-        ///  } [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;view&quot;:  [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Orc_Spritesheet_js {
             get {
@@ -1460,7 +1457,7 @@ namespace FallenWorld.Properties {
         ///  &quot;character&quot;: {
         ///    &quot;id&quot;: &quot;c0ea8b0c-604a-41a1-bf84-3d978cbc95df&quot;,
         ///    &quot;name&quot;: &quot;Idle&quot;,
-        ///    &quot;prompt&quot;: &quot;Agile female swordswoman for a dark fantasy pixel-art platformer. Long brown braided hair, silver and ivory light armor with gold accents, flowing dark green cape, and brown leather details. She carries a slender sword with a vivid emerald-green blade and matching green hilt. The entire blade must be green, never silver, representing her poison ability.\n\nAthletic, lightweight build, elegant and dangerou [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;Agile female swordswoman for a dark fantasy pixel-art platformer. Long brown braided hair, silver and ivory light armor with gold accents, flowing dark green cape, and brown leather details. She carries a slender sword with a vivid emerald-green blade and matching green hilt. The entire blade must be green, never silver, representing her poison ability.\n\nAthletic, lightweight build, elegant and dang [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string princess_spritesheet_js {
             get {
@@ -1487,7 +1484,7 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a {&quot;tileSize&quot;:32,&quot;mapWidth&quot;:212,&quot;mapHeight&quot;:25,&quot;layers&quot;:[{&quot;name&quot;:&quot;Layer_2&quot;,&quot;tiles&quot;:[],&quot;collider&quot;:false},{&quot;name&quot;:&quot;forest_floor&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:0,&quot;y&quot;:20},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:0,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:0,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:0,&quot;y&quot;:23},{&quot;id&quot;:&quot;1&quot;,&quot;x&quot;:0,&quot;y&quot;:24},{&quot;id&quot;:&quot;2&quot;,&quot;x&quot;:1,&quot;y&quot;:24},{&quot;id&quot;:&quot;2&quot;,&quot;x&quot;:2,&quot;y&quot;:24},{&quot;id&quot;:&quot;2&quot;,&quot;x&quot;:3,&quot;y&quot;:24},{&quot;id&quot;:&quot;2&quot;,&quot;x&quot;:4,&quot;y&quot;:24},{&quot;id&quot;:&quot;2&quot;,&quot;x&quot;:5,&quot;y&quot;:24},{&quot;id&quot;:&quot;2&quot;,&quot;x&quot;:6,&quot;y&quot;:24},{&quot;id&quot;:&quot;2&quot;,&quot;x&quot;:7,&quot;y&quot;:24},{&quot;id....
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {&quot;tileSize&quot;:32,&quot;mapWidth&quot;:230,&quot;mapHeight&quot;:30,&quot;layers&quot;:[{&quot;name&quot;:&quot;keyboard_command&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;2025&quot;,&quot;x&quot;:19,&quot;y&quot;:16},{&quot;id&quot;:&quot;2061&quot;,&quot;x&quot;:20,&quot;y&quot;:16},{&quot;id&quot;:&quot;2065&quot;,&quot;x&quot;:206,&quot;y&quot;:16},{&quot;id&quot;:&quot;2060&quot;,&quot;x&quot;:33,&quot;y&quot;:16},{&quot;id&quot;:&quot;2063&quot;,&quot;x&quot;:61,&quot;y&quot;:16},{&quot;id&quot;:&quot;2062&quot;,&quot;x&quot;:84,&quot;y&quot;:16},{&quot;id&quot;:&quot;2064&quot;,&quot;x&quot;:121,&quot;y&quot;:16}],&quot;collider&quot;:false},{&quot;name&quot;:&quot;scene&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;2026&quot;,&quot;x&quot;:29,&quot;y&quot;:14},{&quot;id&quot;:&quot;2026&quot;,&quot;x&quot;:10,&quot;y&quot;:14},{&quot;id&quot;:&quot;2026&quot;,&quot;x&quot;:11,&quot;y&quot;:14},{&quot;id&quot;:&quot;2027&quot;,&quot;x&quot;:12,&quot;y&quot;:14},{&quot;id&quot;:&quot;2028....
         /// </summary>
         public static string tutorial_Map_Js {
             get {
