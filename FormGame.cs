@@ -452,8 +452,16 @@ namespace FallenWorld
             // Interact
             if (e.KeyCode == Core.Interact)
             {
-                _interactionKeyHeld = true;
-                AvancarStage();
+                if (!_interactionKeyHeld)
+                {
+                    _interactionKeyHeld = true;
+                    Core.isInteracting = true;
+                    AvancarStage();
+                }
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                return;
             }
             SkillButtonStates(sender, e);
         }
