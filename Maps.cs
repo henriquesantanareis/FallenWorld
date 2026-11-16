@@ -204,6 +204,75 @@ namespace FallenWorld
 
         #endregion
 
+        #region Puzzle Markers
+        // Retorna todos os marcadores de runas encontrados no mapa.
+        public List<MapTile> GetPuzzleMarkers()
+        {
+            List<MapTile> marcadores = new List<MapTile>();
+
+            if (layers == null)
+                return marcadores;
+
+            foreach (MapLayer camada in layers)
+            {
+                if (camada.tiles == null)
+                    continue;
+
+                foreach (MapTile tile in camada.tiles)
+                {
+                    if (tile.attributes == null)
+                        continue;
+
+                    foreach (KeyValuePair<string, string> atributo
+                        in tile.attributes)
+                    {
+                        if (string.Equals(atributo.Key,"Puzzle",StringComparison.OrdinalIgnoreCase))
+                        {
+                            marcadores.Add(tile);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return marcadores;
+        }
+        #endregion
+
+        #region Treasure Markers
+        public List<MapTile> GetTreasureMarkers()
+        {
+            List<MapTile> marcadores = new List<MapTile>();
+
+            if (layers == null)
+                return marcadores;
+
+            foreach (MapLayer camada in layers)
+            {
+                if (camada.tiles == null)
+                    continue;
+
+                foreach (MapTile tile in camada.tiles)
+                {
+                    if (tile.attributes == null)
+                        continue;
+
+                    foreach (KeyValuePair<string, string> atributo
+                        in tile.attributes)
+                    {
+                        if (string.Equals(atributo.Key,"Treasure",StringComparison.OrdinalIgnoreCase))
+                        {
+                            marcadores.Add(tile);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return marcadores;
+        }
+        #endregion
+
         #region Colisão
         public void PrepararColisoes()
         {

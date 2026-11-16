@@ -1,0 +1,46 @@
+{
+  "object": {
+    "id": "b435c4eb-1b28-4480-bd21-4902d351318a",
+    "name": "base",
+    "prompt": "Create the third ancient mystical rune monument belonging to the exact same set as the provided style object reference.\n\nPreserve the original monument's visual design as closely as possible: the same upright stone slab silhouette, overall proportions, dimensions, stone base, irregular eroded edges, cracks, moss patches, small exposed roots, material texture, lighting, color palette and pixel art rendering style.\n\nThe ONLY major visual difference must be the carved symbol on the front face.\n\nReplace the spiral symbol with a distinctive ancient symbol representing the Union of Roots: several organic tree roots intertwining with one another to form a compact, balanced circular shape. The roots should weave naturally around the center, creating a unified circular emblem. The design must resemble an ancient mystical forest symbol carved by an old civilization, not a simple geometric circle.\n\nCarve the symbol into the front surface of the stone, with subtle muted cyan-green illumination inside the engraving. Keep the glow restrained and dormant, matching the magical appearance of the first rune.\n\nThe central symbol must be clearly recognizable and readable at 64x64 pixels. Keep its placement, scale and visual prominence consistent with the first rune.\n\nThis is the third and final monument in a matching set of three ancient forest sanctuary runes. It must look as though it was sculpted by the same civilization and belongs to the exact same mechanism as the reference object.\n\nStrict side-scrolling game perspective, complete isolated object, transparent background, crisp pixel placement, no anti-aliasing, no blur, no smooth gradients.\n\nDo not redesign the monument. Do not change its silhouette, base, proportions, material, lighting or colors. Do not reproduce the spiral symbol from the reference. Only replace the engraved symbol.",
+    "size": {
+      "width": 64,
+      "height": 64
+    },
+    "directions": 1,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Puzzle_Rune_3.png",
+    "cell_size": {
+      "width": 64,
+      "height": 64
+    },
+    "sheet_size": {
+      "width": 576,
+      "height": 128
+    },
+    "columns": 9,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 1,
+        "directions": [
+          "unknown"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Rune3_Ativation",
+        "animation_group_id": "c3c8530d-cdfe-44f0-bb17-e8c545f7da89",
+        "direction": "unknown"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-16T18:04:48.309813+00:00"
+}
