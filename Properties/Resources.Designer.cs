@@ -1475,6 +1475,25 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {&quot;tileSize&quot;:32,&quot;mapWidth&quot;:106,&quot;mapHeight&quot;:31,&quot;layers&quot;:[{&quot;name&quot;:&quot;floor&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:11,&quot;y&quot;:20},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:12,&quot;y&quot;:20},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:13,&quot;y&quot;:20,&quot;attributes&quot;:{&quot;Spawn&quot;:&quot;player&quot;}},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:14,&quot;y&quot;:20},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:15,&quot;y&quot;:20},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:16,&quot;y&quot;:20},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:17,&quot;y&quot;:20},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:18,&quot;y&quot;:20},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:19,&quot;y&quot;:20},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:20,&quot;y&quot;:20},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:21,&quot;y&quot;:20},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:22,&quot;y&quot;:20},{&quot;id&quot;:&quot;0&quot;....
+        /// </summary>
+        public static string sanctuary_Map_Js {
+            get {
+                return ResourceManager.GetString("sanctuary_Map_Js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap sanctuary_Map_sprite {
+            get {
+                object obj = ResourceManager.GetObject("sanctuary_Map_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
         /// </summary>
         public static System.IO.UnmanagedMemoryStream Shadows_of_Three_Heroes {

@@ -32,5 +32,13 @@ namespace FallenWorld
         //keys menu
         public static readonly Keys Exit = Keys.Escape;
 
+        //bools for menu
+        public static bool isExiting = false;
+
+        //key for interact
+        public static readonly Keys Interact = Keys.E;
+
+        //bool for interact
+        public static bool isInteracting = false;
     }
 }
