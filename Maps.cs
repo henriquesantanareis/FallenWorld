@@ -155,6 +155,55 @@ namespace FallenWorld
         }
         #endregion
 
+        #region Stage / Transição
+
+        // Localiza um marcador de etapa pelo atributo Stage.
+        public MapTile GetStage(string stageName)
+        {
+            if (layers == null || string.IsNullOrWhiteSpace(stageName))
+                return null;
+
+            foreach (MapLayer camada in layers)
+            {
+                if (camada.tiles == null)
+                    continue;
+
+                foreach (MapTile tile in camada.tiles)
+                {
+                    if (tile.attributes == null)
+                        continue;
+
+                    foreach (KeyValuePair<string, string> atributo
+                        in tile.attributes)
+                    {
+                        if (string.Equals(
+                                atributo.Key,
+                                "Stage",
+                                StringComparison.OrdinalIgnoreCase
+                            ) &&
+                            string.Equals(
+                                atributo.Value,
+                                stageName,
+                                StringComparison.OrdinalIgnoreCase
+                            ))
+                        {
+                            return tile;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        // Localiza a saída para a próxima etapa.
+        public MapTile GetNextStage()
+        {
+            return GetStage("next");
+        }
+
+        #endregion
+
         #region Colisão
         public void PrepararColisoes()
         {

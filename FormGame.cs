@@ -109,6 +109,20 @@ namespace FallenWorld
 
         private float _velocidadeVertical = 0f;
         private bool _estaNoChao = false;
+        // Marcador de saída do mapa.
+        private MapTile _nextStage;
+
+        // Controle de proximidade e interação.
+        private bool _nearNextStage = false;
+        private bool _interactionKeyHeld = false;
+
+        // Indicação visual da saída.
+        private Label _stagePrompt;
+        // Controle das transições entre mapas.
+        private bool _transicaoEmAndamento = false;
+
+        // Indica se o Santuário das Raízes já foi carregado.
+        private bool _santuarioCarregado = false;
         #endregion
 
         #region Damage and Invulnerability
@@ -139,7 +153,8 @@ namespace FallenWorld
             Cursor.Hide();
             // Bloquear os eventos do mouse.
             Application.AddMessageFilter(this);
-            Load_Map();
+            Load_Map(Properties.Resources.tutorial_Map_Js, Properties.Resources.tutorial_Map_sprite);
+            _nextStage = map.GetNextStage();
             switch (_personagem)
             {
                 case Personagem.Mago:
@@ -203,35 +218,187 @@ namespace FallenWorld
             AtualizarCamera();
             AtualizarPosicaoPlayerNaTela();
             player.BringToFront();
+            CriarPromptStage();
         }
         #endregion
 
         #region Map and Environment
-        private void Load_Map()
+        private void Load_Map(string mapJson, Bitmap spritesheet)
         {
-            string mapJson = Properties.Resources.tutorial_Map_Js;
+            if (string.IsNullOrWhiteSpace(mapJson))
+                throw new ArgumentException("O JSON do mapa está vazio.");
+
+            if (spritesheet == null)
+                throw new ArgumentNullException("spritesheet");
+
             JavaScriptSerializer readMapjson = new JavaScriptSerializer();
 
-            map = readMapjson.Deserialize<Maps>(mapJson);
+            // Desserializa o novo mapa.
+            Maps novoMapa = readMapjson.Deserialize<Maps>(mapJson);
 
-            if (map == null)
+            if (novoMapa == null)
                 throw new Exception("Não foi possível carregar o mapa.");
 
-            // Preparar as colisões uma única vez.
-            map.PrepararColisoes();
+            // Prepara as colisões do novo cenário.
+            novoMapa.PrepararColisoes();
 
-            Bitmap spritesheet = Properties.Resources.tutorial_Map_sprite;
+            // Monta a imagem completa do novo cenário.
+            Bitmap novaImagem = novoMapa.CriarImagem(spritesheet);
 
-            // A classe Maps monta a imagem completa do cenário.
-            Bitmap novaImagem = map.CriarImagem(spritesheet);
+            // Substitui o mapa e a imagem atuais.
+            map = novoMapa;
 
             if (_imageMap != null)
                 _imageMap.Dispose();
 
             _imageMap = novaImagem;
-            // Remove o uso da imagem como BackgroundImage.
+
             world1.BackgroundImage = null;
             world1.Invalidate();
+        }
+        private bool CarregarSantuarioDasRaizes()
+        {
+            if (_transicaoEmAndamento || player == null || player.IsDisposed)
+                return false;
+
+            bool timerEstavaAtivo = TMR_Game.Enabled;
+
+            _transicaoEmAndamento = true;
+            TMR_Game.Stop();
+
+            try
+            {
+                string mapJson = Properties.Resources.sanctuary_Map_Js;
+                Bitmap spritesheet = Properties.Resources.sanctuary_Map_sprite;
+
+                // Verifica se o novo mapa possui um Spawn válido.
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Maps mapaTeste = serializer.Deserialize<Maps>(mapJson);
+
+                if (mapaTeste == null)
+                    throw new Exception("Não foi possível interpretar o JSON do Santuário.");
+
+                MapTile spawnTeste = mapaTeste.GetSpawnPlayer();
+
+                if (spawnTeste == null)
+                    throw new Exception("O Spawn do jogador não foi encontrado no Santuário.");
+
+                // Carrega o novo mapa e prepara suas colisões.
+                Load_Map(mapJson, spritesheet);
+
+                MapTile spawn = map.GetSpawnPlayer();
+
+                // Interrompe a recuperação de mana, caso esteja acontecendo.
+                player.CancelarRecuperacaoMana();
+                PararSomRecuperacaoMana();
+                _manaRecoveryTickCounter = 0;
+
+                // Para e remove as bolas de fogo do mapa anterior.
+                foreach (FireballProjectile fireball in _fireballs.ToList())
+                {
+                    if (fireball == null)
+                        continue;
+
+                    world1.Controls.Remove(fireball);
+                    fireball.Dispose();
+                }
+
+                _fireballs.Clear();
+                SoundEffects.StopFireballFlight();
+
+                // Remove os inimigos do mapa anterior.
+                foreach (Enemy enemy in _enemies.ToList())
+                {
+                    if (enemy == null)
+                        continue;
+
+                    enemy.AttackImpact -= Enemy_AttackImpact;
+
+                    world1.Controls.Remove(enemy);
+                    enemy.Dispose();
+                }
+
+                _enemies.Clear();
+                _enemyAttackCooldowns.Clear();
+                _enemyKnockbackRemaining.Clear();
+                _enemyWorldPositions.Clear();
+                _enemyVisualOffsetY.Clear();
+
+                // Posiciona o mesmo jogador no Spawn do novo mapa.
+                int spawnX = spawn.x * map.tileSize;
+                int spawnY = spawn.y * map.tileSize;
+
+                _playerWorldX = spawnX + (map.tileSize - player.Width) / 2;
+                _playerWorldY = spawnY - player.Height;
+
+                player.Location = new Point(
+                    _playerWorldX,
+                    _playerWorldY + _playerVisualOffsetY
+                );
+
+                // Reinicia a física e os comandos de movimento.
+                _velocidadeVertical = 0f;
+                _estaNoChao = TemChaoAbaixo();
+
+                _pedidoPulo = false;
+                _jumpKeyHeld = false;
+
+                Core.isMovingLeft = false;
+                Core.isMovingRight = false;
+                Core.isJumping = false;
+
+                Core.isAttacking0 = false;
+                Core.isAttacking1 = false;
+                Core.isAttacking2 = false;
+
+                _attack0KeyHeld = false;
+                _attack1KeyHeld = false;
+                _attack2KeyHeld = false;
+
+                SkillButtonStates(this, EventArgs.Empty);
+
+                // Atualiza o marcador de saída do novo mapa.
+                _nextStage = map.GetNextStage();
+                _nearNextStage = false;
+
+                if (_stagePrompt != null)
+                    _stagePrompt.Visible = false;
+
+                // Atualiza a câmera antes de criar os novos inimigos.
+                AtualizarCamera();
+
+                // Carrega os inimigos definidos no JSON do Santuário.
+                LoadEnemies();
+
+                AtualizarPosicaoPlayerNaTela();
+                player.BringToFront();
+
+                // Atualiza o HUD usando os valores do mesmo jogador.
+                AtualizarBarraVida();
+                AtualizarBarraMagia();
+
+                world1.Invalidate();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar o Santuário das Raízes.\n\n" + ex.Message,
+                    "Erro na transição",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return false;
+            }
+            finally
+            {
+                _transicaoEmAndamento = false;
+
+                if (timerEstavaAtivo)
+                    TMR_Game.Start();
+            }
         }
         private void world1_Paint(object sender, PaintEventArgs e)
         {
@@ -279,7 +446,14 @@ namespace FallenWorld
             if (e.KeyCode == Core.Exit)
             {
                 BTN_EXIT.Image = Properties.Resources.Exit_pressed;
+                Core.isExiting = true;
                 return;
+            }
+            // Interact
+            if (e.KeyCode == Core.Interact)
+            {
+                _interactionKeyHeld = true;
+                AvancarStage();
             }
             SkillButtonStates(sender, e);
         }
@@ -313,8 +487,14 @@ namespace FallenWorld
             if (e.KeyCode == Core.Exit)
             {
                 BTN_EXIT.Image = Properties.Resources.Exit_normal;
+                Core.isExiting = false;
                 this.Close();
                 return;
+            }
+            if (e.KeyCode == Core.Interact)
+            {
+                _interactionKeyHeld = false;
+                Core.isInteracting = false;
             }
             SkillButtonStates(sender, e);
         }
@@ -1542,6 +1722,7 @@ namespace FallenWorld
             // Atualiza a posição das bolas de fogo e verifica colisões.
             AtualizarBolasDeFogo();
             VerificarDanoContatoInimigos();
+            AtualizarInteracaoStage();
         }
         #endregion
         
@@ -1608,6 +1789,91 @@ namespace FallenWorld
             _manaRecoverySoundActive = false;
 
             SoundEffects.StopManaRecovery();
+        }
+        #endregion
+
+        #region Stage Transition
+        private void CriarPromptStage()
+        {
+            _stagePrompt = new Label();
+
+            _stagePrompt.Text = "Pressione E para avançar";
+            _stagePrompt.AutoSize = true;
+            _stagePrompt.BackColor = Color.FromArgb(25, 32, 29);
+            _stagePrompt.ForeColor = Color.White;
+            _stagePrompt.Font = new Font("Arial", 10, FontStyle.Bold);
+            _stagePrompt.Padding = new Padding(10, 7, 10, 7);
+            _stagePrompt.BorderStyle = BorderStyle.FixedSingle;
+            _stagePrompt.Visible = false;
+
+            _stagePrompt.Location = new Point(
+                (world1.ClientSize.Width - _stagePrompt.Width) / 2,
+                world1.ClientSize.Height - _stagePrompt.Height - 24
+            );
+
+            world1.Controls.Add(_stagePrompt);
+            _stagePrompt.BringToFront();
+        }
+        private void AtualizarInteracaoStage()
+        {
+            if (player == null || map == null ||
+                _nextStage == null || player.EstaMorto)
+            {
+                _nearNextStage = false;
+
+                if (_stagePrompt != null)
+                    _stagePrompt.Visible = false;
+
+                return;
+            }
+
+            // Área de interação ao redor do marcador.
+            Rectangle areaSaida = new Rectangle(
+                _nextStage.x * map.tileSize,
+                _nextStage.y * map.tileSize,
+                map.tileSize,
+                map.tileSize
+            );
+
+            // Aumenta a área para permitir aproximação.
+            areaSaida.Inflate(map.tileSize * 2, map.tileSize);
+
+            // Hitbox real do jogador no mundo.
+            Rectangle hitboxPlayer = player.GetHitboxAt(
+                _playerWorldX,
+                _playerWorldY
+            );
+
+            _nearNextStage = areaSaida.IntersectsWith(hitboxPlayer);
+
+            _stagePrompt.Visible = _nearNextStage;
+
+            if (_nearNextStage)
+                _stagePrompt.BringToFront();
+        }
+
+        private void AvancarStage()
+        {
+            if (!_nearNextStage || _transicaoEmAndamento)
+                return;
+
+            // Primeira transição: Tutorial -> Santuário.
+            if (!_santuarioCarregado)
+            {
+                if (CarregarSantuarioDasRaizes())
+                {
+                    _santuarioCarregado = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show(
+                    "O próximo mapa ainda não está configurado.",
+                    "Fallen World",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
         }
         #endregion
     }
