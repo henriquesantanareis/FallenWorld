@@ -1,0 +1,69 @@
+{
+  "object": {
+    "id": "def170c7-60cb-4479-9c44-2d4ac89f5e95",
+    "name": "base",
+    "prompt": "Create a single completely closed ancient arcane treasure chest for a dark gothic fantasy 2D side-scrolling pixel-art game. The chest is crafted from dark aged wood, reinforced with intricate antique dark iron bands, engraved gothic ornaments and weathered metallic corners. Its lid must be fully closed and firmly aligned with the body, secured by an elaborate ancient metal lock. Decorate the front with mysterious engraved runes, subtle arcane symbols and a distinctive magical emblem embedded in the center. Add a very faint emerald-green and pale blue glow within the central emblem, suggesting hidden magical power without excessive brightness. Use deep charcoal, dark bronze, weathered silver and muted magical highlights. The chest should look ancient, mysterious, valuable and slightly cursed. Strong readable silhouette, side-view composition suitable for a 2D platformer, crisp pixel art, clean pixel clusters, detailed textures and sharp edges. Single isolated object, transparent background, 64x64 pixels. The lid must remain completely shut. No visible interior, no visible coins, no visible runes inside, no opening gap, no light escaping from the chest, no characters, no scenery, no text, no blur or anti-aliasing.",
+    "size": {
+      "width": 64,
+      "height": 64
+    },
+    "directions": 8,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Enygma_Chest.png",
+    "cell_size": {
+      "width": 68,
+      "height": 68
+    },
+    "sheet_size": {
+      "width": 884,
+      "height": 272
+    },
+    "columns": 13,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 13,
+        "animation": "Animate the exact original arcane treasure chest o",
+        "animation_group_id": "c8abd035-133e-42cc-96ae-953b1e8d9e16",
+        "direction": "south"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 13,
+        "animation": "Animate the exact original arcane treasure chest o",
+        "animation_group_id": "c8abd035-133e-42cc-96ae-953b1e8d9e16",
+        "direction": "south-east"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 13,
+        "animation": "Animate the exact original arcane treasure chest o",
+        "animation_group_id": "c8abd035-133e-42cc-96ae-953b1e8d9e16",
+        "direction": "south-west"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-16T18:10:45.029248+00:00"
+}

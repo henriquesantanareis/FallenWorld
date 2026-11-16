@@ -215,6 +215,12 @@
     <Compile Include="Maps.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PuzzleChest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PuzzleRune.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="SoundEffects.cs" />
     <Compile Include="TipoPersonagem.cs" />
     <Compile Include="Player.cs">

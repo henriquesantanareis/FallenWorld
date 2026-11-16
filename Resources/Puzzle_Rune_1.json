@@ -1,0 +1,46 @@
+{
+  "object": {
+    "id": "642a3696-c8cb-4bd0-b318-5f245b5529ab",
+    "name": "base",
+    "prompt": "A small ancient mystical rune monument designed as an interactive environmental object for a dark fantasy 2D side-scrolling platformer.\n\nCreate a compact upright slab of ancient weathered stone, with a broad clearly visible front face, irregular eroded edges, subtle cracks and small patches of dark teal moss. A few delicate ancient tree roots wrap around the lower sides of the stone and its small stone base.\n\nCarved into the center of the front face is a distinctive spiral symbol resembling an ancient twisting tree root. The carving should be clearly recognizable and occupy enough space to remain readable at 64x64 pixels. Give the engraved symbol a very subtle muted cyan-green illumination, suggesting dormant ancient magic rather than an active magical effect.\n\nUse the exact dark visual atmosphere of an ancient forest sanctuary: deep petroleum green, dark teal, desaturated blue-green, muted cyan highlights and restrained moss tones. Match the pixel density, contrast, material rendering and dark fantasy pixel art aesthetic of Fallen World.\n\nShow one complete isolated object from a strict side-scrolling game view, with its front face clearly visible. The stone must be upright, compact and visually readable. Keep the entire object inside the canvas.\n\nNo characters, no scenery, no background environment, no additional runes, no text, no interface, no top-down perspective, no isometric perspective, no blur, no anti-aliasing, no smooth gradients.",
+    "size": {
+      "width": 64,
+      "height": 64
+    },
+    "directions": 1,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Puzzle_Rune_1.png",
+    "cell_size": {
+      "width": 64,
+      "height": 64
+    },
+    "sheet_size": {
+      "width": 576,
+      "height": 128
+    },
+    "columns": 9,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 1,
+        "directions": [
+          "unknown"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Rune1_Ativatic",
+        "animation_group_id": "9e4b712f-c692-47a8-ac35-0802d2fa433c",
+        "direction": "unknown"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-16T18:02:04.676493+00:00"
+}

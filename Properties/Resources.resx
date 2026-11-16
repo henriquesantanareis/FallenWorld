@@ -544,4 +544,28 @@
   <data name="sanctuary_Map_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapPuzzel1_spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Puzzle_Rune_1_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Puzzle_Rune_1.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Puzzle_Rune_1_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Puzzle_Rune_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Puzzle_Rune_2_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Puzzle_Rune_2.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Puzzle_Rune_2_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Puzzle_Rune_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Puzzle_Rune_3_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Puzzle_Rune_3.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Puzzle_Rune_3_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Puzzle_Rune_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Enygma_Chest_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Enygma_Chest.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Enygma_Chest_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Enygma_Chest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

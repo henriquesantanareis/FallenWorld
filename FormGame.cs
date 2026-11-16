@@ -125,6 +125,19 @@ namespace FallenWorld
         private bool _santuarioCarregado = false;
         #endregion
 
+        #region Puzzle Runes
+        // Armazena as runas do puzzle atual.
+        private readonly List<PuzzleRune> _puzzleRunes = new List<PuzzleRune>();
+        // Armazena as posições reais das runas no mapa.
+        private readonly Dictionary<PuzzleRune, Point> _puzzleRuneWorldPositions = new Dictionary<PuzzleRune, Point>();
+        private const int DistanciaInteracaoRuna = 80;
+        private PuzzleRune _runaProxima;
+        private bool _puzzleCompleto = false;
+        private PuzzleChest _puzzleChest;
+        private Point _puzzleChestWorldPosition;
+        private bool _puzzleChestAoAlcance = false;
+        #endregion
+
         #region Damage and Invulnerability
         // Impede que o W pressionado continuamente dispare vários pulos automaticamente.
         private const int IntervaloInvulnerabilidadeTicks = 100;
@@ -218,6 +231,7 @@ namespace FallenWorld
             AtualizarCamera();
             AtualizarPosicaoPlayerNaTela();
             player.BringToFront();
+            LoadPuzzleChest(true);
             CriarPromptStage();
         }
         #endregion
@@ -367,8 +381,11 @@ namespace FallenWorld
                 // Atualiza a câmera antes de criar os novos inimigos.
                 AtualizarCamera();
 
-                // Carrega os inimigos definidos no JSON do Santuário.
-                LoadEnemies();
+                // Cria e posiciona as três runas do puzzle.
+                LoadPuzzleRunes();
+
+                // Cria e posiciona o baú do puzzle.
+                LoadPuzzleChest(false);
 
                 AtualizarPosicaoPlayerNaTela();
                 player.BringToFront();
@@ -400,6 +417,109 @@ namespace FallenWorld
                     TMR_Game.Start();
             }
         }
+
+        private void LoadPuzzleRunes()
+        {
+            if (map == null)
+                return;
+
+            // Evita duplicar runas caso o método seja chamado novamente.
+            LimparPuzzleRunes();
+            _puzzleCompleto = false;
+
+            List<MapTile> marcadores = map.GetPuzzleMarkers();
+
+            foreach (MapTile marcador in marcadores)
+            {
+                if (marcador.attributes == null)
+                    continue;
+
+                string tipoRune = null;
+
+                // Identifica o atributo Puzzle.
+                foreach (KeyValuePair<string, string> atributo in marcador.attributes)
+                {
+                    if (string.Equals(atributo.Key, "Puzzle",StringComparison.OrdinalIgnoreCase))
+                    {
+                        tipoRune = atributo.Value;
+                        break;
+                    }
+                }
+
+                PuzzleRune rune = null;
+
+                // Cria a runa correspondente ao marcador.
+                if (string.Equals(tipoRune, "Rune1", StringComparison.OrdinalIgnoreCase))
+                {
+                    rune = new PuzzleRune(
+                        1,
+                        Properties.Resources.Puzzle_Rune_1_sprite,
+                        Properties.Resources.Puzzle_Rune_1_js
+                    );
+                    rune.ActivationCompleted += OnRuneActivationCompleted;
+                }
+                else if (string.Equals(tipoRune, "Rune2", StringComparison.OrdinalIgnoreCase))
+                {
+                    rune = new PuzzleRune(
+                        2,
+                        Properties.Resources.Puzzle_Rune_2_sprite,
+                        Properties.Resources.Puzzle_Rune_2_js
+                    );
+                    rune.ActivationCompleted += OnRuneActivationCompleted;
+                }
+                else if (string.Equals(tipoRune, "Rune3", StringComparison.OrdinalIgnoreCase))
+                {
+                    rune = new PuzzleRune(
+                        3,
+                        Properties.Resources.Puzzle_Rune_3_sprite,
+                        Properties.Resources.Puzzle_Rune_3_js
+                    );
+                    rune.ActivationCompleted += OnRuneActivationCompleted;
+                }
+
+                // Ignora marcadores que não correspondem às três runas.
+                if (rune == null)
+                    continue;
+
+                // Converte a posição do marcador para coordenadas do mundo.
+                int worldX = marcador.x * map.tileSize + (map.tileSize - rune.Width) / 2;
+
+                // Ajuste para alinhar a base visível da pedra ao chão.
+                int worldY = marcador.y * map.tileSize - rune.Height + 4;
+
+                Point worldPosition = new Point(worldX, worldY);
+
+                _puzzleRunes.Add(rune);
+                _puzzleRuneWorldPositions.Add(rune, worldPosition);
+
+                // Converte para a posição atual da câmera.
+                rune.Location = new Point(worldX - _cameraX,worldY - _cameraY);
+
+                world1.Controls.Add(rune);
+            }
+            
+            if (player != null && !player.IsDisposed)
+            {
+                player.BringToFront();
+            }
+        }
+
+        private void LimparPuzzleRunes()
+        {
+            foreach (PuzzleRune rune in _puzzleRunes.ToList())
+            {
+                if (rune == null)
+                    continue;
+
+                world1.Controls.Remove(rune);
+                rune.Dispose();
+            }
+
+            _puzzleRunes.Clear();
+            _puzzleRuneWorldPositions.Clear();
+        }
+
+
         private void world1_Paint(object sender, PaintEventArgs e)
         {
             if (_imageMap == null)
@@ -456,7 +576,24 @@ namespace FallenWorld
                 {
                     _interactionKeyHeld = true;
                     Core.isInteracting = true;
-                    AvancarStage();
+
+                    // Atualiza a proximidade antes de interagir.
+                    AtualizarRunaProxima();
+                    AtualizarProximidadePuzzleChest();
+
+                    if (_puzzleChestAoAlcance)
+                    {
+                        // A própria classe impede uma segunda abertura.
+                        _puzzleChest.StartOpening();
+                    }
+                    else if (_runaProxima != null)
+                    {
+                        _runaProxima.StartActivation();
+                    }
+                    else if (_nearNextStage)
+                    {
+                        AvancarStage();
+                    }
                 }
 
                 e.Handled = true;
@@ -708,6 +845,8 @@ namespace FallenWorld
             player.Location = new Point(_playerWorldX - _cameraX, _playerWorldY - _cameraY + _playerVisualOffsetY);
 
             AtualizarPosicaoInimigosNaTela();
+            AtualizarPosicaoRunasNaTela();
+            AtualizarPosicaoPuzzleChestNaTela();
             world1.Invalidate();
         }
 
@@ -727,6 +866,19 @@ namespace FallenWorld
                 _enemyVisualOffsetY.TryGetValue(enemy, out visualOffset);
 
                 enemy.Location = new Point(worldPosition.X - _cameraX, worldPosition.Y - _cameraY + visualOffset);
+            }
+        }
+        private void AtualizarPosicaoRunasNaTela()
+        {
+            foreach (KeyValuePair<PuzzleRune, Point> item in _puzzleRuneWorldPositions)
+            {
+                PuzzleRune rune = item.Key;
+                Point worldPosition = item.Value;
+
+                if (rune == null || rune.IsDisposed)
+                    continue;
+
+                rune.Location = new Point(worldPosition.X - _cameraX,worldPosition.Y - _cameraY);
             }
         }
         #endregion
@@ -1729,7 +1881,11 @@ namespace FallenWorld
             AtualizarQueimaduraInimigos();
             // Atualiza a posição das bolas de fogo e verifica colisões.
             AtualizarBolasDeFogo();
+            // Atualiza a posição da runa mais próxima do jogador.
+            AtualizarPuzzleRunes();
+            // Atualiza a barra de vida e mana do jogador.
             VerificarDanoContatoInimigos();
+            // Atualiza a barra de vida do jogador.
             AtualizarInteracaoStage();
         }
         #endregion
@@ -1882,6 +2038,207 @@ namespace FallenWorld
                     MessageBoxIcon.Information
                 );
             }
+        }
+        #endregion
+
+        #region Puzzle Runes
+        private void AtualizarRunaProxima()
+        {
+            _runaProxima = null;
+
+            if (player == null || player.IsDisposed)
+                return;
+
+            // Centro do jogador no mundo.
+            double jogadorCentroX = _playerWorldX + player.Width / 2.0;
+            double jogadorCentroY = _playerWorldY + player.Height / 2.0;
+
+            double menorDistancia = double.MaxValue;
+
+            foreach (PuzzleRune rune in _puzzleRunes)
+            {
+                if (rune == null || rune.IsDisposed)
+                    continue;
+
+                // Não considerar runas que já foram ativadas
+                // ou que estão executando sua animação.
+                if (rune.IsActivated || rune.IsActivating)
+                    continue;
+
+                Point posicaoRuna;
+
+                if (!_puzzleRuneWorldPositions.TryGetValue(rune, out posicaoRuna))
+                    continue;
+
+                // Centro da runa no mundo.
+                double runaCentroX = posicaoRuna.X + rune.Width / 2.0;
+                double runaCentroY = posicaoRuna.Y + rune.Height / 2.0;
+
+                double diferencaX = jogadorCentroX - runaCentroX;
+                double diferencaY = jogadorCentroY - runaCentroY;
+
+                // Distância entre os centros, ao quadrado.
+                double distancia =
+                    diferencaX * diferencaX +
+                    diferencaY * diferencaY;
+
+                // Verifica se está dentro do alcance de interação.
+                if (distancia <= DistanciaInteracaoRuna * DistanciaInteracaoRuna && distancia < menorDistancia)
+                {
+                    menorDistancia = distancia;
+                    _runaProxima = rune;
+                }
+            }
+        }
+        private void AtualizarPuzzleRunes()
+        {
+            foreach (PuzzleRune rune in _puzzleRunes)
+            {
+                if (rune == null || rune.IsDisposed)
+                    continue;
+
+                rune.UpdateAnimation(TMR_Game.Interval);
+            }
+
+            if (_puzzleChest != null && !_puzzleChest.IsDisposed)
+            {
+                _puzzleChest.UpdateAnimation(TMR_Game.Interval);
+            }
+            AtualizarProximidadePuzzleChest();
+            AtualizarRunaProxima();
+        }
+        private void OnRuneActivationCompleted(PuzzleRune rune)
+        {
+            if (_puzzleCompleto)
+                return;
+
+            if (_puzzleRunes.Count != 3)
+                return;
+
+            foreach (PuzzleRune runa in _puzzleRunes)
+            {
+                if (runa == null || !runa.IsActivated)
+                    return;
+            }
+
+            // As três runas foram ativadas.
+            _puzzleCompleto = true;
+
+            // Revela o baú.
+            if (_puzzleChest != null && !_puzzleChest.IsDisposed)
+            {
+                _puzzleChest.Visible = true;
+
+                if (player != null && !player.IsDisposed)
+                    player.BringToFront();
+            }
+        }
+        #endregion
+
+        #region Puzzle Chest
+        private void LoadPuzzleChest(bool visivelInicialmente)
+        {
+            if (map == null)
+                return;
+
+            LimparPuzzleChest();
+
+            List<MapTile> marcadores = map.GetTreasureMarkers();
+
+            foreach (MapTile marcador in marcadores)
+            {
+                if (marcador.attributes == null)
+                    continue;
+
+                string tipoBaú = null;
+
+                foreach (KeyValuePair<string, string> atributo
+                    in marcador.attributes)
+                {
+                    if (string.Equals(atributo.Key,"Treasure",StringComparison.OrdinalIgnoreCase))
+                    {
+                        tipoBaú = atributo.Value;
+                        break;
+                    }
+                }
+
+                if (!string.Equals(tipoBaú,"chest",StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                PuzzleChest chest = new PuzzleChest(Properties.Resources.Enygma_Chest_sprite);
+
+                // Centraliza o baú no marcador do mapa.
+                int worldX = marcador.x * map.tileSize + (map.tileSize - chest.Width) / 2;
+
+                // Corrige os 10 pixels transparentes na parte inferior.
+                int worldY = marcador.y * map.tileSize - chest.Height + 10;
+
+                _puzzleChest = chest;
+
+                _puzzleChestWorldPosition = new Point(worldX,worldY);
+
+                chest.Location = new Point(worldX - _cameraX,worldY - _cameraY);
+
+                // O baú começa escondido.
+                chest.Visible = visivelInicialmente;
+
+                world1.Controls.Add(chest);
+
+                break;
+            }
+
+            // Mantém o jogador à frente do baú.
+            if (player != null && !player.IsDisposed)
+            {
+                player.BringToFront();
+            }
+        }
+        private void LimparPuzzleChest()
+        {
+            if (_puzzleChest == null)
+                return;
+
+            world1.Controls.Remove(_puzzleChest);
+
+            _puzzleChest.Dispose();
+            _puzzleChest = null;
+        }
+        private void AtualizarPosicaoPuzzleChestNaTela()
+        {
+            if (_puzzleChest == null || _puzzleChest.IsDisposed)
+                return;
+
+            _puzzleChest.Location = new Point(
+                _puzzleChestWorldPosition.X - _cameraX,
+                _puzzleChestWorldPosition.Y - _cameraY
+            );
+        }
+        private void AtualizarProximidadePuzzleChest()
+        {
+            _puzzleChestAoAlcance = false;
+
+            if (player == null || player.IsDisposed ||
+                _puzzleChest == null || _puzzleChest.IsDisposed ||
+                !_puzzleChest.Visible)
+            {
+                return;
+            }
+
+            double jogadorCentroX = _playerWorldX + player.Width / 2.0;
+            double jogadorCentroY = _playerWorldY + player.Height / 2.0;
+
+            double bauCentroX = _puzzleChestWorldPosition.X + _puzzleChest.Width / 2.0;
+
+            double bauCentroY = _puzzleChestWorldPosition.Y + _puzzleChest.Height / 2.0;
+
+            double dx = jogadorCentroX - bauCentroX;
+            double dy = jogadorCentroY - bauCentroY;
+
+            double distancia = dx * dx + dy * dy;
+
+            _puzzleChestAoAlcance = distancia <= DistanciaInteracaoRuna * DistanciaInteracaoRuna;
         }
         #endregion
     }
