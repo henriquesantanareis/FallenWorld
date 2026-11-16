@@ -562,7 +562,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;def170c7-60cb-4479-9c44-2d4ac89f5e95&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;Create a single completely closed ancient arcane treasure chest for a dark gothic fantasy 2D side-scrolling pixel-art game. The chest is crafted from dark aged wood, reinforced with intricate antique dark iron bands, engraved gothic ornaments and weathered metallic corners. Its lid must be fully closed and firmly aligned with the body, secured by an elaborate ancient metal lock. Decorate the front with myste [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;Create a single completely closed ancient arcane treasure chest for a dark gothic fantasy 2D side-scrolling pixel-art game. The chest is crafted from dark aged wood, reinforced with intricate antique dark iron bands, engraved gothic ornaments and weathered metallic corners. Its lid must be fully closed and firmly aligned with the body, secured by an elaborate ancient metal lock. Decorate the front with m [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Enygma_Chest_js {
             get {
@@ -1058,6 +1058,25 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {&quot;tileSize&quot;:32,&quot;mapWidth&quot;:196,&quot;mapHeight&quot;:31,&quot;layers&quot;:[{&quot;name&quot;:&quot;floor&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:14,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:15,&quot;y&quot;:22,&quot;attributes&quot;:{&quot;Spawn&quot;:&quot;player&quot;}},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:16,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:17,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:18,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:19,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:20,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:21,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:22,&quot;y&quot;:22},{&quot;id&quot;:&quot;1&quot;,&quot;x&quot;:11,&quot;y&quot;:30},{&quot;id&quot;:&quot;1&quot;,&quot;x&quot;:12,&quot;y&quot;:30},{&quot;id&quot;:&quot;1&quot;,&quot;x&quot;:13,&quot;y&quot;:30},{&quot;id&quot;:&quot;1&quot;....
+        /// </summary>
+        public static string map1_Map_Js {
+            get {
+                return ResourceManager.GetString("map1_Map_Js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap map1_Map_sprite {
+            get {
+                object obj = ResourceManager.GetObject("map1_Map_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Orc_Spritesheet {
@@ -1493,7 +1512,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;642a3696-c8cb-4bd0-b318-5f245b5529ab&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;A small ancient mystical rune monument designed as an interactive environmental object for a dark fantasy 2D side-scrolling platformer.\n\nCreate a compact upright slab of ancient weathered stone, with a broad clearly visible front face, irregular eroded edges, subtle cracks and small patches of dark teal moss. A few delicate ancient tree roots wrap around the lower sides of the stone and its small stone bas [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;A small ancient mystical rune monument designed as an interactive environmental object for a dark fantasy 2D side-scrolling platformer.\n\nCreate a compact upright slab of ancient weathered stone, with a broad clearly visible front face, irregular eroded edges, subtle cracks and small patches of dark teal moss. A few delicate ancient tree roots wrap around the lower sides of the stone and its small stone [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Puzzle_Rune_1_js {
             get {
@@ -1516,7 +1535,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;d605c921-1605-410b-97b7-7a900b25e32e&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;Create a second ancient mystical rune monument belonging to the exact same set as the provided style object reference.\n\nPreserve the original monument&apos;s visual design as closely as possible: the same upright stone slab silhouette, overall proportions, dimensions, stone base, irregular eroded edges, cracks, moss patches, small roots, material texture, lighting, color palette and pixel art rendering style.\n [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;Create a second ancient mystical rune monument belonging to the exact same set as the provided style object reference.\n\nPreserve the original monument&apos;s visual design as closely as possible: the same upright stone slab silhouette, overall proportions, dimensions, stone base, irregular eroded edges, cracks, moss patches, small roots, material texture, lighting, color palette and pixel art rendering styl [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Puzzle_Rune_2_js {
             get {
@@ -1539,7 +1558,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;b435c4eb-1b28-4480-bd21-4902d351318a&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;Create the third ancient mystical rune monument belonging to the exact same set as the provided style object reference.\n\nPreserve the original monument&apos;s visual design as closely as possible: the same upright stone slab silhouette, overall proportions, dimensions, stone base, irregular eroded edges, cracks, moss patches, small exposed roots, material texture, lighting, color palette and pixel art rendering [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;Create the third ancient mystical rune monument belonging to the exact same set as the provided style object reference.\n\nPreserve the original monument&apos;s visual design as closely as possible: the same upright stone slab silhouette, overall proportions, dimensions, stone base, irregular eroded edges, cracks, moss patches, small exposed roots, material texture, lighting, color palette and pixel art rende [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Puzzle_Rune_3_js {
             get {
