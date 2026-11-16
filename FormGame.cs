@@ -123,6 +123,8 @@ namespace FallenWorld
 
         // Indica se o Santuário das Raízes já foi carregado.
         private bool _santuarioCarregado = false;
+        // Indica se o Mapa 1 já foi carregado.
+        private bool _mapa1Carregado = false;
         #endregion
 
         #region Puzzle Runes
@@ -402,6 +404,157 @@ namespace FallenWorld
             {
                 MessageBox.Show(
                     "Não foi possível carregar o Santuário das Raízes.\n\n" + ex.Message,
+                    "Erro na transição",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return false;
+            }
+            finally
+            {
+                _transicaoEmAndamento = false;
+
+                if (timerEstavaAtivo)
+                    TMR_Game.Start();
+            }
+        }
+
+        private bool CarregarMapa1()
+        {
+            if (_transicaoEmAndamento || player == null || player.IsDisposed)
+                return false;
+
+            bool timerEstavaAtivo = TMR_Game.Enabled;
+
+            _transicaoEmAndamento = true;
+            TMR_Game.Stop();
+
+            try
+            {
+                // Recursos do Mapa 1.
+                string mapJson = Properties.Resources.map1_Map_Js;
+                Bitmap spritesheet = Properties.Resources.map1_Map_sprite;
+
+                // Verifica se o mapa possui um Spawn válido.
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+                Maps mapaTeste = serializer.Deserialize<Maps>(mapJson);
+
+                if (mapaTeste == null)
+                    throw new Exception("Não foi possível interpretar o JSON do Mapa 1.");
+
+                MapTile spawnTeste = mapaTeste.GetSpawnPlayer();
+
+                if (spawnTeste == null)
+                    throw new Exception("O Spawn do jogador não foi encontrado no Mapa 1.");
+
+                // Remove os objetos do puzzle anterior.
+                LimparPuzzleRunes();
+                LimparPuzzleChest();
+
+                _puzzleCompleto = false;
+                _runaProxima = null;
+                _puzzleChestAoAlcance = false;
+
+                // Carrega o novo mapa e suas colisões.
+                Load_Map(mapJson, spritesheet);
+
+                MapTile spawn = map.GetSpawnPlayer();
+
+                // Interrompe a recuperação de mana, se estiver ativa.
+                player.CancelarRecuperacaoMana();
+                PararSomRecuperacaoMana();
+                _manaRecoveryTickCounter = 0;
+
+                // Remove as bolas de fogo do mapa anterior.
+                foreach (FireballProjectile fireball in _fireballs.ToList())
+                {
+                    if (fireball == null)
+                        continue;
+
+                    world1.Controls.Remove(fireball);
+                    fireball.Dispose();
+                }
+
+                _fireballs.Clear();
+                SoundEffects.StopFireballFlight();
+
+                // Remove os inimigos do mapa anterior.
+                foreach (Enemy enemy in _enemies.ToList())
+                {
+                    if (enemy == null)
+                        continue;
+
+                    enemy.AttackImpact -= Enemy_AttackImpact;
+
+                    world1.Controls.Remove(enemy);
+                    enemy.Dispose();
+                }
+
+                _enemies.Clear();
+                _enemyAttackCooldowns.Clear();
+                _enemyKnockbackRemaining.Clear();
+                _enemyWorldPositions.Clear();
+                _enemyVisualOffsetY.Clear();
+
+                // Posiciona o jogador no Spawn do Mapa 1.
+                int spawnX = spawn.x * map.tileSize;
+                int spawnY = spawn.y * map.tileSize;
+
+                _playerWorldX = spawnX + (map.tileSize - player.Width) / 2;
+                _playerWorldY = spawnY - player.Height;
+
+                player.Location = new Point(_playerWorldX,_playerWorldY + _playerVisualOffsetY);
+
+                // Reinicia a física.
+                _velocidadeVertical = 0f;
+                _estaNoChao = TemChaoAbaixo();
+
+                // Reinicia os comandos de movimento.
+                _pedidoPulo = false;
+                _jumpKeyHeld = false;
+
+                Core.isMovingLeft = false;
+                Core.isMovingRight = false;
+                Core.isJumping = false;
+
+                Core.isAttacking0 = false;
+                Core.isAttacking1 = false;
+                Core.isAttacking2 = false;
+
+                _attack0KeyHeld = false;
+                _attack1KeyHeld = false;
+                _attack2KeyHeld = false;
+
+                SkillButtonStates(this, EventArgs.Empty);
+
+                // Atualiza o marcador de saída do Mapa 1.
+                _nextStage = map.GetNextStage();
+                _nearNextStage = false;
+
+                if (_stagePrompt != null)
+                    _stagePrompt.Visible = false;
+
+                // Atualiza a câmera e carrega os inimigos.
+                AtualizarCamera();
+                LoadEnemies();
+
+                AtualizarPosicaoPlayerNaTela();
+                player.BringToFront();
+
+                // Atualiza o HUD.
+                AtualizarBarraVida();
+                AtualizarBarraMagia();
+
+                world1.Invalidate();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar o Mapa 1.\n\n" + ex.Message,
                     "Erro na transição",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -2025,19 +2178,26 @@ namespace FallenWorld
             if (!_santuarioCarregado)
             {
                 if (CarregarSantuarioDasRaizes())
-                {
                     _santuarioCarregado = true;
-                }
+
+                return;
             }
-            else
+
+            // Segunda transição: Santuário -> Mapa 1.
+            if (!_mapa1Carregado)
             {
-                MessageBox.Show(
-                    "O próximo mapa ainda não está configurado.",
-                    "Fallen World",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                if (CarregarMapa1())
+                    _mapa1Carregado = true;
+
+                return;
             }
+
+            MessageBox.Show(
+                "O próximo mapa ainda não está configurado.",
+                "Fallen World",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
         }
         #endregion
 
