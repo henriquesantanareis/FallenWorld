@@ -51,7 +51,19 @@ namespace FallenWorld
         private const int EnemyKnockbackDistance = 16;
         private const int EnemyKnockbackSpeed = 2;
         #endregion
-        
+
+        #region Mid-Boss
+
+        private MidBoss _midBoss;
+
+        // Posição real do chefe no mundo.
+        private Point _midBossWorldPosition;
+
+        // Ajuste visual para alinhar os pés ao chão.
+        private int _midBossVisualOffsetY = 0;
+
+        #endregion
+
         #region Knight Aura
 
         // Duração da Aura: aproximadamente 5 segundos.
@@ -127,6 +139,8 @@ namespace FallenWorld
         private bool _mapa1Carregado = false;
         // Indica se as Ruínas do Guardião já foram carregadas.
         private bool _ruinasGuardiaoCarregadas = false;
+        // Indica se o Mapa 2 já foi carregado.
+        private bool _mapa2Carregado = false;
         #endregion
 
         #region Puzzle Runes
@@ -753,6 +767,175 @@ namespace FallenWorld
             }
         }
 
+
+        private bool CarregarMapa2()
+        {
+            if (_transicaoEmAndamento || player == null || player.IsDisposed)
+                return false;
+
+            bool timerEstavaAtivo = TMR_Game.Enabled;
+
+            _transicaoEmAndamento = true;
+            TMR_Game.Stop();
+
+            try
+            {
+                // Recursos do Mapa 2.
+                string mapJson = Properties.Resources.map2_Map_Js;
+                Bitmap spritesheet = Properties.Resources.map2_Map_sprite;
+
+                // Valida o JSON e o Spawn do jogador.
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+                Maps mapaTeste = serializer.Deserialize<Maps>(mapJson);
+
+                if (mapaTeste == null)
+                    throw new Exception("Não foi possível interpretar o Mapa 2.");
+
+                MapTile spawnTeste = mapaTeste.GetSpawnPlayer();
+
+                if (spawnTeste == null)
+                    throw new Exception("Spawn do jogador não encontrado no Mapa 2.");
+
+                // Remove os objetos dos puzzles anteriores.
+                LimparPuzzleRunes();
+                LimparPuzzleChest();
+                LimparGuardianRunes();
+
+                _puzzleCompleto = false;
+                _runaProxima = null;
+                _puzzleChestAoAlcance = false;
+
+                _guardianPuzzleCompleto = false;
+                _guardianRuneErrorInProgress = false;
+                _guardianSequenceIndex = 0;
+                _guardianRuneSequence.Clear();
+
+                // Interrompe a música das Ruínas do Guardião.
+                SoundEffects.StopWavLoop();
+
+                // Carrega o novo mapa e suas colisões.
+                Load_Map(mapJson, spritesheet);
+
+                MapTile spawn = map.GetSpawnPlayer();
+
+                // Interrompe a recuperação de mana.
+                player.CancelarRecuperacaoMana();
+                PararSomRecuperacaoMana();
+                _manaRecoveryTickCounter = 0;
+
+                // Remove as bolas de fogo anteriores.
+                foreach (FireballProjectile fireball in _fireballs.ToList())
+                {
+                    if (fireball == null)
+                        continue;
+
+                    world1.Controls.Remove(fireball);
+                    fireball.Dispose();
+                }
+
+                _fireballs.Clear();
+                SoundEffects.StopFireballFlight();
+
+                // Remove um Mid-Boss anterior, caso exista.
+                LimparMidBoss();
+
+                // Remove os inimigos do mapa anterior.
+                foreach (Enemy enemy in _enemies.ToList())
+                {
+                    if (enemy == null)
+                        continue;
+
+                    enemy.AttackImpact -= Enemy_AttackImpact;
+
+                    world1.Controls.Remove(enemy);
+                    enemy.Dispose();
+                }
+
+                _enemies.Clear();
+                _enemyAttackCooldowns.Clear();
+                _enemyKnockbackRemaining.Clear();
+                _enemyWorldPositions.Clear();
+                _enemyVisualOffsetY.Clear();
+
+
+                // Posiciona o jogador no Spawn do Mapa 2.
+                int spawnX = spawn.x * map.tileSize;
+                int spawnY = spawn.y * map.tileSize;
+
+                _playerWorldX = spawnX + (map.tileSize - player.Width) / 2;
+                _playerWorldY = spawnY - player.Height;
+
+                player.Location = new Point(
+                    _playerWorldX,
+                    _playerWorldY + _playerVisualOffsetY
+                );
+
+                // Reinicia a física.
+                _velocidadeVertical = 0f;
+                _estaNoChao = TemChaoAbaixo();
+
+                // Reinicia os comandos.
+                _pedidoPulo = false;
+                _jumpKeyHeld = false;
+
+                Core.isMovingLeft = false;
+                Core.isMovingRight = false;
+                Core.isJumping = false;
+
+                Core.isAttacking0 = false;
+                Core.isAttacking1 = false;
+                Core.isAttacking2 = false;
+
+                _attack0KeyHeld = false;
+                _attack1KeyHeld = false;
+                _attack2KeyHeld = false;
+
+                SkillButtonStates(this, EventArgs.Empty);
+
+                // Atualiza o marcador de saída.
+                _nextStage = map.GetNextStage();
+                _nearNextStage = false;
+
+                if (_stagePrompt != null)
+                    _stagePrompt.Visible = false;
+
+                // Atualiza a câmera.
+                AtualizarCamera();
+
+                // Carrega o Mid-Boss.
+                LoadMidBoss();
+
+                AtualizarPosicaoPlayerNaTela();
+                player.BringToFront();
+
+                // Atualiza o HUD.
+                AtualizarBarraVida();
+                AtualizarBarraMagia();
+
+                world1.Invalidate();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar o Mapa 2.\n\n" + ex.Message,
+                    "Erro na transição",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return false;
+            }
+            finally
+            {
+                _transicaoEmAndamento = false;
+
+                if (timerEstavaAtivo)
+                    TMR_Game.Start();
+            }
+        }
 
         private void LoadPuzzleRunes()
         {
@@ -1383,6 +1566,7 @@ namespace FallenWorld
             player.Location = new Point(_playerWorldX - _cameraX, _playerWorldY - _cameraY + _playerVisualOffsetY);
 
             AtualizarPosicaoInimigosNaTela();
+            AtualizarPosicaoMidBossNaTela();
             AtualizarPosicaoRunasNaTela();
             AtualizarPosicaoGuardianRunesNaTela();
             AtualizarPosicaoPuzzleChestNaTela();
@@ -1407,6 +1591,18 @@ namespace FallenWorld
                 enemy.Location = new Point(worldPosition.X - _cameraX, worldPosition.Y - _cameraY + visualOffset);
             }
         }
+
+        private void AtualizarPosicaoMidBossNaTela()
+        {
+            if (_midBoss == null || _midBoss.IsDisposed)
+                return;
+
+            _midBoss.Location = new Point(
+                _midBossWorldPosition.X - _cameraX,
+                _midBossWorldPosition.Y - _cameraY + _midBossVisualOffsetY
+            );
+        }
+
         private void AtualizarPosicaoRunasNaTela()
         {
             foreach (KeyValuePair<PuzzleRune, Point> item in _puzzleRuneWorldPositions)
@@ -1989,6 +2185,53 @@ namespace FallenWorld
                 world1.Controls.Add(enemy);
                 enemy.BringToFront();
             }
+        }
+
+        private void LoadMidBoss()
+        {
+            if (map == null)
+                return;
+
+            // Procura o marcador Spawn=mid_boss.
+            List<MapTile> spawns = map.GetEnemySpawns("mid_boss");
+
+            if (spawns == null || spawns.Count == 0)
+            {
+                throw new Exception(
+                    "O marcador Spawn=mid_boss não foi encontrado no Mapa 2."
+                );
+            }
+
+            // Utiliza o primeiro marcador encontrado.
+            MapTile spawn = spawns[0];
+
+            // Cria o Mid-Boss.
+            MidBoss boss = new MidBoss();
+
+            // Calcula o ajuste visual dos pés.
+            Rectangle bossBounds = boss.GetVisibleSpriteBounds();
+
+            _midBossVisualOffsetY = Math.Max(0,boss.Height - bossBounds.Bottom);
+
+            // Calcula a posição no mundo.
+            int worldX = spawn.x * map.tileSize + (map.tileSize - boss.Width) / 2;
+
+            int worldY = spawn.y * map.tileSize - boss.Height;
+
+            _midBossWorldPosition = new Point(worldX, worldY);
+
+            _midBoss = boss;
+
+            // Posiciona considerando a câmera.
+            boss.Location = new Point(
+                worldX - _cameraX,
+                worldY - _cameraY + _midBossVisualOffsetY
+            );
+
+            // Adiciona o chefe ao cenário.
+            world1.Controls.Add(boss);
+
+            boss.BringToFront();
         }
 
         private void AtualizarIAInimigos()
@@ -2577,7 +2820,7 @@ namespace FallenWorld
                 return;
 
             // Impede sair das Ruínas sem concluir o puzzle.
-            if (_ruinasGuardiaoCarregadas && !_guardianPuzzleCompleto)
+            if (_ruinasGuardiaoCarregadas && !_mapa2Carregado  && !_guardianPuzzleCompleto)
             {
                 MessageBox.Show(
                     "Você precisa resolver o enigma das três runas antes de continuar.",
@@ -2625,6 +2868,15 @@ namespace FallenWorld
             {
                 if (CarregarRuinasGuardiao())
                     _ruinasGuardiaoCarregadas = true;
+
+                return;
+            }
+
+            // Quarta transição: Ruínas do Guardião -> Mapa 2.
+            if (!_mapa2Carregado)
+            {
+                if (CarregarMapa2())
+                    _mapa2Carregado = true;
 
                 return;
             }
@@ -3043,5 +3295,19 @@ namespace FallenWorld
             _puzzleChestAoAlcance = distancia <= DistanciaInteracaoRuna * DistanciaInteracaoRuna;
         }
         #endregion
+
+        private void LimparMidBoss()
+        {
+            if (_midBoss == null)
+                return;
+
+            world1.Controls.Remove(_midBoss);
+
+            _midBoss.Dispose();
+            _midBoss = null;
+
+            _midBossWorldPosition = Point.Empty;
+            _midBossVisualOffsetY = 0;
+        }
     }
 }
