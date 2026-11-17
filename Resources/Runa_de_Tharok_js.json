@@ -1,0 +1,62 @@
+{
+  "object": {
+    "id": "ad1403be-e122-4286-9c55-5b9ec8fbe5d8",
+    "name": "base",
+    "prompt": "Create an ancient magical rune mounted on a small, solid stone pedestal, designed for a dark fantasy 2D side-scrolling pixel art game. The pedestal must be made of aged charcoal-gray stone, with carefully defined masonry blocks, chipped corners, deep cracks, worn edges and subtle dark teal moss growing in small crevices. On its front-facing central surface, carve a large, unmistakable triangular rune with symmetrical geometric lines and ancient markings. The symbol emits a restrained cyan and turquoise magical glow, illuminating the surrounding stone with a faint blue-green light. Add a few tiny magical particles close to the symbol, without overwhelming the design. The object must look ancient, heavy and firmly grounded, as if it has remained inside an underground temple for centuries. Side view, centered composition, complete object visible, transparent background. Crisp pixel art, controlled shading, limited palette, clearly defined individual pixels. No blur, no antialiasing, no text, no characters.",
+    "size": {
+      "width": 64,
+      "height": 64
+    },
+    "directions": 1,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Runa_de_Tharok.png",
+    "cell_size": {
+      "width": 64,
+      "height": 64
+    },
+    "sheet_size": {
+      "width": 832,
+      "height": 256
+    },
+    "columns": 13,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 1,
+        "directions": [
+          "unknown"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Ativation",
+        "animation_group_id": "2f4d48ae-6211-4e5b-9ec7-497c962483af",
+        "direction": "unknown"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 7,
+        "animation": "Error",
+        "animation_group_id": "4f2f73b9-c6e0-4905-b009-69c0a2a06926",
+        "direction": "unknown"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 13,
+        "animation": "Succesfull",
+        "animation_group_id": "52ee5145-0f71-4c65-bf83-95f76702e150",
+        "direction": "unknown"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-17T02:53:42.131256+00:00"
+}

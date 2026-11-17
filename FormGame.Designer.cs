@@ -63,7 +63,7 @@
             this.world1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.world1.Location = new System.Drawing.Point(0, 0);
             this.world1.Name = "world1";
-            this.world1.Size = new System.Drawing.Size(784, 561);
+            this.world1.Size = new System.Drawing.Size(798, 598);
             this.world1.TabIndex = 5;
             this.world1.Paint += new System.Windows.Forms.PaintEventHandler(this.world1_Paint);
             // 
@@ -181,7 +181,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(798, 598);
             this.ControlBox = false;
             this.Controls.Add(this.world1);
             this.DoubleBuffered = true;

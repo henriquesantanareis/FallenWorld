@@ -1,0 +1,62 @@
+{
+  "object": {
+    "id": "366ab0c0-dab8-4c4e-a1fb-763b79f9984c",
+    "name": "base",
+    "prompt": "Create an ancient magical rune mounted on a small, solid stone pedestal, matching the exact architectural design, proportions, materials and visual style of the other Guardian Ruins runes. The pedestal is constructed from aged charcoal-gray stone, with masonry blocks, chipped corners, deep cracks, worn edges and subtle dark teal moss in its crevices. On its front-facing central surface, carve a large circular rune containing an intricate symmetrical spiral pattern, surrounded by delicate ancient geometric markings. The circular symbol emits a restrained cyan and turquoise magical glow, with faint blue-green illumination reflecting onto the weathered stone. Include a few tiny magical particles near the symbol. The object should feel mysterious, ancient and monumental despite its compact size. Side view, centered composition, complete pedestal visible, transparent background. High-quality dark fantasy pixel art, crisp individual pixels, controlled shading and limited palette. No blur, no antialiasing, no text, no characters.",
+    "size": {
+      "width": 64,
+      "height": 64
+    },
+    "directions": 1,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Runa_de_Elyra.png",
+    "cell_size": {
+      "width": 64,
+      "height": 64
+    },
+    "sheet_size": {
+      "width": 832,
+      "height": 256
+    },
+    "columns": 13,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 1,
+        "directions": [
+          "unknown"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 13,
+        "animation": "Succesfull",
+        "animation_group_id": "0c462ff3-0726-4dc1-9f45-e55cdae4bf62",
+        "direction": "unknown"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 7,
+        "animation": "Error",
+        "animation_group_id": "3fd1c270-f211-4acd-8044-b41e84724307",
+        "direction": "unknown"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Ativation",
+        "animation_group_id": "56a4a310-0c52-4351-a7a9-9638e6cf6b70",
+        "direction": "unknown"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-17T02:54:32.863158+00:00"
+}
