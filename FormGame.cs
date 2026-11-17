@@ -560,6 +560,9 @@ namespace FallenWorld
 
                 world1.Invalidate();
 
+                // Inicia a música ambiente MP3 do Mapa 1.
+                SoundEffects.StartMp3Loop(Properties.Resources.Map1_Ambient,0.30f);
+
                 return true;
             }
             catch (Exception ex)
@@ -724,6 +727,8 @@ namespace FallenWorld
                 AtualizarBarraMagia();
 
                 world1.Invalidate();
+                // Interrompe a música ambiente do Mapa 1.
+                SoundEffects.StopWavLoop();
                 // Inicia a música ambiente das Ruínas do Guardião.
                 SoundEffects.StartWavLoop(Properties.Resources.GuardianRuins_Ambient,0.36f);
                 return true;
@@ -2585,7 +2590,7 @@ namespace FallenWorld
             }
 
             // Impede sair do Santuário sem ativar as três runas.
-            if (_santuarioCarregado && !_puzzleCompleto)
+            if (_santuarioCarregado && !_mapa1Carregado && !_puzzleCompleto)
             {
                 MessageBox.Show(
                     "Você precisa ativar as três runas do Santuário das Raízes antes de continuar.",
