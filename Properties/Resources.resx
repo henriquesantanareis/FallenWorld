@@ -574,4 +574,28 @@
   <data name="map1_Map_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Map1_spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Runa_de_Tharok" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Runa_de_Tharok.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Runa_de_Tharok_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Runa_de_Tharok_js.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Runa_de_Elyra" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Runa_de_Elyra.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Runa_de_Elyra_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Runa_de_Elyra_js.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Runa_de_Vaelis" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Runa_de_Vaelis.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Runa_de_Vaelis_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Runa_de_Vaelis_js.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="PuzzleGuardian_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PuzzleGuardian_js.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="PuzzleGuardian_spritesheet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PuzzleGuardian_spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

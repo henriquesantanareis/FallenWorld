@@ -1577,11 +1577,99 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {&quot;tileSize&quot;:32,&quot;mapWidth&quot;:116,&quot;mapHeight&quot;:34,&quot;layers&quot;:[{&quot;name&quot;:&quot;floor&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:13,&quot;y&quot;:23},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:14,&quot;y&quot;:23},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:15,&quot;y&quot;:23},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:16,&quot;y&quot;:23},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:17,&quot;y&quot;:23},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:18,&quot;y&quot;:23},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:19,&quot;y&quot;:23},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:20,&quot;y&quot;:23},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:21,&quot;y&quot;:23},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:22,&quot;y&quot;:23},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:23,&quot;y&quot;:23},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:24,&quot;y&quot;:23},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:25,&quot;y&quot;:23},{&quot;id&quot;:&quot;0&qu....
+        /// </summary>
+        public static string PuzzleGuardian_js {
+            get {
+                return ResourceManager.GetString("PuzzleGuardian_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PuzzleGuardian_spritesheet {
+            get {
+                object obj = ResourceManager.GetObject("PuzzleGuardian_spritesheet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
         /// </summary>
         public static System.IO.UnmanagedMemoryStream Rise_of_the_Ashen_Knight {
             get {
                 return ResourceManager.GetStream("Rise_of_the_Ashen_Knight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Runa_de_Elyra {
+            get {
+                object obj = ResourceManager.GetObject("Runa_de_Elyra", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;object&quot;: {
+        ///    &quot;id&quot;: &quot;366ab0c0-dab8-4c4e-a1fb-763b79f9984c&quot;,
+        ///    &quot;name&quot;: &quot;base&quot;,
+        ///    &quot;prompt&quot;: &quot;Create an ancient magical rune mounted on a small, solid stone pedestal, matching the exact architectural design, proportions, materials and visual style of the other Guardian Ruins runes. The pedestal is constructed from aged charcoal-gray stone, with masonry blocks, chipped corners, deep cracks, worn edges and subtle dark teal moss in its crevices. On its front-facing central surface, carve a large circula [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Runa_de_Elyra_js {
+            get {
+                return ResourceManager.GetString("Runa_de_Elyra_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Runa_de_Tharok {
+            get {
+                object obj = ResourceManager.GetObject("Runa_de_Tharok", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;object&quot;: {
+        ///    &quot;id&quot;: &quot;ad1403be-e122-4286-9c55-5b9ec8fbe5d8&quot;,
+        ///    &quot;name&quot;: &quot;base&quot;,
+        ///    &quot;prompt&quot;: &quot;Create an ancient magical rune mounted on a small, solid stone pedestal, designed for a dark fantasy 2D side-scrolling pixel art game. The pedestal must be made of aged charcoal-gray stone, with carefully defined masonry blocks, chipped corners, deep cracks, worn edges and subtle dark teal moss growing in small crevices. On its front-facing central surface, carve a large, unmistakable triangular rune with sy [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Runa_de_Tharok_js {
+            get {
+                return ResourceManager.GetString("Runa_de_Tharok_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Runa_de_Vaelis {
+            get {
+                object obj = ResourceManager.GetObject("Runa_de_Vaelis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;object&quot;: {
+        ///    &quot;id&quot;: &quot;6cccaaaf-fd77-4923-ab3a-8970ccb35d66&quot;,
+        ///    &quot;name&quot;: &quot;base&quot;,
+        ///    &quot;prompt&quot;: &quot;Create an ancient magical rune mounted on a small, solid stone pedestal, matching the exact architectural design, proportions, materials and visual style of the other Guardian Ruins runes. The pedestal is constructed from aged charcoal-gray stone, featuring masonry blocks, chipped corners, deep cracks, worn edges and subtle dark teal moss growing in small crevices. On its front-facing central surface, carve  [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Runa_de_Vaelis_js {
+            get {
+                return ResourceManager.GetString("Runa_de_Vaelis_js", resourceCulture);
             }
         }
         
