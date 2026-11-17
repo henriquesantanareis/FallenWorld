@@ -713,6 +713,60 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
         /// </summary>
+        public static System.IO.UnmanagedMemoryStream GuardianVoice_Sequence_01 {
+            get {
+                return ResourceManager.GetStream("GuardianVoice_Sequence_01", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream GuardianVoice_Sequence_02 {
+            get {
+                return ResourceManager.GetStream("GuardianVoice_Sequence_02", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream GuardianVoice_Sequence_03 {
+            get {
+                return ResourceManager.GetStream("GuardianVoice_Sequence_03", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream GuardianVoice_Sequence_04 {
+            get {
+                return ResourceManager.GetStream("GuardianVoice_Sequence_04", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream GuardianVoice_Sequence_05 {
+            get {
+                return ResourceManager.GetStream("GuardianVoice_Sequence_05", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream GuardianVoice_Sequence_06 {
+            get {
+                return ResourceManager.GetStream("GuardianVoice_Sequence_06", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
         public static System.IO.UnmanagedMemoryStream Knight_Aura {
             get {
                 return ResourceManager.GetStream("Knight_Aura", resourceCulture);

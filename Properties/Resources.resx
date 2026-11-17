@@ -613,4 +613,22 @@
   <data name="GuardianRuins_Ambient" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GuardianRuins_Ambient.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="GuardianVoice_Sequence_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GuardianVoice_Sequence_06.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GuardianVoice_Sequence_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GuardianVoice_Sequence_05.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GuardianVoice_Sequence_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GuardianVoice_Sequence_04.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GuardianVoice_Sequence_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GuardianVoice_Sequence_03.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GuardianVoice_Sequence_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GuardianVoice_Sequence_02.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GuardianVoice_Sequence_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GuardianVoice_Sequence_01.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

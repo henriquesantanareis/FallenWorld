@@ -977,14 +977,40 @@ namespace FallenWorld
             _guardianSequenceIndex = 0;
             _guardianPuzzleCompleto = false;
 
+            // Reproduz a pista correspondente à sequência sorteada.
+            string sequencia = string.Join("", _guardianRuneSequence);
 
-        #if DEBUG
+            switch (sequencia)
+            {
+                case "123": // Tharok -> Elyra -> Vaelis
+                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_01,0.9f);
+                    break;
+
+                case "132": // Tharok -> Vaelis -> Elyra
+                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_02,0.9f);
+                    break;
+
+                case "213": // Elyra -> Tharok -> Vaelis
+                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_03,0.9f);
+                    break;
+
+                case "231": // Elyra -> Vaelis -> Tharok
+                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_04,0.9f);
+                    break;
+
+                case "312": // Vaelis -> Tharok -> Elyra
+                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_05,0.9f);
+                    break;
+
+                case "321": // Vaelis -> Elyra -> Tharok
+                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_06,0.9f);
+                    break;
+            }
+            
+            #if DEBUG
             // Mostra a sequência apenas na janela Output do Visual Studio.
-            System.Diagnostics.Debug.WriteLine(
-                "Sequência das Ruínas: " +
-                string.Join(" -> ", _guardianRuneSequence)
-            );
-        #endif
+            System.Diagnostics.Debug.WriteLine("Sequência das Ruínas: " + string.Join(" -> ", _guardianRuneSequence));
+            #endif
         }
 
 
@@ -2528,6 +2554,19 @@ namespace FallenWorld
         {
             if (!_nearNextStage || _transicaoEmAndamento)
                 return;
+
+            // Impede sair das Ruínas sem concluir o puzzle.
+            if (_ruinasGuardiaoCarregadas && !_guardianPuzzleCompleto)
+            {
+                MessageBox.Show(
+                    "Você precisa resolver o enigma das três runas antes de continuar.",
+                    "Ruínas do Guardião",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                return;
+            }
 
             // Primeira transição: Tutorial -> Santuário.
             if (!_santuarioCarregado)
