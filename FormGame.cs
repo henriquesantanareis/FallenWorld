@@ -161,6 +161,7 @@ namespace FallenWorld
                 SoundEffects.StopFireballFlight();
                 SoundEffects.StopManaRecovery();
                 SoundEffects.StopKnightAura();
+                SoundEffects.StopWavLoop();
             };
         }
 
@@ -715,7 +716,8 @@ namespace FallenWorld
                 AtualizarBarraMagia();
 
                 world1.Invalidate();
-
+                // Inicia a música ambiente das Ruínas do Guardião.
+                SoundEffects.StartWavLoop(Properties.Resources.GuardianRuins_Ambient,0.36f);
                 return true;
             }
             catch (Exception ex)
@@ -2701,6 +2703,8 @@ namespace FallenWorld
 
             if (rune.RuneId == idEsperado)
             {
+                // A runa está na posição correta da sequência
+                SoundEffects.PlayWav(Properties.Resources.GuardianRune_Activate, 0.7f);
                 // Sequência correta: inicia a ativação.
                 rune.StartActivation();
             }
@@ -2710,6 +2714,8 @@ namespace FallenWorld
                 _guardianRuneErrorInProgress = true;
                 _guardianRuneProxima = null;
 
+                // Reproduz o som de erro.
+                SoundEffects.PlayWav(Properties.Resources.GuardianRune_Error,0.7f);
                 rune.StartError();
             }
         }
@@ -2732,6 +2738,9 @@ namespace FallenWorld
 
             _guardianSuccessAnimationsCompleted = 0;
 
+            // Reproduz o som de conclusão do puzzle.
+            SoundEffects.PlayWav(Properties.Resources.GuardianPuzzle_Complete,0.8f);
+
             // Inicia o efeito de sucesso nas três simultaneamente.
             foreach (GuardianRune guardianRune in _guardianRunes)
             {
@@ -2753,7 +2762,7 @@ namespace FallenWorld
             _guardianRuneProxima = null;
         }
 
-        private void OnGuardianRuneSuccessAnimationCompleted(GuardianRune rune)
+        private async void OnGuardianRuneSuccessAnimationCompleted(GuardianRune rune)
         {
             if (!_guardianPuzzleCompleto)
                 return;
@@ -2764,7 +2773,16 @@ namespace FallenWorld
             if (_guardianSuccessAnimationsCompleted < 3)
                 return;
 
-            // Revela o baú após a conclusão visual.
+            // Reproduz o som do mecanismo antigo.
+            SoundEffects.PlayWav(Properties.Resources.GuardianMechanism_Open,0.8f);
+
+            // Aguarda o início do efeito sonoro antes de revelar o baú.
+            await Task.Delay(1200);
+
+            if (IsDisposed || Disposing)
+                return;
+
+            // Revela o baú.
             if (_puzzleChest != null && !_puzzleChest.IsDisposed)
             {
                 _puzzleChest.Visible = true;

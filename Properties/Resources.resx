@@ -598,4 +598,19 @@
   <data name="PuzzleGuardian_spritesheet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PuzzleGuardian_spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="GuardianRune_Activate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GuardianRune_Activate.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GuardianRune_Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GuardianRune_Error.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GuardianPuzzle_Complete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GuardianPuzzle_Complete.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GuardianMechanism_Open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GuardianMechanism_Open.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GuardianRuins_Ambient" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GuardianRuins_Ambient.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

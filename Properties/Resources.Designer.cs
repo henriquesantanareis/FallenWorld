@@ -668,6 +668,51 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
         /// </summary>
+        public static System.IO.UnmanagedMemoryStream GuardianMechanism_Open {
+            get {
+                return ResourceManager.GetStream("GuardianMechanism_Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream GuardianPuzzle_Complete {
+            get {
+                return ResourceManager.GetStream("GuardianPuzzle_Complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream GuardianRuins_Ambient {
+            get {
+                return ResourceManager.GetStream("GuardianRuins_Ambient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream GuardianRune_Activate {
+            get {
+                return ResourceManager.GetStream("GuardianRune_Activate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream GuardianRune_Error {
+            get {
+                return ResourceManager.GetStream("GuardianRune_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
         public static System.IO.UnmanagedMemoryStream Knight_Aura {
             get {
                 return ResourceManager.GetStream("Knight_Aura", resourceCulture);
@@ -1619,7 +1664,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;366ab0c0-dab8-4c4e-a1fb-763b79f9984c&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;Create an ancient magical rune mounted on a small, solid stone pedestal, matching the exact architectural design, proportions, materials and visual style of the other Guardian Ruins runes. The pedestal is constructed from aged charcoal-gray stone, with masonry blocks, chipped corners, deep cracks, worn edges and subtle dark teal moss in its crevices. On its front-facing central surface, carve a large circula [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;Create an ancient magical rune mounted on a small, solid stone pedestal, matching the exact architectural design, proportions, materials and visual style of the other Guardian Ruins runes. The pedestal is constructed from aged charcoal-gray stone, with masonry blocks, chipped corners, deep cracks, worn edges and subtle dark teal moss in its crevices. On its front-facing central surface, carve a large cir [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Runa_de_Elyra_js {
             get {
@@ -1642,7 +1687,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;ad1403be-e122-4286-9c55-5b9ec8fbe5d8&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;Create an ancient magical rune mounted on a small, solid stone pedestal, designed for a dark fantasy 2D side-scrolling pixel art game. The pedestal must be made of aged charcoal-gray stone, with carefully defined masonry blocks, chipped corners, deep cracks, worn edges and subtle dark teal moss growing in small crevices. On its front-facing central surface, carve a large, unmistakable triangular rune with sy [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;Create an ancient magical rune mounted on a small, solid stone pedestal, designed for a dark fantasy 2D side-scrolling pixel art game. The pedestal must be made of aged charcoal-gray stone, with carefully defined masonry blocks, chipped corners, deep cracks, worn edges and subtle dark teal moss growing in small crevices. On its front-facing central surface, carve a large, unmistakable triangular rune wit [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Runa_de_Tharok_js {
             get {
@@ -1665,7 +1710,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;6cccaaaf-fd77-4923-ab3a-8970ccb35d66&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;Create an ancient magical rune mounted on a small, solid stone pedestal, matching the exact architectural design, proportions, materials and visual style of the other Guardian Ruins runes. The pedestal is constructed from aged charcoal-gray stone, featuring masonry blocks, chipped corners, deep cracks, worn edges and subtle dark teal moss growing in small crevices. On its front-facing central surface, carve  [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;Create an ancient magical rune mounted on a small, solid stone pedestal, matching the exact architectural design, proportions, materials and visual style of the other Guardian Ruins runes. The pedestal is constructed from aged charcoal-gray stone, featuring masonry blocks, chipped corners, deep cracks, worn edges and subtle dark teal moss growing in small crevices. On its front-facing central surface, ca [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Runa_de_Vaelis_js {
             get {

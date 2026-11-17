@@ -26,6 +26,18 @@ namespace FallenWorld
         private static Playback _knightAura;
         private static bool _knightAuraStarting;
         private static int _knightAuraRequestId;
+        // Controle da música ambiente em WAV.
+        private static Playback _wavLoop;
+        private static bool _wavLoopStarting;
+        private static int _wavLoopRequestId;
+        // Controle do Audio Ducking.
+        private static int _duckingSoundCount = 0;
+        private static int _wavLoopFadeRequestId = 0;
+
+        private static float _wavLoopBaseVolume = 0.26f;
+        private static float _wavLoopCurrentVolume = 0.26f;
+
+        private const float MusicDuckFactor = 0.5f;
         #endregion
 
         #region Play 
@@ -40,7 +52,8 @@ namespace FallenWorld
                 Playback playback = CreatePlayback(
                     audioResource,
                     volume,
-                    false
+                    false,
+                    true
                 );
 
                 if (playback == null)
@@ -50,6 +63,7 @@ namespace FallenWorld
                 {
                     _activeSounds.Add(playback);
                 }
+                RegistrarSomDucking(playback);
 
                 try
                 {
@@ -61,6 +75,126 @@ namespace FallenWorld
                     playback.ForceFinish();
                 }
             });
+        }
+
+        public static void PlayWav(Stream audioResource, float volume = 1f)
+        {
+            if (audioResource == null)
+                return;
+
+            Task.Run(() =>
+            {
+                Playback playback = CreateWavPlayback(
+                    audioResource,
+                    volume,
+                    false,
+                    true
+                );
+
+                if (playback == null)
+                    return;
+
+                lock (_sync)
+                {
+                    _activeSounds.Add(playback);
+                }
+                RegistrarSomDucking(playback);
+
+                try
+                {
+                    playback.Start();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Erro ao reproduzir WAV: " + ex.Message);
+                    playback.ForceFinish();
+                }
+            });
+        }
+
+        public static void StartWavLoop(Stream audioResource, float volume = 0.18f)
+        {
+            if (audioResource == null)
+                return;
+
+            int requestId;
+
+            lock (_sync)
+            {
+                // Evita iniciar outra música enquanto uma já está tocando.
+                if (_wavLoop != null || _wavLoopStarting)
+                {
+                    audioResource.Dispose();
+                    return;
+                }
+
+                _wavLoopStarting = true;
+                requestId = ++_wavLoopRequestId;
+            }
+
+            Task.Run(() =>
+            {
+                Playback playback = CreateWavPlayback(audioResource,volume,true);
+
+                bool iniciar = false;
+
+                lock (_sync)
+                {
+                    if (requestId == _wavLoopRequestId && _wavLoopStarting)
+                    {
+                        _wavLoopStarting = false;
+
+                        if (playback != null)
+                        {
+                            _wavLoop = playback;
+
+                            _wavLoopBaseVolume = volume;
+
+                            _wavLoopCurrentVolume = _duckingSoundCount > 0
+                                ? volume * MusicDuckFactor
+                                : volume;
+
+                            playback.SetVolume(_wavLoopCurrentVolume);
+
+                            _activeSounds.Add(playback);
+
+                            iniciar = true;
+                        }
+                    }
+                }
+
+                if (!iniciar)
+                {
+                    playback?.ForceFinish();
+                    return;
+                }
+
+                try
+                {
+                    playback.Start();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Erro ao iniciar música ambiente: " + ex.Message);
+                    playback.ForceFinish();
+                }
+            });
+        }
+
+        public static void StopWavLoop()
+        {
+            Playback playback;
+
+            lock (_sync)
+            {
+                _wavLoopRequestId++;
+                _wavLoopFadeRequestId++;
+                _wavLoopStarting = false;
+                playback = _wavLoop;
+                _wavLoop = null;
+            }
+
+            playback?.Stop();
         }
         #endregion
 
@@ -300,7 +434,7 @@ namespace FallenWorld
         #endregion
 
         #region Playback Management
-        private static Playback CreatePlayback(Stream audioResource,float volume,bool loop)
+        private static Playback CreatePlayback(Stream audioResource,float volume,bool loop, bool ducksMusic = false)
         {
             if (audioResource == null)
                 return null;
@@ -331,7 +465,7 @@ namespace FallenWorld
                 output = new WaveOutEvent();
                 output.Init(volumeProvider);
 
-                return new Playback(reader, output, loop);
+                return new Playback(reader, volumeProvider, output, loop, ducksMusic);
             }
             catch (Exception ex)
             {
@@ -349,8 +483,59 @@ namespace FallenWorld
             }
         }
 
+        private static Playback CreateWavPlayback(Stream audioResource,float volume,bool loop, bool ducksMusic = false)
+        {
+            if (audioResource == null)
+                return null;
+
+            MemoryStream buffer = new MemoryStream();
+            WaveFileReader reader = null;
+            WaveOutEvent output = null;
+
+            try
+            {
+                if (audioResource.CanSeek)
+                    audioResource.Position = 0;
+
+                audioResource.CopyTo(buffer);
+                audioResource.Dispose();
+
+                buffer.Position = 0;
+
+                // Decodifica o arquivo WAV.
+                reader = new WaveFileReader(buffer);
+
+                // Controla o volume.
+                VolumeWaveProvider16 volumeProvider = new VolumeWaveProvider16(reader)
+                {
+                    Volume = Math.Max(0f, Math.Min(1f, volume))
+                };
+
+                output = new WaveOutEvent();
+                output.Init(volumeProvider);
+
+                return new Playback(reader, volumeProvider, output, loop, ducksMusic);
+            }
+            catch (Exception ex)
+            {
+                output?.Dispose();
+                reader?.Dispose();
+
+                if (reader == null)
+                    buffer.Dispose();
+
+                audioResource.Dispose();
+
+                Debug.WriteLine("Erro ao carregar WAV: " + ex.Message);
+
+                return null;
+            }
+        }
+
         private static void OnPlaybackFinished(Playback playback)
         {
+            bool restaurarMusica = false;
+
             lock (_sync)
             {
                 _activeSounds.Remove(playback);
@@ -363,25 +548,48 @@ namespace FallenWorld
 
                 if (_knightAura == playback)
                     _knightAura = null;
+
+                if (playback.DucksMusic && _duckingSoundCount > 0)
+                {
+                    _duckingSoundCount--;
+
+                    restaurarMusica = _duckingSoundCount == 0;
+                }
             }
+
+            if (restaurarMusica)
+                AtualizarVolumeMusicaAmbiente(false);
         }
 
         private sealed class Playback
         {
-            private readonly Mp3FileReader _reader;
+            private readonly WaveStream _reader;
             private readonly WaveOutEvent _output;
+            private readonly VolumeWaveProvider16 _volumeProvider;
+            private readonly bool _ducksMusic;
+
+            public bool DucksMusic
+            {
+                get { return _ducksMusic; }
+            }
             private readonly bool _loop;
 
             private volatile bool _stopRequested;
             private int _finished;
 
-            public Playback(Mp3FileReader reader,WaveOutEvent output,bool loop)
+            public Playback(WaveStream reader,VolumeWaveProvider16 volumeProvider,WaveOutEvent output,bool loop, bool ducksMusic)
             {
                 _reader = reader;
+                _volumeProvider = volumeProvider;
                 _output = output;
                 _loop = loop;
 
                 _output.PlaybackStopped += Output_PlaybackStopped;
+            }
+
+            public void SetVolume(float volume)
+            {
+                _volumeProvider.Volume = Math.Max(0f,Math.Min(1f, volume));
             }
 
             public void Start()
@@ -442,5 +650,73 @@ namespace FallenWorld
             }
         }
         #endregion
+
+        private static void RegistrarSomDucking(Playback playback)
+        {
+            if (playback == null || !playback.DucksMusic)
+                return;
+
+            bool reduzirMusica = false;
+
+            lock (_sync)
+            {
+                _duckingSoundCount++;
+
+                reduzirMusica = _duckingSoundCount == 1;
+            }
+
+            if (reduzirMusica)
+                AtualizarVolumeMusicaAmbiente(true);
+        }
+
+        private static void AtualizarVolumeMusicaAmbiente(bool reduzir)
+        {
+            Playback musica;
+            float volumeInicial;
+            float volumeFinal;
+            int requestId;
+
+            lock (_sync)
+            {
+                musica = _wavLoop;
+
+                if (musica == null)
+                    return;
+
+                requestId = ++_wavLoopFadeRequestId;
+
+                volumeInicial = _wavLoopCurrentVolume;
+
+                volumeFinal = reduzir
+                    ? _wavLoopBaseVolume * MusicDuckFactor
+                    : _wavLoopBaseVolume;
+            }
+
+            Task.Run(async () =>
+            {
+                const int etapas = 10;
+                const int intervaloMs = 30;
+
+                for (int i = 1; i <= etapas; i++)
+                {
+                    await Task.Delay(intervaloMs);
+
+                    float novoVolume;
+
+                    lock (_sync)
+                    {
+                        // Cancela uma transição antiga, se outra começou.
+                        if (_wavLoop != musica || requestId != _wavLoopFadeRequestId)
+                            return;
+
+                        novoVolume = volumeInicial + (volumeFinal - volumeInicial) * i / etapas;
+
+                        _wavLoopCurrentVolume = novoVolume;
+                    }
+
+                    musica.SetVolume(novoVolume);
+                }
+            });
+        }
     }
 }
