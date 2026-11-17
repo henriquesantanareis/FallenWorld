@@ -125,6 +125,8 @@ namespace FallenWorld
         private bool _santuarioCarregado = false;
         // Indica se o Mapa 1 já foi carregado.
         private bool _mapa1Carregado = false;
+        // Indica se as Ruínas do Guardião já foram carregadas.
+        private bool _ruinasGuardiaoCarregadas = false;
         #endregion
 
         #region Puzzle Runes
@@ -571,6 +573,172 @@ namespace FallenWorld
             }
         }
 
+        private bool CarregarRuinasGuardiao()
+        {
+            if (_transicaoEmAndamento || player == null || player.IsDisposed)
+                return false;
+
+            bool timerEstavaAtivo = TMR_Game.Enabled;
+
+            _transicaoEmAndamento = true;
+            TMR_Game.Stop();
+
+            try
+            {
+                // Recursos das Ruínas do Guardião.
+                string mapJson = Properties.Resources.PuzzleGuardian_js;
+                Bitmap spritesheet = Properties.Resources.PuzzleGuardian_spritesheet;
+
+                // Valida o JSON e o Spawn.
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+                Maps mapaTeste = serializer.Deserialize<Maps>(mapJson);
+
+                if (mapaTeste == null)
+                    throw new Exception("Não foi possível interpretar o mapa das Ruínas.");
+
+                MapTile spawnTeste = mapaTeste.GetSpawnPlayer();
+
+                if (spawnTeste == null)
+                    throw new Exception("Spawn do jogador não encontrado nas Ruínas.");
+
+                // Remove os objetos dos puzzles anteriores.
+                LimparPuzzleRunes();
+                LimparPuzzleChest();
+                LimparGuardianRunes();
+
+                _puzzleCompleto = false;
+                _runaProxima = null;
+                _puzzleChestAoAlcance = false;
+
+                _guardianPuzzleCompleto = false;
+                _guardianRuneErrorInProgress = false;
+                _guardianSequenceIndex = 0;
+                _guardianRuneSequence.Clear();
+
+                // Carrega o cenário.
+                Load_Map(mapJson, spritesheet);
+
+                MapTile spawn = map.GetSpawnPlayer();
+
+                // Cancela a recuperação de mana.
+                player.CancelarRecuperacaoMana();
+                PararSomRecuperacaoMana();
+                _manaRecoveryTickCounter = 0;
+
+                // Remove as bolas de fogo anteriores.
+                foreach (FireballProjectile fireball in _fireballs.ToList())
+                {
+                    if (fireball == null)
+                        continue;
+
+                    world1.Controls.Remove(fireball);
+                    fireball.Dispose();
+                }
+
+                _fireballs.Clear();
+                SoundEffects.StopFireballFlight();
+
+                // Remove inimigos do mapa anterior.
+                foreach (Enemy enemy in _enemies.ToList())
+                {
+                    if (enemy == null)
+                        continue;
+
+                    enemy.AttackImpact -= Enemy_AttackImpact;
+
+                    world1.Controls.Remove(enemy);
+                    enemy.Dispose();
+                }
+
+                _enemies.Clear();
+                _enemyAttackCooldowns.Clear();
+                _enemyKnockbackRemaining.Clear();
+                _enemyWorldPositions.Clear();
+                _enemyVisualOffsetY.Clear();
+
+                // Posiciona o jogador no Spawn das Ruínas.
+                int spawnX = spawn.x * map.tileSize;
+                int spawnY = spawn.y * map.tileSize;
+
+                _playerWorldX = spawnX + (map.tileSize - player.Width) / 2;
+                _playerWorldY = spawnY - player.Height;
+
+                player.Location = new Point(
+                    _playerWorldX,
+                    _playerWorldY + _playerVisualOffsetY
+                );
+
+                // Reinicia a física.
+                _velocidadeVertical = 0f;
+                _estaNoChao = TemChaoAbaixo();
+
+                // Reinicia os comandos.
+                _pedidoPulo = false;
+                _jumpKeyHeld = false;
+
+                Core.isMovingLeft = false;
+                Core.isMovingRight = false;
+                Core.isJumping = false;
+
+                Core.isAttacking0 = false;
+                Core.isAttacking1 = false;
+                Core.isAttacking2 = false;
+
+                _attack0KeyHeld = false;
+                _attack1KeyHeld = false;
+                _attack2KeyHeld = false;
+
+                SkillButtonStates(this, EventArgs.Empty);
+
+                // Atualiza a saída do mapa.
+                _nextStage = map.GetNextStage();
+                _nearNextStage = false;
+
+                if (_stagePrompt != null)
+                    _stagePrompt.Visible = false;
+
+                // Atualiza a câmera.
+                AtualizarCamera();
+
+                // Carrega as runas das Ruínas.
+                LoadGuardianRunes();
+
+                // Carrega o baú escondido até a conclusão do puzzle.
+                LoadPuzzleChest(false);
+
+                AtualizarPosicaoPlayerNaTela();
+                player.BringToFront();
+
+                // Atualiza o HUD.
+                AtualizarBarraVida();
+                AtualizarBarraMagia();
+
+                world1.Invalidate();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar as Ruínas do Guardião.\n\n" + ex.Message,
+                    "Erro na transição",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return false;
+            }
+            finally
+            {
+                _transicaoEmAndamento = false;
+
+                if (timerEstavaAtivo)
+                    TMR_Game.Start();
+            }
+        }
+
+
         private void LoadPuzzleRunes()
         {
             if (map == null)
@@ -672,6 +840,131 @@ namespace FallenWorld
             _puzzleRuneWorldPositions.Clear();
         }
 
+
+        #region Guardian Rune Loading
+
+        private void LoadGuardianRunes()
+        {
+            if (map == null || world1 == null)
+                return;
+
+            // Remove eventuais runas antigas.
+            LimparGuardianRunes();
+
+            _guardianPuzzleCompleto = false;
+            _guardianRuneErrorInProgress = false;
+            _guardianSequenceIndex = 0;
+            _guardianRuneSequence.Clear();
+
+            // Busca os marcadores Puzzle no JSON.
+            List<MapTile> marcadores = map.GetPuzzleMarkers();
+
+            foreach (MapTile marcador in marcadores)
+            {
+                if (marcador.attributes == null)
+                    continue;
+
+                string tipoRune = null;
+
+                foreach (KeyValuePair<string, string> atributo
+                    in marcador.attributes)
+                {
+                    if (string.Equals(
+                        atributo.Key,
+                        "Puzzle",
+                        StringComparison.OrdinalIgnoreCase))
+                    {
+                        tipoRune = atributo.Value;
+                        break;
+                    }
+                }
+
+                GuardianRune rune = null;
+
+                // Runa de Tharok - Triangular.
+                if (string.Equals(
+                    tipoRune, "Rune1",
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    rune = new GuardianRune(
+                        1,
+                        Properties.Resources.Runa_de_Tharok,
+                        Properties.Resources.Runa_de_Tharok_js
+                    );
+                }
+                // Runa de Elyra - Circular.
+                else if (string.Equals(
+                    tipoRune, "Rune2",
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    rune = new GuardianRune(
+                        2,
+                        Properties.Resources.Runa_de_Elyra,
+                        Properties.Resources.Runa_de_Elyra_js
+                    );
+                }
+                // Runa de Vaelis - Losangular.
+                else if (string.Equals(
+                    tipoRune, "Rune3",
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    rune = new GuardianRune(
+                        3,
+                        Properties.Resources.Runa_de_Vaelis,
+                        Properties.Resources.Runa_de_Vaelis_js
+                    );
+                }
+
+                if (rune == null)
+                    continue;
+
+                // En nosso JSON, os marcadores estão na camada
+                // background. Por isso, buscamos o chão na camada floor.
+                // Posiciona a runa diretamente no marcador do Sprite Fusion.
+                int worldX = marcador.x * map.tileSize + (map.tileSize - rune.Width) / 2;
+
+                int worldY = marcador.y * map.tileSize + (map.tileSize - rune.Height) / 2;
+
+                Point worldPosition = new Point(worldX, worldY);
+
+                _guardianRunes.Add(rune);
+                _guardianRuneWorldPositions.Add(rune, worldPosition);
+
+                // Posiciona considerando a câmera.
+                rune.Location = new Point(worldX - _cameraX,worldY - _cameraY);
+
+                world1.Controls.Add(rune);
+            }
+
+            if (_guardianRunes.Count != 3)
+            {
+                LimparGuardianRunes();
+
+                throw new Exception("Não foram encontradas as três runas das Ruínas do Guardião.");
+            }
+
+            if (player != null && !player.IsDisposed)
+                player.BringToFront();
+        }
+        
+        private void LimparGuardianRunes()
+        {
+            foreach (GuardianRune rune in _guardianRunes.ToList())
+            {
+                if (rune == null)
+                    continue;
+
+                world1.Controls.Remove(rune);
+                rune.Dispose();
+            }
+
+            _guardianRunes.Clear();
+            _guardianRuneWorldPositions.Clear();
+
+            _guardianRuneProxima = null;
+        }
+
+        #endregion
 
         private void world1_Paint(object sender, PaintEventArgs e)
         {
@@ -999,6 +1292,7 @@ namespace FallenWorld
 
             AtualizarPosicaoInimigosNaTela();
             AtualizarPosicaoRunasNaTela();
+            AtualizarPosicaoGuardianRunesNaTela();
             AtualizarPosicaoPuzzleChestNaTela();
             world1.Invalidate();
         }
@@ -1034,6 +1328,25 @@ namespace FallenWorld
                 rune.Location = new Point(worldPosition.X - _cameraX,worldPosition.Y - _cameraY);
             }
         }
+
+        private void AtualizarPosicaoGuardianRunesNaTela()
+        {
+            foreach (KeyValuePair<GuardianRune, Point> item
+                in _guardianRuneWorldPositions)
+            {
+                GuardianRune rune = item.Key;
+                Point worldPosition = item.Value;
+
+                if (rune == null || rune.IsDisposed)
+                    continue;
+
+                rune.Location = new Point(
+                    worldPosition.X - _cameraX,
+                    worldPosition.Y - _cameraY
+                );
+            }
+        }
+
         #endregion
 
         #region Comabt and damage
@@ -2192,6 +2505,15 @@ namespace FallenWorld
                 return;
             }
 
+            // Terceira transição: Mapa 1 -> Ruínas do Guardião.
+            if (!_ruinasGuardiaoCarregadas)
+            {
+                if (CarregarRuinasGuardiao())
+                    _ruinasGuardiaoCarregadas = true;
+
+                return;
+            }
+
             MessageBox.Show(
                 "O próximo mapa ainda não está configurado.",
                 "Fallen World",
@@ -2293,6 +2615,34 @@ namespace FallenWorld
                     player.BringToFront();
             }
         }
+        #endregion
+
+        #region Guardian Rune Puzzle
+
+        // Armazena as três runas das Ruínas do Guardião.
+        private readonly List<GuardianRune> _guardianRunes = new List<GuardianRune>();
+
+        // Armazena as posições das runas no mundo.
+        private readonly Dictionary<GuardianRune, Point> _guardianRuneWorldPositions = new Dictionary<GuardianRune, Point>();
+
+        // Distância necessária para interagir com uma runa.
+        private const int DistanciaInteracaoGuardianRune = 80;
+
+        // Runa mais próxima do jogador.
+        private GuardianRune _guardianRuneProxima;
+
+        // Sequência aleatória que o jogador deverá seguir.
+        private readonly List<int> _guardianRuneSequence = new List<int>();
+
+        // Posição atual do jogador na sequência.
+        private int _guardianSequenceIndex = 0;
+
+        // Controle de conclusão do puzzle.
+        private bool _guardianPuzzleCompleto = false;
+
+        // Controle da animação de erro.
+        private bool _guardianRuneErrorInProgress = false;
+
         #endregion
 
         #region Puzzle Chest

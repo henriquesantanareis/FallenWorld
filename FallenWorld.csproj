@@ -212,6 +212,9 @@
     <Compile Include="FormTransicaoPortal.Designer.cs">
       <DependentUpon>FormTransicaoPortal.cs</DependentUpon>
     </Compile>
+    <Compile Include="GuardianRune.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Maps.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
