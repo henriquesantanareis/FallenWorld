@@ -1704,6 +1704,33 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream RootMechanism_Open {
+            get {
+                return ResourceManager.GetStream("RootMechanism_Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream RootRune_Activate {
+            get {
+                return ResourceManager.GetStream("RootRune_Activate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream RootShrine_Ambient {
+            get {
+                return ResourceManager.GetStream("RootShrine_Ambient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Runa_de_Elyra {

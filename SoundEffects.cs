@@ -181,6 +181,74 @@ namespace FallenWorld
             });
         }
 
+        public static void StartMp3Loop(Stream audioResource, float volume = 0.18f)
+        {
+            if (audioResource == null)
+                return;
+
+            int requestId;
+
+            lock (_sync)
+            {
+                if (_wavLoop != null || _wavLoopStarting)
+                {
+                    audioResource.Dispose();
+                    return;
+                }
+
+                _wavLoopStarting = true;
+                requestId = ++_wavLoopRequestId;
+            }
+
+            Task.Run(() =>
+            {
+                // Utiliza CreatePlayback, que decodifica MP3.
+                Playback playback = CreatePlayback(audioResource, volume, true);
+
+                bool iniciar = false;
+
+                lock (_sync)
+                {
+                    if (requestId == _wavLoopRequestId && _wavLoopStarting)
+                    {
+                        _wavLoopStarting = false;
+
+                        if (playback != null)
+                        {
+                            _wavLoop = playback;
+                            _wavLoopBaseVolume = volume;
+
+                            _wavLoopCurrentVolume = _duckingSoundCount > 0
+                                ? volume * MusicDuckFactor
+                                : volume;
+
+                            playback.SetVolume(_wavLoopCurrentVolume);
+
+                            _activeSounds.Add(playback);
+
+                            iniciar = true;
+                        }
+                    }
+                }
+
+                if (!iniciar)
+                {
+                    playback?.ForceFinish();
+                    return;
+                }
+
+                try
+                {
+                    playback.Start();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Erro ao iniciar música ambiente MP3: " + ex.Message);
+                    playback.ForceFinish();
+                }
+            });
+        }
+
         public static void StopWavLoop()
         {
             Playback playback;

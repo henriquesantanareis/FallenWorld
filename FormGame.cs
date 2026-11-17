@@ -401,6 +401,11 @@ namespace FallenWorld
 
                 world1.Invalidate();
 
+                // Inicia a música ambiente MP3 do Santuário.
+                SoundEffects.StopWavLoop();
+
+                SoundEffects.StartMp3Loop(Properties.Resources.RootShrine_Ambient,0.30f);
+
                 return true;
             }
             catch (Exception ex)
@@ -459,6 +464,9 @@ namespace FallenWorld
                 _puzzleCompleto = false;
                 _runaProxima = null;
                 _puzzleChestAoAlcance = false;
+
+                // Interrompe a música ambiente do Santuário.
+                SoundEffects.StopWavLoop();
 
                 // Carrega o novo mapa e suas colisões.
                 Load_Map(mapJson, spritesheet);
@@ -1110,7 +1118,10 @@ namespace FallenWorld
                     }
                     else if (_runaProxima != null)
                     {
-                        _runaProxima.StartActivation();
+                        if (_runaProxima.StartActivation())
+                        {
+                            SoundEffects.PlayWav(Properties.Resources.RootRune_Activate,0.8f);
+                        }
                     }
                     else if (_nearNextStage)
                     {
@@ -2573,6 +2584,19 @@ namespace FallenWorld
                 return;
             }
 
+            // Impede sair do Santuário sem ativar as três runas.
+            if (_santuarioCarregado && !_puzzleCompleto)
+            {
+                MessageBox.Show(
+                    "Você precisa ativar as três runas do Santuário das Raízes antes de continuar.",
+                    "Santuário das Raízes",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                return;
+            }
+
             // Primeira transição: Tutorial -> Santuário.
             if (!_santuarioCarregado)
             {
@@ -2675,7 +2699,7 @@ namespace FallenWorld
             AtualizarProximidadePuzzleChest();
             AtualizarRunaProxima();
         }
-        private void OnRuneActivationCompleted(PuzzleRune rune)
+        private async void OnRuneActivationCompleted(PuzzleRune rune)
         {
             if (_puzzleCompleto)
                 return;
@@ -2692,7 +2716,17 @@ namespace FallenWorld
             // As três runas foram ativadas.
             _puzzleCompleto = true;
 
-            // Revela o baú.
+            // Reproduz o som de liberação do mecanismo ancestral.
+            SoundEffects.PlayWav(Properties.Resources.RootMechanism_Open,0.8f);
+
+            // Aguarda o mecanismo terminar de abrir.
+            await Task.Delay(2800);
+
+            // Evita acessar controles caso o formulário tenha sido fechado.
+            if (IsDisposed || Disposing)
+                return;
+
+            // Revela o baú após o som.
             if (_puzzleChest != null && !_puzzleChest.IsDisposed)
             {
                 _puzzleChest.Visible = true;
