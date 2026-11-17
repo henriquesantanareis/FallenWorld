@@ -1097,7 +1097,12 @@ namespace FallenWorld
 
                     if (_puzzleChestAoAlcance)
                     {
-                        _puzzleChest.StartOpening();
+                        if (!_puzzleChest.IsOpening && !_puzzleChest.IsOpen)
+                        {
+                            SoundEffects.PlayWav(Properties.Resources.TreasureChest_Open,0.8f);
+
+                            _puzzleChest.StartOpening();
+                        }
                     }
                     else if (_guardianRuneProxima != null)
                     {

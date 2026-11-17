@@ -1801,6 +1801,15 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream TreasureChest_Open {
+            get {
+                return ResourceManager.GetStream("TreasureChest_Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a {&quot;tileSize&quot;:32,&quot;mapWidth&quot;:230,&quot;mapHeight&quot;:30,&quot;layers&quot;:[{&quot;name&quot;:&quot;keyboard_command&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;2025&quot;,&quot;x&quot;:19,&quot;y&quot;:16},{&quot;id&quot;:&quot;2061&quot;,&quot;x&quot;:20,&quot;y&quot;:16},{&quot;id&quot;:&quot;2065&quot;,&quot;x&quot;:206,&quot;y&quot;:16},{&quot;id&quot;:&quot;2060&quot;,&quot;x&quot;:33,&quot;y&quot;:16},{&quot;id&quot;:&quot;2063&quot;,&quot;x&quot;:61,&quot;y&quot;:16},{&quot;id&quot;:&quot;2062&quot;,&quot;x&quot;:84,&quot;y&quot;:16},{&quot;id&quot;:&quot;2064&quot;,&quot;x&quot;:121,&quot;y&quot;:16}],&quot;collider&quot;:false},{&quot;name&quot;:&quot;scene&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;2026&quot;,&quot;x&quot;:29,&quot;y&quot;:14},{&quot;id&quot;:&quot;2026&quot;,&quot;x&quot;:10,&quot;y&quot;:14},{&quot;id&quot;:&quot;2026&quot;,&quot;x&quot;:11,&quot;y&quot;:14},{&quot;id&quot;:&quot;2027&quot;,&quot;x&quot;:12,&quot;y&quot;:14},{&quot;id&quot;:&quot;2028....
         /// </summary>
         public static string tutorial_Map_Js {
