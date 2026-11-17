@@ -643,4 +643,7 @@
   <data name="RootShrine_Ambient" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RootShrine_Ambient.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Map1_Ambient" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Map1_Ambient.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
