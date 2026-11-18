@@ -1,0 +1,141 @@
+{
+  "character": {
+    "id": "4369bb29-0236-44a8-90f1-60fe43a16627",
+    "name": "Idle",
+    "prompt": "A powerful orc boss for a dark fantasy pixel-art side-scrolling RPG. Massive muscular green body, intimidating face, dark olive skin, heavy rugged armor, skull decorations, leather straps, metal details, and a huge curved steel sword. Broad shoulders, thick arms, sturdy legs, aggressive battle-ready stance. Dark green, black, brown, and steel-gray palette. Preserve a strong readable silhouette and crisp pixel-art shading. Full body, side view, consistent proportions for game animations. No background, no text, no extra characters, no modern objects.",
+    "size": {
+      "width": 96,
+      "height": 96
+    },
+    "directions": 8,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Boss_Orc-Idle.png",
+    "cell_size": {
+      "width": 132,
+      "height": 132
+    },
+    "sheet_size": {
+      "width": 2244,
+      "height": 1716
+    },
+    "columns": 17,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 17,
+        "animation": "Death",
+        "animation_group_id": "22e4ff3a-3f35-45b7-b05d-acd1dc2b1390",
+        "direction": "east"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 17,
+        "animation": "Death",
+        "animation_group_id": "22e4ff3a-3f35-45b7-b05d-acd1dc2b1390",
+        "direction": "west"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Walk",
+        "animation_group_id": "6fb66bff-7998-4b9c-8440-553342f7ecc5",
+        "direction": "east"
+      },
+      {
+        "row": 4,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Walk",
+        "animation_group_id": "6fb66bff-7998-4b9c-8440-553342f7ecc5",
+        "direction": "west"
+      },
+      {
+        "row": 5,
+        "type": "animation",
+        "frame_count": 17,
+        "animation": "Hurt",
+        "animation_group_id": "d18795e8-4db3-42c3-ab29-a93c4c95d70a",
+        "direction": "east"
+      },
+      {
+        "row": 6,
+        "type": "animation",
+        "frame_count": 17,
+        "animation": "Hurt",
+        "animation_group_id": "d18795e8-4db3-42c3-ab29-a93c4c95d70a",
+        "direction": "west"
+      },
+      {
+        "row": 7,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Idle",
+        "animation_group_id": "d2ffe040-87bc-4856-b8af-8bc6ffa97b14",
+        "direction": "east"
+      },
+      {
+        "row": 8,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Idle",
+        "animation_group_id": "d2ffe040-87bc-4856-b8af-8bc6ffa97b14",
+        "direction": "west"
+      },
+      {
+        "row": 9,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attack2",
+        "animation_group_id": "d38d4dfb-7c6e-4bbd-8037-dca997380405",
+        "direction": "east"
+      },
+      {
+        "row": 10,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attack2",
+        "animation_group_id": "d38d4dfb-7c6e-4bbd-8037-dca997380405",
+        "direction": "west"
+      },
+      {
+        "row": 11,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attack1",
+        "animation_group_id": "e81b23e3-28d2-4b9d-bdc4-81ce1f81f73a",
+        "direction": "east"
+      },
+      {
+        "row": 12,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attack1",
+        "animation_group_id": "e81b23e3-28d2-4b9d-bdc4-81ce1f81f73a",
+        "direction": "west"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-17T21:29:38.970767+00:00"
+}

@@ -51,7 +51,34 @@ namespace FallenWorld
         private const int EnemyKnockbackDistance = 16;
         private const int EnemyKnockbackSpeed = 2;
         #endregion
-        
+
+        #region Mid-Boss
+
+        private MidBoss _midBoss;
+
+        // Posição real do chefe no mundo.
+        private Point _midBossWorldPosition;
+
+        // Ajuste visual para alinhar os pés ao chão.
+        private int _midBossVisualOffsetY = 0;
+        // Configurações da inteligência artificial.
+        private const int MidBossDetectionRange = 300;
+        private const int MidBossAttackRange = 85;
+        private const int MidBossMoveSpeed = 2;
+        // Tempo entre os ataques do chefe.
+        private const int MidBossAttackCooldownTicks = 120;
+
+        // Alcance horizontal dos golpes.
+        private const int MidBossAttackReach = 72;
+
+        // Tempo restante para o próximo ataque.
+        private int _midBossAttackCooldownRemaining = 0;
+        // Indica se a animação de morte terminou.
+        private bool _midBossDefeated = false;
+        // Indica se a música da batalha já começou.
+        private bool _midBossBattleMusicStarted = false;
+        #endregion
+
         #region Knight Aura
 
         // Duração da Aura: aproximadamente 5 segundos.
@@ -127,6 +154,8 @@ namespace FallenWorld
         private bool _mapa1Carregado = false;
         // Indica se as Ruínas do Guardião já foram carregadas.
         private bool _ruinasGuardiaoCarregadas = false;
+        // Indica se o Mapa 2 já foi carregado.
+        private bool _mapa2Carregado = false;
         #endregion
 
         #region Puzzle Runes
@@ -753,6 +782,179 @@ namespace FallenWorld
             }
         }
 
+
+        private bool CarregarMapa2()
+        {
+            if (_transicaoEmAndamento || player == null || player.IsDisposed)
+                return false;
+
+            bool timerEstavaAtivo = TMR_Game.Enabled;
+
+            _transicaoEmAndamento = true;
+            TMR_Game.Stop();
+
+            try
+            {
+                // Recursos do Mapa 2.
+                string mapJson = Properties.Resources.map2_Map_Js;
+                Bitmap spritesheet = Properties.Resources.map2_Map_sprite;
+
+                // Valida o JSON e o Spawn do jogador.
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+                Maps mapaTeste = serializer.Deserialize<Maps>(mapJson);
+
+                if (mapaTeste == null)
+                    throw new Exception("Não foi possível interpretar o Mapa 2.");
+
+                MapTile spawnTeste = mapaTeste.GetSpawnPlayer();
+
+                if (spawnTeste == null)
+                    throw new Exception("Spawn do jogador não encontrado no Mapa 2.");
+
+                // Remove os objetos dos puzzles anteriores.
+                LimparPuzzleRunes();
+                LimparPuzzleChest();
+                LimparGuardianRunes();
+
+                _puzzleCompleto = false;
+                _runaProxima = null;
+                _puzzleChestAoAlcance = false;
+
+                _guardianPuzzleCompleto = false;
+                _guardianRuneErrorInProgress = false;
+                _guardianSequenceIndex = 0;
+                _guardianRuneSequence.Clear();
+
+                // Interrompe a música das Ruínas do Guardião.
+                SoundEffects.StopWavLoop();
+
+                // Carrega o novo mapa e suas colisões.
+                Load_Map(mapJson, spritesheet);
+
+                MapTile spawn = map.GetSpawnPlayer();
+
+                // Interrompe a recuperação de mana.
+                player.CancelarRecuperacaoMana();
+                PararSomRecuperacaoMana();
+                _manaRecoveryTickCounter = 0;
+
+                // Remove as bolas de fogo anteriores.
+                foreach (FireballProjectile fireball in _fireballs.ToList())
+                {
+                    if (fireball == null)
+                        continue;
+
+                    world1.Controls.Remove(fireball);
+                    fireball.Dispose();
+                }
+
+                _fireballs.Clear();
+                SoundEffects.StopFireballFlight();
+
+                // Remove um Mid-Boss anterior, caso exista.
+                LimparMidBoss();
+                _midBossDefeated = false;
+                _midBossBattleMusicStarted = false;
+                // Remove os inimigos do mapa anterior.
+                foreach (Enemy enemy in _enemies.ToList())
+                {
+                    if (enemy == null)
+                        continue;
+
+                    enemy.AttackImpact -= Enemy_AttackImpact;
+
+                    world1.Controls.Remove(enemy);
+                    enemy.Dispose();
+                }
+
+                _enemies.Clear();
+                _enemyAttackCooldowns.Clear();
+                _enemyKnockbackRemaining.Clear();
+                _enemyWorldPositions.Clear();
+                _enemyVisualOffsetY.Clear();
+
+
+                // Posiciona o jogador no Spawn do Mapa 2.
+                int spawnX = spawn.x * map.tileSize;
+                int spawnY = spawn.y * map.tileSize;
+
+                _playerWorldX = spawnX + (map.tileSize - player.Width) / 2;
+                _playerWorldY = spawnY - player.Height;
+
+                player.Location = new Point(
+                    _playerWorldX,
+                    _playerWorldY + _playerVisualOffsetY
+                );
+
+                // Reinicia a física.
+                _velocidadeVertical = 0f;
+                _estaNoChao = TemChaoAbaixo();
+
+                // Reinicia os comandos.
+                _pedidoPulo = false;
+                _jumpKeyHeld = false;
+
+                Core.isMovingLeft = false;
+                Core.isMovingRight = false;
+                Core.isJumping = false;
+
+                Core.isAttacking0 = false;
+                Core.isAttacking1 = false;
+                Core.isAttacking2 = false;
+
+                _attack0KeyHeld = false;
+                _attack1KeyHeld = false;
+                _attack2KeyHeld = false;
+
+                SkillButtonStates(this, EventArgs.Empty);
+
+                // Atualiza o marcador de saída.
+                _nextStage = map.GetNextStage();
+                _nearNextStage = false;
+
+                if (_stagePrompt != null)
+                    _stagePrompt.Visible = false;
+
+                // Atualiza a câmera.
+                AtualizarCamera();
+
+                // Carrega o Mid-Boss.
+                LoadMidBoss();
+
+                // Cria o baú do Mapa 2, inicialmente escondido.
+                LoadPuzzleChest(false);
+
+                AtualizarPosicaoPlayerNaTela();
+                player.BringToFront();
+
+                // Atualiza o HUD.
+                AtualizarBarraVida();
+                AtualizarBarraMagia();
+
+                world1.Invalidate();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar o Mapa 2.\n\n" + ex.Message,
+                    "Erro na transição",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return false;
+            }
+            finally
+            {
+                _transicaoEmAndamento = false;
+
+                if (timerEstavaAtivo)
+                    TMR_Game.Start();
+            }
+        }
 
         private void LoadPuzzleRunes()
         {
@@ -1383,6 +1585,7 @@ namespace FallenWorld
             player.Location = new Point(_playerWorldX - _cameraX, _playerWorldY - _cameraY + _playerVisualOffsetY);
 
             AtualizarPosicaoInimigosNaTela();
+            AtualizarPosicaoMidBossNaTela();
             AtualizarPosicaoRunasNaTela();
             AtualizarPosicaoGuardianRunesNaTela();
             AtualizarPosicaoPuzzleChestNaTela();
@@ -1407,6 +1610,18 @@ namespace FallenWorld
                 enemy.Location = new Point(worldPosition.X - _cameraX, worldPosition.Y - _cameraY + visualOffset);
             }
         }
+
+        private void AtualizarPosicaoMidBossNaTela()
+        {
+            if (_midBoss == null || _midBoss.IsDisposed)
+                return;
+
+            _midBoss.Location = new Point(
+                _midBossWorldPosition.X - _cameraX,
+                _midBossWorldPosition.Y - _cameraY + _midBossVisualOffsetY
+            );
+        }
+
         private void AtualizarPosicaoRunasNaTela()
         {
             foreach (KeyValuePair<PuzzleRune, Point> item in _puzzleRuneWorldPositions)
@@ -1435,10 +1650,10 @@ namespace FallenWorld
                 rune.Location = new Point(worldPosition.X - _cameraX,worldPosition.Y - _cameraY);
             }
         }
-
         #endregion
 
         #region Comabt and damage
+
         private void VerificarDanoContatoInimigos()
         {
             if (player == null || player.IsDisposed || player.EstaMorto || _invulnerabilidadeRestante > 0)
@@ -1446,10 +1661,13 @@ namespace FallenWorld
                 return;
             }
 
-            Rectangle hitboxJogador = player.GetHitboxAt(_playerWorldX,_playerWorldY);
+            Rectangle hitboxJogador = player.GetHitboxAt(
+                _playerWorldX,
+                _playerWorldY
+            );
 
-            // Considera contato mesmo quando o movimento
-            // é bloqueado poucos pixels antes da colisão.
+            // Considera o contato mesmo quando a colisão
+            // bloqueia o movimento alguns pixels antes.
             Rectangle areaContato = new Rectangle(
                 hitboxJogador.Left - VelocidadePlayer,
                 hitboxJogador.Top,
@@ -1457,6 +1675,7 @@ namespace FallenWorld
                 hitboxJogador.Height
             );
 
+            // Verifica contato com os Orcs.
             foreach (KeyValuePair<Enemy, Point> item in _enemyWorldPositions)
             {
                 Enemy enemy = item.Key;
@@ -1472,9 +1691,18 @@ namespace FallenWorld
                     continue;
 
                 AplicarDanoAoJogador(enemy.DanoContato);
-
-                // Apenas um inimigo aplica dano neste ciclo.
                 return;
+            }
+
+            // Verifica contato com o Mid-Boss.
+            if (_midBoss != null && !_midBoss.IsDisposed && !_midBoss.IsDead)
+            {
+                Rectangle hitboxBoss = _midBoss.GetHitboxAt(_midBossWorldPosition.X,_midBossWorldPosition.Y);
+
+                if (areaContato.IntersectsWith(hitboxBoss))
+                {
+                    AplicarDanoAoJogador(_midBoss.DanoContato);
+                }
             }
         }
 
@@ -1675,6 +1903,8 @@ namespace FallenWorld
                 hitboxAtaque = new Rectangle(hitboxPlayer.Left - alcance,ataqueY,alcance,alturaAtaque);
             }
 
+            bool atingiuInimigo = false;
+
             foreach (KeyValuePair<Enemy, Point> item in _enemyWorldPositions)
             {
                 Enemy enemy = item.Key;
@@ -1700,8 +1930,27 @@ namespace FallenWorld
                 {
                     enemy.AplicarVeneno(danoPorTick: 3,duracaoTicks: 300,intervaloTicks: 60);
                 }
-
+                atingiuInimigo = true;
                 break;
+            }
+            // Verifica se o ataque atingiu o Mid-Boss.
+            if (!atingiuInimigo && _midBoss != null && !_midBoss.IsDisposed && !_midBoss.IsDead)
+            {
+                Rectangle hitboxBoss = _midBoss.GetHitboxAt(_midBossWorldPosition.X,_midBossWorldPosition.Y);
+
+                if (hitboxAtaque.IntersectsWith(hitboxBoss))
+                {
+                    _midBoss.ReceberDano(dano);
+                    // Aplica veneno quando o golpe for da habilidade da Princesa.
+                    if (aplicarVeneno && !_midBoss.IsDead)
+                    {
+                        _midBoss.AplicarVeneno(
+                            danoPorTick: 3,
+                            duracaoTicks: 300,
+                            intervaloTicks: 60
+                        );
+                    }
+                }
             }
         }
         private void Player_AttackImpact(StatePlayer state)
@@ -1778,6 +2027,61 @@ namespace FallenWorld
 
             AplicarDanoAoJogador(enemy.DanoAtaque);
         }
+
+
+        private void MidBoss_AttackImpact(MidBoss boss,MidBoss.BossAttackType attackType)
+        {
+            if (boss == null || boss.IsDisposed || boss.IsDead ||
+                player == null || player.IsDisposed || player.EstaMorto ||
+                _invulnerabilidadeRestante > 0)
+            {
+                return;
+            }
+
+            // Obtém as hitboxes no mundo.
+            Rectangle hitboxJogador = player.GetHitboxAt(_playerWorldX,_playerWorldY);
+
+            Rectangle hitboxBoss = boss.GetHitboxAt(_midBossWorldPosition.X,_midBossWorldPosition.Y);
+
+            // Define a altura da área atingida pelo golpe.
+            int alturaAtaque = Math.Max(24, hitboxBoss.Height - 16);
+
+            int ataqueY = hitboxBoss.Top + (hitboxBoss.Height - alturaAtaque) / 2;
+
+            Rectangle areaAtaque;
+
+            // Cria a área de ataque conforme a direção do chefe.
+            if (boss.FacingRight)
+            {
+                areaAtaque = new Rectangle(
+                    hitboxBoss.Right,
+                    ataqueY,
+                    MidBossAttackReach,
+                    alturaAtaque
+                );
+            }
+            else
+            {
+                areaAtaque = new Rectangle(
+                    hitboxBoss.Left - MidBossAttackReach,
+                    ataqueY,
+                    MidBossAttackReach,
+                    alturaAtaque
+                );
+            }
+
+            // O golpe não causa dano se o jogador estiver fora da área.
+            if (!areaAtaque.IntersectsWith(hitboxJogador))
+                return;
+
+            // Seleciona o dano de acordo com o ataque executado.
+            int dano = attackType == MidBoss.BossAttackType.Attack1
+                ? boss.DanoAtaque1
+                : boss.DanoAtaque2;
+
+            AplicarDanoAoJogador(dano);
+        }
+
 
         private void AplicarDanoAoJogador(int dano)
         {
@@ -1893,8 +2197,7 @@ namespace FallenWorld
                 else
                 {
                     // Colisão com os Orcs.
-                    foreach (KeyValuePair<Enemy, Point> item
-                        in _enemyWorldPositions)
+                    foreach (KeyValuePair<Enemy, Point> item in _enemyWorldPositions)
                     {
                         Enemy enemy = item.Key;
 
@@ -1922,6 +2225,26 @@ namespace FallenWorld
 
                         iniciarExplosao = true;
                         break;
+                    }
+                    // Colisão com o Mid-Boss.
+                    if (!iniciarExplosao && _midBoss != null && !_midBoss.IsDisposed && !_midBoss.IsDead)
+                    {
+                        Rectangle hitboxBoss = _midBoss.GetHitboxAt(_midBossWorldPosition.X,_midBossWorldPosition.Y);
+
+                        if (hitboxBola.IntersectsWith(hitboxBoss))
+                        {
+                            _midBoss.ReceberDano(FireballDamage);
+                            // Aplica queimadura se o chefe sobreviver ao impacto.
+                            if (!_midBoss.IsDead)
+                            {
+                                _midBoss.AplicarQueimadura(
+                                    danoPorTick: 2,
+                                    duracaoTicks: 240,
+                                    intervaloTicks: 60
+                                );
+                            }
+                            iniciarExplosao = true;
+                        }
                     }
                 }
 
@@ -1989,6 +2312,88 @@ namespace FallenWorld
                 world1.Controls.Add(enemy);
                 enemy.BringToFront();
             }
+        }
+
+        private void LoadMidBoss()
+        {
+            if (map == null)
+                return;
+
+            // Procura o marcador Spawn=mid_boss.
+            List<MapTile> spawns = map.GetEnemySpawns("mid_boss");
+
+            if (spawns == null || spawns.Count == 0)
+            {
+                throw new Exception(
+                    "O marcador Spawn=mid_boss não foi encontrado no Mapa 2."
+                );
+            }
+
+            // Utiliza o primeiro marcador encontrado.
+            MapTile spawn = spawns[0];
+
+            // Cria o Mid-Boss.
+            MidBoss boss = new MidBoss();
+
+            // Calcula o ajuste visual dos pés.
+            Rectangle bossBounds = boss.GetVisibleSpriteBounds();
+
+            _midBossVisualOffsetY = Math.Max(0,boss.Height - bossBounds.Bottom);
+
+            // Calcula a posição no mundo.
+            int worldX = spawn.x * map.tileSize + (map.tileSize - boss.Width) / 2;
+
+            int worldY = spawn.y * map.tileSize - boss.Height;
+
+            _midBossWorldPosition = new Point(worldX, worldY);
+
+            _midBoss = boss;
+
+            boss.DeathAnimationCompleted += MidBoss_DeathAnimationCompleted;
+
+            boss.AttackImpact += MidBoss_AttackImpact;
+            _midBossAttackCooldownRemaining = 0;
+
+            // Posiciona considerando a câmera.
+            boss.Location = new Point(
+                worldX - _cameraX,
+                worldY - _cameraY + _midBossVisualOffsetY
+            );
+
+            // Adiciona o chefe ao cenário.
+            world1.Controls.Add(boss);
+
+            boss.BringToFront();
+        }
+
+        private void MidBoss_DeathAnimationCompleted(MidBoss boss)
+        {
+            if (boss == null || boss.IsDisposed || boss != _midBoss || _midBossDefeated)
+            {
+                return;
+            }
+
+            // Interrompe a música da batalha.
+            SoundEffects.StopWavLoop();
+
+            _midBossBattleMusicStarted = false;
+
+            // Registra a derrota do chefe.
+            _midBossDefeated = true;
+
+            // Revela o baú.
+            if (_puzzleChest != null && !_puzzleChest.IsDisposed)
+            {
+                _puzzleChest.Visible = true;
+            }
+
+            // Mantém o jogador à frente dos objetos.
+            if (player != null && !player.IsDisposed)
+            {
+                player.BringToFront();
+            }
+
+            world1.Invalidate();
         }
 
         private void AtualizarIAInimigos()
@@ -2104,6 +2509,112 @@ namespace FallenWorld
             }
         }
 
+
+        private void AtualizarIAMidBoss()
+        {
+            if (_midBoss == null || _midBoss.IsDisposed || _midBoss.IsDead)
+                return;
+
+            if (player == null || player.IsDisposed || player.EstaMorto || map == null)
+                return;
+
+            if (_midBossAttackCooldownRemaining > 0)
+                _midBossAttackCooldownRemaining--;
+
+            // Obtém as hitboxes do jogador e do chefe.
+            Rectangle hitboxJogador = player.GetHitboxAt(_playerWorldX,_playerWorldY);
+
+            Rectangle hitboxBoss = _midBoss.GetHitboxAt(_midBossWorldPosition.X,_midBossWorldPosition.Y);
+
+            // Calcula a distância horizontal entre os personagens.
+            int centroJogadorX = hitboxJogador.Left + hitboxJogador.Width / 2;
+            int centroBossX = hitboxBoss.Left + hitboxBoss.Width / 2;
+
+            int diferencaX = centroJogadorX - centroBossX;
+            int distanciaX = Math.Abs(diferencaX);
+
+            bool facingRight = diferencaX >= 0;
+
+            // Verifica se estão aproximadamente na mesma altura.
+            bool mesmaAltura = Math.Abs(hitboxJogador.Bottom - hitboxBoss.Bottom) <= 28;
+
+            // Não interrompe animações de ataque, dano ou morte.
+            if (_midBoss.IsPerformingAction)
+                return;
+
+            // Fora do alcance de percepção, permanece parado.
+            if (distanciaX > MidBossDetectionRange || !mesmaAltura)
+            {
+                _midBoss.SetIdle(facingRight);
+                return;
+            }
+
+            // Inicia a música quando o Mid-Boss detecta o jogador.
+            if (!_midBossBattleMusicStarted)
+            {
+                SoundEffects.StartMp3Loop(Properties.Resources.MidBoss_Battle,0.38f);
+
+                _midBossBattleMusicStarted = true;
+            }
+
+            // Quando estiver próximo, tenta iniciar um ataque.
+            if (distanciaX <= MidBossAttackRange)
+            {
+                if (_midBossAttackCooldownRemaining <= 0)
+                {
+                    if (_midBoss.SetRandomAttack(facingRight))
+                    {
+                        _midBossAttackCooldownRemaining = MidBossAttackCooldownTicks;
+                    }
+                }
+                else
+                {
+                    _midBoss.SetIdle(facingRight);
+                }
+
+                return;
+            }
+
+            // Calcula o próximo movimento.
+            int movimento = diferencaX > 0
+                ? MidBossMoveSpeed
+                : -MidBossMoveSpeed;
+
+            int proximoX = _midBossWorldPosition.X + movimento;
+
+            Rectangle hitboxProxima = _midBoss.GetHitboxAt(proximoX,_midBossWorldPosition.Y);
+
+            // Verifica se existe chão à frente.
+            Rectangle faixaDosPes = new Rectangle(
+                hitboxProxima.Left + 2,
+                hitboxProxima.Bottom,
+                Math.Max(1, hitboxProxima.Width - 4),
+                1
+            );
+
+            // Não permite atravessar paredes ou cair de plataformas.
+            if (!map.PodeMover(hitboxProxima) || map.PodeMover(faixaDosPes))
+            {
+                _midBoss.SetIdle(facingRight);
+                return;
+            }
+
+            // Atualiza a posição real do chefe.
+            _midBossWorldPosition = new Point(
+                proximoX,
+                _midBossWorldPosition.Y
+            );
+
+            // Atualiza sua posição visível considerando a câmera.
+            _midBoss.Location = new Point(
+                _midBossWorldPosition.X - _cameraX,
+                _midBossWorldPosition.Y - _cameraY + _midBossVisualOffsetY
+            );
+
+            _midBoss.SetWalk(facingRight);
+        }
+
+
         private void IniciarRecuoInimigo(Enemy enemy)
         {
             if (enemy == null || enemy.IsDisposed || enemy.IsDead)
@@ -2197,6 +2708,11 @@ namespace FallenWorld
 
                 enemy.AtualizarVeneno();
             }
+            // Atualiza o veneno do Mid-Boss.
+            if (_midBoss != null && !_midBoss.IsDisposed)
+            {
+                _midBoss.AtualizarVeneno();
+            }
         }
 
         private void AtualizarQueimaduraInimigos()
@@ -2207,6 +2723,11 @@ namespace FallenWorld
                     continue;
 
                 enemy.AtualizarQueimadura();
+            }
+            // Atualiza a queimadura do Mid-Boss.
+            if (_midBoss != null && !_midBoss.IsDisposed)
+            {
+                _midBoss.AtualizarQueimadura();
             }
         }
         #endregion
@@ -2428,6 +2949,8 @@ namespace FallenWorld
             AtualizarFisicaVertical();
             // Atualiza perseguição e ataques dos Orcs.
             AtualizarIAInimigos();
+            // Atualiza a inteligência artificial do Mid-Boss.
+            AtualizarIAMidBoss();
             // Atualiza o dano contínuo do veneno.
             AtualizarVenenoInimigos();
             // Atualiza o dano contínuo da queimadura.
@@ -2444,10 +2967,12 @@ namespace FallenWorld
             AtualizarInteracaoStage();
         }
         #endregion
-        
+
         #region Collision detection between player and enemies
+
         private bool BloqueiaMovimentoPorInimigo(Rectangle hitboxAtual,Rectangle hitboxProxima)
         {
+            // Verifica a colisão com os Orcs.
             foreach (KeyValuePair<Enemy, Point> item in _enemyWorldPositions)
             {
                 Enemy enemy = item.Key;
@@ -2459,33 +2984,50 @@ namespace FallenWorld
 
                 Rectangle hitboxInimigo = enemy.GetHitboxAt(posicao.X,posicao.Y);
 
-                // O próximo movimento não toca este inimigo.
                 if (!hitboxProxima.IntersectsWith(hitboxInimigo))
                     continue;
 
-                // Se não havia colisão antes, bloqueia a entrada.
                 if (!hitboxAtual.IntersectsWith(hitboxInimigo))
                     return true;
 
-                // Já existia sobreposição: permite afastamento.
                 int centroAtual = hitboxAtual.Left + hitboxAtual.Width / 2;
-
                 int centroProximo = hitboxProxima.Left + hitboxProxima.Width / 2;
-
                 int centroInimigo = hitboxInimigo.Left + hitboxInimigo.Width / 2;
 
                 int distanciaAtual = Math.Abs(centroAtual - centroInimigo);
-
                 int distanciaProxima = Math.Abs(centroProximo - centroInimigo);
 
-                // Não permite avançar mais para dentro do inimigo.
                 if (distanciaProxima <= distanciaAtual)
                     return true;
             }
+
+            // Verifica a colisão com o Mid-Boss.
+            if (_midBoss != null && !_midBoss.IsDisposed && !_midBoss.IsDead)
+            {
+                Rectangle hitboxBoss = _midBoss.GetHitboxAt(_midBossWorldPosition.X,_midBossWorldPosition.Y);
+
+                if (hitboxProxima.IntersectsWith(hitboxBoss))
+                {
+                    if (!hitboxAtual.IntersectsWith(hitboxBoss))
+                        return true;
+
+                    int centroAtual = hitboxAtual.Left + hitboxAtual.Width / 2;
+                    int centroProximo = hitboxProxima.Left + hitboxProxima.Width / 2;
+                    int centroBoss = hitboxBoss.Left + hitboxBoss.Width / 2;
+
+                    int distanciaAtual = Math.Abs(centroAtual - centroBoss);
+                    int distanciaProxima = Math.Abs(centroProximo - centroBoss);
+
+                    // Permite se afastar, mas não avançar para dentro do chefe.
+                    if (distanciaProxima <= distanciaAtual)
+                        return true;
+                }
+            }
+
             return false;
         }
         #endregion
-        
+
         #region Mouse Control
         // Bloquear mensagens do mouse enquanto o jogo estiver aberto.
         public bool PreFilterMessage(ref Message m)
@@ -2576,8 +3118,21 @@ namespace FallenWorld
             if (!_nearNextStage || _transicaoEmAndamento)
                 return;
 
+            // Impede sair da arena enquanto o Mid-Boss estiver vivo.
+            if (_mapa2Carregado && !_midBossDefeated)
+            {
+                MessageBox.Show(
+                    "Você precisa derrotar o Mid-Boss antes de sair da arena.",
+                    "Arena do Mid-Boss",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                return;
+            }
+
             // Impede sair das Ruínas sem concluir o puzzle.
-            if (_ruinasGuardiaoCarregadas && !_guardianPuzzleCompleto)
+            if (_ruinasGuardiaoCarregadas && !_mapa2Carregado  && !_guardianPuzzleCompleto)
             {
                 MessageBox.Show(
                     "Você precisa resolver o enigma das três runas antes de continuar.",
@@ -2625,6 +3180,15 @@ namespace FallenWorld
             {
                 if (CarregarRuinasGuardiao())
                     _ruinasGuardiaoCarregadas = true;
+
+                return;
+            }
+
+            // Quarta transição: Ruínas do Guardião -> Mapa 2.
+            if (!_mapa2Carregado)
+            {
+                if (CarregarMapa2())
+                    _mapa2Carregado = true;
 
                 return;
             }
@@ -3043,5 +3607,21 @@ namespace FallenWorld
             _puzzleChestAoAlcance = distancia <= DistanciaInteracaoRuna * DistanciaInteracaoRuna;
         }
         #endregion
+
+        private void LimparMidBoss()
+        {
+            if (_midBoss == null)
+                return;
+
+            world1.Controls.Remove(_midBoss);
+
+            _midBoss.AttackImpact -= MidBoss_AttackImpact;
+            _midBoss.DeathAnimationCompleted -= MidBoss_DeathAnimationCompleted;
+            _midBoss.Dispose();
+            _midBoss = null;
+            _midBossAttackCooldownRemaining = 0;
+            _midBossWorldPosition = Point.Empty;
+            _midBossVisualOffsetY = 0;
+        }
     }
 }

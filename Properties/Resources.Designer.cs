@@ -1185,6 +1185,57 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {&quot;tileSize&quot;:32,&quot;mapWidth&quot;:63,&quot;mapHeight&quot;:31,&quot;layers&quot;:[{&quot;name&quot;:&quot;floor&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:11,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:12,&quot;y&quot;:22,&quot;attributes&quot;:{&quot;Spawn&quot;:&quot;player&quot;}},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:13,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:14,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:15,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:16,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:17,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:18,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:19,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:20,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:21,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:22,&quot;y&quot;:22},{&quot;id&quot;:&quot;0&quot;,....
+        /// </summary>
+        public static string map2_Map_Js {
+            get {
+                return ResourceManager.GetString("map2_Map_Js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap map2_Map_sprite {
+            get {
+                object obj = ResourceManager.GetObject("map2_Map_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream MidBoss_Battle {
+            get {
+                return ResourceManager.GetStream("MidBoss_Battle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;character&quot;: {
+        ///    &quot;id&quot;: &quot;4369bb29-0236-44a8-90f1-60fe43a16627&quot;,
+        ///    &quot;name&quot;: &quot;Idle&quot;,
+        ///    &quot;prompt&quot;: &quot;A powerful orc boss for a dark fantasy pixel-art side-scrolling RPG. Massive muscular green body, intimidating face, dark olive skin, heavy rugged armor, skull decorations, leather straps, metal details, and a huge curved steel sword. Broad shoulders, thick arms, sturdy legs, aggressive battle-ready stance. Dark green, black, brown, and steel-gray palette. Preserve a strong readable silhouette and crisp p [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string MidBoss_Metadata {
+            get {
+                return ResourceManager.GetString("MidBoss_Metadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap MidBoss_Spritesheet {
+            get {
+                object obj = ResourceManager.GetObject("MidBoss_Spritesheet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Orc_Spritesheet {
