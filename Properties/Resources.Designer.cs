@@ -765,6 +765,25 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {&quot;tileSize&quot;:32,&quot;mapWidth&quot;:68,&quot;mapHeight&quot;:34,&quot;layers&quot;:[{&quot;name&quot;:&quot;floor&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:14,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:15,&quot;y&quot;:21,&quot;attributes&quot;:{&quot;Spawn&quot;:&quot;player&quot;}},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:16,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:17,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:18,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:19,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:20,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:21,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:22,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:23,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:24,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:25,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,....
+        /// </summary>
+        public static string JudgmentForge_Map_js {
+            get {
+                return ResourceManager.GetString("JudgmentForge_Map_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap JudgmentForge_Map_sprite {
+            get {
+                object obj = ResourceManager.GetObject("JudgmentForge_Map_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
         /// </summary>
         public static System.IO.UnmanagedMemoryStream Knight_Aura {
@@ -1217,7 +1236,7 @@ namespace FallenWorld.Properties {
         ///  &quot;character&quot;: {
         ///    &quot;id&quot;: &quot;4369bb29-0236-44a8-90f1-60fe43a16627&quot;,
         ///    &quot;name&quot;: &quot;Idle&quot;,
-        ///    &quot;prompt&quot;: &quot;A powerful orc boss for a dark fantasy pixel-art side-scrolling RPG. Massive muscular green body, intimidating face, dark olive skin, heavy rugged armor, skull decorations, leather straps, metal details, and a huge curved steel sword. Broad shoulders, thick arms, sturdy legs, aggressive battle-ready stance. Dark green, black, brown, and steel-gray palette. Preserve a strong readable silhouette and crisp p [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;A powerful orc boss for a dark fantasy pixel-art side-scrolling RPG. Massive muscular green body, intimidating face, dark olive skin, heavy rugged armor, skull decorations, leather straps, metal details, and a huge curved steel sword. Broad shoulders, thick arms, sturdy legs, aggressive battle-ready stance. Dark green, black, brown, and steel-gray palette. Preserve a strong readable silhouette and cri [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string MidBoss_Metadata {
             get {
@@ -1731,6 +1750,75 @@ namespace FallenWorld.Properties {
         public static System.Drawing.Bitmap Puzzle_Rune_3_sprite {
             get {
                 object obj = ResourceManager.GetObject("Puzzle_Rune_3_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;object&quot;: {
+        ///    &quot;id&quot;: &quot;7b2f39e9-ad73-4350-a43a-d00163c9a247&quot;,
+        ///    &quot;name&quot;: &quot;base&quot;,
+        ///    &quot;prompt&quot;: &quot;A single ancient magical core rune for a dark fantasy 2D side-scrolling pixel art RPG. A small, solid dark volcanic basalt stone tablet with a distinctive geometric crystal-shaped symbol carved into its center. The symbol resembles a glowing hexagonal magma crystal, radiating intense molten orange and golden-yellow light, with subtle magma cracks spreading through the dark stone surface. Ancient mystical des [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Puzzle_Rune_Core_js {
+            get {
+                return ResourceManager.GetString("Puzzle_Rune_Core_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Puzzle_Rune_Core_sprite {
+            get {
+                object obj = ResourceManager.GetObject("Puzzle_Rune_Core_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;object&quot;: {
+        ///    &quot;id&quot;: &quot;12cfc25c-6c93-4a83-a7c2-434aa8470ea7&quot;,
+        ///    &quot;name&quot;: &quot;base&quot;,
+        ///    &quot;prompt&quot;: &quot;A single ancient magical fire rune for a dark fantasy 2D side-scrolling pixel art RPG. A small, solid dark volcanic basalt stone tablet with a distinctive flame-shaped symbol carved into its center. The symbol glows with intense molten orange and golden-yellow light, with subtle magma cracks spreading through the dark stone surface. Ancient mystical design, sharp angular edges, volcanic atmosphere, powerful  [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Puzzle_Rune_Flame_js {
+            get {
+                return ResourceManager.GetString("Puzzle_Rune_Flame_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Puzzle_Rune_Flame_sprite {
+            get {
+                object obj = ResourceManager.GetObject("Puzzle_Rune_Flame_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;object&quot;: {
+        ///    &quot;id&quot;: &quot;2089b52a-1415-46ea-b554-e9da076a42f8&quot;,
+        ///    &quot;name&quot;: &quot;base&quot;,
+        ///    &quot;prompt&quot;: &quot;A single ancient magical mountain rune for a dark fantasy 2D side-scrolling pixel art RPG. A small, solid dark volcanic basalt stone tablet with a distinctive mountain-shaped symbol carved into its center. The symbol glows with intense molten orange and golden-yellow light, with subtle magma cracks spreading through the dark stone surface. Ancient mystical design, sharp angular edges, volcanic atmosphere, po [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Puzzle_Rune_Mountain_js {
+            get {
+                return ResourceManager.GetString("Puzzle_Rune_Mountain_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Puzzle_Rune_Mountain_sprite {
+            get {
+                object obj = ResourceManager.GetObject("Puzzle_Rune_Mountain_sprite", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

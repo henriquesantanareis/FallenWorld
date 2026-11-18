@@ -1,0 +1,46 @@
+{
+  "object": {
+    "id": "7b2f39e9-ad73-4350-a43a-d00163c9a247",
+    "name": "base",
+    "prompt": "A single ancient magical core rune for a dark fantasy 2D side-scrolling pixel art RPG. A small, solid dark volcanic basalt stone tablet with a distinctive geometric crystal-shaped symbol carved into its center. The symbol resembles a glowing hexagonal magma crystal, radiating intense molten orange and golden-yellow light, with subtle magma cracks spreading through the dark stone surface. Ancient mystical design, sharp angular edges, volcanic atmosphere, powerful but readable silhouette. Full object, front view, centered composition, designed to fit a 64x64 pixel sprite. Crisp pixel art, consistent pixel scale, maximum 32 distinct colors, no anti-aliasing, no blur, no smooth gradients. Transparent background. One rune only, no characters, no text, no UI, no additional objects.",
+    "size": {
+      "width": 64,
+      "height": 64
+    },
+    "directions": 1,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Runa_do_Nucleo.png",
+    "cell_size": {
+      "width": 64,
+      "height": 64
+    },
+    "sheet_size": {
+      "width": 576,
+      "height": 128
+    },
+    "columns": 9,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 1,
+        "directions": [
+          "unknown"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Ativation",
+        "animation_group_id": "26ae3410-74cb-4172-bde4-c040160780a4",
+        "direction": "unknown"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-18T01:56:41.072574+00:00"
+}
