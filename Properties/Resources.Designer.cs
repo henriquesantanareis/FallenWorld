@@ -1204,6 +1204,15 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream MidBoss_Battle {
+            get {
+                return ResourceManager.GetStream("MidBoss_Battle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a {
         ///  &quot;character&quot;: {
         ///    &quot;id&quot;: &quot;4369bb29-0236-44a8-90f1-60fe43a16627&quot;,

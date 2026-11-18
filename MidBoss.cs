@@ -60,12 +60,15 @@ namespace FallenWorld
         private bool _attackImpactTriggered = false;
 
         public event Action<MidBoss, BossAttackType> AttackImpact;
+        private bool _deathAnimationCompleted = false;
 
+        // Disparado quando a animação de morte termina.
+        public event Action<MidBoss> DeathAnimationCompleted;
         #endregion
 
         #region Life and Damage
 
-        private const int VidaMaxima = 250;
+        private const int VidaMaxima = 100;
 
         private int _vidaAtual = VidaMaxima;
 
@@ -88,6 +91,26 @@ namespace FallenWorld
         {
             get { return 10; }
         }
+
+        #endregion
+
+        #region Poison and Burn
+
+        // Controle do veneno.
+        private int _poisonDamagePerTick = 0;
+        private int _poisonDurationRemaining = 0;
+        private int _poisonTickRemaining = 0;
+        private int _poisonTickInterval = 60;
+
+        // Controle da queimadura.
+        private int _burnDamagePerTick = 0;
+        private int _burnDurationRemaining = 0;
+        private int _burnTickRemaining = 0;
+        private int _burnTickInterval = 60;
+
+        // Animação visual dos efeitos.
+        private int _poisonVisualTick = 0;
+        private int _burnVisualTick = 0;
 
         #endregion
 
@@ -227,11 +250,81 @@ namespace FallenWorld
         {
             Bitmap novoFrame = GetFrame(_currentRow,_currentFrame);
 
+            // Desenha as partículas verdes do veneno.
+            if (IsPoisoned && !IsDead)
+            {
+                DesenharEfeitoVeneno(novoFrame);
+            }
+
+            // Desenha as chamas da queimadura.
+            if (IsBurning && !IsDead)
+            {
+                DesenharEfeitoFogo(novoFrame);
+            }
+
             Image frameAnterior = _spriteBox.Image;
 
             _spriteBox.Image = novoFrame;
 
             frameAnterior?.Dispose();
+        }
+
+        private void DesenharEfeitoVeneno(Bitmap frame)
+        {
+            int fase = _poisonVisualTick % 4;
+            _poisonVisualTick++;
+
+            using (Graphics g = Graphics.FromImage(frame))
+            using (SolidBrush sombra = new SolidBrush(Color.FromArgb(90, 25, 150, 35)))
+            using (SolidBrush veneno = new SolidBrush(Color.FromArgb(210, 55, 190, 45)))
+            using (SolidBrush brilho = new SolidBrush(Color.FromArgb(235, 150, 240, 65)))
+            {
+                g.SmoothingMode = SmoothingMode.None;
+
+                g.FillRectangle(sombra, 17, 46 + fase, 6, 6);
+                g.FillRectangle(veneno, 19, 47 + fase, 4, 4);
+                g.FillRectangle(brilho, 20, 48 + fase, 2, 2);
+
+                g.FillRectangle(sombra, 105, 56 - fase, 6, 6);
+                g.FillRectangle(veneno, 106, 57 - fase, 4, 4);
+                g.FillRectangle(brilho, 107, 58 - fase, 2, 2);
+
+                g.FillRectangle(sombra, 30 + fase, 91, 6, 6);
+                g.FillRectangle(veneno, 31 + fase, 92, 4, 4);
+
+                g.FillRectangle(veneno, 86 - fase, 34, 4, 4);
+                g.FillRectangle(brilho, 87 - fase, 35, 2, 2);
+            }
+        }
+
+        private void DesenharEfeitoFogo(Bitmap frame)
+        {
+            int fase = _burnVisualTick % 4;
+            _burnVisualTick++;
+
+            using (Graphics g = Graphics.FromImage(frame))
+            using (SolidBrush sombra = new SolidBrush(Color.FromArgb(100, 120, 25, 5)))
+            using (SolidBrush fogo = new SolidBrush(Color.FromArgb(220, 240, 75, 15)))
+            using (SolidBrush brasa = new SolidBrush(Color.FromArgb(240, 255, 185, 45)))
+            {
+                g.SmoothingMode = SmoothingMode.None;
+
+                // Chamas nas laterais.
+                g.FillRectangle(sombra, 17, 57 + fase, 7, 10);
+                g.FillRectangle(fogo, 19, 58 + fase, 4, 7);
+                g.FillRectangle(brasa, 20, 60 + fase, 2, 3);
+
+                g.FillRectangle(sombra, 106, 54 - fase, 7, 10);
+                g.FillRectangle(fogo, 108, 56 - fase, 4, 7);
+                g.FillRectangle(brasa, 109, 58 - fase, 2, 3);
+
+                // Brasas próximas aos pés.
+                g.FillRectangle(fogo, 36 + fase, 104, 5, 5);
+                g.FillRectangle(brasa, 37 + fase, 105, 3, 3);
+
+                g.FillRectangle(fogo, 91 - fase, 108, 5, 5);
+                g.FillRectangle(brasa, 92 - fase, 109, 3, 3);
+            }
         }
 
         #endregion
@@ -254,6 +347,13 @@ namespace FallenWorld
             // A animação de morte permanece no último quadro.
             if (_state == BossState.Death && _currentFrame >= _frameCount - 1)
             {
+                // Avisa apenas uma vez que a animação terminou.
+                if (!_deathAnimationCompleted)
+                {
+                    _deathAnimationCompleted = true;
+                    DeathAnimationCompleted?.Invoke(this);
+                }
+
                 return;
             }
 
@@ -380,6 +480,103 @@ namespace FallenWorld
         }
 
         #endregion
+
+
+        #region Poison and Burn Effects
+
+        public bool IsPoisoned
+        {
+            get { return _poisonDurationRemaining > 0; }
+        }
+
+        public bool IsBurning
+        {
+            get { return _burnDurationRemaining > 0; }
+        }
+
+        public void AplicarVeneno(int danoPorTick, int duracaoTicks, int intervaloTicks)
+        {
+            if (IsDead || danoPorTick <= 0 ||
+                duracaoTicks <= 0 || intervaloTicks <= 0)
+            {
+                return;
+            }
+
+            // Renova o efeito em vez de acumular venenos.
+            _poisonDamagePerTick = danoPorTick;
+            _poisonDurationRemaining = duracaoTicks;
+            _poisonTickInterval = intervaloTicks;
+            _poisonTickRemaining = intervaloTicks;
+        }
+
+        public void AtualizarVeneno()
+        {
+            if (IsDead || _poisonDurationRemaining <= 0)
+                return;
+
+            _poisonDurationRemaining--;
+            _poisonTickRemaining--;
+
+            if (_poisonTickRemaining > 0)
+                return;
+
+            _poisonTickRemaining = _poisonTickInterval;
+
+            _vidaAtual = Math.Max(
+                0,
+                _vidaAtual - _poisonDamagePerTick
+            );
+
+            // Não reinicia a animação Hurt a cada aplicação.
+            if (_vidaAtual <= 0)
+            {
+                _poisonDurationRemaining = 0;
+                SetDeath();
+            }
+        }
+
+        public void AplicarQueimadura(int danoPorTick, int duracaoTicks, int intervaloTicks)
+        {
+            if (IsDead || danoPorTick <= 0 ||
+                duracaoTicks <= 0 || intervaloTicks <= 0)
+            {
+                return;
+            }
+
+            // Renova a queimadura existente.
+            _burnDamagePerTick = danoPorTick;
+            _burnDurationRemaining = duracaoTicks;
+            _burnTickInterval = intervaloTicks;
+            _burnTickRemaining = intervaloTicks;
+        }
+
+        public void AtualizarQueimadura()
+        {
+            if (IsDead || _burnDurationRemaining <= 0)
+                return;
+
+            _burnDurationRemaining--;
+            _burnTickRemaining--;
+
+            if (_burnTickRemaining > 0)
+                return;
+
+            _burnTickRemaining = _burnTickInterval;
+
+            _vidaAtual = Math.Max(
+                0,
+                _vidaAtual - _burnDamagePerTick
+            );
+
+            if (_vidaAtual <= 0)
+            {
+                _burnDurationRemaining = 0;
+                SetDeath();
+            }
+        }
+
+        #endregion
+
 
         #region Boss Properties
 
