@@ -47,6 +47,7 @@ namespace FallenWorld
         #region Inventory Rewards
 
         private const int MaxMoedas = 999;
+        private const int BonusVidaRuna = 20;
         private bool _recompensaBauEntregue = false;
         private bool _bauTutorialAtual = false;
         private readonly Random _recompensaRandom = new Random();
@@ -2179,7 +2180,11 @@ namespace FallenWorld
             if (player == null)
                 return;
 
-            int vida = player.VidaAtual;
+            int vidaAtual = player.VidaAtual;
+
+            int vida = vidaAtual <= 0
+                ? 0
+                : Math.Max(5, (vidaAtual * 100) / player.VidaMaxima);
 
             switch (_personagem)
             {
@@ -4128,6 +4133,23 @@ namespace FallenWorld
             AdicionarRunaAleatoria();
         }
 
+        private void AplicarEfeitoRuna(TipoRuna runa)
+        {
+            switch (runa)
+            {
+                case TipoRuna.Vida:
+
+                    if (player == null || player.IsDisposed)
+                        return;
+
+                    player.AumentarVidaMaxima(BonusVidaRuna);
+
+                    AtualizarBarraVida();
+
+                    break;
+            }
+        }
+
         private void AdicionarRunaAleatoria()
         {
             TipoRuna[] todasRunas = (TipoRuna[])Enum.GetValues(typeof(TipoRuna));
@@ -4156,6 +4178,9 @@ namespace FallenWorld
             ];
 
             _runasAdquiridas.Add(runaSorteada);
+
+            // Aplica o efeito da runa adquirida.
+            AplicarEfeitoRuna(runaSorteada);
 
             AtualizarInventario();
         }
