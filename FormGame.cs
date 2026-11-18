@@ -3448,6 +3448,19 @@ namespace FallenWorld
             if (!_nearNextStage || _transicaoEmAndamento)
                 return;
 
+            // Impede sair da Forja sem concluir o Julgamento.
+            if (_judgmentForgeCarregado && !_puzzleCompleto)
+            {
+                MessageBox.Show(
+                    "Você precisa concluir o Julgamento das Runas antes de continuar.",
+                    "Forja do Julgamento",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                return;
+            }
+
             // Impede sair da arena enquanto o Mid-Boss estiver vivo.
             if (_mapa2Carregado && !_midBossDefeated)
             {
@@ -3611,6 +3624,11 @@ namespace FallenWorld
         {
             if (_puzzleCompleto)
                 return;
+
+            if (_judgmentForgeCarregado && (_judgmentForgeContagemFalhou || !_judgmentForgeContagemAtiva))
+            {
+                return;
+            }
 
             if (_puzzleRunes.Count != 3)
                 return;
