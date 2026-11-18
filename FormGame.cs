@@ -25,6 +25,33 @@ namespace FallenWorld
         private int _playerVisualOffsetY = 0;
         #endregion
 
+        #region Inventory
+
+        // Tipos de runas que podem ser adquiridas.
+        private enum TipoRuna
+        {
+            Poder,
+            Agilidade,
+            Vida
+        }
+
+        // Armazena as runas já adquiridas pelo jogador.
+        private readonly HashSet<TipoRuna> _runasAdquiridas =
+            new HashSet<TipoRuna>();
+
+        // Quantidade atual de moedas.
+        private int _moedas = 0;
+
+        #endregion
+
+        #region Inventory Rewards
+
+        private const int MaxMoedas = 999;
+        private bool _recompensaBauEntregue = false;
+        private bool _bauTutorialAtual = false;
+
+        #endregion
+
         #region Input Handling
         // Impede que a tecla de ataque seja registrada várias vezes enquanto estiver pressionada.
         private bool _attack0KeyHeld = false;
@@ -215,6 +242,7 @@ namespace FallenWorld
                 SoundEffects.StopManaRecovery();
                 SoundEffects.StopKnightAura();
                 SoundEffects.StopWavLoop();
+                LiberarIconesInventario();
             };
         }
 
@@ -224,6 +252,7 @@ namespace FallenWorld
             Cursor.Hide();
             // Bloquear os eventos do mouse.
             Application.AddMessageFilter(this);
+            InicializarInventario();
             Load_Map(Properties.Resources.tutorial_Map_Js, Properties.Resources.tutorial_Map_sprite);
             _nextStage = map.GetNextStage();
             switch (_personagem)
@@ -289,8 +318,117 @@ namespace FallenWorld
             AtualizarCamera();
             AtualizarPosicaoPlayerNaTela();
             player.BringToFront();
-            LoadPuzzleChest(true);
+            LoadPuzzleChest(true,true);
             CriarPromptStage();
+        }
+        #endregion
+
+        #region Inventory
+        // Extrai o primeiro quadro de uma spritesheet para usar como ícone.
+        private Bitmap CriarIconeInventario(
+            Bitmap spritesheet,
+            int larguraFrame,
+            int alturaFrame)
+        {
+            if (spritesheet == null)
+                throw new ArgumentNullException("spritesheet");
+
+            if (spritesheet.Width < larguraFrame || 
+                spritesheet.Height < alturaFrame)
+            {
+                throw new ArgumentException(
+                    "A spritesheet possui dimensões inválidas."
+                );
+            }
+
+            Bitmap icone = new Bitmap(larguraFrame, alturaFrame);
+
+            using (Graphics g = Graphics.FromImage(icone))
+            {
+                g.Clear(Color.Transparent);
+
+                g.DrawImage(
+                    spritesheet,
+                    new Rectangle(0, 0, larguraFrame, alturaFrame),
+                    new Rectangle(0, 0, larguraFrame, alturaFrame),
+                    GraphicsUnit.Pixel
+                );
+            }
+
+            return icone;
+        }
+
+        // Configura os ícones iniciais do inventário.
+        private void InicializarInventario()
+        {
+            // Runa do Poder.
+            PBX_Rune1.Image = CriarIconeInventario(
+                Properties.Resources.Rune_Force_sprite, 68, 68
+            );
+
+            // Runa da Agilidade.
+            PBX_Rune2.Image = CriarIconeInventario(
+                Properties.Resources.Rune_Agil_sprite, 68, 68
+            );
+
+            // Runa da Vida.
+            PBX_Rune3.Image = CriarIconeInventario(
+                Properties.Resources.Rune_Life_sprite, 68, 68
+            );
+
+            // Ícone da moeda.
+            PBX_Coins.Image = CriarIconeInventario(
+                Properties.Resources.Coin_sprite, 34, 34
+            );
+
+            PBX_Rune1.SizeMode = PictureBoxSizeMode.Zoom;
+            PBX_Rune2.SizeMode = PictureBoxSizeMode.Zoom;
+            PBX_Rune3.SizeMode = PictureBoxSizeMode.Zoom;
+            PBX_Coins.SizeMode = PictureBoxSizeMode.Zoom;
+
+            // Mantém o fundo transparente no inventário.
+            FLP_Inventory.BackColor = Color.Transparent;
+
+            PBX_Rune1.BackColor = Color.Transparent;
+            PBX_Rune2.BackColor = Color.Transparent;
+            PBX_Rune3.BackColor = Color.Transparent;
+            PBX_Coins.BackColor = Color.Transparent;
+
+            // As runas ficam escondidas até serem adquiridas.
+            PBX_Rune1.Visible = false;
+            PBX_Rune2.Visible = false;
+            PBX_Rune3.Visible = false;
+
+            PBX_Coins.Visible = true;
+            LBL_Money.Visible = true;
+
+            AtualizarInventario();
+        }
+
+        // Atualiza a representação visual do inventário.
+        private void AtualizarInventario()
+        {
+            LBL_Money.Text = _moedas.ToString();
+
+            PBX_Rune1.Visible = _runasAdquiridas.Contains(TipoRuna.Poder);
+
+            PBX_Rune2.Visible = _runasAdquiridas.Contains(TipoRuna.Agilidade);
+
+            PBX_Rune3.Visible = _runasAdquiridas.Contains(TipoRuna.Vida);
+        }
+
+        // Libera as imagens criadas para o inventário.
+        private void LiberarIconesInventario()
+        {
+            PBX_Rune1.Image?.Dispose();
+            PBX_Rune2.Image?.Dispose();
+            PBX_Rune3.Image?.Dispose();
+            PBX_Coins.Image?.Dispose();
+
+            PBX_Rune1.Image = null;
+            PBX_Rune2.Image = null;
+            PBX_Rune3.Image = null;
+            PBX_Coins.Image = null;
         }
         #endregion
 
@@ -3287,6 +3425,8 @@ namespace FallenWorld
             AtualizarBolasDeFogo();
             // Atualiza a posição da runa mais próxima do jogador.
             AtualizarPuzzleRunes();
+            // Verifica se o jogador está próximo do baú e se ele pode ser aberto.
+            VerificarRecompensaBau();
             // Atualiza a contagem regressiva da Forja do Julgamento.
             AtualizarContagemJulgamento();
             // Atualiza a runa do Guardião mais próxima do jogador.
@@ -3897,8 +4037,11 @@ namespace FallenWorld
         #endregion
 
         #region Puzzle Chest
-        private void LoadPuzzleChest(bool visivelInicialmente)
+        private void LoadPuzzleChest(bool visivelInicialmente, bool bauTutorial = false)
         {
+            _recompensaBauEntregue = false;
+            _bauTutorialAtual = bauTutorial;
+                
             if (map == null)
                 return;
 
@@ -3956,6 +4099,28 @@ namespace FallenWorld
                 player.BringToFront();
             }
         }
+
+        private void VerificarRecompensaBau()
+        {
+            if (_recompensaBauEntregue)
+                return;
+
+            if (_puzzleChest == null || _puzzleChest.IsDisposed)
+                return;
+
+            if (!_puzzleChest.IsOpen)
+                return;
+
+            // Impede que a recompensa seja entregue novamente.
+            _recompensaBauEntregue = true;
+
+            // O baú do Tutorial entrega 10 moedas.
+            if (_bauTutorialAtual)
+            {
+                AdicionarMoedas(10);
+            }
+        }
+
         private void LimparPuzzleChest()
         {
             if (_puzzleChest == null)
@@ -4134,5 +4299,15 @@ namespace FallenWorld
             }
         }
         #endregion
+
+        private void AdicionarMoedas(int quantidade)
+        {
+            if (quantidade <= 0)
+                return;
+
+            _moedas = Math.Min(MaxMoedas, _moedas + quantidade);
+
+            AtualizarInventario();
+        }
     }
 }
