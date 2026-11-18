@@ -1,0 +1,46 @@
+{
+  "object": {
+    "id": "12cfc25c-6c93-4a83-a7c2-434aa8470ea7",
+    "name": "base",
+    "prompt": "A single ancient magical fire rune for a dark fantasy 2D side-scrolling pixel art RPG. A small, solid dark volcanic basalt stone tablet with a distinctive flame-shaped symbol carved into its center. The symbol glows with intense molten orange and golden-yellow light, with subtle magma cracks spreading through the dark stone surface. Ancient mystical design, sharp angular edges, volcanic atmosphere, powerful but readable silhouette. Front-facing game object, centered composition, designed to fit a 64x64 pixel sprite. Crisp pixel art, consistent pixel scale, clearly defined individual pixels, limited color palette, no anti-aliasing, no blur, no smooth gradients. Transparent background. One rune only, no characters, no text, no UI, no additional objects.",
+    "size": {
+      "width": 64,
+      "height": 64
+    },
+    "directions": 1,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Runa_da_Chama.png",
+    "cell_size": {
+      "width": 64,
+      "height": 64
+    },
+    "sheet_size": {
+      "width": 576,
+      "height": 128
+    },
+    "columns": 9,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 1,
+        "directions": [
+          "unknown"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Animate this existing volcanic rune for a dark fan",
+        "animation_group_id": "b66e2ff5-1875-4936-a159-00b4fd8ad8d4",
+        "direction": "unknown"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-18T01:56:24.030403+00:00"
+}

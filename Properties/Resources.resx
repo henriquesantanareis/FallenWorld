@@ -661,4 +661,34 @@
   <data name="MidBoss_Battle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MidBoss_Battle.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Puzzle_Rune_Flame_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Puzzle_Rune_Flame.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Puzzle_Rune_Flame_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Puzzle_Rune_Flame_spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Puzzle_Rune_Mountain_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Puzzle_Rune_Mountain.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Puzzle_Rune_Mountain_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Puzzle_Rune_Mountain_spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Puzzle_Rune_Core_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Puzzle_Rune_Core.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Puzzle_Rune_Core_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Puzzle_Rune_Core_spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="JudgmentForge_Map_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\JudgmentForge.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="JudgmentForge_Map_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\JudgmentForge_spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Judgment_Forge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Judgment_Forge.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="JudgmentRune_Activate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\JudgmentRune_Activate.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
