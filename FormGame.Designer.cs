@@ -130,6 +130,7 @@
             // 
             this.LBL_Money.AutoSize = true;
             this.LBL_Money.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBL_Money.ForeColor = System.Drawing.Color.White;
             this.LBL_Money.Location = new System.Drawing.Point(3, 262);
             this.LBL_Money.Name = "LBL_Money";
             this.LBL_Money.Size = new System.Drawing.Size(32, 18);

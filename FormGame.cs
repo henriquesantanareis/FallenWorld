@@ -49,7 +49,9 @@ namespace FallenWorld
         private const int MaxMoedas = 999;
         private bool _recompensaBauEntregue = false;
         private bool _bauTutorialAtual = false;
-
+        private readonly Random _recompensaRandom = new Random();
+        // Conversão de uma runa repetida.
+        private const int MoedasPorRunaDuplicada = 10;
         #endregion
 
         #region Input Handling
@@ -4100,6 +4102,51 @@ namespace FallenWorld
             }
         }
 
+        private void SortearRecompensaBau()
+        {
+            int sorteio = _recompensaRandom.Next(100);
+
+            // 40%: somente moedas.
+            if (sorteio < 40)
+            {
+                int moedas = _recompensaRandom.Next(15, 31);
+                AdicionarMoedas(moedas);
+                return;
+            }
+
+            // 30%: somente uma runa.
+            if (sorteio < 70)
+            {
+                AdicionarRunaAleatoria();
+                return;
+            }
+
+            // 30%: moedas e uma runa.
+            int moedasRecompensa = _recompensaRandom.Next(10, 21);
+
+            AdicionarMoedas(moedasRecompensa);
+            AdicionarRunaAleatoria();
+        }
+
+        private void AdicionarRunaAleatoria()
+        {
+            TipoRuna[] runas = (TipoRuna[])Enum.GetValues(typeof(TipoRuna));
+
+            TipoRuna runaSorteada =
+                runas[_recompensaRandom.Next(runas.Length)];
+
+            // HashSet.Add retorna false se a runa já existir.
+            if (_runasAdquiridas.Add(runaSorteada))
+            {
+                AtualizarInventario();
+            }
+            else
+            {
+                // Converte uma runa repetida em moedas.
+                AdicionarMoedas(MoedasPorRunaDuplicada);
+            }
+        }
+
         private void VerificarRecompensaBau()
         {
             if (_recompensaBauEntregue)
@@ -4114,11 +4161,15 @@ namespace FallenWorld
             // Impede que a recompensa seja entregue novamente.
             _recompensaBauEntregue = true;
 
-            // O baú do Tutorial entrega 10 moedas.
+            // O Tutorial continua entregando exatamente 10 moedas.
             if (_bauTutorialAtual)
             {
                 AdicionarMoedas(10);
+                return;
             }
+
+            // Os demais baús utilizam recompensas aleatórias.
+            SortearRecompensaBau();
         }
 
         private void LimparPuzzleChest()
