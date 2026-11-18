@@ -765,6 +765,15 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Judgment_Forge {
+            get {
+                return ResourceManager.GetStream("Judgment_Forge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a {&quot;tileSize&quot;:32,&quot;mapWidth&quot;:68,&quot;mapHeight&quot;:34,&quot;layers&quot;:[{&quot;name&quot;:&quot;floor&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:14,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:15,&quot;y&quot;:21,&quot;attributes&quot;:{&quot;Spawn&quot;:&quot;player&quot;}},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:16,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:17,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:18,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:19,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:20,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:21,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:22,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:23,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:24,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:25,&quot;y&quot;:21},{&quot;id&quot;:&quot;0&quot;,....
         /// </summary>
         public static string JudgmentForge_Map_js {
@@ -780,6 +789,15 @@ namespace FallenWorld.Properties {
             get {
                 object obj = ResourceManager.GetObject("JudgmentForge_Map_sprite", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream JudgmentRune_Activate {
+            get {
+                return ResourceManager.GetStream("JudgmentRune_Activate", resourceCulture);
             }
         }
         

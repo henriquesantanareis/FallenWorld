@@ -156,6 +156,8 @@ namespace FallenWorld
         private bool _ruinasGuardiaoCarregadas = false;
         // Indica se o Mapa 2 já foi carregado.
         private bool _mapa2Carregado = false;
+        // Indica se a Forja do Julgamento já foi carregada.
+        private bool _judgmentForgeCarregado = false;
         #endregion
 
         #region Puzzle Runes
@@ -169,6 +171,28 @@ namespace FallenWorld
         private PuzzleChest _puzzleChest;
         private Point _puzzleChestWorldPosition;
         private bool _puzzleChestAoAlcance = false;
+        // Tempo limite do Julgamento das Runas.
+        private const int JudgmentForgeTempoLimiteMs = 10000;
+
+        // Tempo restante para ativar as três runas.
+        private int _judgmentForgeTempoRestanteMs = JudgmentForgeTempoLimiteMs;
+
+        // Acumulador para contabilizar os milissegundos.
+        private int _judgmentForgeTempoAcumuladoMs = 0;
+
+        // Indica se a contagem regressiva está ativa.
+        private bool _judgmentForgeContagemAtiva = false;
+
+        // Impede que a penalidade seja aplicada mais de uma vez.
+        private bool _judgmentForgeContagemFalhou = false;
+
+        // Indica que as três runas já começaram a ativação.
+        private bool _judgmentForgeTodasRunasIniciadas = false;
+
+        // Indicador visual da contagem regressiva.
+        private Label _judgmentForgeTempoLabel;
+        // Indica se a música da Forja já foi iniciada.
+        private bool _judgmentForgeMusicaIniciada = false;
         #endregion
 
         #region Damage and Invulnerability
@@ -956,6 +980,193 @@ namespace FallenWorld
             }
         }
 
+
+        private bool CarregarForjaDoJulgamento()
+        {
+            if (_transicaoEmAndamento || player == null || player.IsDisposed)
+                return false;
+
+            bool timerEstavaAtivo = TMR_Game.Enabled;
+
+            _transicaoEmAndamento = true;
+            TMR_Game.Stop();
+
+            try
+            {
+                // Recursos da Forja do Julgamento.
+                string mapJson = Properties.Resources.JudgmentForge_Map_js;
+                Bitmap spritesheet = Properties.Resources.JudgmentForge_Map_sprite;
+
+                // Valida o JSON e o Spawn do jogador.
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+                Maps mapaTeste = serializer.Deserialize<Maps>(mapJson);
+
+                if (mapaTeste == null)
+                    throw new Exception("Não foi possível interpretar a Forja do Julgamento.");
+
+                MapTile spawnTeste = mapaTeste.GetSpawnPlayer();
+
+                if (spawnTeste == null)
+                    throw new Exception("Spawn do jogador não encontrado na Forja do Julgamento.");
+
+                // Remove os objetos dos puzzles anteriores.
+                LimparPuzzleRunes();
+                LimparPuzzleChest();
+                LimparGuardianRunes();
+
+                _puzzleCompleto = false;
+                _runaProxima = null;
+                _puzzleChestAoAlcance = false;
+
+                _guardianPuzzleCompleto = false;
+                _guardianRuneErrorInProgress = false;
+                _guardianSequenceIndex = 0;
+                _guardianRuneSequence.Clear();
+
+                // Interrompe a música da arena anterior.
+                SoundEffects.StopWavLoop();
+                _judgmentForgeMusicaIniciada = false;
+
+                // Carrega o novo mapa e suas colisões.
+                Load_Map(mapJson, spritesheet);
+
+                MapTile spawn = map.GetSpawnPlayer();
+
+                // Interrompe a recuperação de mana.
+                player.CancelarRecuperacaoMana();
+                PararSomRecuperacaoMana();
+                _manaRecoveryTickCounter = 0;
+
+                // Remove as bolas de fogo anteriores.
+                foreach (FireballProjectile fireball in _fireballs.ToList())
+                {
+                    if (fireball == null)
+                        continue;
+
+                    world1.Controls.Remove(fireball);
+                    fireball.Dispose();
+                }
+
+                _fireballs.Clear();
+                SoundEffects.StopFireballFlight();
+
+                // Remove o Mid-Boss da arena anterior.
+                LimparMidBoss();
+                _midBossBattleMusicStarted = false;
+
+                // Mantém o registro da vitória sobre o Mid-Boss.
+
+                // Remove os inimigos do mapa anterior.
+                foreach (Enemy enemy in _enemies.ToList())
+                {
+                    if (enemy == null)
+                        continue;
+
+                    enemy.AttackImpact -= Enemy_AttackImpact;
+
+                    world1.Controls.Remove(enemy);
+                    enemy.Dispose();
+                }
+
+                _enemies.Clear();
+                _enemyAttackCooldowns.Clear();
+                _enemyKnockbackRemaining.Clear();
+                _enemyWorldPositions.Clear();
+                _enemyVisualOffsetY.Clear();
+
+                // Posiciona o jogador no Spawn da Forja.
+                int spawnX = spawn.x * map.tileSize;
+                int spawnY = spawn.y * map.tileSize;
+
+                _playerWorldX = spawnX + (map.tileSize - player.Width) / 2;
+                _playerWorldY = spawnY - player.Height;
+
+                player.Location = new Point(
+                    _playerWorldX,
+                    _playerWorldY + _playerVisualOffsetY
+                );
+
+                // Reinicia a física.
+                _velocidadeVertical = 0f;
+                _estaNoChao = TemChaoAbaixo();
+
+                // Reinicia os comandos de movimento.
+                _pedidoPulo = false;
+                _jumpKeyHeld = false;
+
+                Core.isMovingLeft = false;
+                Core.isMovingRight = false;
+                Core.isJumping = false;
+
+                Core.isAttacking0 = false;
+                Core.isAttacking1 = false;
+                Core.isAttacking2 = false;
+
+                _attack0KeyHeld = false;
+                _attack1KeyHeld = false;
+                _attack2KeyHeld = false;
+
+                SkillButtonStates(this, EventArgs.Empty);
+
+                // Atualiza o marcador de saída.
+                _nextStage = map.GetNextStage();
+                _nearNextStage = false;
+
+                if (_stagePrompt != null)
+                    _stagePrompt.Visible = false;
+
+                // Atualiza a câmera.
+                AtualizarCamera();
+
+                // Carrega as três runas exclusivas da Forja.
+                LoadJudgmentForgeRunes();
+
+                // Reinicia o estado do Julgamento das Runas.
+                _judgmentForgeTempoRestanteMs = JudgmentForgeTempoLimiteMs;
+                _judgmentForgeTempoAcumuladoMs = 0;
+                _judgmentForgeContagemAtiva = false;
+                _judgmentForgeContagemFalhou = false;
+                _judgmentForgeTodasRunasIniciadas = false;
+
+                // Cria o indicador visual do tempo.
+                CriarIndicadorTempoJulgamento();
+
+                // Cria o baú inicialmente escondido.
+                LoadPuzzleChest(false);
+
+                AtualizarPosicaoPlayerNaTela();
+                player.BringToFront();
+
+                // Atualiza o HUD.
+                AtualizarBarraVida();
+                AtualizarBarraMagia();
+
+                world1.Invalidate();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar a Forja do Julgamento.\n\n" + ex.Message,
+                    "Erro na transição",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return false;
+            }
+            finally
+            {
+                _transicaoEmAndamento = false;
+
+                if (timerEstavaAtivo)
+                    TMR_Game.Start();
+            }
+        }
+
+
         private void LoadPuzzleRunes()
         {
             if (map == null)
@@ -1042,6 +1253,96 @@ namespace FallenWorld
             }
         }
 
+        private void LoadJudgmentForgeRunes()
+        {
+            if (map == null || world1 == null)
+                return;
+
+            // Evita duplicar runas caso o método seja chamado novamente.
+            LimparPuzzleRunes();
+            _puzzleCompleto = false;
+
+            List<MapTile> marcadores = map.GetPuzzleMarkers();
+
+            foreach (MapTile marcador in marcadores)
+            {
+                if (marcador.attributes == null)
+                    continue;
+
+                string tipoRune = null;
+
+                // Identifica o atributo Puzzle.
+                foreach (KeyValuePair<string, string> atributo in marcador.attributes)
+                {
+                    if (string.Equals(
+                        atributo.Key,
+                        "Puzzle",
+                        StringComparison.OrdinalIgnoreCase))
+                    {
+                        tipoRune = atributo.Value;
+                        break;
+                    }
+                }
+
+                PuzzleRune rune = null;
+
+                // Runa de Fogo.
+                if (string.Equals(tipoRune, "Rune1", StringComparison.OrdinalIgnoreCase))
+                {
+                    rune = new PuzzleRune(
+                        1,
+                        Properties.Resources.Puzzle_Rune_Flame_sprite,
+                        Properties.Resources.Puzzle_Rune_Flame_js
+                    );
+                }
+                // Runa da Montanha.
+                else if (string.Equals(tipoRune, "Rune2", StringComparison.OrdinalIgnoreCase))
+                {
+                    rune = new PuzzleRune(
+                        2,
+                        Properties.Resources.Puzzle_Rune_Mountain_sprite,
+                        Properties.Resources.Puzzle_Rune_Mountain_js
+                    );
+                }
+                // Runa do Núcleo.
+                else if (string.Equals(tipoRune, "Rune3", StringComparison.OrdinalIgnoreCase))
+                {
+                    rune = new PuzzleRune(
+                        3,
+                        Properties.Resources.Puzzle_Rune_Core_sprite,
+                        Properties.Resources.Puzzle_Rune_Core_js
+                    );
+                }
+
+                // Ignora marcadores que não correspondem às três runas.
+                if (rune == null)
+                    continue;
+
+                // Registra o evento de conclusão da animação.
+                rune.ActivationCompleted += OnRuneActivationCompleted;
+
+                // Converte a posição do marcador para coordenadas do mundo.
+                int worldX = marcador.x * map.tileSize + (map.tileSize - rune.Width) / 2;
+
+                int worldY = marcador.y * map.tileSize - rune.Height + 4;
+
+                Point worldPosition = new Point(worldX, worldY);
+
+                _puzzleRunes.Add(rune);
+                _puzzleRuneWorldPositions.Add(rune, worldPosition);
+
+                // Converte para a posição atual da câmera.
+                rune.Location = new Point(worldX - _cameraX,worldY - _cameraY);
+
+                world1.Controls.Add(rune);
+            }
+
+            if (player != null && !player.IsDisposed)
+            {
+                player.BringToFront();
+            }
+        }
+            
         private void LimparPuzzleRunes()
         {
             foreach (PuzzleRune rune in _puzzleRunes.ToList())
@@ -1327,7 +1628,34 @@ namespace FallenWorld
                     {
                         if (_runaProxima.StartActivation())
                         {
-                            SoundEffects.PlayWav(Properties.Resources.RootRune_Activate,0.8f);
+                            if (_judgmentForgeCarregado)
+                            {
+                                // Inicia a música na primeira ativação.
+                                if (!_judgmentForgeMusicaIniciada)
+                                {
+                                    SoundEffects.StartMp3Loop(
+                                        Properties.Resources.Judgment_Forge,
+                                        0.30f
+                                    );
+
+                                    _judgmentForgeMusicaIniciada = true;
+                                }
+
+                                SoundEffects.PlayWav(
+                                    Properties.Resources.JudgmentRune_Activate,
+                                    0.8f
+                                );
+
+                                // A primeira runa também inicia o cronômetro.
+                                IniciarContagemJulgamento();
+                            }
+                            else
+                            {
+                                SoundEffects.PlayWav(
+                                    Properties.Resources.RootRune_Activate,
+                                    0.8f
+                                );
+                            }
                         }
                     }
                     else if (_nearNextStage)
@@ -2959,6 +3287,8 @@ namespace FallenWorld
             AtualizarBolasDeFogo();
             // Atualiza a posição da runa mais próxima do jogador.
             AtualizarPuzzleRunes();
+            // Atualiza a contagem regressiva da Forja do Julgamento.
+            AtualizarContagemJulgamento();
             // Atualiza a runa do Guardião mais próxima do jogador.
             AtualizarGuardianRunes();
             // Atualiza a barra de vida e mana do jogador.
@@ -3193,6 +3523,15 @@ namespace FallenWorld
                 return;
             }
 
+            // Quinta transição: Mapa 2 -> Forja do Julgamento.
+            if (!_judgmentForgeCarregado)
+            {
+                if (CarregarForjaDoJulgamento())
+                    _judgmentForgeCarregado = true;
+
+                return;
+            }
+
             MessageBox.Show(
                 "O próximo mapa ainda não está configurado.",
                 "Fallen World",
@@ -3280,6 +3619,44 @@ namespace FallenWorld
             {
                 if (runa == null || !runa.IsActivated)
                     return;
+            }
+
+            // Tratamento exclusivo da conclusão da Forja.
+            if (_judgmentForgeCarregado)
+            {
+                _puzzleCompleto = true;
+
+                // Interrompe definitivamente a contagem regressiva.
+                _judgmentForgeContagemAtiva = false;
+                _judgmentForgeTodasRunasIniciadas = true;
+
+                // Interrompe a música da Forja.
+                SoundEffects.StopWavLoop();
+
+                // Atualiza o indicador visual.
+                if (_judgmentForgeTempoLabel != null && !_judgmentForgeTempoLabel.IsDisposed)
+                {
+                    _judgmentForgeTempoLabel.Text = "JULGAMENTO CONCLUÍDO!";
+                    _judgmentForgeTempoLabel.ForeColor = Color.Gold;
+                }
+
+                SoundEffects.PlayWav(Properties.Resources.RootMechanism_Open, 0.8f);
+
+                await Task.Delay(2800);
+
+                if (IsDisposed || Disposing)
+                    return;
+
+                // Revela o baú após a abertura do mecanismo.
+                if (_puzzleChest != null && !_puzzleChest.IsDisposed)
+                {
+                    _puzzleChest.Visible = true;
+
+                    if (player != null && !player.IsDisposed)
+                        player.BringToFront();
+                }
+
+                return;
             }
 
             // As três runas foram ativadas.
@@ -3608,6 +3985,7 @@ namespace FallenWorld
         }
         #endregion
 
+        #region Mid-Boss
         private void LimparMidBoss()
         {
             if (_midBoss == null)
@@ -3623,5 +4001,120 @@ namespace FallenWorld
             _midBossWorldPosition = Point.Empty;
             _midBossVisualOffsetY = 0;
         }
+        #endregion
+
+        #region Judgment Forge Countdown
+        private void CriarIndicadorTempoJulgamento()
+        {
+            if (_judgmentForgeTempoLabel != null &&
+                !_judgmentForgeTempoLabel.IsDisposed)
+            {
+                _judgmentForgeTempoLabel.Text = "TEMPO: 10s";
+                _judgmentForgeTempoLabel.Visible = false;
+                return;
+            }
+
+            _judgmentForgeTempoLabel = new Label();
+
+            _judgmentForgeTempoLabel.Name = "LBL_JudgmentForgeTimer";
+            _judgmentForgeTempoLabel.Text = "TEMPO: 10s";
+            _judgmentForgeTempoLabel.AutoSize = true;
+
+            _judgmentForgeTempoLabel.Font = new Font("Arial", 14, FontStyle.Bold);
+
+            _judgmentForgeTempoLabel.ForeColor = Color.Gold;
+            _judgmentForgeTempoLabel.BackColor = Color.FromArgb(220, 35, 20, 12);
+
+            _judgmentForgeTempoLabel.Padding = new Padding(14, 8, 14, 8);
+
+            _judgmentForgeTempoLabel.BorderStyle = BorderStyle.FixedSingle;
+
+            _judgmentForgeTempoLabel.Visible = false;
+
+            _judgmentForgeTempoLabel.Location = new Point(
+                (world1.ClientSize.Width - _judgmentForgeTempoLabel.Width) / 2,
+                16
+            );
+
+            world1.Controls.Add(_judgmentForgeTempoLabel);
+            _judgmentForgeTempoLabel.BringToFront();
+        }
+
+        private void IniciarContagemJulgamento()
+        {
+            if (!_judgmentForgeCarregado ||
+                _judgmentForgeContagemAtiva || 
+                _judgmentForgeContagemFalhou)
+                return;
+
+            _judgmentForgeTempoRestanteMs = JudgmentForgeTempoLimiteMs;
+            _judgmentForgeTempoAcumuladoMs = 0;
+
+            _judgmentForgeContagemAtiva = true;
+
+            if (_judgmentForgeTempoLabel != null && !_judgmentForgeTempoLabel.IsDisposed)
+            {
+                _judgmentForgeTempoLabel.Text = "TEMPO: 10s";
+                _judgmentForgeTempoLabel.Visible = true;
+                _judgmentForgeTempoLabel.BringToFront();
+            }
+        }
+
+        private void AtualizarContagemJulgamento()
+        {
+            if (!_judgmentForgeCarregado ||
+                !_judgmentForgeContagemAtiva ||
+                _judgmentForgeContagemFalhou)
+                return;
+
+            _judgmentForgeTempoAcumuladoMs += TMR_Game.Interval;
+
+            _judgmentForgeTempoRestanteMs = JudgmentForgeTempoLimiteMs - _judgmentForgeTempoAcumuladoMs;
+
+            // Atualiza o indicador a cada segundo.
+            int segundosRestantes = (int)Math.Ceiling(_judgmentForgeTempoRestanteMs / 1000.0);
+
+            if (_judgmentForgeTempoLabel != null && !_judgmentForgeTempoLabel.IsDisposed)
+            {
+                _judgmentForgeTempoLabel.Text = "TEMPO: " + Math.Max(0, segundosRestantes) + "s";
+
+                // Destaca os últimos segundos.
+                _judgmentForgeTempoLabel.ForeColor = segundosRestantes <= 3 ? Color.Red : Color.Gold;
+            }
+
+            // O tempo acabou.
+            if (_judgmentForgeTempoRestanteMs <= 0)
+            {
+                _judgmentForgeTempoRestanteMs = 0;
+
+                _judgmentForgeContagemAtiva = false;
+                _judgmentForgeContagemFalhou = true;
+
+                AplicarPenalidadeJulgamento();
+            }
+        }
+
+        private void AplicarPenalidadeJulgamento()
+        {
+            // Interrompe a música da Forja.
+            SoundEffects.StopWavLoop();
+
+            if (player == null || player.IsDisposed || player.EstaMorto)
+                return;
+
+            // A descarga mágica elimina toda a vida do jogador.
+            player.ReceberDano(player.VidaAtual);
+
+            // Atualiza o HUD.
+            AtualizarBarraVida();
+
+            // Esconde o indicador.
+            if (_judgmentForgeTempoLabel != null && !_judgmentForgeTempoLabel.IsDisposed)
+            {
+                _judgmentForgeTempoLabel.Text = "JULGAMENTO FALHOU!";
+                _judgmentForgeTempoLabel.ForeColor = Color.Red;
+            }
+        }
+        #endregion
     }
 }
