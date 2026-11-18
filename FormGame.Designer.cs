@@ -88,10 +88,9 @@
             this.FLP_Inventory.Controls.Add(this.PBX_Rune3);
             this.FLP_Inventory.Controls.Add(this.PBX_Coins);
             this.FLP_Inventory.Controls.Add(this.LBL_Money);
-            this.FLP_Inventory.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.FLP_Inventory.Location = new System.Drawing.Point(4, 97);
             this.FLP_Inventory.Name = "FLP_Inventory";
-            this.FLP_Inventory.Size = new System.Drawing.Size(78, 285);
+            this.FLP_Inventory.Size = new System.Drawing.Size(85, 268);
             this.FLP_Inventory.TabIndex = 5;
             // 
             // PBX_Rune1
@@ -131,7 +130,7 @@
             this.LBL_Money.AutoSize = true;
             this.LBL_Money.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBL_Money.ForeColor = System.Drawing.Color.White;
-            this.LBL_Money.Location = new System.Drawing.Point(3, 262);
+            this.LBL_Money.Location = new System.Drawing.Point(43, 222);
             this.LBL_Money.Name = "LBL_Money";
             this.LBL_Money.Size = new System.Drawing.Size(32, 18);
             this.LBL_Money.TabIndex = 10;

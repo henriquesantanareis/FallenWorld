@@ -4106,22 +4106,22 @@ namespace FallenWorld
         {
             int sorteio = _recompensaRandom.Next(100);
 
-            // 40%: somente moedas.
-            if (sorteio < 40)
+            // 20%: somente moedas.
+            if (sorteio < 20)
             {
                 int moedas = _recompensaRandom.Next(15, 31);
                 AdicionarMoedas(moedas);
                 return;
             }
 
-            // 30%: somente uma runa.
-            if (sorteio < 70)
+            // 40%: somente uma runa.
+            if (sorteio < 60)
             {
                 AdicionarRunaAleatoria();
                 return;
             }
 
-            // 30%: moedas e uma runa.
+            // 40%: moedas e uma runa.
             int moedasRecompensa = _recompensaRandom.Next(10, 21);
 
             AdicionarMoedas(moedasRecompensa);
@@ -4130,21 +4130,34 @@ namespace FallenWorld
 
         private void AdicionarRunaAleatoria()
         {
-            TipoRuna[] runas = (TipoRuna[])Enum.GetValues(typeof(TipoRuna));
+            TipoRuna[] todasRunas = (TipoRuna[])Enum.GetValues(typeof(TipoRuna));
 
-            TipoRuna runaSorteada =
-                runas[_recompensaRandom.Next(runas.Length)];
+            List<TipoRuna> runasDisponiveis = new List<TipoRuna>();
 
-            // HashSet.Add retorna false se a runa já existir.
-            if (_runasAdquiridas.Add(runaSorteada))
+            // Adiciona somente as runas que o jogador ainda não possui.
+            foreach (TipoRuna runa in todasRunas)
             {
-                AtualizarInventario();
+                if (!_runasAdquiridas.Contains(runa))
+                {
+                    runasDisponiveis.Add(runa);
+                }
             }
-            else
+
+            // Se já possui todas as runas, converte em moedas.
+            if (runasDisponiveis.Count == 0)
             {
-                // Converte uma runa repetida em moedas.
                 AdicionarMoedas(MoedasPorRunaDuplicada);
+                return;
             }
+
+            // Sorteia somente entre as runas que faltam.
+            TipoRuna runaSorteada = runasDisponiveis[
+                _recompensaRandom.Next(runasDisponiveis.Count)
+            ];
+
+            _runasAdquiridas.Add(runaSorteada);
+
+            AtualizarInventario();
         }
 
         private void VerificarRecompensaBau()
@@ -4351,6 +4364,7 @@ namespace FallenWorld
         }
         #endregion
 
+        #region Inventory Management
         private void AdicionarMoedas(int quantidade)
         {
             if (quantidade <= 0)
@@ -4360,5 +4374,6 @@ namespace FallenWorld
 
             AtualizarInventario();
         }
+        #endregion 
     }
 }
