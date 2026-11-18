@@ -80,6 +80,52 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;object&quot;: {
+        ///    &quot;id&quot;: &quot;71414dd2-737d-4bea-8ecd-98854fc0d267&quot;,
+        ///    &quot;name&quot;: &quot;base&quot;,
+        ///    &quot;prompt&quot;: &quot;Crie uma  moeda medieval&quot;,
+        ///    &quot;size&quot;: {
+        ///      &quot;width&quot;: 34,
+        ///      &quot;height&quot;: 34
+        ///    },
+        ///    &quot;directions&quot;: 8,
+        ///    &quot;view&quot;: &quot;side&quot;
+        ///  },
+        ///  &quot;spritesheet&quot;: {
+        ///    &quot;path&quot;: &quot;Coin.png&quot;,
+        ///    &quot;cell_size&quot;: {
+        ///      &quot;width&quot;: 34,
+        ///      &quot;height&quot;: 34
+        ///    },
+        ///    &quot;sheet_size&quot;: {
+        ///      &quot;width&quot;: 272,
+        ///      &quot;height&quot;: 34
+        ///    },
+        ///    &quot;columns&quot;: 8,
+        ///    &quot;pivot&quot;: &quot;cell-center&quot;,
+        ///    &quot;rows&quot;: [
+        ///      {
+        ///        &quot;row&quot;: 0,
+        ///        &quot;type&quot;: &quot;rota [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Coin_js {
+            get {
+                return ResourceManager.GetString("Coin_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Coin_sprite {
+            get {
+                object obj = ResourceManager.GetObject("Coin_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
         /// </summary>
         public static System.IO.UnmanagedMemoryStream Crown_of_Ashes_and_Dawn {
