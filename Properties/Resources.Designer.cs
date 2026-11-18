@@ -1777,7 +1777,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;7b2f39e9-ad73-4350-a43a-d00163c9a247&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;A single ancient magical core rune for a dark fantasy 2D side-scrolling pixel art RPG. A small, solid dark volcanic basalt stone tablet with a distinctive geometric crystal-shaped symbol carved into its center. The symbol resembles a glowing hexagonal magma crystal, radiating intense molten orange and golden-yellow light, with subtle magma cracks spreading through the dark stone surface. Ancient mystical des [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;A single ancient magical core rune for a dark fantasy 2D side-scrolling pixel art RPG. A small, solid dark volcanic basalt stone tablet with a distinctive geometric crystal-shaped symbol carved into its center. The symbol resembles a glowing hexagonal magma crystal, radiating intense molten orange and golden-yellow light, with subtle magma cracks spreading through the dark stone surface. Ancient mystical [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Puzzle_Rune_Core_js {
             get {
@@ -1800,7 +1800,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;12cfc25c-6c93-4a83-a7c2-434aa8470ea7&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;A single ancient magical fire rune for a dark fantasy 2D side-scrolling pixel art RPG. A small, solid dark volcanic basalt stone tablet with a distinctive flame-shaped symbol carved into its center. The symbol glows with intense molten orange and golden-yellow light, with subtle magma cracks spreading through the dark stone surface. Ancient mystical design, sharp angular edges, volcanic atmosphere, powerful  [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;A single ancient magical fire rune for a dark fantasy 2D side-scrolling pixel art RPG. A small, solid dark volcanic basalt stone tablet with a distinctive flame-shaped symbol carved into its center. The symbol glows with intense molten orange and golden-yellow light, with subtle magma cracks spreading through the dark stone surface. Ancient mystical design, sharp angular edges, volcanic atmosphere, power [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Puzzle_Rune_Flame_js {
             get {
@@ -1823,7 +1823,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;2089b52a-1415-46ea-b554-e9da076a42f8&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;A single ancient magical mountain rune for a dark fantasy 2D side-scrolling pixel art RPG. A small, solid dark volcanic basalt stone tablet with a distinctive mountain-shaped symbol carved into its center. The symbol glows with intense molten orange and golden-yellow light, with subtle magma cracks spreading through the dark stone surface. Ancient mystical design, sharp angular edges, volcanic atmosphere, po [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;A single ancient magical mountain rune for a dark fantasy 2D side-scrolling pixel art RPG. A small, solid dark volcanic basalt stone tablet with a distinctive mountain-shaped symbol carved into its center. The symbol glows with intense molten orange and golden-yellow light, with subtle magma cracks spreading through the dark stone surface. Ancient mystical design, sharp angular edges, volcanic atmosphere [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Puzzle_Rune_Mountain_js {
             get {
@@ -1962,6 +1962,75 @@ namespace FallenWorld.Properties {
         public static string Runa_de_Vaelis_js {
             get {
                 return ResourceManager.GetString("Runa_de_Vaelis_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;object&quot;: {
+        ///    &quot;id&quot;: &quot;ba3af5c4-402e-47aa-866f-3a2530bcc300&quot;,
+        ///    &quot;name&quot;: &quot;base&quot;,
+        ///    &quot;prompt&quot;: &quot;A magical collectible runestone using the selected reference object as its exact shape, stone material, proportions and pixel-art style. Replace the heart with a clearly recognizable feather symbol surrounded by a wind-shaped magical inscription. The symbol glows with bright cyan-blue energy. Add subtle blue magical particles suggesting speed and agility. Preserve the same stone silhouette, outlines, texture [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Rune_Agil_js {
+            get {
+                return ResourceManager.GetString("Rune_Agil_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Rune_Agil_sprite {
+            get {
+                object obj = ResourceManager.GetObject("Rune_Agil_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;object&quot;: {
+        ///    &quot;id&quot;: &quot;abee71ee-9e5b-4889-90ee-7fac6ebddb9a&quot;,
+        ///    &quot;name&quot;: &quot;base&quot;,
+        ///    &quot;prompt&quot;: &quot;A magical collectible runestone using the selected reference object as its exact shape, stone material, proportions and pixel-art style. Replace the heart with a clearly recognizable sword symbol carved into the center. The symbol glows with intense amber-orange magical energy. Add subtle orange magical particles suggesting strength and destructive power. Preserve the same stone silhouette, outlines, texture [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Rune_Force_js {
+            get {
+                return ResourceManager.GetString("Rune_Force_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Rune_Force_sprite {
+            get {
+                object obj = ResourceManager.GetObject("Rune_Force_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;object&quot;: {
+        ///    &quot;id&quot;: &quot;33bdd11b-0b9c-45ee-b652-315dd356edf1&quot;,
+        ///    &quot;name&quot;: &quot;base&quot;,
+        ///    &quot;prompt&quot;: &quot;A small ancient magical runestone made of dark weathered stone, with a clearly recognizable heart symbol carved into its center. The heart glows with intense crimson red magical energy. Rough stone edges, subtle cracks, ancient engravings and a faint red magical aura with tiny floating embers. Dark fantasy medieval RPG collectible. Front-facing side-scroller game object, centered, compact and clearly readabl [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Rune_Life_js {
+            get {
+                return ResourceManager.GetString("Rune_Life_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Rune_Life_sprite {
+            get {
+                object obj = ResourceManager.GetObject("Rune_Life_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

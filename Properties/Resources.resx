@@ -691,4 +691,22 @@
   <data name="JudgmentRune_Activate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\JudgmentRune_Activate.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Rune_Force_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Rune_Force.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Rune_Force_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Rune_Force_spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Rune_Life_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Rune_Life.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Rune_Life_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Rune_Life_spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Rune_Agil_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Rune_Agil.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Rune_Agil_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Rune_Agil_spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
