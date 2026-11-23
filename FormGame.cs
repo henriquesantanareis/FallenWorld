@@ -48,6 +48,7 @@ namespace FallenWorld
 
         private const int MaxMoedas = 999;
         private const int BonusVidaRuna = 20;
+        private bool _runaPoderAdquirida = false;
         private bool _recompensaBauEntregue = false;
         private bool _bauTutorialAtual = false;
         private readonly Random _recompensaRandom = new Random();
@@ -2444,7 +2445,12 @@ namespace FallenWorld
                 case Personagem.Cavaleiro:
                     if (state == StatePlayer.Attack)
                     {
-                        int dano = _knightAuraRemaining > 0 ? KnightAuraDamage : KnightBaseDamage;
+                        int danoBase = _knightAuraRemaining > 0 
+                            ? KnightAuraDamage 
+                            : KnightBaseDamage;
+
+                        int dano = CalcularDanoComRunaPoder(danoBase, 20);
+
                         AplicarDanoAosInimigos(dano, 52);
                     }
                     break;
@@ -2455,8 +2461,11 @@ namespace FallenWorld
                     else if (state == StatePlayer.Poison_Attack)
                     {
                         // Som do ataque envenenado.
-                        SoundEffects.Play(Properties.Resources.Princess_Poison_Attack,0.90f);
-                        AplicarDanoAosInimigos(20, 48, true);
+                        SoundEffects.Play(Properties.Resources.Princess_Poison_Attack, 0.90f);
+
+                        int danoVeneno = CalcularDanoComRunaPoder(20, 25);
+
+                        AplicarDanoAosInimigos(danoVeneno, 48, true);
                     }
                     break;
             }
@@ -2687,7 +2696,8 @@ namespace FallenWorld
                             continue;
 
                         // Dano imediato da bola de fogo.
-                        enemy.ReceberDano(FireballDamage);
+                        int danoFireball = CalcularDanoComRunaPoder(FireballDamage, 20);
+                        enemy.ReceberDano(danoFireball);
 
                         if (!enemy.IsDead)
                         {
@@ -2706,7 +2716,8 @@ namespace FallenWorld
 
                         if (hitboxBola.IntersectsWith(hitboxBoss))
                         {
-                            _midBoss.ReceberDano(FireballDamage);
+                            int danoFireball = CalcularDanoComRunaPoder(FireballDamage, 20);
+                            _midBoss.ReceberDano(danoFireball);
                             // Aplica queimadura se o chefe sobreviver ao impacto.
                             if (!_midBoss.IsDead)
                             {
@@ -4133,6 +4144,14 @@ namespace FallenWorld
             AdicionarRunaAleatoria();
         }
 
+        private int CalcularDanoComRunaPoder(int dano, int bonusPercentual)
+        {
+            if (!_runaPoderAdquirida)
+                return dano;
+
+            return (int)Math.Ceiling(dano * (100 + bonusPercentual) / 100.0);
+        }
+
         private void AplicarEfeitoRuna(TipoRuna runa)
         {
             switch (runa)
@@ -4145,6 +4164,11 @@ namespace FallenWorld
                     player.AumentarVidaMaxima(BonusVidaRuna);
 
                     AtualizarBarraVida();
+
+                    break;
+                case TipoRuna.Poder:
+
+                    _runaPoderAdquirida = true;
 
                     break;
             }
