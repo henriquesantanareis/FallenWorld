@@ -180,6 +180,8 @@ namespace FallenWorld
         private bool _mapa2Carregado = false;
         // Indica se a Forja do Julgamento já foi carregada.
         private bool _judgmentForgeCarregado = false;
+        // Indica se a arena dos chefes finais já foi carregada.
+        private bool _finalBossArenaCarregada = false;
         #endregion
 
         #region Puzzle Runes
@@ -1292,6 +1294,188 @@ namespace FallenWorld
             {
                 MessageBox.Show(
                     "Não foi possível carregar a Forja do Julgamento.\n\n" + ex.Message,
+                    "Erro na transição",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return false;
+            }
+            finally
+            {
+                _transicaoEmAndamento = false;
+
+                if (timerEstavaAtivo)
+                    TMR_Game.Start();
+            }
+        }
+
+
+
+        private bool CarregarArenaChefesFinais()
+        {
+            if (_transicaoEmAndamento || player == null || player.IsDisposed)
+                return false;
+
+            bool timerEstavaAtivo = TMR_Game.Enabled;
+
+            _transicaoEmAndamento = true;
+            TMR_Game.Stop();
+
+            try
+            {
+                // Recursos da arena dos chefes finais.
+                string mapJson = Properties.Resources.FinalBossMap_js;
+                Bitmap spritesheet = Properties.Resources.FinalBossMap_sprite;
+
+                // Valida o JSON e o Spawn do jogador.
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+                Maps mapaTeste = serializer.Deserialize<Maps>(mapJson);
+
+                if (mapaTeste == null)
+                    throw new Exception("Não foi possível interpretar a Arena dos Chefes Finais.");
+
+                MapTile spawnTeste = mapaTeste.GetSpawnPlayer();
+
+                if (spawnTeste == null)
+                    throw new Exception("Spawn do jogador não encontrado na Arena dos Chefes Finais.");
+
+                // Remove os objetos do puzzle anterior.
+                LimparPuzzleRunes();
+                LimparPuzzleChest();
+                LimparGuardianRunes();
+
+                _puzzleCompleto = false;
+                _runaProxima = null;
+                _puzzleChestAoAlcance = false;
+
+                // Desativa o contador da Forja.
+                _judgmentForgeContagemAtiva = false;
+                _judgmentForgeContagemFalhou = false;
+                _judgmentForgeTodasRunasIniciadas = false;
+                _judgmentForgeMusicaIniciada = false;
+
+                // Remove o indicador visual do Julgamento.
+                if (_judgmentForgeTempoLabel != null)
+                {
+                    if (!_judgmentForgeTempoLabel.IsDisposed)
+                    {
+                        world1.Controls.Remove(_judgmentForgeTempoLabel);
+                        _judgmentForgeTempoLabel.Dispose();
+                    }
+
+                    _judgmentForgeTempoLabel = null;
+                }
+
+                // Interrompe a música e os sons contínuos do mapa anterior.
+                SoundEffects.StopWavLoop();
+                SoundEffects.StopFireballFlight();
+
+                // Carrega o novo mapa e suas colisões.
+                Load_Map(mapJson, spritesheet);
+
+                MapTile spawn = map.GetSpawnPlayer();
+
+                // Interrompe somente a recuperação de mana.
+                // O valor atual da mana permanece preservado.
+                player.CancelarRecuperacaoMana();
+                PararSomRecuperacaoMana();
+                _manaRecoveryTickCounter = 0;
+
+                // Remove as bolas de fogo anteriores.
+                foreach (FireballProjectile fireball in _fireballs.ToList())
+                {
+                    if (fireball == null)
+                        continue;
+
+                    world1.Controls.Remove(fireball);
+                    fireball.Dispose();
+                }
+
+                _fireballs.Clear();
+
+                // Remove o Mid-Boss, caso ainda exista.
+                LimparMidBoss();
+                _midBossBattleMusicStarted = false;
+
+                // Remove os inimigos do mapa anterior.
+                foreach (Enemy enemy in _enemies.ToList())
+                {
+                    if (enemy == null)
+                        continue;
+
+                    enemy.AttackImpact -= Enemy_AttackImpact;
+
+                    world1.Controls.Remove(enemy);
+                    enemy.Dispose();
+                }
+
+                _enemies.Clear();
+                _enemyAttackCooldowns.Clear();
+                _enemyKnockbackRemaining.Clear();
+                _enemyWorldPositions.Clear();
+                _enemyVisualOffsetY.Clear();
+
+                // Posiciona o mesmo jogador no Spawn da arena final.
+                int spawnX = spawn.x * map.tileSize;
+                int spawnY = spawn.y * map.tileSize;
+
+                _playerWorldX = spawnX + (map.tileSize - player.Width) / 2;
+                _playerWorldY = spawnY - player.Height;
+
+                player.Location = new Point(
+                    _playerWorldX,
+                    _playerWorldY + _playerVisualOffsetY
+                );
+
+                // Reinicia a física.
+                _velocidadeVertical = 0f;
+                _estaNoChao = TemChaoAbaixo();
+
+                // Reinicia os comandos de movimento.
+                _pedidoPulo = false;
+                _jumpKeyHeld = false;
+
+                Core.isMovingLeft = false;
+                Core.isMovingRight = false;
+                Core.isJumping = false;
+
+                Core.isAttacking0 = false;
+                Core.isAttacking1 = false;
+                Core.isAttacking2 = false;
+
+                _attack0KeyHeld = false;
+                _attack1KeyHeld = false;
+                _attack2KeyHeld = false;
+
+                SkillButtonStates(this, EventArgs.Empty);
+
+                // A arena final não possui outra saída.
+                _nextStage = map.GetNextStage();
+                _nearNextStage = false;
+
+                if (_stagePrompt != null)
+                    _stagePrompt.Visible = false;
+
+                // Atualiza a câmera e a posição visual do jogador.
+                AtualizarCamera();
+                AtualizarPosicaoPlayerNaTela();
+
+                player.BringToFront();
+
+                // Atualiza o HUD sem alterar os atributos do jogador.
+                AtualizarBarraVida();
+                AtualizarBarraMagia();
+
+                world1.Invalidate();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar a Arena dos Chefes Finais.\n\n" + ex.Message,
                     "Erro na transição",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -3618,7 +3802,7 @@ namespace FallenWorld
                 return;
 
             // Impede sair da Forja sem concluir o Julgamento.
-            if (_judgmentForgeCarregado && !_puzzleCompleto)
+            if (_judgmentForgeCarregado && !_finalBossArenaCarregada && !_puzzleCompleto)
             {
                 MessageBox.Show(
                     "Você precisa concluir o Julgamento das Runas antes de continuar.",
@@ -3710,6 +3894,15 @@ namespace FallenWorld
             {
                 if (CarregarForjaDoJulgamento())
                     _judgmentForgeCarregado = true;
+
+                return;
+            }
+
+            // Sexta transição: Forja do Julgamento -> Arena dos Chefes Finais.
+            if (!_finalBossArenaCarregada)
+            {
+                if (CarregarArenaChefesFinais())
+                    _finalBossArenaCarregada = true;
 
                 return;
             }
