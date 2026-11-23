@@ -48,6 +48,7 @@ namespace FallenWorld
 
         private const int MaxMoedas = 999;
         private const int BonusVidaRuna = 20;
+        private const int BonusResistenciaRunaPoder = 15;
         private bool _runaPoderAdquirida = false;
         private bool _recompensaBauEntregue = false;
         private bool _bauTutorialAtual = false;
@@ -2402,7 +2403,7 @@ namespace FallenWorld
                 // Aplica veneno se o golpe for da habilidade da Princesa.
                 if (aplicarVeneno && !enemy.IsDead)
                 {
-                    enemy.AplicarVeneno(danoPorTick: 3,duracaoTicks: 300,intervaloTicks: 60);
+                    enemy.AplicarVeneno(danoPorTick: CalcularDanoComRunaPoder(3, 25), duracaoTicks: 300,intervaloTicks: 60);
                 }
                 atingiuInimigo = true;
                 break;
@@ -2419,7 +2420,7 @@ namespace FallenWorld
                     if (aplicarVeneno && !_midBoss.IsDead)
                     {
                         _midBoss.AplicarVeneno(
-                            danoPorTick: 3,
+                            danoPorTick: CalcularDanoComRunaPoder(3, 25),
                             duracaoTicks: 300,
                             intervaloTicks: 60
                         );
@@ -2574,10 +2575,21 @@ namespace FallenWorld
 
             int danoFinal = dano;
 
-            // Reduz o dano recebido enquanto a Aura estiver ativa.
+            // Reduz o dano recebido enquanto a Aura do Cavaleiro estiver ativa.
             if (_personagem == Personagem.Cavaleiro && _knightAuraRemaining > 0)
             {
-                danoFinal = Math.Max(1,(int)Math.Ceiling(dano * 0.5));
+                danoFinal = Math.Max(1, (int)Math.Ceiling(danoFinal * 0.5));
+            }
+
+            // Aplica os 15% de resistência da Runa do Poder.
+            // Esse bônus funciona para o Cavaleiro e a Princesa.
+            if (_runaPoderAdquirida &&
+                (_personagem == Personagem.Cavaleiro || _personagem == Personagem.Princesa))
+            {
+                danoFinal = Math.Max(
+                    1,
+                    (int)Math.Ceiling(danoFinal * (100 - BonusResistenciaRunaPoder) / 100.0)
+                );
             }
 
             if (player.ReceberDano(danoFinal))
