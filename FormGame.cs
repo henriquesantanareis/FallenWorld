@@ -2580,15 +2580,14 @@ namespace FallenWorld
                 danoFinal = Math.Max(1, (int)Math.Ceiling(danoFinal * 0.5));
             }
 
-            // Aplica os 15% de resistência da Runa do Poder.
-            // Esse bônus funciona para o Cavaleiro e a Princesa.
-            if (_runasAdquiridas.Contains(TipoRuna.Poder) && 
-                (_personagem == Personagem.Cavaleiro || _personagem == Personagem.Princesa))
+            // Aplica resistência proporcional à quantidade de Runas do Poder.
+            int quantidadeRunasPoder = _runasAdquiridas.Count(r => r == TipoRuna.Poder);
+
+            if (quantidadeRunasPoder > 0 && (_personagem == Personagem.Cavaleiro || _personagem == Personagem.Princesa))
             {
-                danoFinal = Math.Max(
-                    1,
-                    (int)Math.Ceiling(danoFinal * (100 - BonusResistenciaRunaPoder) / 100.0)
-                );
+                int resistenciaTotal = BonusResistenciaRunaPoder * quantidadeRunasPoder;
+
+                danoFinal = Math.Max(1,(int)Math.Ceiling(danoFinal * (100 - resistenciaTotal) / 100.0));
             }
 
             if (player.ReceberDano(danoFinal))
@@ -4136,10 +4135,14 @@ namespace FallenWorld
 
         private int CalcularDanoComRunaPoder(int dano, int bonusPercentual)
         {
-            if (!_runasAdquiridas.Contains(TipoRuna.Poder))
+            int quantidadeRunas = _runasAdquiridas.Count(r => r == TipoRuna.Poder);
+
+            if (quantidadeRunas == 0)
                 return dano;
 
-            return (int)Math.Ceiling(dano * (100 + bonusPercentual) / 100.0);
+            int bonusTotal = bonusPercentual * quantidadeRunas;
+
+            return (int)Math.Ceiling(dano * (100 + bonusTotal) / 100.0);
         }
 
         private void AplicarEfeitoRuna(TipoRuna runa)
@@ -4161,38 +4164,44 @@ namespace FallenWorld
 
         private int ObterIntervaloRecuperacaoMana()
         {
-            if (_personagem == Personagem.Mago &&
-                _runasAdquiridas.Contains(TipoRuna.Agilidade))
-            {
-                // 50% mais rápida: intervalo de 6 para 4.
-                return 4;
-            }
+            int quantidadeRunas = _runasAdquiridas.Count(
+                r => r == TipoRuna.Agilidade
+            );
 
-            return MageManaRecoveryInterval;
+            if (_personagem != Personagem.Mago || quantidadeRunas == 0)
+                return MageManaRecoveryInterval;
+
+            switch (quantidadeRunas)
+            {
+                case 1:
+                    return 4;
+                case 2:
+                    return 3;
+                default:
+                    return 2;
+            }
         }
 
         private int ObterCooldownAura()
         {
-            if (_personagem == Personagem.Cavaleiro &&
-                _runasAdquiridas.Contains(TipoRuna.Agilidade))
-            {
-                // Redução de 25%: 900 para 675.
-                return (int)Math.Ceiling(KnightAuraCooldownTicks * 0.75);
-            }
+            int quantidadeRunas = _runasAdquiridas.Count(r => r == TipoRuna.Agilidade);
 
-            return KnightAuraCooldownTicks;
+            if (_personagem != Personagem.Cavaleiro || quantidadeRunas == 0)
+                return KnightAuraCooldownTicks;
+
+            int reducaoPercentual = 25 * quantidadeRunas;
+
+            return KnightAuraCooldownTicks * (100 - reducaoPercentual) / 100;
         }
 
         private int ObterVelocidadeMovimento()
         {
-            if (_personagem == Personagem.Princesa &&
-                _runasAdquiridas.Contains(TipoRuna.Agilidade))
-            {
-                // Aumento de 25%: velocidade 4 para 5.
-                return (int)Math.Ceiling(VelocidadePlayer * 1.25);
-            }
+            int quantidadeRunas = _runasAdquiridas.Count(r => r == TipoRuna.Agilidade);
 
-            return VelocidadePlayer;
+            if (_personagem != Personagem.Princesa || quantidadeRunas == 0)
+                return VelocidadePlayer;
+
+            return (int)Math.Ceiling(VelocidadePlayer * (1 + 0.25 * quantidadeRunas));
         }
 
         private void AdicionarRunaAleatoria()
