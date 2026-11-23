@@ -36,8 +36,6 @@
             this.PBX_Rune1 = new System.Windows.Forms.PictureBox();
             this.PBX_Rune2 = new System.Windows.Forms.PictureBox();
             this.PBX_Rune3 = new System.Windows.Forms.PictureBox();
-            this.PBX_Coins = new System.Windows.Forms.PictureBox();
-            this.LBL_Money = new System.Windows.Forms.Label();
             this.PBX_Avatar = new System.Windows.Forms.PictureBox();
             this.BTN_Skill3 = new System.Windows.Forms.Button();
             this.BTN_EXIT = new System.Windows.Forms.Button();
@@ -50,7 +48,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.PBX_Rune1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_Rune2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_Rune3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PBX_Coins)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_Avatar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_MagicBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_HealthBar)).BeginInit();
@@ -86,11 +83,9 @@
             this.FLP_Inventory.Controls.Add(this.PBX_Rune1);
             this.FLP_Inventory.Controls.Add(this.PBX_Rune2);
             this.FLP_Inventory.Controls.Add(this.PBX_Rune3);
-            this.FLP_Inventory.Controls.Add(this.PBX_Coins);
-            this.FLP_Inventory.Controls.Add(this.LBL_Money);
             this.FLP_Inventory.Location = new System.Drawing.Point(4, 97);
             this.FLP_Inventory.Name = "FLP_Inventory";
-            this.FLP_Inventory.Size = new System.Drawing.Size(85, 268);
+            this.FLP_Inventory.Size = new System.Drawing.Size(77, 229);
             this.FLP_Inventory.TabIndex = 5;
             // 
             // PBX_Rune1
@@ -116,25 +111,6 @@
             this.PBX_Rune3.Size = new System.Drawing.Size(68, 68);
             this.PBX_Rune3.TabIndex = 8;
             this.PBX_Rune3.TabStop = false;
-            // 
-            // PBX_Coins
-            // 
-            this.PBX_Coins.Location = new System.Drawing.Point(3, 225);
-            this.PBX_Coins.Name = "PBX_Coins";
-            this.PBX_Coins.Size = new System.Drawing.Size(34, 34);
-            this.PBX_Coins.TabIndex = 9;
-            this.PBX_Coins.TabStop = false;
-            // 
-            // LBL_Money
-            // 
-            this.LBL_Money.AutoSize = true;
-            this.LBL_Money.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_Money.ForeColor = System.Drawing.Color.White;
-            this.LBL_Money.Location = new System.Drawing.Point(43, 222);
-            this.LBL_Money.Name = "LBL_Money";
-            this.LBL_Money.Size = new System.Drawing.Size(32, 18);
-            this.LBL_Money.TabIndex = 10;
-            this.LBL_Money.Text = "000";
             // 
             // PBX_Avatar
             // 
@@ -265,11 +241,9 @@
             this.world1.ResumeLayout(false);
             this.world1.PerformLayout();
             this.FLP_Inventory.ResumeLayout(false);
-            this.FLP_Inventory.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_Rune1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_Rune2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_Rune3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PBX_Coins)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_Avatar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_MagicBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_HealthBar)).EndInit();
@@ -291,8 +265,6 @@
         private System.Windows.Forms.PictureBox PBX_Rune1;
         private System.Windows.Forms.PictureBox PBX_Rune2;
         private System.Windows.Forms.PictureBox PBX_Rune3;
-        private System.Windows.Forms.PictureBox PBX_Coins;
-        private System.Windows.Forms.Label LBL_Money;
     }
 }
 

@@ -35,26 +35,16 @@ namespace FallenWorld
             Vida
         }
 
-        // Armazena as runas já adquiridas pelo jogador.
-        private readonly HashSet<TipoRuna> _runasAdquiridas =
-            new HashSet<TipoRuna>();
-
-        // Quantidade atual de moedas.
-        private int _moedas = 0;
-
+        // Armazena as runas adquiridas, permitindo repetições.
+        private readonly List<TipoRuna> _runasAdquiridas = new List<TipoRuna>();
         #endregion
 
         #region Inventory Rewards
-
-        private const int MaxMoedas = 999;
         private const int BonusVidaRuna = 20;
         private const int BonusResistenciaRunaPoder = 15;
-        private bool _runaPoderAdquirida = false;
         private bool _recompensaBauEntregue = false;
-        private bool _bauTutorialAtual = false;
         private readonly Random _recompensaRandom = new Random();
-        // Conversão de uma runa repetida.
-        private const int MoedasPorRunaDuplicada = 10;
+        private const int MaxRunasInventario = 3;
         #endregion
 
         #region Input Handling
@@ -323,17 +313,14 @@ namespace FallenWorld
             AtualizarCamera();
             AtualizarPosicaoPlayerNaTela();
             player.BringToFront();
-            LoadPuzzleChest(true,true);
+            LoadPuzzleChest(true);
             CriarPromptStage();
         }
         #endregion
 
         #region Inventory
         // Extrai o primeiro quadro de uma spritesheet para usar como ícone.
-        private Bitmap CriarIconeInventario(
-            Bitmap spritesheet,
-            int larguraFrame,
-            int alturaFrame)
+        private Bitmap CriarIconeInventario(Bitmap spritesheet,int larguraFrame,int alturaFrame)
         {
             if (spritesheet == null)
                 throw new ArgumentNullException("spritesheet");
@@ -363,33 +350,37 @@ namespace FallenWorld
             return icone;
         }
 
+        private Bitmap CriarIconeRuna(TipoRuna runa)
+        {
+            switch (runa)
+            {
+                case TipoRuna.Poder:
+                    return CriarIconeInventario(
+                        Properties.Resources.Rune_Force_sprite, 68, 68
+                    );
+
+                case TipoRuna.Agilidade:
+                    return CriarIconeInventario(
+                        Properties.Resources.Rune_Agil_sprite, 68, 68
+                    );
+
+                case TipoRuna.Vida:
+                    return CriarIconeInventario(
+                        Properties.Resources.Rune_Life_sprite, 68, 68
+                    );
+
+                default:
+                    throw new ArgumentOutOfRangeException("runa");
+            }
+        }
+
         // Configura os ícones iniciais do inventário.
         private void InicializarInventario()
         {
-            // Runa do Poder.
-            PBX_Rune1.Image = CriarIconeInventario(
-                Properties.Resources.Rune_Force_sprite, 68, 68
-            );
-
-            // Runa da Agilidade.
-            PBX_Rune2.Image = CriarIconeInventario(
-                Properties.Resources.Rune_Agil_sprite, 68, 68
-            );
-
-            // Runa da Vida.
-            PBX_Rune3.Image = CriarIconeInventario(
-                Properties.Resources.Rune_Life_sprite, 68, 68
-            );
-
-            // Ícone da moeda.
-            PBX_Coins.Image = CriarIconeInventario(
-                Properties.Resources.Coin_sprite, 34, 34
-            );
-
+            
             PBX_Rune1.SizeMode = PictureBoxSizeMode.Zoom;
             PBX_Rune2.SizeMode = PictureBoxSizeMode.Zoom;
             PBX_Rune3.SizeMode = PictureBoxSizeMode.Zoom;
-            PBX_Coins.SizeMode = PictureBoxSizeMode.Zoom;
 
             // Mantém o fundo transparente no inventário.
             FLP_Inventory.BackColor = Color.Transparent;
@@ -397,15 +388,11 @@ namespace FallenWorld
             PBX_Rune1.BackColor = Color.Transparent;
             PBX_Rune2.BackColor = Color.Transparent;
             PBX_Rune3.BackColor = Color.Transparent;
-            PBX_Coins.BackColor = Color.Transparent;
 
             // As runas ficam escondidas até serem adquiridas.
             PBX_Rune1.Visible = false;
             PBX_Rune2.Visible = false;
             PBX_Rune3.Visible = false;
-
-            PBX_Coins.Visible = true;
-            LBL_Money.Visible = true;
 
             AtualizarInventario();
         }
@@ -413,13 +400,27 @@ namespace FallenWorld
         // Atualiza a representação visual do inventário.
         private void AtualizarInventario()
         {
-            LBL_Money.Text = _moedas.ToString();
+            PictureBox[] espacos = {PBX_Rune1,PBX_Rune2,PBX_Rune3};
 
-            PBX_Rune1.Visible = _runasAdquiridas.Contains(TipoRuna.Poder);
+            for (int i = 0; i < espacos.Length; i++)
+            {
+                PictureBox espaco = espacos[i];
 
-            PBX_Rune2.Visible = _runasAdquiridas.Contains(TipoRuna.Agilidade);
+                // Libera a imagem anterior.
+                espaco.Image?.Dispose();
+                espaco.Image = null;
 
-            PBX_Rune3.Visible = _runasAdquiridas.Contains(TipoRuna.Vida);
+                // Esconde os espaços ainda não utilizados.
+                if (i >= _runasAdquiridas.Count)
+                {
+                    espaco.Visible = false;
+                    continue;
+                }
+
+                // Mostra a runa correspondente à posição da coleção.
+                espaco.Image = CriarIconeRuna(_runasAdquiridas[i]);
+                espaco.Visible = true;
+            }
         }
 
         // Libera as imagens criadas para o inventário.
@@ -428,12 +429,10 @@ namespace FallenWorld
             PBX_Rune1.Image?.Dispose();
             PBX_Rune2.Image?.Dispose();
             PBX_Rune3.Image?.Dispose();
-            PBX_Coins.Image?.Dispose();
 
             PBX_Rune1.Image = null;
             PBX_Rune2.Image = null;
             PBX_Rune3.Image = null;
-            PBX_Coins.Image = null;
         }
         #endregion
 
@@ -2583,7 +2582,7 @@ namespace FallenWorld
 
             // Aplica os 15% de resistência da Runa do Poder.
             // Esse bônus funciona para o Cavaleiro e a Princesa.
-            if (_runaPoderAdquirida &&
+            if (_runasAdquiridas.Contains(TipoRuna.Poder) && 
                 (_personagem == Personagem.Cavaleiro || _personagem == Personagem.Princesa))
             {
                 danoFinal = Math.Max(
@@ -3252,7 +3251,7 @@ namespace FallenWorld
                     _manaRecoveryTickCounter++;
 
                     // Recupera mana no intervalo configurado.
-                    if (_manaRecoveryTickCounter >= MageManaRecoveryInterval)
+                    if (_manaRecoveryTickCounter >= ObterIntervaloRecuperacaoMana())
                     {
                         _manaRecoveryTickCounter = 0;
                         player.RecuperarMana(MageManaRecoveryAmount);
@@ -3354,7 +3353,7 @@ namespace FallenWorld
                                 // Ativa o efeito temporário.
                                 _knightAuraRemaining = KnightAuraDurationTicks;
                                 // Inicia a recarga.
-                                _knightAuraCooldownRemaining = KnightAuraCooldownTicks;
+                                _knightAuraCooldownRemaining = ObterCooldownAura();
                                 // Ativa imediatamente o efeito visual.
                                 player.AuraAtiva = true;
                                 // Som de ativação: toca uma única vez.
@@ -3402,11 +3401,12 @@ namespace FallenWorld
             }
 
             // O movimento horizontal continua permitido no ar.
+            int velocidadeMovimento = ObterVelocidadeMovimento();
             if (!player.IsPerformingAction || player.EstaRecebendoDano)
             {
                 if (Core.isMovingLeft && !Core.isMovingRight)
                 {
-                    if (TentarMoverHorizontal(-VelocidadePlayer))
+                    if (TentarMoverHorizontal(-velocidadeMovimento))
                     {
                         if (_estaNoChao)
                             player.SetWalk(false);
@@ -3420,7 +3420,7 @@ namespace FallenWorld
                 }
                 else if (Core.isMovingRight && !Core.isMovingLeft)
                 {
-                    if (TentarMoverHorizontal(VelocidadePlayer))
+                    if (TentarMoverHorizontal(velocidadeMovimento))
                     {
                         if (_estaNoChao)
                             player.SetWalk(true);
@@ -4067,11 +4067,10 @@ namespace FallenWorld
         #endregion
 
         #region Puzzle Chest
-        private void LoadPuzzleChest(bool visivelInicialmente, bool bauTutorial = false)
+        private void LoadPuzzleChest(bool visivelInicialmente)
         {
             _recompensaBauEntregue = false;
-            _bauTutorialAtual = bauTutorial;
-                
+
             if (map == null)
                 return;
 
@@ -4132,33 +4131,12 @@ namespace FallenWorld
 
         private void SortearRecompensaBau()
         {
-            int sorteio = _recompensaRandom.Next(100);
-
-            // 20%: somente moedas.
-            if (sorteio < 20)
-            {
-                int moedas = _recompensaRandom.Next(15, 31);
-                AdicionarMoedas(moedas);
-                return;
-            }
-
-            // 40%: somente uma runa.
-            if (sorteio < 60)
-            {
-                AdicionarRunaAleatoria();
-                return;
-            }
-
-            // 40%: moedas e uma runa.
-            int moedasRecompensa = _recompensaRandom.Next(10, 21);
-
-            AdicionarMoedas(moedasRecompensa);
             AdicionarRunaAleatoria();
         }
 
         private int CalcularDanoComRunaPoder(int dano, int bonusPercentual)
         {
-            if (!_runaPoderAdquirida)
+            if (!_runasAdquiridas.Contains(TipoRuna.Poder))
                 return dano;
 
             return (int)Math.Ceiling(dano * (100 + bonusPercentual) / 100.0);
@@ -4178,41 +4156,60 @@ namespace FallenWorld
                     AtualizarBarraVida();
 
                     break;
-                case TipoRuna.Poder:
-
-                    _runaPoderAdquirida = true;
-
-                    break;
             }
+        }
+
+        private int ObterIntervaloRecuperacaoMana()
+        {
+            if (_personagem == Personagem.Mago &&
+                _runasAdquiridas.Contains(TipoRuna.Agilidade))
+            {
+                // 50% mais rápida: intervalo de 6 para 4.
+                return 4;
+            }
+
+            return MageManaRecoveryInterval;
+        }
+
+        private int ObterCooldownAura()
+        {
+            if (_personagem == Personagem.Cavaleiro &&
+                _runasAdquiridas.Contains(TipoRuna.Agilidade))
+            {
+                // Redução de 25%: 900 para 675.
+                return (int)Math.Ceiling(KnightAuraCooldownTicks * 0.75);
+            }
+
+            return KnightAuraCooldownTicks;
+        }
+
+        private int ObterVelocidadeMovimento()
+        {
+            if (_personagem == Personagem.Princesa &&
+                _runasAdquiridas.Contains(TipoRuna.Agilidade))
+            {
+                // Aumento de 25%: velocidade 4 para 5.
+                return (int)Math.Ceiling(VelocidadePlayer * 1.25);
+            }
+
+            return VelocidadePlayer;
         }
 
         private void AdicionarRunaAleatoria()
         {
+            // Impede que o jogador ultrapasse três runas.
+            if (_runasAdquiridas.Count >= MaxRunasInventario)
+                return;
+
+            // Todas as runas podem ser sorteadas, inclusive as repetidas.
             TipoRuna[] todasRunas = (TipoRuna[])Enum.GetValues(typeof(TipoRuna));
 
-            List<TipoRuna> runasDisponiveis = new List<TipoRuna>();
-
-            // Adiciona somente as runas que o jogador ainda não possui.
-            foreach (TipoRuna runa in todasRunas)
-            {
-                if (!_runasAdquiridas.Contains(runa))
-                {
-                    runasDisponiveis.Add(runa);
-                }
-            }
-
-            // Se já possui todas as runas, converte em moedas.
-            if (runasDisponiveis.Count == 0)
-            {
-                AdicionarMoedas(MoedasPorRunaDuplicada);
-                return;
-            }
-
-            // Sorteia somente entre as runas que faltam.
-            TipoRuna runaSorteada = runasDisponiveis[
-                _recompensaRandom.Next(runasDisponiveis.Count)
+            // Sorteia uma das três runas disponíveis.
+            TipoRuna runaSorteada = todasRunas[
+                _recompensaRandom.Next(todasRunas.Length)
             ];
 
+            // Registra a runa no inventário.
             _runasAdquiridas.Add(runaSorteada);
 
             // Aplica o efeito da runa adquirida.
@@ -4235,14 +4232,7 @@ namespace FallenWorld
             // Impede que a recompensa seja entregue novamente.
             _recompensaBauEntregue = true;
 
-            // O Tutorial continua entregando exatamente 10 moedas.
-            if (_bauTutorialAtual)
-            {
-                AdicionarMoedas(10);
-                return;
-            }
-
-            // Os demais baús utilizam recompensas aleatórias.
+            // Todos os baús entregam uma runa aleatória.
             SortearRecompensaBau();
         }
 
@@ -4424,17 +4414,5 @@ namespace FallenWorld
             }
         }
         #endregion
-
-        #region Inventory Management
-        private void AdicionarMoedas(int quantidade)
-        {
-            if (quantidade <= 0)
-                return;
-
-            _moedas = Math.Min(MaxMoedas, _moedas + quantidade);
-
-            AtualizarInventario();
-        }
-        #endregion 
     }
 }
