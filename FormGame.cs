@@ -101,6 +101,18 @@ namespace FallenWorld
         private bool _midBossBattleMusicStarted = false;
         #endregion
 
+        #region Final Boss - Lich das Chamas Negras
+
+        private LichBoss _lichBoss;
+
+        // Posição real do Lich no mundo.
+        private Point _lichBossWorldPosition;
+
+        // Ajuste visual para alinhar os pés ao chão.
+        private int _lichBossVisualOffsetY = 0;
+
+        #endregion
+
         #region Knight Aura
 
         // Duração da Aura: aproximadamente 5 segundos.
@@ -1458,8 +1470,13 @@ namespace FallenWorld
                 if (_stagePrompt != null)
                     _stagePrompt.Visible = false;
 
-                // Atualiza a câmera e a posição visual do jogador.
+                // Atualiza a câmera.
                 AtualizarCamera();
+
+                // Cria e posiciona o Lich das Chamas Negras.
+                CarregarChefeFinalDoPersonagem();
+
+                // Atualiza as posições visuais.
                 AtualizarPosicaoPlayerNaTela();
 
                 player.BringToFront();
@@ -2240,6 +2257,7 @@ namespace FallenWorld
 
             AtualizarPosicaoInimigosNaTela();
             AtualizarPosicaoMidBossNaTela();
+            AtualizarPosicaoLichBossNaTela();
             AtualizarPosicaoRunasNaTela();
             AtualizarPosicaoGuardianRunesNaTela();
             AtualizarPosicaoPuzzleChestNaTela();
@@ -3042,6 +3060,94 @@ namespace FallenWorld
             world1.Controls.Add(boss);
 
             boss.BringToFront();
+        }
+
+
+        private void CarregarChefeFinalDoPersonagem()
+        {
+            switch (_personagem)
+            {
+                case Personagem.Mago:
+                    LoadLichBoss();
+                    break;
+
+                case Personagem.Cavaleiro:
+                    // O Cavaleiro Sombrio será carregado aqui
+                    // quando sua classe estiver implementada.
+                    break;
+
+                case Personagem.Princesa:
+                    // A Rainha Gótica será carregada aqui
+                    // quando sua classe estiver implementada.
+                    break;
+
+                default:
+                    throw new InvalidOperationException(
+                        "Personagem selecionado sem chefe final correspondente."
+                    );
+            }
+        }
+
+
+
+        private void LoadLichBoss()
+        {
+            if (map == null)
+                return;
+
+            // Procura o marcador Spawn=final_boss.
+            List<MapTile> spawns = map.GetEnemySpawns("final_boss");
+
+            if (spawns == null || spawns.Count == 0)
+            {
+                throw new Exception(
+                    "O marcador Spawn=final_boss não foi encontrado na Arena dos Chefes Finais."
+                );
+            }
+
+            // Utiliza o primeiro marcador encontrado.
+            MapTile spawn = spawns[0];
+
+            // Cria o Lich com 100 pontos de vida iniciais.
+            // Esse valor será ajustado posteriormente no balanceamento.
+            LichBoss boss = new LichBoss(100);
+
+            // Calcula o ajuste visual dos pés.
+            Rectangle bossBounds = boss.GetVisibleSpriteBounds();
+
+            _lichBossVisualOffsetY = Math.Max(0,boss.Height - bossBounds.Bottom);
+
+            // Calcula a posição do chefe no mundo.
+            int worldX = spawn.x * map.tileSize + (map.tileSize - boss.Width) / 2;
+
+            int worldY = spawn.y * map.tileSize - boss.Height;
+
+            bool facingRight = (_playerWorldX + player.Width / 2) > (worldX + boss.Width / 2);
+
+            boss.SetIdle(facingRight);d
+
+            _lichBossWorldPosition = new Point(worldX, worldY);
+
+            _lichBoss = boss;
+
+            // Posiciona considerando a câmera.
+            AtualizarPosicaoLichBossNaTela();
+
+            // Adiciona o chefe ao cenário.
+            world1.Controls.Add(boss);
+
+            boss.BringToFront();
+        }
+
+        private void AtualizarPosicaoLichBossNaTela()
+        {
+            if (_lichBoss == null || _lichBoss.IsDisposed)
+                return;
+
+            _lichBoss.Location = new Point(
+                _lichBossWorldPosition.X - _cameraX,
+                _lichBossWorldPosition.Y - _cameraY + _lichBossVisualOffsetY
+            );
         }
 
         private void MidBoss_DeathAnimationCompleted(MidBoss boss)
@@ -4502,6 +4608,8 @@ namespace FallenWorld
             _midBossVisualOffsetY = 0;
         }
         #endregion
+
+
 
         #region Judgment Forge Countdown
         private void CriarIndicadorTempoJulgamento()

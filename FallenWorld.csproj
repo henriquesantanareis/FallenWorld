@@ -218,6 +218,9 @@
     <Compile Include="GuardianRune.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="LichBoss.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Maps.cs" />
     <Compile Include="MidBoss.cs">
       <SubType>UserControl</SubType>
