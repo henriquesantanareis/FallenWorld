@@ -111,6 +111,11 @@ namespace FallenWorld
         // Ajuste visual para alinhar os pés ao chão.
         private int _lichBossVisualOffsetY = 0;
 
+        // Configurações da inteligência artificial do Lich.
+        private const int LichDetectionRange = 500;
+        private const int LichPreferredDistance = 220;
+        private const int LichMoveSpeed = 2;
+
         #endregion
 
         #region Knight Aura
@@ -3124,7 +3129,7 @@ namespace FallenWorld
 
             bool facingRight = (_playerWorldX + player.Width / 2) > (worldX + boss.Width / 2);
 
-            boss.SetIdle(facingRight);d
+            boss.SetIdle(facingRight);
 
             _lichBossWorldPosition = new Point(worldX, worldY);
 
@@ -3398,6 +3403,89 @@ namespace FallenWorld
             _midBoss.SetWalk(facingRight);
         }
 
+        private void AtualizarIALichBoss()
+        {
+            if (_lichBoss == null || _lichBoss.IsDisposed || _lichBoss.IsDead)
+                return;
+
+            if (player == null || player.IsDisposed || player.EstaMorto || map == null)
+                return;
+
+            // Obtém as hitboxes do jogador e do Lich.
+            Rectangle hitboxJogador = player.GetHitboxAt(
+                _playerWorldX,
+                _playerWorldY
+            );
+
+            Rectangle hitboxLich = _lichBoss.GetHitboxAt(
+                _lichBossWorldPosition.X,
+                _lichBossWorldPosition.Y
+            );
+
+            // Calcula a distância horizontal entre os personagens.
+            int centroJogadorX = hitboxJogador.Left + hitboxJogador.Width / 2;
+            int centroLichX = hitboxLich.Left + hitboxLich.Width / 2;
+
+            int diferencaX = centroJogadorX - centroLichX;
+            int distanciaX = Math.Abs(diferencaX);
+
+            // Define a direção para a qual o Lich deve olhar.
+            bool facingRight = diferencaX >= 0;
+
+            // Verifica se estão aproximadamente na mesma altura.
+            bool mesmaAltura = Math.Abs(hitboxJogador.Bottom - hitboxLich.Bottom) <= 28;
+
+            // Não interrompe ataques, animação de dano ou morte.
+            if (_lichBoss.IsPerformingAction)
+                return;
+
+            // Fora do alcance ou em alturas diferentes, permanece parado.
+            if (distanciaX > LichDetectionRange || !mesmaAltura)
+            {
+                _lichBoss.SetIdle(facingRight);
+                return;
+            }
+
+            // Quando alcança a distância desejada, para de caminhar.
+            if (distanciaX <= LichPreferredDistance)
+            {
+                _lichBoss.SetIdle(facingRight);
+                return;
+            }
+
+            // Calcula o próximo movimento.
+            int movimento = diferencaX > 0
+                ? LichMoveSpeed
+                : -LichMoveSpeed;
+
+            int proximoX = _lichBossWorldPosition.X + movimento;
+
+            Rectangle hitboxProxima = _lichBoss.GetHitboxAt(proximoX,_lichBossWorldPosition.Y);
+
+            // Verifica se existe chão à frente.
+            Rectangle faixaDosPes = new Rectangle(
+                hitboxProxima.Left + 2,
+                hitboxProxima.Bottom,
+                Math.Max(1, hitboxProxima.Width - 4),
+                1
+            );
+
+            // Não permite atravessar paredes ou cair de plataformas.
+            if (!map.PodeMover(hitboxProxima) || map.PodeMover(faixaDosPes))
+            {
+                _lichBoss.SetIdle(facingRight);
+                return;
+            }
+
+            // Atualiza a posição real do Lich.
+            _lichBossWorldPosition = new Point(proximoX,_lichBossWorldPosition.Y);
+
+            // Atualiza a posição visual considerando a câmera.
+            AtualizarPosicaoLichBossNaTela();
+
+            // Executa a animação de caminhada.
+            _lichBoss.SetWalk(facingRight);
+        }
 
         private void IniciarRecuoInimigo(Enemy enemy)
         {
@@ -3736,6 +3824,8 @@ namespace FallenWorld
             AtualizarIAInimigos();
             // Atualiza a inteligência artificial do Mid-Boss.
             AtualizarIAMidBoss();
+            // Atualiza a inteligência artificial do Lich.
+            AtualizarIALichBoss();
             // Atualiza o dano contínuo do veneno.
             AtualizarVenenoInimigos();
             // Atualiza o dano contínuo da queimadura.
