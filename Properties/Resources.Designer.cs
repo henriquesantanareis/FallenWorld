@@ -106,8 +106,7 @@ namespace FallenWorld.Properties {
         ///    &quot;pivot&quot;: &quot;cell-center&quot;,
         ///    &quot;rows&quot;: [
         ///      {
-        ///        &quot;row&quot;: 0,
-        ///        &quot;type&quot;: &quot;rota [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///        &quot;row&quot; [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Coin_js {
             get {
@@ -663,6 +662,25 @@ namespace FallenWorld.Properties {
             get {
                 object obj = ResourceManager.GetObject("Fallen_World", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {&quot;tileSize&quot;:32,&quot;mapWidth&quot;:65,&quot;mapHeight&quot;:26,&quot;layers&quot;:[{&quot;name&quot;:&quot;floor&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:15,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:16,&quot;y&quot;:17,&quot;attributes&quot;:{&quot;Spawn&quot;:&quot;player&quot;}},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:17,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:18,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:19,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:20,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:21,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:22,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:23,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:24,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:25,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:26,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,....
+        /// </summary>
+        public static string FinalBossMap_js {
+            get {
+                return ResourceManager.GetString("FinalBossMap_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap FinalBossMap_sprite {
+            get {
+                object obj = ResourceManager.GetObject("FinalBossMap_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -2016,7 +2034,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;ba3af5c4-402e-47aa-866f-3a2530bcc300&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;A magical collectible runestone using the selected reference object as its exact shape, stone material, proportions and pixel-art style. Replace the heart with a clearly recognizable feather symbol surrounded by a wind-shaped magical inscription. The symbol glows with bright cyan-blue energy. Add subtle blue magical particles suggesting speed and agility. Preserve the same stone silhouette, outlines, texture [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;A magical collectible runestone using the selected reference object as its exact shape, stone material, proportions and pixel-art style. Replace the heart with a clearly recognizable feather symbol surrounded by a wind-shaped magical inscription. The symbol glows with bright cyan-blue energy. Add subtle blue magical particles suggesting speed and agility. Preserve the same stone silhouette, outlines, tex [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Rune_Agil_js {
             get {
@@ -2039,7 +2057,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;abee71ee-9e5b-4889-90ee-7fac6ebddb9a&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;A magical collectible runestone using the selected reference object as its exact shape, stone material, proportions and pixel-art style. Replace the heart with a clearly recognizable sword symbol carved into the center. The symbol glows with intense amber-orange magical energy. Add subtle orange magical particles suggesting strength and destructive power. Preserve the same stone silhouette, outlines, texture [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;A magical collectible runestone using the selected reference object as its exact shape, stone material, proportions and pixel-art style. Replace the heart with a clearly recognizable sword symbol carved into the center. The symbol glows with intense amber-orange magical energy. Add subtle orange magical particles suggesting strength and destructive power. Preserve the same stone silhouette, outlines, tex [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Rune_Force_js {
             get {
@@ -2062,7 +2080,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;33bdd11b-0b9c-45ee-b652-315dd356edf1&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;A small ancient magical runestone made of dark weathered stone, with a clearly recognizable heart symbol carved into its center. The heart glows with intense crimson red magical energy. Rough stone edges, subtle cracks, ancient engravings and a faint red magical aura with tiny floating embers. Dark fantasy medieval RPG collectible. Front-facing side-scroller game object, centered, compact and clearly readabl [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;A small ancient magical runestone made of dark weathered stone, with a clearly recognizable heart symbol carved into its center. The heart glows with intense crimson red magical energy. Rough stone edges, subtle cracks, ancient engravings and a faint red magical aura with tiny floating embers. Dark fantasy medieval RPG collectible. Front-facing side-scroller game object, centered, compact and clearly rea [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Rune_Life_js {
             get {
