@@ -1,0 +1,45 @@
+{
+  "object": {
+    "id": "33bdd11b-0b9c-45ee-b652-315dd356edf1",
+    "name": "base",
+    "prompt": "A small ancient magical runestone made of dark weathered stone, with a clearly recognizable heart symbol carved into its center. The heart glows with intense crimson red magical energy. Rough stone edges, subtle cracks, ancient engravings and a faint red magical aura with tiny floating embers. Dark fantasy medieval RPG collectible. Front-facing side-scroller game object, centered, compact and clearly readable at 64x64 pixels. Crisp pixel art, clean pixel clusters, limited colors, sharp edges. Single isolated object, transparent background. No characters, scenery, text, labels, blur or anti-aliasing.",
+    "size": {
+      "width": 68,
+      "height": 68
+    },
+    "directions": 8,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Rune_Life.png",
+    "cell_size": {
+      "width": 68,
+      "height": 68
+    },
+    "sheet_size": {
+      "width": 544,
+      "height": 68
+    },
+    "columns": 8,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-18T04:59:58.793919+00:00"
+}

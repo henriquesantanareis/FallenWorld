@@ -52,8 +52,15 @@ namespace FallenWorld
         #endregion
 
         #region Player Stats
-        private const int VidaMaximaPlayer = 100;
-        private int _vidaAtual = VidaMaximaPlayer;
+        private const int VidaMaximaBase = 100;
+
+        private int _vidaMaxima = VidaMaximaBase;
+        private int _vidaAtual = VidaMaximaBase;
+
+        public int VidaMaxima
+        {
+            get { return _vidaMaxima; }
+        }
         public event Action<StatePlayer> AttackImpact;
         private bool _attackImpactTriggered = false;
         // Sistema de mana do Mago.
@@ -646,6 +653,20 @@ namespace FallenWorld
                 SetHurt();
 
             return true;
+        }
+        public void AumentarVidaMaxima(int quantidade)
+        {
+            if (quantidade <= 0)
+                return;
+
+            _vidaMaxima += quantidade;
+
+            // Aumenta também a vida atual, mantendo a mesma
+            // quantidade de vida que faltava antes do bônus.
+            _vidaAtual = Math.Min(
+                _vidaMaxima,
+                _vidaAtual + quantidade
+            );
         }
         private bool IsDamageAttack(StatePlayer state)
         {

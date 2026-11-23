@@ -25,6 +25,28 @@ namespace FallenWorld
         private int _playerVisualOffsetY = 0;
         #endregion
 
+        #region Inventory
+
+        // Tipos de runas que podem ser adquiridas.
+        private enum TipoRuna
+        {
+            Poder,
+            Agilidade,
+            Vida
+        }
+
+        // Armazena as runas adquiridas, permitindo repetições.
+        private readonly List<TipoRuna> _runasAdquiridas = new List<TipoRuna>();
+        #endregion
+
+        #region Inventory Rewards
+        private const int BonusVidaRuna = 20;
+        private const int BonusResistenciaRunaPoder = 15;
+        private bool _recompensaBauEntregue = false;
+        private readonly Random _recompensaRandom = new Random();
+        private const int MaxRunasInventario = 3;
+        #endregion
+
         #region Input Handling
         // Impede que a tecla de ataque seja registrada várias vezes enquanto estiver pressionada.
         private bool _attack0KeyHeld = false;
@@ -215,6 +237,7 @@ namespace FallenWorld
                 SoundEffects.StopManaRecovery();
                 SoundEffects.StopKnightAura();
                 SoundEffects.StopWavLoop();
+                LiberarIconesInventario();
             };
         }
 
@@ -224,6 +247,7 @@ namespace FallenWorld
             Cursor.Hide();
             // Bloquear os eventos do mouse.
             Application.AddMessageFilter(this);
+            InicializarInventario();
             Load_Map(Properties.Resources.tutorial_Map_Js, Properties.Resources.tutorial_Map_sprite);
             _nextStage = map.GetNextStage();
             switch (_personagem)
@@ -291,6 +315,124 @@ namespace FallenWorld
             player.BringToFront();
             LoadPuzzleChest(true);
             CriarPromptStage();
+        }
+        #endregion
+
+        #region Inventory
+        // Extrai o primeiro quadro de uma spritesheet para usar como ícone.
+        private Bitmap CriarIconeInventario(Bitmap spritesheet,int larguraFrame,int alturaFrame)
+        {
+            if (spritesheet == null)
+                throw new ArgumentNullException("spritesheet");
+
+            if (spritesheet.Width < larguraFrame || 
+                spritesheet.Height < alturaFrame)
+            {
+                throw new ArgumentException(
+                    "A spritesheet possui dimensões inválidas."
+                );
+            }
+
+            Bitmap icone = new Bitmap(larguraFrame, alturaFrame);
+
+            using (Graphics g = Graphics.FromImage(icone))
+            {
+                g.Clear(Color.Transparent);
+
+                g.DrawImage(
+                    spritesheet,
+                    new Rectangle(0, 0, larguraFrame, alturaFrame),
+                    new Rectangle(0, 0, larguraFrame, alturaFrame),
+                    GraphicsUnit.Pixel
+                );
+            }
+
+            return icone;
+        }
+
+        private Bitmap CriarIconeRuna(TipoRuna runa)
+        {
+            switch (runa)
+            {
+                case TipoRuna.Poder:
+                    return CriarIconeInventario(
+                        Properties.Resources.Rune_Force_sprite, 68, 68
+                    );
+
+                case TipoRuna.Agilidade:
+                    return CriarIconeInventario(
+                        Properties.Resources.Rune_Agil_sprite, 68, 68
+                    );
+
+                case TipoRuna.Vida:
+                    return CriarIconeInventario(
+                        Properties.Resources.Rune_Life_sprite, 68, 68
+                    );
+
+                default:
+                    throw new ArgumentOutOfRangeException("runa");
+            }
+        }
+
+        // Configura os ícones iniciais do inventário.
+        private void InicializarInventario()
+        {
+            
+            PBX_Rune1.SizeMode = PictureBoxSizeMode.Zoom;
+            PBX_Rune2.SizeMode = PictureBoxSizeMode.Zoom;
+            PBX_Rune3.SizeMode = PictureBoxSizeMode.Zoom;
+
+            // Mantém o fundo transparente no inventário.
+            FLP_Inventory.BackColor = Color.Transparent;
+
+            PBX_Rune1.BackColor = Color.Transparent;
+            PBX_Rune2.BackColor = Color.Transparent;
+            PBX_Rune3.BackColor = Color.Transparent;
+
+            // As runas ficam escondidas até serem adquiridas.
+            PBX_Rune1.Visible = false;
+            PBX_Rune2.Visible = false;
+            PBX_Rune3.Visible = false;
+
+            AtualizarInventario();
+        }
+
+        // Atualiza a representação visual do inventário.
+        private void AtualizarInventario()
+        {
+            PictureBox[] espacos = {PBX_Rune1,PBX_Rune2,PBX_Rune3};
+
+            for (int i = 0; i < espacos.Length; i++)
+            {
+                PictureBox espaco = espacos[i];
+
+                // Libera a imagem anterior.
+                espaco.Image?.Dispose();
+                espaco.Image = null;
+
+                // Esconde os espaços ainda não utilizados.
+                if (i >= _runasAdquiridas.Count)
+                {
+                    espaco.Visible = false;
+                    continue;
+                }
+
+                // Mostra a runa correspondente à posição da coleção.
+                espaco.Image = CriarIconeRuna(_runasAdquiridas[i]);
+                espaco.Visible = true;
+            }
+        }
+
+        // Libera as imagens criadas para o inventário.
+        private void LiberarIconesInventario()
+        {
+            PBX_Rune1.Image?.Dispose();
+            PBX_Rune2.Image?.Dispose();
+            PBX_Rune3.Image?.Dispose();
+
+            PBX_Rune1.Image = null;
+            PBX_Rune2.Image = null;
+            PBX_Rune3.Image = null;
         }
         #endregion
 
@@ -2039,7 +2181,11 @@ namespace FallenWorld
             if (player == null)
                 return;
 
-            int vida = player.VidaAtual;
+            int vidaAtual = player.VidaAtual;
+
+            int vida = vidaAtual <= 0
+                ? 0
+                : Math.Max(5, (vidaAtual * 100) / player.VidaMaxima);
 
             switch (_personagem)
             {
@@ -2256,7 +2402,7 @@ namespace FallenWorld
                 // Aplica veneno se o golpe for da habilidade da Princesa.
                 if (aplicarVeneno && !enemy.IsDead)
                 {
-                    enemy.AplicarVeneno(danoPorTick: 3,duracaoTicks: 300,intervaloTicks: 60);
+                    enemy.AplicarVeneno(danoPorTick: CalcularDanoComRunaPoder(3, 25), duracaoTicks: 300,intervaloTicks: 60);
                 }
                 atingiuInimigo = true;
                 break;
@@ -2273,7 +2419,7 @@ namespace FallenWorld
                     if (aplicarVeneno && !_midBoss.IsDead)
                     {
                         _midBoss.AplicarVeneno(
-                            danoPorTick: 3,
+                            danoPorTick: CalcularDanoComRunaPoder(3, 25),
                             duracaoTicks: 300,
                             intervaloTicks: 60
                         );
@@ -2299,7 +2445,12 @@ namespace FallenWorld
                 case Personagem.Cavaleiro:
                     if (state == StatePlayer.Attack)
                     {
-                        int dano = _knightAuraRemaining > 0 ? KnightAuraDamage : KnightBaseDamage;
+                        int danoBase = _knightAuraRemaining > 0 
+                            ? KnightAuraDamage 
+                            : KnightBaseDamage;
+
+                        int dano = CalcularDanoComRunaPoder(danoBase, 20);
+
                         AplicarDanoAosInimigos(dano, 52);
                     }
                     break;
@@ -2310,8 +2461,11 @@ namespace FallenWorld
                     else if (state == StatePlayer.Poison_Attack)
                     {
                         // Som do ataque envenenado.
-                        SoundEffects.Play(Properties.Resources.Princess_Poison_Attack,0.90f);
-                        AplicarDanoAosInimigos(20, 48, true);
+                        SoundEffects.Play(Properties.Resources.Princess_Poison_Attack, 0.90f);
+
+                        int danoVeneno = CalcularDanoComRunaPoder(20, 25);
+
+                        AplicarDanoAosInimigos(danoVeneno, 48, true);
                     }
                     break;
             }
@@ -2420,10 +2574,20 @@ namespace FallenWorld
 
             int danoFinal = dano;
 
-            // Reduz o dano recebido enquanto a Aura estiver ativa.
+            // Reduz o dano recebido enquanto a Aura do Cavaleiro estiver ativa.
             if (_personagem == Personagem.Cavaleiro && _knightAuraRemaining > 0)
             {
-                danoFinal = Math.Max(1,(int)Math.Ceiling(dano * 0.5));
+                danoFinal = Math.Max(1, (int)Math.Ceiling(danoFinal * 0.5));
+            }
+
+            // Aplica resistência proporcional à quantidade de Runas do Poder.
+            int quantidadeRunasPoder = _runasAdquiridas.Count(r => r == TipoRuna.Poder);
+
+            if (quantidadeRunasPoder > 0 && (_personagem == Personagem.Cavaleiro || _personagem == Personagem.Princesa))
+            {
+                int resistenciaTotal = BonusResistenciaRunaPoder * quantidadeRunasPoder;
+
+                danoFinal = Math.Max(1,(int)Math.Ceiling(danoFinal * (100 - resistenciaTotal) / 100.0));
             }
 
             if (player.ReceberDano(danoFinal))
@@ -2542,7 +2706,8 @@ namespace FallenWorld
                             continue;
 
                         // Dano imediato da bola de fogo.
-                        enemy.ReceberDano(FireballDamage);
+                        int danoFireball = CalcularDanoComRunaPoder(FireballDamage, 20);
+                        enemy.ReceberDano(danoFireball);
 
                         if (!enemy.IsDead)
                         {
@@ -2561,7 +2726,8 @@ namespace FallenWorld
 
                         if (hitboxBola.IntersectsWith(hitboxBoss))
                         {
-                            _midBoss.ReceberDano(FireballDamage);
+                            int danoFireball = CalcularDanoComRunaPoder(FireballDamage, 20);
+                            _midBoss.ReceberDano(danoFireball);
                             // Aplica queimadura se o chefe sobreviver ao impacto.
                             if (!_midBoss.IsDead)
                             {
@@ -3084,7 +3250,7 @@ namespace FallenWorld
                     _manaRecoveryTickCounter++;
 
                     // Recupera mana no intervalo configurado.
-                    if (_manaRecoveryTickCounter >= MageManaRecoveryInterval)
+                    if (_manaRecoveryTickCounter >= ObterIntervaloRecuperacaoMana())
                     {
                         _manaRecoveryTickCounter = 0;
                         player.RecuperarMana(MageManaRecoveryAmount);
@@ -3186,7 +3352,7 @@ namespace FallenWorld
                                 // Ativa o efeito temporário.
                                 _knightAuraRemaining = KnightAuraDurationTicks;
                                 // Inicia a recarga.
-                                _knightAuraCooldownRemaining = KnightAuraCooldownTicks;
+                                _knightAuraCooldownRemaining = ObterCooldownAura();
                                 // Ativa imediatamente o efeito visual.
                                 player.AuraAtiva = true;
                                 // Som de ativação: toca uma única vez.
@@ -3234,11 +3400,12 @@ namespace FallenWorld
             }
 
             // O movimento horizontal continua permitido no ar.
+            int velocidadeMovimento = ObterVelocidadeMovimento();
             if (!player.IsPerformingAction || player.EstaRecebendoDano)
             {
                 if (Core.isMovingLeft && !Core.isMovingRight)
                 {
-                    if (TentarMoverHorizontal(-VelocidadePlayer))
+                    if (TentarMoverHorizontal(-velocidadeMovimento))
                     {
                         if (_estaNoChao)
                             player.SetWalk(false);
@@ -3252,7 +3419,7 @@ namespace FallenWorld
                 }
                 else if (Core.isMovingRight && !Core.isMovingLeft)
                 {
-                    if (TentarMoverHorizontal(VelocidadePlayer))
+                    if (TentarMoverHorizontal(velocidadeMovimento))
                     {
                         if (_estaNoChao)
                             player.SetWalk(true);
@@ -3287,6 +3454,8 @@ namespace FallenWorld
             AtualizarBolasDeFogo();
             // Atualiza a posição da runa mais próxima do jogador.
             AtualizarPuzzleRunes();
+            // Verifica se o jogador está próximo do baú e se ele pode ser aberto.
+            VerificarRecompensaBau();
             // Atualiza a contagem regressiva da Forja do Julgamento.
             AtualizarContagemJulgamento();
             // Atualiza a runa do Guardião mais próxima do jogador.
@@ -3899,6 +4068,8 @@ namespace FallenWorld
         #region Puzzle Chest
         private void LoadPuzzleChest(bool visivelInicialmente)
         {
+            _recompensaBauEntregue = false;
+
             if (map == null)
                 return;
 
@@ -3956,6 +4127,124 @@ namespace FallenWorld
                 player.BringToFront();
             }
         }
+
+        private void SortearRecompensaBau()
+        {
+            AdicionarRunaAleatoria();
+        }
+
+        private int CalcularDanoComRunaPoder(int dano, int bonusPercentual)
+        {
+            int quantidadeRunas = _runasAdquiridas.Count(r => r == TipoRuna.Poder);
+
+            if (quantidadeRunas == 0)
+                return dano;
+
+            int bonusTotal = bonusPercentual * quantidadeRunas;
+
+            return (int)Math.Ceiling(dano * (100 + bonusTotal) / 100.0);
+        }
+
+        private void AplicarEfeitoRuna(TipoRuna runa)
+        {
+            switch (runa)
+            {
+                case TipoRuna.Vida:
+
+                    if (player == null || player.IsDisposed)
+                        return;
+
+                    player.AumentarVidaMaxima(BonusVidaRuna);
+
+                    AtualizarBarraVida();
+
+                    break;
+            }
+        }
+
+        private int ObterIntervaloRecuperacaoMana()
+        {
+            int quantidadeRunas = _runasAdquiridas.Count(
+                r => r == TipoRuna.Agilidade
+            );
+
+            if (_personagem != Personagem.Mago || quantidadeRunas == 0)
+                return MageManaRecoveryInterval;
+
+            switch (quantidadeRunas)
+            {
+                case 1:
+                    return 4;
+                case 2:
+                    return 3;
+                default:
+                    return 2;
+            }
+        }
+
+        private int ObterCooldownAura()
+        {
+            int quantidadeRunas = _runasAdquiridas.Count(r => r == TipoRuna.Agilidade);
+
+            if (_personagem != Personagem.Cavaleiro || quantidadeRunas == 0)
+                return KnightAuraCooldownTicks;
+
+            int reducaoPercentual = 25 * quantidadeRunas;
+
+            return KnightAuraCooldownTicks * (100 - reducaoPercentual) / 100;
+        }
+
+        private int ObterVelocidadeMovimento()
+        {
+            int quantidadeRunas = _runasAdquiridas.Count(r => r == TipoRuna.Agilidade);
+
+            if (_personagem != Personagem.Princesa || quantidadeRunas == 0)
+                return VelocidadePlayer;
+
+            return (int)Math.Ceiling(VelocidadePlayer * (1 + 0.25 * quantidadeRunas));
+        }
+
+        private void AdicionarRunaAleatoria()
+        {
+            // Impede que o jogador ultrapasse três runas.
+            if (_runasAdquiridas.Count >= MaxRunasInventario)
+                return;
+
+            // Todas as runas podem ser sorteadas, inclusive as repetidas.
+            TipoRuna[] todasRunas = (TipoRuna[])Enum.GetValues(typeof(TipoRuna));
+
+            // Sorteia uma das três runas disponíveis.
+            TipoRuna runaSorteada = todasRunas[
+                _recompensaRandom.Next(todasRunas.Length)
+            ];
+
+            // Registra a runa no inventário.
+            _runasAdquiridas.Add(runaSorteada);
+
+            // Aplica o efeito da runa adquirida.
+            AplicarEfeitoRuna(runaSorteada);
+
+            AtualizarInventario();
+        }
+
+        private void VerificarRecompensaBau()
+        {
+            if (_recompensaBauEntregue)
+                return;
+
+            if (_puzzleChest == null || _puzzleChest.IsDisposed)
+                return;
+
+            if (!_puzzleChest.IsOpen)
+                return;
+
+            // Impede que a recompensa seja entregue novamente.
+            _recompensaBauEntregue = true;
+
+            // Todos os baús entregam uma runa aleatória.
+            SortearRecompensaBau();
+        }
+
         private void LimparPuzzleChest()
         {
             if (_puzzleChest == null)

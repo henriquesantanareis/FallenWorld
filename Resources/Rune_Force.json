@@ -1,0 +1,45 @@
+{
+  "object": {
+    "id": "abee71ee-9e5b-4889-90ee-7fac6ebddb9a",
+    "name": "base",
+    "prompt": "A magical collectible runestone using the selected reference object as its exact shape, stone material, proportions and pixel-art style. Replace the heart with a clearly recognizable sword symbol carved into the center. The symbol glows with intense amber-orange magical energy. Add subtle orange magical particles suggesting strength and destructive power. Preserve the same stone silhouette, outlines, texture and level of detail as the reference. Front-facing side-scroller game object, centered, readable at 64x64 pixels, transparent background. No characters, scenery, text, blur or anti-aliasing.",
+    "size": {
+      "width": 68,
+      "height": 68
+    },
+    "directions": 8,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Rune_Force.png",
+    "cell_size": {
+      "width": 68,
+      "height": 68
+    },
+    "sheet_size": {
+      "width": 544,
+      "height": 68
+    },
+    "columns": 8,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-18T04:59:30.091859+00:00"
+}

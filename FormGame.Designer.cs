@@ -32,6 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGame));
             this.TMR_Game = new System.Windows.Forms.Timer(this.components);
             this.world1 = new FallenWorld.World();
+            this.FLP_Inventory = new FallenWorld.DoubleBufferedFlowLayoutPanel();
+            this.PBX_Rune1 = new System.Windows.Forms.PictureBox();
+            this.PBX_Rune2 = new System.Windows.Forms.PictureBox();
+            this.PBX_Rune3 = new System.Windows.Forms.PictureBox();
             this.PBX_Avatar = new System.Windows.Forms.PictureBox();
             this.BTN_Skill3 = new System.Windows.Forms.Button();
             this.BTN_EXIT = new System.Windows.Forms.Button();
@@ -40,6 +44,10 @@
             this.PBX_HealthBar = new System.Windows.Forms.PictureBox();
             this.BTN_Skill1 = new System.Windows.Forms.Button();
             this.world1.SuspendLayout();
+            this.FLP_Inventory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PBX_Rune1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBX_Rune2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBX_Rune3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_Avatar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_MagicBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_HealthBar)).BeginInit();
@@ -53,6 +61,7 @@
             // 
             // world1
             // 
+            this.world1.Controls.Add(this.FLP_Inventory);
             this.world1.Controls.Add(this.PBX_Avatar);
             this.world1.Controls.Add(this.BTN_Skill3);
             this.world1.Controls.Add(this.BTN_EXIT);
@@ -66,6 +75,42 @@
             this.world1.Size = new System.Drawing.Size(798, 598);
             this.world1.TabIndex = 5;
             this.world1.Paint += new System.Windows.Forms.PaintEventHandler(this.world1_Paint);
+            // 
+            // FLP_Inventory
+            // 
+            this.FLP_Inventory.BackColor = System.Drawing.Color.Transparent;
+            this.FLP_Inventory.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.FLP_Inventory.Controls.Add(this.PBX_Rune1);
+            this.FLP_Inventory.Controls.Add(this.PBX_Rune2);
+            this.FLP_Inventory.Controls.Add(this.PBX_Rune3);
+            this.FLP_Inventory.Location = new System.Drawing.Point(4, 97);
+            this.FLP_Inventory.Name = "FLP_Inventory";
+            this.FLP_Inventory.Size = new System.Drawing.Size(77, 229);
+            this.FLP_Inventory.TabIndex = 5;
+            // 
+            // PBX_Rune1
+            // 
+            this.PBX_Rune1.Location = new System.Drawing.Point(3, 3);
+            this.PBX_Rune1.Name = "PBX_Rune1";
+            this.PBX_Rune1.Size = new System.Drawing.Size(68, 68);
+            this.PBX_Rune1.TabIndex = 6;
+            this.PBX_Rune1.TabStop = false;
+            // 
+            // PBX_Rune2
+            // 
+            this.PBX_Rune2.Location = new System.Drawing.Point(3, 77);
+            this.PBX_Rune2.Name = "PBX_Rune2";
+            this.PBX_Rune2.Size = new System.Drawing.Size(68, 68);
+            this.PBX_Rune2.TabIndex = 7;
+            this.PBX_Rune2.TabStop = false;
+            // 
+            // PBX_Rune3
+            // 
+            this.PBX_Rune3.Location = new System.Drawing.Point(3, 151);
+            this.PBX_Rune3.Name = "PBX_Rune3";
+            this.PBX_Rune3.Size = new System.Drawing.Size(68, 68);
+            this.PBX_Rune3.TabIndex = 8;
+            this.PBX_Rune3.TabStop = false;
             // 
             // PBX_Avatar
             // 
@@ -195,6 +240,10 @@
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUp);
             this.world1.ResumeLayout(false);
             this.world1.PerformLayout();
+            this.FLP_Inventory.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PBX_Rune1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBX_Rune2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBX_Rune3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_Avatar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_MagicBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_HealthBar)).EndInit();
@@ -212,6 +261,10 @@
         private System.Windows.Forms.Button BTN_EXIT;
         private System.Windows.Forms.Timer TMR_Game;
         private World world1;
+        private FallenWorld.DoubleBufferedFlowLayoutPanel FLP_Inventory;
+        private System.Windows.Forms.PictureBox PBX_Rune1;
+        private System.Windows.Forms.PictureBox PBX_Rune2;
+        private System.Windows.Forms.PictureBox PBX_Rune3;
     }
 }
 
