@@ -1,0 +1,77 @@
+{
+  "object": {
+    "id": "e16df36d-b28a-4bc5-ac8b-b5f40fdb3065",
+    "name": "base",
+    "prompt": "Dark fireball projectile",
+    "size": {
+      "width": 68,
+      "height": 68
+    },
+    "directions": 8,
+    "view": "low top-down"
+  },
+  "spritesheet": {
+    "path": "Dark_fireball_projectile.png",
+    "cell_size": {
+      "width": 68,
+      "height": 68
+    },
+    "sheet_size": {
+      "width": 612,
+      "height": 340
+    },
+    "columns": 9,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "A compact magical fireball travels rapidly forward",
+        "animation_group_id": "64ac755c-82ac-4f4d-88cd-ab4f8ce0008e",
+        "direction": "east"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "A compact magical fireball travels rapidly forward",
+        "animation_group_id": "64ac755c-82ac-4f4d-88cd-ab4f8ce0008e",
+        "direction": "west"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "A compact magical fireball travels rapidly forward_2",
+        "animation_group_id": "dac61893-f572-46da-abb0-2348efa15aaf",
+        "direction": "east"
+      },
+      {
+        "row": 4,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "A compact magical fireball travels rapidly forward_2",
+        "animation_group_id": "dac61893-f572-46da-abb0-2348efa15aaf",
+        "direction": "west"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-23T21:07:48.367891+00:00"
+}

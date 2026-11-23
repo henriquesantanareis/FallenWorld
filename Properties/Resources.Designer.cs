@@ -134,6 +134,51 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;object&quot;: {
+        ///    &quot;id&quot;: &quot;e16df36d-b28a-4bc5-ac8b-b5f40fdb3065&quot;,
+        ///    &quot;name&quot;: &quot;base&quot;,
+        ///    &quot;prompt&quot;: &quot;Dark fireball projectile&quot;,
+        ///    &quot;size&quot;: {
+        ///      &quot;width&quot;: 68,
+        ///      &quot;height&quot;: 68
+        ///    },
+        ///    &quot;directions&quot;: 8,
+        ///    &quot;view&quot;: &quot;low top-down&quot;
+        ///  },
+        ///  &quot;spritesheet&quot;: {
+        ///    &quot;path&quot;: &quot;Dark_fireball_projectile.png&quot;,
+        ///    &quot;cell_size&quot;: {
+        ///      &quot;width&quot;: 68,
+        ///      &quot;height&quot;: 68
+        ///    },
+        ///    &quot;sheet_size&quot;: {
+        ///      &quot;width&quot;: 612,
+        ///      &quot;height&quot;: 340
+        ///    },
+        ///    &quot;columns&quot;: 9,
+        ///    &quot;pivot&quot;: &quot;cell-center&quot;,
+        ///    &quot;rows&quot;: [
+        ///      {
+        ///        &quot;r [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Dark_fireball_js {
+            get {
+                return ResourceManager.GetString("Dark_fireball_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dark_fireball_sprite {
+            get {
+                object obj = ResourceManager.GetObject("Dark_fireball_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap duck_Mage_Skill1 {
@@ -1254,6 +1299,29 @@ namespace FallenWorld.Properties {
         public static string knight_Spritesheet_Js {
             get {
                 return ResourceManager.GetString("knight_Spritesheet_Js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;character&quot;: {
+        ///    &quot;id&quot;: &quot;6ba2cfee-07fa-4200-b9b0-2e37c41fdd08&quot;,
+        ///    &quot;name&quot;: &quot;Idle&quot;,
+        ///    &quot;prompt&quot;: &quot;Create the evil final boss version of the exact duck fire mage in the reference: a terrifying Black Flame Lich. Preserve his orange duck beak, purple wizard hat, and recognizable staff. Transform his robe into tattered black and dark-purple undead robes.\n\n**Black flames are his main power:** intense, clearly visible black fire engulfs his staff and surrounds his body, with deep violet and crimson edges. [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string LitchBoss_js {
+            get {
+                return ResourceManager.GetString("LitchBoss_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LitchBoss_sprite {
+            get {
+                object obj = ResourceManager.GetObject("LitchBoss_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
