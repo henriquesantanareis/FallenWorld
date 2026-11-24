@@ -165,9 +165,20 @@ namespace FallenWorld
         #endregion
 
         #region Dark Fireball
-        private const int LichFireBallDamage = 20;
         private readonly List<DarkFireballProjectile> _darkFireballs = new List<DarkFireballProjectile>();
+        private const int LichFireBallDamage = 20;
+        // Sorteio dos efeitos negativos da Dark Fireball.
+        private readonly Random _darkFireballDebuffRandom = new Random();
 
+        // Duração do bloqueio da habilidade.
+        private const int LichSkillBlockDurationTicks = 360;
+
+        // Slot da habilidade bloqueada: 0, 1 ou 2.
+        // -1 significa que nenhuma habilidade está bloqueada.
+        private int _lichBlockedSkillSlot = -1;
+
+        // Tempo restante do bloqueio.
+        private int _lichSkillBlockRemaining = 0;
         #endregion
 
         #region Mage Mana
@@ -1945,19 +1956,19 @@ namespace FallenWorld
                 _pedidoPulo = true;
             }
             // BASIC ATTACKS
-            if (e.KeyCode == Core.Attack0 && !_attack0KeyHeld)
+            if (e.KeyCode == Core.Attack0 && !_attack0KeyHeld && !HabilidadeBloqueada(0))
             {
                 _attack0KeyHeld = true;
                 Core.isAttacking0 = true;
             }
             // Skill 1
-            if (e.KeyCode == Core.Attack1 && !_attack1KeyHeld)
+            if (e.KeyCode == Core.Attack1 && !_attack1KeyHeld && !HabilidadeBloqueada(1))
             {
                 _attack1KeyHeld = true;
                 Core.isAttacking1 = true;
             }
             // Skill 3
-            if (e.KeyCode == Core.Attack2 && !_attack2KeyHeld)
+            if (e.KeyCode == Core.Attack2 && !_attack2KeyHeld && !HabilidadeBloqueada(2))
             {
                 _attack2KeyHeld = true;
                 Core.isAttacking2 = true;
@@ -2082,54 +2093,69 @@ namespace FallenWorld
             }
             SkillButtonStates(sender, e);
         }
+
         private void SkillButtonStates(object sender, EventArgs e)
         {
             switch (_personagem)
             {
                 case Personagem.Mago:
 
-                    // Ataque 0: Staff Attack
-                    BTN_Skill1.Image = _attack0KeyHeld
-                        ? Properties.Resources.duck_Mage_Skill1_pressed
-                        : Properties.Resources.duck_Mage_Skill1;
+                    // Habilidade 1: Staff Attack.
+                    BTN_Skill1.Image = HabilidadeBloqueada(0)
+                        ? Properties.Resources.duck_Mage_Skill1_locked
+                        : _attack0KeyHeld
+                            ? Properties.Resources.duck_Mage_Skill1_pressed
+                            : Properties.Resources.duck_Mage_Skill1;
 
-                    // Ataque 1: Fireball
-                    BTN_Skill2.Image = _attack1KeyHeld
-                        ? Properties.Resources.duckMage_Skill2_pressed
-                        : Properties.Resources.duckMage_Skill2;
+                    // Habilidade 2: Fireball.
+                    BTN_Skill2.Image = HabilidadeBloqueada(1)
+                        ? Properties.Resources.duckMage_Skill2_locked
+                        : _attack1KeyHeld
+                            ? Properties.Resources.duckMage_Skill2_pressed
+                            : Properties.Resources.duckMage_Skill2;
 
-                    // Ataque 2: Recuperar mana
-                    BTN_Skill3.Image = _attack2KeyHeld
-                        ? Properties.Resources.duckMage_Skill3_pressed
-                        : Properties.Resources.duckMage_Skill3;
+                    // Habilidade 3: Recover Mana.
+                    BTN_Skill3.Image = HabilidadeBloqueada(2)
+                        ? Properties.Resources.duckMage_Skill3_locked
+                        : _attack2KeyHeld
+                            ? Properties.Resources.duckMage_Skill3_pressed
+                            : Properties.Resources.duckMage_Skill3;
 
                     break;
 
                 case Personagem.Cavaleiro:
 
-                    // Ataque 0: Reforço físico
-                    BTN_Skill1.Image = _attack0KeyHeld
-                        ? Properties.Resources.knight_Skill1_pressed
-                        : Properties.Resources.knight_Skill1;
+                    // Habilidade 1: Aura.
+                    BTN_Skill1.Image = HabilidadeBloqueada(0)
+                        ? Properties.Resources.knight_Skill1_locked
+                        : _attack0KeyHeld
+                            ? Properties.Resources.knight_Skill1_pressed
+                            : Properties.Resources.knight_Skill1;
 
-                    // Ataque 1: Sword Slash
-                    BTN_Skill2.Image = _attack1KeyHeld
-                        ? Properties.Resources.knight_Skill2_pressed
-                        : Properties.Resources.Knight_Skill2;
+                    // Habilidade 2: Sword Slash.
+                    BTN_Skill2.Image = HabilidadeBloqueada(1)
+                        ? Properties.Resources.knight_Skill2_locked
+                        : _attack1KeyHeld
+                            ? Properties.Resources.knight_Skill2_pressed
+                            : Properties.Resources.Knight_Skill2;
 
                     break;
 
                 case Personagem.Princesa:
 
-                    // Ataque 0: primeiro botão de habilidade
-                    BTN_Skill1.Image = _attack0KeyHeld
-                        ? Properties.Resources.princess_Skill1_pressed
-                        : Properties.Resources.princess_Skill1;
+                    // Habilidade 1.
+                    BTN_Skill1.Image = HabilidadeBloqueada(0)
+                        ? Properties.Resources.princess_Skill1_locked
+                        : _attack0KeyHeld
+                            ? Properties.Resources.princess_Skill1_pressed
+                            : Properties.Resources.princess_Skill1;
 
-                    // Ataque 1: Poison Attack
-                    BTN_Skill2.Image = _attack1KeyHeld
-                        ? Properties.Resources.princess_Skill2_pressed
-                        : Properties.Resources.princess_Skill2;
+                    // Habilidade 2: Poison Attack.
+                    BTN_Skill2.Image = HabilidadeBloqueada(1)
+                        ? Properties.Resources.princess_Skill2_locked
+                        : _attack1KeyHeld
+                            ? Properties.Resources.princess_Skill2_pressed
+                            : Properties.Resources.princess_Skill2;
 
                     break;
             }
@@ -2820,6 +2846,108 @@ namespace FallenWorld
             projectile.BringToFront();
         }
 
+        // Verifica se determinada habilidade está bloqueada.
+        private bool HabilidadeBloqueada(int slot)
+        {
+            return _lichSkillBlockRemaining > 0 &&
+                   _lichBlockedSkillSlot == slot;
+        }
+
+        // Sorteia qual efeito será aplicado pela Dark Fireball.
+        private void AplicarEfeitoAleatorioDarkFireball()
+        {
+            if (player == null || player.IsDisposed || player.EstaMorto)
+                return;
+
+            // 50% queimadura e 50% bloqueio de habilidade.
+            if (_darkFireballDebuffRandom.Next(2) == 0)
+            {
+                // Reutiliza o sistema de queimadura existente.
+                _lichBurnDurationRemaining = LichBurnDurationTicks;
+                _lichBurnTickRemaining = LichBurnIntervalTicks;
+
+                player.QueimaduraAtiva = true;
+            }
+            else
+            {
+                AplicarBloqueioAleatorioHabilidade();
+            }
+        }
+
+        // Escolhe uma habilidade funcional do personagem atual.
+        private void AplicarBloqueioAleatorioHabilidade()
+        {
+            // Se já existe uma habilidade bloqueada,
+            // apenas renova sua duração.
+            if (_lichSkillBlockRemaining > 0)
+            {
+                _lichSkillBlockRemaining = LichSkillBlockDurationTicks;
+                return;
+            }
+
+            int[] habilidadesDisponiveis;
+
+            switch (_personagem)
+            {
+                case Personagem.Mago:
+                    habilidadesDisponiveis = new int[] { 0, 1, 2 };
+                    break;
+
+                case Personagem.Cavaleiro:
+                    habilidadesDisponiveis = new int[] { 0, 1 };
+                    break;
+
+                case Personagem.Princesa:
+                    habilidadesDisponiveis = new int[] { 1 };
+                    break;
+
+                default:
+                    return;
+            }
+
+            int indiceAleatorio = _darkFireballDebuffRandom.Next(habilidadesDisponiveis.Length);
+
+            _lichBlockedSkillSlot = habilidadesDisponiveis[indiceAleatorio];
+
+            _lichSkillBlockRemaining = LichSkillBlockDurationTicks;
+
+            // Cancela qualquer comando pendente da habilidade bloqueada.
+            switch (_lichBlockedSkillSlot)
+            {
+                case 0:
+                    _attack0KeyHeld = false;
+                    Core.isAttacking0 = false;
+                    break;
+
+                case 1:
+                    _attack1KeyHeld = false;
+                    Core.isAttacking1 = false;
+                    break;
+
+                case 2:
+                    _attack2KeyHeld = false;
+                    Core.isAttacking2 = false;
+                    break;
+            }
+            SkillButtonStates(this, EventArgs.Empty);
+        }
+
+        // Controla o tempo restante do bloqueio.
+        private void AtualizarBloqueioHabilidadeJogador()
+        {
+            if (_lichSkillBlockRemaining <= 0)
+                return;
+
+            _lichSkillBlockRemaining--;
+
+            if (_lichSkillBlockRemaining <= 0)
+            {
+                _lichSkillBlockRemaining = 0;
+                _lichBlockedSkillSlot = -1;
+
+                SkillButtonStates(this, EventArgs.Empty);
+            }
+        }
 
         private void AtualizarDarkFireballs()
         {
@@ -2880,7 +3008,15 @@ namespace FallenWorld
                     // Colisão entre a bola roxa e o jogador.
                     if (hitboxBola.IntersectsWith(hitboxJogador))
                     {
-                        AplicarDanoAoJogador(LichFireBallDamage);
+                        // Só aplica o efeito se o jogador puder receber dano.
+                        if (_invulnerabilidadeRestante <= 0)
+                        {
+                            AplicarDanoAoJogador(LichFireBallDamage);
+
+                            // Sorteia queimadura ou bloqueio de habilidade.
+                            AplicarEfeitoAleatorioDarkFireball();
+                        }
+
                         iniciarImpacto = true;
                     }
                 }
@@ -3680,23 +3816,19 @@ namespace FallenWorld
                 return;
             }
 
-            // Utiliza o ataque à distância quando o jogador
-            // estiver fora do alcance do Dark Flame Burst.
-            if (distanciaX > LichMeleeAttackRange && distanciaX <= LichFireBallAttackRange)
+            // Utiliza o ataque à distância quando estiver
+            // fora do alcance do Dark Flame Burst e sem recarga.
+            if (distanciaX > LichMeleeAttackRange &&
+                distanciaX <= LichFireBallAttackRange &&
+                _lichBossAttackCooldownRemaining <= 0)
             {
-                if (_lichBossAttackCooldownRemaining <= 0)
+                if (_lichBoss.SetAttack(
+                    LichBoss.TipoAtaque.DarkFireBall,
+                    facingRight))
                 {
-                    if (_lichBoss.SetAttack(LichBoss.TipoAtaque.DarkFireBall,facingRight))
-                    {
-                        _lichBossAttackCooldownRemaining = LichAttackCooldownTicks;
-                    }
+                    _lichBossAttackCooldownRemaining = LichAttackCooldownTicks;
+                    return;
                 }
-                else
-                {
-                    _lichBoss.SetIdle(facingRight);
-                }
-
-                return;
             }
 
             // Quando estiver próximo, tenta executar o ataque corpo a corpo.
@@ -4096,6 +4228,8 @@ namespace FallenWorld
             AtualizarQueimaduraInimigos();
             // Atualiza a queimadura causada pelo Lich no jogador.
             AtualizarQueimaduraJogador();
+            // Atualiza a duração do bloqueio de habilidade.
+            AtualizarBloqueioHabilidadeJogador();
             // Atualiza a posição das bolas de fogo e verifica colisões.
             AtualizarBolasDeFogo();
             // Atualiza a posição da runa mais próxima do jogador.
@@ -4964,8 +5098,6 @@ namespace FallenWorld
             _midBossVisualOffsetY = 0;
         }
         #endregion
-
-
 
         #region Judgment Forge Countdown
         private void CriarIndicadorTempoJulgamento()
