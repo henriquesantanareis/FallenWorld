@@ -1,0 +1,141 @@
+{
+  "character": {
+    "id": "31871d36-b673-414c-8af0-510bbbf8f03c",
+    "name": "Idle",
+    "prompt": "Dark fantasy corrupted queen, the sinister counterpart of the Princess. Full-body female medieval warrior with an intimidating royal appearance. She has long dark chestnut hair, partially loose and flowing behind her head, with faded pale streaks. She wears a broken dark silver crown instead of a bright royal tiara. Her armor consists of blackened steel, charcoal plates and damaged ivory details, with subtle poisonous green accents. A long, torn dark emerald and nearly black cape flows behind her. She carries a long medieval sword with a dark blade and a glowing toxic green edge. Her appearance is elegant but threatening, combining royal elegance with a corrupted warrior aesthetic. Preserve a visual connection to the Princess through similar hair, crown, cape and sword motifs, but make every element darker and more sinister. Full body, clearly visible arms, legs, armor and weapon. Grounded standing pose, suitable for a 2D side-scrolling fantasy RPG. Match the exact pixel-art rendering style, pixel density, proportions, shading and detail level of the Princess style reference. Crisp pixel clusters, consistent outlines and limited colors. No background, no text, no floating, no oversized effects, no exaggerated proportions, no realistic rendering or anti-aliasing.",
+    "size": {
+      "width": 112,
+      "height": 112
+    },
+    "directions": 8,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Fallen_Queen-Idle.png",
+    "cell_size": {
+      "width": 176,
+      "height": 196
+    },
+    "sheet_size": {
+      "width": 2992,
+      "height": 2548
+    },
+    "columns": 17,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Hurt",
+        "animation_group_id": "217f4e97-2626-45e1-ad19-7a2b2a4c765e",
+        "direction": "east"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Hurt",
+        "animation_group_id": "217f4e97-2626-45e1-ad19-7a2b2a4c765e",
+        "direction": "west"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 17,
+        "animation": "Death",
+        "animation_group_id": "22fa4551-b4c5-4f5a-a98b-ff7de9b12e7b",
+        "direction": "east"
+      },
+      {
+        "row": 4,
+        "type": "animation",
+        "frame_count": 17,
+        "animation": "Death",
+        "animation_group_id": "22fa4551-b4c5-4f5a-a98b-ff7de9b12e7b",
+        "direction": "west"
+      },
+      {
+        "row": 5,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Walk",
+        "animation_group_id": "38e3d840-db60-43b2-913a-e413579dddd8",
+        "direction": "east"
+      },
+      {
+        "row": 6,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Walk",
+        "animation_group_id": "38e3d840-db60-43b2-913a-e413579dddd8",
+        "direction": "west"
+      },
+      {
+        "row": 7,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Inhale deeply as the chest expands, while the cape and hair drift with a heavy, rhythmic sway. The right hand tightens its grip on the sword, causing the blade to shift as green toxic energy flickers along its edge and the eyes pulse with a faint glow. Facing to the right, the sword is held pointing horizontally to the right. The rhythmic breathing and weapon grip occur while maintaining a side-on stance.",
+        "animation_group_id": "4785f2a9-8a97-4634-9dae-4933c4e2cafc",
+        "direction": "east"
+      },
+      {
+        "row": 8,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Inhale deeply as the chest expands, while the cape and hair drift with a heavy, rhythmic sway. The right hand tightens its grip on the sword, causing the blade to shift as green toxic energy flickers along its edge and the eyes pulse with a faint glow. Facing to the right, the sword is held pointing horizontally to the right. The rhythmic breathing and weapon grip occur while maintaining a side-on stance.",
+        "animation_group_id": "4785f2a9-8a97-4634-9dae-4933c4e2cafc",
+        "direction": "west"
+      },
+      {
+        "row": 9,
+        "type": "animation",
+        "frame_count": 13,
+        "animation": "Royal Venom Slash",
+        "animation_group_id": "f06f3d9a-706e-46b7-8fe8-ec2151fcaa50",
+        "direction": "east"
+      },
+      {
+        "row": 10,
+        "type": "animation",
+        "frame_count": 13,
+        "animation": "Royal Venom Slash",
+        "animation_group_id": "f06f3d9a-706e-46b7-8fe8-ec2151fcaa50",
+        "direction": "west"
+      },
+      {
+        "row": 11,
+        "type": "animation",
+        "frame_count": 17,
+        "animation": "Emerald Bladefall",
+        "animation_group_id": "f91c7387-5298-4e0c-94d0-7beb80f9f6d2",
+        "direction": "east"
+      },
+      {
+        "row": 12,
+        "type": "animation",
+        "frame_count": 17,
+        "animation": "Emerald Bladefall",
+        "animation_group_id": "f91c7387-5298-4e0c-94d0-7beb80f9f6d2",
+        "direction": "west"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-24T15:37:34.120828+00:00"
+}

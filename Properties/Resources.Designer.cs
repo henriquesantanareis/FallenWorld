@@ -954,6 +954,29 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;character&quot;: {
+        ///    &quot;id&quot;: &quot;31871d36-b673-414c-8af0-510bbbf8f03c&quot;,
+        ///    &quot;name&quot;: &quot;Idle&quot;,
+        ///    &quot;prompt&quot;: &quot;Dark fantasy corrupted queen, the sinister counterpart of the Princess. Full-body female medieval warrior with an intimidating royal appearance. She has long dark chestnut hair, partially loose and flowing behind her head, with faded pale streaks. She wears a broken dark silver crown instead of a bright royal tiara. Her armor consists of blackened steel, charcoal plates and damaged ivory details, with sub [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Fallen_Queen {
+            get {
+                return ResourceManager.GetString("Fallen_Queen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_spritesheet {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_spritesheet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Icon semelhante a (Ícone).
         /// </summary>
         public static System.Drawing.Icon Fallen_World {
