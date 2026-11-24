@@ -808,4 +808,73 @@
   <data name="Dullahan_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Dullahan_spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Dullahan_HealthBar_HP0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP25.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP40" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP45" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP45.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP55" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP55.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP60" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP60.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP65" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP65.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP70" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP70.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP75" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP75.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP80" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP80.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP85" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP85.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP90" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP95" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP95.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_HealthBar_HP100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_HealthBar_HP100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_Avatar_Death" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_Avatar_Death.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dullahan_Avatar_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_Avatar_Normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
