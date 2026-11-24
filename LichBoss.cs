@@ -63,6 +63,13 @@ namespace FallenWorld
         private bool _attackImpactTriggered;
         private bool _deathAnimationCompleted;
 
+        // Controle do efeito de queimadura.
+        private int _burnDamagePerTick = 0;
+        private int _burnDurationRemaining = 0;
+        private int _burnTickRemaining = 0;
+        private int _burnTickInterval = 60;
+        private int _burnVisualTick = 0;
+
         /// <summary>
         /// Disparado uma única vez no quadro de impacto de cada ataque.
         /// O FormGame usará este evento para executar o ataque correspondente.
@@ -228,9 +235,46 @@ namespace FallenWorld
         {
             Bitmap novoFrame = GetFrame(_currentRow, _currentFrame);
 
+            // Desenha as chamas enquanto o Lich estiver queimando.
+            if (IsBurning && !IsDead)
+            {
+                DesenharEfeitoQueimadura(novoFrame);
+            }
+
             Image frameAnterior = _spriteBox.Image;
             _spriteBox.Image = novoFrame;
             frameAnterior?.Dispose();
+        }
+
+        private void DesenharEfeitoQueimadura(Bitmap frame)
+        {
+            int fase = _burnVisualTick % 4;
+            _burnVisualTick++;
+
+            using (Graphics g = Graphics.FromImage(frame))
+            using (SolidBrush sombra = new SolidBrush(Color.FromArgb(100, 120, 25, 5)))
+            using (SolidBrush fogo = new SolidBrush(Color.FromArgb(220, 240, 75, 15)))
+            using (SolidBrush brasa = new SolidBrush(Color.FromArgb(240, 255, 185, 45)))
+            {
+                g.SmoothingMode = SmoothingMode.None;
+
+                // Chamas à esquerda.
+                g.FillRectangle(sombra, 27, 78 + fase, 10, 18);
+                g.FillRectangle(fogo, 30, 80 + fase, 6, 13);
+                g.FillRectangle(brasa, 32, 83 + fase, 3, 6);
+
+                // Chamas à direita.
+                g.FillRectangle(sombra, 159, 78 - fase, 10, 18);
+                g.FillRectangle(fogo, 162, 80 - fase, 6, 13);
+                g.FillRectangle(brasa, 164, 83 - fase, 3, 6);
+
+                // Brasas próximas aos pés.
+                g.FillRectangle(fogo, 55 + fase, 135, 5, 5);
+                g.FillRectangle(brasa, 56 + fase, 136, 2, 2);
+
+                g.FillRectangle(fogo, 135 - fase, 130, 5, 5);
+                g.FillRectangle(brasa, 136 - fase, 131, 2, 2);
+            }
         }
 
         #endregion
@@ -357,6 +401,50 @@ namespace FallenWorld
                 SetDeath();
             else
                 SetHurt();
+        }
+
+        public bool IsBurning
+        {
+            get { return _burnDurationRemaining > 0; }
+        }
+
+        public void AplicarQueimadura(int danoPorTick, int duracaoTicks, int intervaloTicks)
+        {
+            if (IsDead || danoPorTick <= 0 || duracaoTicks <= 0 || intervaloTicks <= 0)
+            {
+                return;
+            }
+
+            // Renova a queimadura em vez de acumular efeitos.
+            _burnDamagePerTick = danoPorTick;
+            _burnDurationRemaining = duracaoTicks;
+            _burnTickInterval = intervaloTicks;
+            _burnTickRemaining = intervaloTicks;
+        }
+
+        public void AtualizarQueimadura()
+        {
+            if (IsDead || _burnDurationRemaining <= 0)
+                return;
+
+            _burnDurationRemaining--;
+            _burnTickRemaining--;
+
+            if (_burnTickRemaining > 0)
+                return;
+
+            _burnTickRemaining = _burnTickInterval;
+
+            _vidaAtual = Math.Max(
+                0,
+                _vidaAtual - _burnDamagePerTick
+            );
+
+            if (_vidaAtual <= 0)
+            {
+                _burnDurationRemaining = 0;
+                SetDeath();
+            }
         }
 
         #endregion

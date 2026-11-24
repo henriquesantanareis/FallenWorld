@@ -2612,12 +2612,36 @@ namespace FallenWorld
             }
         }
 
+        private void AtualizarHUDLichBoss()
+        {
+            if (_lichBoss == null || _lichBoss.IsDisposed)
+                return;
+
+            int vidaPercentual = _lichBoss.VidaAtual <= 0
+                ? 0
+                : (_lichBoss.VidaAtual * 100) / _lichBoss.VidaMaxima;
+
+            // Seleciona a imagem correspondente, em intervalos de 5%.
+            int percentualBarra = vidaPercentual == 0
+                ? 0
+                : Math.Min(100, ((vidaPercentual + 4) / 5) * 5);
+
+            string nomeRecurso = "LichBoss_HealthBar_HP" + percentualBarra;
+
+            PBX_HealtBar_Final_Boss.Image = Properties.Resources.ResourceManager.GetObject(nomeRecurso) as Bitmap;
+            // Troca o avatar quando o Lich é derrotado.
+            if (_lichBoss.VidaAtual <= 0)
+            {
+                PBX_Avatar_Final_Boss.Image = Properties.Resources.LichBoss_Avatar_Death;
+            }
+        }
+
         private void AplicarDanoAosInimigos(int dano, int alcance, bool aplicarVeneno = false)
         {
             if (player == null || player.EstaMorto)
                 return;
 
-            Rectangle hitboxPlayer = player.GetHitboxAt(_playerWorldX,_playerWorldY);
+            Rectangle hitboxPlayer = player.GetHitboxAt(_playerWorldX, _playerWorldY);
 
             int alturaAtaque = Math.Max(12, hitboxPlayer.Height / 2);
             int ataqueY = hitboxPlayer.Top + (hitboxPlayer.Height - alturaAtaque) / 2;
@@ -2626,11 +2650,11 @@ namespace FallenWorld
 
             if (player.FacingRight)
             {
-                hitboxAtaque = new Rectangle(hitboxPlayer.Right,ataqueY,alcance,alturaAtaque);
+                hitboxAtaque = new Rectangle(hitboxPlayer.Right, ataqueY, alcance, alturaAtaque);
             }
             else
             {
-                hitboxAtaque = new Rectangle(hitboxPlayer.Left - alcance,ataqueY,alcance,alturaAtaque);
+                hitboxAtaque = new Rectangle(hitboxPlayer.Left - alcance, ataqueY, alcance, alturaAtaque);
             }
 
             bool atingiuInimigo = false;
@@ -2644,7 +2668,7 @@ namespace FallenWorld
 
                 Point posicao = item.Value;
 
-                Rectangle hitboxInimigo = enemy.GetHitboxAt(posicao.X,posicao.Y);
+                Rectangle hitboxInimigo = enemy.GetHitboxAt(posicao.X, posicao.Y);
 
                 if (!hitboxAtaque.IntersectsWith(hitboxInimigo))
                     continue;
@@ -2658,19 +2682,32 @@ namespace FallenWorld
                 // Aplica veneno se o golpe for da habilidade da Princesa.
                 if (aplicarVeneno && !enemy.IsDead)
                 {
-                    enemy.AplicarVeneno(danoPorTick: CalcularDanoComRunaPoder(3, 25), duracaoTicks: 300,intervaloTicks: 60);
+                    enemy.AplicarVeneno(
+                        danoPorTick: CalcularDanoComRunaPoder(3, 25),
+                        duracaoTicks: 300,
+                        intervaloTicks: 60
+                    );
                 }
+
                 atingiuInimigo = true;
                 break;
             }
+
+            bool atingiuChefe = false;
+
             // Verifica se o ataque atingiu o Mid-Boss.
             if (!atingiuInimigo && _midBoss != null && !_midBoss.IsDisposed && !_midBoss.IsDead)
             {
-                Rectangle hitboxBoss = _midBoss.GetHitboxAt(_midBossWorldPosition.X,_midBossWorldPosition.Y);
+                Rectangle hitboxBoss = _midBoss.GetHitboxAt(
+                    _midBossWorldPosition.X,
+                    _midBossWorldPosition.Y
+                );
 
                 if (hitboxAtaque.IntersectsWith(hitboxBoss))
                 {
                     _midBoss.ReceberDano(dano);
+                    atingiuChefe = true;
+
                     // Aplica veneno quando o golpe for da habilidade da Princesa.
                     if (aplicarVeneno && !_midBoss.IsDead)
                     {
@@ -2682,7 +2719,23 @@ namespace FallenWorld
                     }
                 }
             }
+
+            // Verifica se o ataque atingiu o chefe final: Lich.
+            if (!atingiuInimigo && !atingiuChefe && _lichBoss != null && !_lichBoss.IsDisposed && !_lichBoss.IsDead)
+            {
+                Rectangle hitboxLich = _lichBoss.GetHitboxAt(
+                    _lichBossWorldPosition.X,
+                    _lichBossWorldPosition.Y
+                );
+
+                if (hitboxAtaque.IntersectsWith(hitboxLich))
+                {
+                    _lichBoss.ReceberDano(dano);
+                    AtualizarHUDLichBoss();
+                }
+            }
         }
+
         private void Player_AttackImpact(StatePlayer state)
         {
             switch (_personagem)
@@ -3311,6 +3364,32 @@ namespace FallenWorld
                             iniciarExplosao = true;
                         }
                     }
+                    // Colisão com o chefe final: Lich.
+                    if (!iniciarExplosao && _lichBoss != null && !_lichBoss.IsDisposed && !_lichBoss.IsDead)
+                    {
+                        Rectangle hitboxLich = _lichBoss.GetHitboxAt(
+                            _lichBossWorldPosition.X,
+                            _lichBossWorldPosition.Y
+                        );
+
+                        if (hitboxBola.IntersectsWith(hitboxLich))
+                        {
+                            int danoFireball = CalcularDanoComRunaPoder(FireballDamage, 20);
+
+                            _lichBoss.ReceberDano(danoFireball);
+                            // Aplica queimadura se o Lich sobreviver.
+                            if (!_lichBoss.IsDead)
+                            {
+                                _lichBoss.AplicarQueimadura(
+                                    danoPorTick: 2,
+                                    duracaoTicks: 240,
+                                    intervaloTicks: 60
+                                );
+                            }
+                            AtualizarHUDLichBoss();
+                            iniciarExplosao = true;
+                        }
+                    }
                 }
 
                 // O alcance máximo também encerra o voo.
@@ -3498,6 +3577,14 @@ namespace FallenWorld
             _lichBossWorldPosition = new Point(worldX, worldY);
 
             _lichBoss = boss;
+
+            // Configura a HUD inicial do chefe.
+            PBX_Avatar_Final_Boss.Image = Properties.Resources.LichBoss_Avatar_Normal;
+
+            AtualizarHUDLichBoss();
+
+            PBX_Avatar_Final_Boss.Visible = true;
+            PBX_HealtBar_Final_Boss.Visible = true;
 
             boss.AttackImpact += LichBoss_AttackImpact;
 
@@ -3994,6 +4081,19 @@ namespace FallenWorld
             if (_midBoss != null && !_midBoss.IsDisposed)
             {
                 _midBoss.AtualizarQueimadura();
+            }
+            // Atualiza a queimadura do Lich.
+            if (_lichBoss != null && !_lichBoss.IsDisposed)
+            {
+                int vidaAnterior = _lichBoss.VidaAtual;
+
+                _lichBoss.AtualizarQueimadura();
+
+                // Atualiza a HUD somente quando houver perda de vida.
+                if (_lichBoss.VidaAtual != vidaAnterior)
+                {
+                    AtualizarHUDLichBoss();
+                }
             }
         }
         #endregion
