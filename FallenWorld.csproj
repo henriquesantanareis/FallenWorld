@@ -182,6 +182,9 @@
     <Compile Include="DoubleBufferedFlowLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DullahanBoss.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Enemy.cs">
       <SubType>UserControl</SubType>
     </Compile>

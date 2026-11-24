@@ -135,6 +135,36 @@ namespace FallenWorld
 
         #endregion
 
+        #region final boss - Dullhan o Cavaleiro Sem Cabeça
+        private DullahanBoss _dullahanBoss;
+
+        // Posição real do Dullahan no mundo.
+        private Point _dullahanBossWorldPosition;
+
+        // Ajuste visual para alinhar os pés ao chão.
+        private int _dullahanBossVisualOffsetY = 0;
+        // Configurações da inteligência artificial.
+        private const int DullahanDetectionRange = 420;
+        private const int DullahanMoveSpeed = 2;
+
+        // Alcance dos ataques.
+        private const int DullahanAttack1Range = 100;
+        private const int DullahanAttack2Range = 145;
+
+        // Dano dos ataques.
+        private const int DullahanAttack1Damage = 18;
+        private const int DullahanAttack2Damage = 28;
+
+        // Tempo entre os ataques.
+        private const int DullahanAttack1CooldownTicks = 90;
+        private const int DullahanAttack2CooldownTicks = 150;
+
+        private int _dullahanBossAttackCooldownRemaining = 0;
+
+        // Controla a alternância dos ataques.
+        private bool _dullahanNextAttackHeavy = false;
+        #endregion
+
         #region Knight Aura
 
         // Duração da Aura: aproximadamente 5 segundos.
@@ -2312,6 +2342,7 @@ namespace FallenWorld
             AtualizarPosicaoInimigosNaTela();
             AtualizarPosicaoMidBossNaTela();
             AtualizarPosicaoLichBossNaTela();
+            AtualizarPosicaoDullahanBossNaTela();
             AtualizarPosicaoRunasNaTela();
             AtualizarPosicaoGuardianRunesNaTela();
             AtualizarPosicaoPuzzleChestNaTela();
@@ -2734,6 +2765,21 @@ namespace FallenWorld
                     AtualizarHUDLichBoss();
                 }
             }
+            // Verifica se o ataque atingiu o Dullahan.
+            if (!atingiuInimigo && !atingiuChefe && _dullahanBoss != null && !_dullahanBoss.IsDisposed && !_dullahanBoss.IsDead)
+            {
+                Rectangle hitboxDullahan = _dullahanBoss.GetHitboxAt(
+                    _dullahanBossWorldPosition.X,
+                    _dullahanBossWorldPosition.Y
+                );
+
+                if (hitboxAtaque.IntersectsWith(hitboxDullahan))
+                {
+                    _dullahanBoss.ReceberDano(dano);
+
+                    AtualizarHUDDullahanBoss();
+                }
+            }
         }
 
         private void Player_AttackImpact(StatePlayer state)
@@ -3088,7 +3134,6 @@ namespace FallenWorld
             }
         }
 
-
         private void LichBoss_AttackImpact(LichBoss boss,LichBoss.TipoAtaque attackType)
         {
             if (boss == null || 
@@ -3148,6 +3193,76 @@ namespace FallenWorld
             _lichBurnDurationRemaining = LichBurnDurationTicks;
             _lichBurnTickRemaining = LichBurnIntervalTicks;
             player.QueimaduraAtiva = true;
+        }
+
+        private void DullahanBoss_AttackImpact(DullahanBoss boss,DullahanBoss.TipoAtaque attackType)
+        {
+            if (boss == null ||
+                boss.IsDisposed ||
+                boss.IsDead ||
+                boss != _dullahanBoss ||
+                player == null ||
+                player.IsDisposed ||
+                player.EstaMorto ||
+                _invulnerabilidadeRestante > 0)
+            {
+                return;
+            }
+
+            Rectangle hitboxJogador = player.GetHitboxAt(
+                _playerWorldX,
+                _playerWorldY
+            );
+
+            Rectangle hitboxBoss = boss.GetHitboxAt(
+                _dullahanBossWorldPosition.X,
+                _dullahanBossWorldPosition.Y
+            );
+
+            bool ataquePesado = attackType == DullahanBoss.TipoAtaque.Attack2;
+
+            int alcance = ataquePesado
+                ? DullahanAttack2Range
+                : DullahanAttack1Range;
+
+            int altura = ataquePesado
+                ? hitboxBoss.Height
+                : hitboxBoss.Height / 2;
+
+            int ataqueY = ataquePesado
+                ? hitboxBoss.Top
+                : hitboxBoss.Top + hitboxBoss.Height / 2;
+
+            Rectangle areaAtaque;
+
+            if (boss.FacingRight)
+            {
+                areaAtaque = new Rectangle(
+                    hitboxBoss.Right - 2,
+                    ataqueY,
+                    alcance,
+                    altura
+                );
+            }
+            else
+            {
+                areaAtaque = new Rectangle(
+                    hitboxBoss.Left - alcance + 2,
+                    ataqueY,
+                    alcance,
+                    altura
+                );
+            }
+
+            // O jogador precisa estar dentro da área do golpe.
+            if (!areaAtaque.IntersectsWith(hitboxJogador))
+                return;
+
+            int dano = ataquePesado
+                ? DullahanAttack2Damage 
+                : DullahanAttack1Damage;
+
+            AplicarDanoAoJogador(dano);
         }
 
         private void AtualizarQueimaduraJogador()
@@ -3520,8 +3635,7 @@ namespace FallenWorld
                     break;
 
                 case Personagem.Cavaleiro:
-                    // O Cavaleiro Sombrio será carregado aqui
-                    // quando sua classe estiver implementada.
+                    LoadDullahanBoss();
                     break;
 
                 case Personagem.Princesa:
@@ -3536,7 +3650,104 @@ namespace FallenWorld
             }
         }
 
+        private void LoadDullahanBoss()
+        {
+            if (map == null)
+                return;
 
+            // Procura o marcador Spawn=final_boss.
+            List<MapTile> spawns = map.GetEnemySpawns("final_boss");
+
+            if (spawns == null || spawns.Count == 0)
+            {
+                throw new Exception(
+                    "O marcador Spawn=final_boss não foi encontrado na Arena dos Chefes Finais."
+                );
+            }
+
+            MapTile spawn = spawns[0];
+
+            // Cria o Dullahan com 100 pontos de vida.
+            DullahanBoss boss = new DullahanBoss(100);
+
+            // Calcula o ajuste visual dos pés.
+            Rectangle bossBounds = boss.GetVisibleSpriteBounds();
+
+            _dullahanBossVisualOffsetY = Math.Max(
+                0,
+                boss.Height - bossBounds.Bottom
+            );
+
+            // Calcula a posição no mundo.
+            int worldX = spawn.x * map.tileSize + (map.tileSize - boss.Width) / 2;
+
+            int worldY = spawn.y * map.tileSize - boss.Height;
+
+            // Define a direção inicial olhando para o jogador.
+            bool facingRight = (_playerWorldX + player.Width / 2) > (worldX + boss.Width / 2);
+
+            boss.SetIdle(facingRight);
+
+            _dullahanBossWorldPosition = new Point(worldX, worldY);
+
+            _dullahanBoss = boss;
+
+            boss.AttackImpact += DullahanBoss_AttackImpact;
+
+            // Configura a HUD inicial do chefe.
+            PBX_Avatar_Final_Boss.Image = Properties.Resources.Dullahan_Avatar_Normal;
+
+            AtualizarHUDDullahanBoss();
+
+            PBX_Avatar_Final_Boss.Visible = true;
+            PBX_HealtBar_Final_Boss.Visible = true;
+
+            // Posiciona considerando a câmera.
+            AtualizarPosicaoDullahanBossNaTela();
+
+            // Adiciona o chefe ao cenário.
+            world1.Controls.Add(boss);
+
+            boss.BringToFront();
+        }
+
+        private void AtualizarPosicaoDullahanBossNaTela()
+        {
+            if (_dullahanBoss == null || _dullahanBoss.IsDisposed)
+                return;
+
+            _dullahanBoss.Location = new Point(
+                _dullahanBossWorldPosition.X - _cameraX,
+                _dullahanBossWorldPosition.Y - _cameraY + _dullahanBossVisualOffsetY
+            );
+        }
+
+        private void AtualizarHUDDullahanBoss()
+        {
+            if (_dullahanBoss == null || _dullahanBoss.IsDisposed)
+                return;
+
+            int vidaPercentual = _dullahanBoss.VidaAtual <= 0
+                ? 0
+                : (_dullahanBoss.VidaAtual * 100) / _dullahanBoss.VidaMaxima;
+
+            // Seleciona a imagem correspondente, em intervalos de 5%.
+            int percentualBarra = vidaPercentual == 0
+                ? 0
+                : Math.Min(100, ((vidaPercentual + 4) / 5) * 5);
+
+            string nomeRecurso = "Dullahan_HealthBar_HP" + percentualBarra;
+
+            PBX_HealtBar_Final_Boss.Image =
+                Properties.Resources.ResourceManager.GetObject(nomeRecurso) as Bitmap;
+
+            // Troca o avatar quando o Dullahan é derrotado.
+            if (_dullahanBoss.VidaAtual <= 0)
+            {
+                PBX_Avatar_Final_Boss.Image =
+                    Properties.Resources.Dullahan_Avatar_Death;
+            }
+        }
 
         private void LoadLichBoss()
         {
@@ -3968,6 +4179,122 @@ namespace FallenWorld
             _lichBoss.SetWalk(facingRight);
         }
 
+        private void AtualizarIADullahanBoss()
+        {
+            if (_dullahanBoss == null || _dullahanBoss.IsDisposed || _dullahanBoss.IsDead)
+                return;
+
+            if (player == null || player.IsDisposed || player.EstaMorto || map == null)
+                return;
+
+            // Atualiza a recarga dos ataques.
+            if (_dullahanBossAttackCooldownRemaining > 0)
+                _dullahanBossAttackCooldownRemaining--;
+
+            Rectangle hitboxJogador = player.GetHitboxAt(_playerWorldX,_playerWorldY);
+
+            Rectangle hitboxDullahan = _dullahanBoss.GetHitboxAt(
+                _dullahanBossWorldPosition.X,
+                _dullahanBossWorldPosition.Y
+            );
+
+            int centroJogadorX = hitboxJogador.Left + hitboxJogador.Width / 2;
+            int centroDullahanX = hitboxDullahan.Left + hitboxDullahan.Width / 2;
+
+            int diferencaX = centroJogadorX - centroDullahanX;
+            int distanciaX = Math.Abs(diferencaX);
+
+            bool facingRight = diferencaX >= 0;
+
+            // Verifica se estão aproximadamente na mesma altura.
+            bool mesmaAltura =
+                Math.Abs(hitboxJogador.Bottom - hitboxDullahan.Bottom) <= 28;
+
+            // Não interrompe ataques, dano ou morte.
+            if (_dullahanBoss.IsPerformingAction)
+                return;
+
+            // Fora do alcance de percepção.
+            if (distanciaX > DullahanDetectionRange || !mesmaAltura)
+            {
+                _dullahanBoss.SetIdle(facingRight);
+                return;
+            }
+
+            // Escolhe o próximo ataque.
+            DullahanBoss.TipoAtaque proximoAtaque =
+                _dullahanNextAttackHeavy
+                    ? DullahanBoss.TipoAtaque.Attack2
+                    : DullahanBoss.TipoAtaque.Attack1;
+
+            int alcanceAtaque = _dullahanNextAttackHeavy
+                ? DullahanAttack2Range
+                : DullahanAttack1Range;
+
+            // Verifica se já pode atacar.
+            if (distanciaX <= alcanceAtaque)
+            {
+                if (_dullahanBossAttackCooldownRemaining <= 0)
+                {
+                    if (_dullahanBoss.SetAttack(proximoAtaque, facingRight))
+                    {
+                        _dullahanBossAttackCooldownRemaining =
+                            _dullahanNextAttackHeavy
+                                ? DullahanAttack2CooldownTicks
+                                : DullahanAttack1CooldownTicks;
+
+                        // Alterna para o próximo ataque.
+                        _dullahanNextAttackHeavy = !_dullahanNextAttackHeavy;
+                    }
+                }
+                else
+                {
+                    _dullahanBoss.SetIdle(facingRight);
+                }
+
+                return;
+            }
+
+            // Aproxima o Dullahan do jogador.
+            int movimento = diferencaX > 0
+                ? DullahanMoveSpeed 
+                : -DullahanMoveSpeed;
+
+            int proximoX = _dullahanBossWorldPosition.X + movimento;
+
+            Rectangle hitboxProxima = _dullahanBoss.GetHitboxAt(
+                proximoX,
+                _dullahanBossWorldPosition.Y
+            );
+
+            // Verifica se existe chão à frente.
+            Rectangle faixaDosPes = new Rectangle(
+                hitboxProxima.Left + 2,
+                hitboxProxima.Bottom,
+                Math.Max(1, hitboxProxima.Width - 4),
+                1
+            );
+
+            // Não atravessa paredes nem cai de plataformas.
+            if (!map.PodeMover(hitboxProxima) || map.PodeMover(faixaDosPes))
+            {
+                _dullahanBoss.SetIdle(facingRight);
+                return;
+            }
+
+            // Atualiza a posição real.
+            _dullahanBossWorldPosition = new Point(
+                proximoX,
+                _dullahanBossWorldPosition.Y
+            );
+
+            // Atualiza a posição visual.
+            AtualizarPosicaoDullahanBossNaTela();
+
+            // Executa a animação de caminhada.
+            _dullahanBoss.SetWalk(facingRight);
+        }
+
         private void IniciarRecuoInimigo(Enemy enemy)
         {
             if (enemy == null || enemy.IsDisposed || enemy.IsDead)
@@ -4320,6 +4647,8 @@ namespace FallenWorld
             AtualizarIAMidBoss();
             // Atualiza a inteligência artificial do Lich.
             AtualizarIALichBoss();
+            // Atualiza a inteligência artificial do Dullahan.
+            AtualizarIADullahanBoss();
             // Atualiza a posição das dark fireballs e verifica colisões.
             AtualizarDarkFireballs();
             // Atualiza o dano contínuo do veneno.
