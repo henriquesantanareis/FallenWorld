@@ -1,0 +1,141 @@
+{
+  "character": {
+    "id": "b01c6e1a-e97e-4e0d-ba40-d4eb46dc0d1e",
+    "name": "Idle",
+    "prompt": "Create the evil final boss version of the reference knight: a headless Dullahan in blackened steel armor, tarnished gold details, torn dark-red cape, and a massive sword. No head or helmet; a hollow neck emits black smoke and faint crimson embers. Preserve recognizable armor shapes and sword design from the original knight. Intimidating, heavy, corrupted appearance. Full body, side-view 2D platformer pixel art, crisp pixels, thick outlines, transparent background. No extra weapons, no realistic 3D, no blur.",
+    "size": {
+      "width": 128,
+      "height": 128
+    },
+    "directions": 8,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Dullahan-Idle.png",
+    "cell_size": {
+      "width": 236,
+      "height": 204
+    },
+    "sheet_size": {
+      "width": 2124,
+      "height": 2652
+    },
+    "columns": 9,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Hurt",
+        "animation_group_id": "5a9839a4-d1c6-4ab1-bb95-7018aa7f5df7",
+        "direction": "east"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Hurt",
+        "animation_group_id": "5a9839a4-d1c6-4ab1-bb95-7018aa7f5df7",
+        "direction": "west"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Death",
+        "animation_group_id": "67a3ec35-7b96-4682-9b9a-c8b9c1cae9d6",
+        "direction": "east"
+      },
+      {
+        "row": 4,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Death",
+        "animation_group_id": "67a3ec35-7b96-4682-9b9a-c8b9c1cae9d6",
+        "direction": "west"
+      },
+      {
+        "row": 5,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attak2",
+        "animation_group_id": "7c8ae8d4-5861-4e61-8298-c50b549093c3",
+        "direction": "east"
+      },
+      {
+        "row": 6,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attak2",
+        "animation_group_id": "7c8ae8d4-5861-4e61-8298-c50b549093c3",
+        "direction": "west"
+      },
+      {
+        "row": 7,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Walk",
+        "animation_group_id": "a7c7e0a5-263c-4ad7-a374-dbcd1bc3c5e3",
+        "direction": "east"
+      },
+      {
+        "row": 8,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Walk",
+        "animation_group_id": "a7c7e0a5-263c-4ad7-a374-dbcd1bc3c5e3",
+        "direction": "west"
+      },
+      {
+        "row": 9,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Idle",
+        "animation_group_id": "c0b662c9-0ea1-4c3d-aab6-2f2b29cf7b71",
+        "direction": "east"
+      },
+      {
+        "row": 10,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Idle",
+        "animation_group_id": "c0b662c9-0ea1-4c3d-aab6-2f2b29cf7b71",
+        "direction": "west"
+      },
+      {
+        "row": 11,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attack1",
+        "animation_group_id": "c4c31d5c-d832-4e6e-87ce-99969839b6a9",
+        "direction": "east"
+      },
+      {
+        "row": 12,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Attack1",
+        "animation_group_id": "c4c31d5c-d832-4e6e-87ce-99969839b6a9",
+        "direction": "west"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-24T04:55:52.666898+00:00"
+}

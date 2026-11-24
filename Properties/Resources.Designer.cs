@@ -649,6 +649,29 @@ namespace FallenWorld.Properties {
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;character&quot;: {
+        ///    &quot;id&quot;: &quot;b01c6e1a-e97e-4e0d-ba40-d4eb46dc0d1e&quot;,
+        ///    &quot;name&quot;: &quot;Idle&quot;,
+        ///    &quot;prompt&quot;: &quot;Create the evil final boss version of the reference knight: a headless Dullahan in blackened steel armor, tarnished gold details, torn dark-red cape, and a massive sword. No head or helmet; a hollow neck emits black smoke and faint crimson embers. Preserve recognizable armor shapes and sword design from the original knight. Intimidating, heavy, corrupted appearance. Full body, side-view 2D platformer pixe [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Dullahan_js {
+            get {
+                return ResourceManager.GetString("Dullahan_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_sprite {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;def170c7-60cb-4479-9c44-2d4ac89f5e95&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,

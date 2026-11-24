@@ -802,4 +802,10 @@
   <data name="LichBoss_Avatar_Death" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LichBoss_Avatar_Death.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Dullahan_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Dullahan_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_spritesheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
