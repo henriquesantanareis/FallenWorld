@@ -42,6 +42,9 @@ namespace FallenWorld
         // Controle visual da queimadura.
         private bool _queimaduraAtiva = false;
         private int _queimaduraVisualTick = 0;
+        // Controle visual do envenenamento.
+        private bool _venenoAtivo = false;
+        private int _venenoVisualTick = 0;
         // Controle visual do efeito de debuff.
         private int _debuffVisualTick = 0;
         private bool _debuffVisualAtivo = false;
@@ -291,6 +294,12 @@ namespace FallenWorld
             if (QueimaduraAtiva && _state != StatePlayer.Death)
             {
                 DesenharEfeitoQueimadura(novoFrame);
+            }
+
+            // Desenha o efeito visual de veneno.
+            if (VenenoAtivo && _state != StatePlayer.Death)
+            {
+                DesenharEfeitoVeneno(novoFrame);
             }
 
             // Desenha o efeito visual vermelho do debuff.
@@ -552,6 +561,21 @@ namespace FallenWorld
                     _debuffVisualTick = 0;
             }
         }
+        public bool VenenoAtivo
+        {
+            get { return _venenoAtivo; }
+            set
+            {
+                if (_venenoAtivo == value)
+                    return;
+
+                _venenoAtivo = value;
+
+                if (!value)
+                    _venenoVisualTick = 0;
+            }
+        }
+
         public bool QueimaduraAtiva
         {
             get { return _queimaduraAtiva; }
@@ -992,6 +1016,116 @@ namespace FallenWorld
                     tamanhoParticula
                 );
             }
+        }
+
+        private void DesenharEfeitoVeneno(Bitmap frame)
+        {
+            if (frame == null || !VenenoAtivo)
+                return;
+
+            int fase = _venenoVisualTick % 8;
+
+            int deslocamento = fase % 4;
+
+            int largura = Math.Max(5, frame.Width / 12);
+
+            int baseY = frame.Height - Math.Max(8, frame.Height / 10);
+
+            using (Graphics g = Graphics.FromImage(frame))
+            using (SolidBrush sombra = new SolidBrush(
+                Color.FromArgb(145, 5, 45, 20)))
+            using (SolidBrush fumaca = new SolidBrush(
+                Color.FromArgb(175, 20, 115, 45)))
+            using (SolidBrush energia = new SolidBrush(
+                Color.FromArgb(215, 55, 190, 65)))
+            using (SolidBrush brilho = new SolidBrush(
+                Color.FromArgb(235, 155, 255, 105)))
+            {
+                g.SmoothingMode =
+                    System.Drawing.Drawing2D.SmoothingMode.None;
+
+                // Nuvem venenosa inferior esquerda.
+                g.FillRectangle(
+                    sombra,
+                    4,
+                    baseY - 17,
+                    largura + 5,
+                    14
+                );
+
+                g.FillRectangle(
+                    fumaca,
+                    8,
+                    baseY - 26 - deslocamento,
+                    largura + 7,
+                    12
+                );
+
+                g.FillRectangle(
+                    energia,
+                    12,
+                    baseY - 20 - deslocamento,
+                    largura / 2,
+                    7
+                );
+
+                // Nuvem venenosa inferior direita.
+                g.FillRectangle(
+                    sombra,
+                    frame.Width - largura - 9,
+                    baseY - 14,
+                    largura + 5,
+                    12
+                );
+
+                g.FillRectangle(
+                    fumaca,
+                    frame.Width - largura - 13,
+                    baseY - 25 + deslocamento,
+                    largura + 7,
+                    11
+                );
+
+                g.FillRectangle(
+                    energia,
+                    frame.Width - largura - 10,
+                    baseY - 20 + deslocamento,
+                    largura / 2,
+                    7
+                );
+
+                // Pequenas partículas quadradas de veneno.
+                for (int i = 0; i < 5; i++)
+                {
+                    int x = (frame.Width / 6 + i * 19 + _venenoVisualTick * 2)
+                        % Math.Max(1, frame.Width - 4);
+
+                    int y = frame.Height / 3
+                        + (i * 13 + _venenoVisualTick * 3)
+                        % Math.Max(1, frame.Height / 2);
+
+                    g.FillRectangle(
+                        energia,
+                        x,
+                        y,
+                        4,
+                        4
+                    );
+
+                    if (i % 2 == 0)
+                    {
+                        g.FillRectangle(
+                            brilho,
+                            x + 1,
+                            y + 1,
+                            2,
+                            2
+                        );
+                    }
+                }
+            }
+
+            _venenoVisualTick++;
         }
 
         private void DesenharEfeitoDebuff(Bitmap frame)

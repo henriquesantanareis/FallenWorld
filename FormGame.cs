@@ -170,6 +170,52 @@ namespace FallenWorld
         private int _dullahanAuraBlockRemaining = 0;
         #endregion
 
+        #region Final Boss - Gothic Queen
+
+        private GothicQueenBoss _gothicQueenBoss;
+
+        // Posição real da Rainha no mundo.
+        private Point _gothicQueenBossWorldPosition;
+
+        // Ajuste visual para alinhar os pés ao chão.
+        private int _gothicQueenBossVisualOffsetY = 0;
+
+        // Inteligência artificial da Rainha.
+        private const int GothicQueenDetectionRange = 420;
+        private const int GothicQueenMoveSpeed = 2;
+
+        // Royal Venom Slash.
+        private const int RoyalVenomSlashRange = 110;
+        private const int RoyalVenomSlashDamage = 18;
+        private const int RoyalVenomSlashCooldownTicks = 100;
+
+        // Probabilidade de envenenamento.
+        private const int RoyalVenomSlashPoisonChance = 50;
+
+        // Configurações do veneno.
+        private const int QueenPoisonDamagePerTick = 2;
+        private const int QueenPoisonDurationTicks = 360;
+        private const int QueenPoisonIntervalTicks = 90;
+
+        private int _gothicQueenAttackCooldownRemaining = 0;
+
+        private int _queenPoisonDurationRemaining = 0;
+        private int _queenPoisonTickRemaining = 0;
+
+        // Sorteio independente para o veneno da Rainha.
+        private readonly Random _gothicQueenRandom = new Random();
+        // Contador de ataques da Rainha para alternar entre os ataques.
+        private int _gothicQueenAttackCount = 0;
+        // Ondas venenosas criadas pelo Emerald Bladefall.
+        private readonly List<QueenPoisonWave> _queenPoisonWaves =
+            new List<QueenPoisonWave>();
+
+        // Distância para iniciar a explosão ao alcançar o jogador.
+        private const int QueenPoisonWaveTriggerDistance = 36;
+        // Dano direto do Emerald Bladefall.
+        private const int EmeraldBladefallDamage = 18;
+        #endregion
+
         #region Knight Aura
 
         // Duração da Aura: aproximadamente 5 segundos.
@@ -1979,7 +2025,7 @@ namespace FallenWorld
 
         #region Input and Controls
         private void OnKeyDown(object sender, KeyEventArgs e)
-        {
+        {            
             if (e.KeyCode == Core.MoveLeft)
                 Core.isMovingLeft = true;
             if (e.KeyCode == Core.MoveRight)
@@ -2348,6 +2394,7 @@ namespace FallenWorld
             AtualizarPosicaoMidBossNaTela();
             AtualizarPosicaoLichBossNaTela();
             AtualizarPosicaoDullahanBossNaTela();
+            AtualizarPosicaoGothicQueenBossNaTela();
             AtualizarPosicaoRunasNaTela();
             AtualizarPosicaoGuardianRunesNaTela();
             AtualizarPosicaoPuzzleChestNaTela();
@@ -2783,6 +2830,29 @@ namespace FallenWorld
                     _dullahanBoss.ReceberDano(dano);
 
                     AtualizarHUDDullahanBoss();
+                }
+            }
+            // Verifica se o ataque atingiu a Rainha Gótica.
+            if (!atingiuInimigo && !atingiuChefe && _gothicQueenBoss != null && !_gothicQueenBoss.IsDisposed && !_gothicQueenBoss.IsDead)
+            {
+                Rectangle hitboxRainha = _gothicQueenBoss.GetHitboxAt(
+                    _gothicQueenBossWorldPosition.X,
+                    _gothicQueenBossWorldPosition.Y
+                );
+
+                if (hitboxAtaque.IntersectsWith(hitboxRainha))
+                {
+                    // Aplica o dano recebido pela Rainha.
+                    _gothicQueenBoss.ReceberDano(dano);
+                    AtualizarHUDGothicQueenBoss();
+
+                    // Registra a vida restante para teste.
+                    System.Diagnostics.Debug.WriteLine(
+                        "[Rainha Gótica] Vida restante: " +
+                        _gothicQueenBoss.VidaAtual
+                    );
+
+                    atingiuChefe = true;
                 }
             }
         }
@@ -3376,6 +3446,295 @@ namespace FallenWorld
             }
         }
 
+        private void GothicQueenBoss_AttackImpact(GothicQueenBoss boss,GothicQueenBoss.TipoAtaque attackType)
+        {
+            if (boss == null ||
+                boss.IsDisposed ||
+                boss.IsDead ||
+                boss != _gothicQueenBoss ||
+                player == null ||
+                player.IsDisposed ||
+                player.EstaMorto)
+            {
+                return;
+            }
+
+            // Emerald Bladefall: cria a onda venenosa.
+            if (attackType == GothicQueenBoss.TipoAtaque.EmeraldBladefall)
+            {
+                CriarOndaVenenosaRainha(boss);
+                return;
+            }
+
+            // O Royal Venom Slash respeita a invulnerabilidade.
+            if (attackType != GothicQueenBoss.TipoAtaque.RoyalVenomSlash ||
+                _invulnerabilidadeRestante > 0)
+                return;
+
+            Rectangle hitboxJogador = player.GetHitboxAt(
+                _playerWorldX,
+                _playerWorldY
+            );
+
+            Rectangle hitboxRainha = boss.GetHitboxAt(
+                _gothicQueenBossWorldPosition.X,
+                _gothicQueenBossWorldPosition.Y
+            );
+
+            // Área aproximada do corte diagonal.
+            Rectangle areaAtaque;
+
+            if (boss.FacingRight)
+            {
+                areaAtaque = new Rectangle(
+                    hitboxRainha.Right - 8,
+                    hitboxRainha.Top - 15,
+                    RoyalVenomSlashRange,
+                    hitboxRainha.Height + 25
+                );
+            }
+            else
+            {
+                areaAtaque = new Rectangle(
+                    hitboxRainha.Left - RoyalVenomSlashRange + 8,
+                    hitboxRainha.Top - 15,
+                    RoyalVenomSlashRange,
+                    hitboxRainha.Height + 25
+                );
+            }
+
+            // O corte não causa dano se a Princesa estiver fora do alcance.
+            if (!areaAtaque.IntersectsWith(hitboxJogador))
+                return;
+
+            // Aplica o dano inicial.
+            AplicarDanoAoJogador(RoyalVenomSlashDamage);
+
+            if (player.EstaMorto)
+                return;
+
+            // 50% de chance de envenenamento.
+            if (_gothicQueenRandom.Next(100) <
+                RoyalVenomSlashPoisonChance)
+            {
+                AplicarVenenoDaRainha();
+            }
+        }
+
+        private void CriarOndaVenenosaRainha(GothicQueenBoss boss)
+        {
+            if (boss == null ||
+                boss.IsDisposed ||
+                world1 == null)
+                return;
+
+            Rectangle hitboxRainha = boss.GetHitboxAt(
+                _gothicQueenBossWorldPosition.X,
+                _gothicQueenBossWorldPosition.Y
+            );
+
+            // A onda nasce à frente da Rainha.
+            int waveX = boss.FacingRight
+                ? hitboxRainha.Right - 10
+                : hitboxRainha.Left - 96 + 10;
+
+            // Procura o chão abaixo do ponto de nascimento da onda.
+            int alturaChao = hitboxRainha.Bottom;
+
+            if (map != null)
+            {
+                int limiteBusca = map.tileSize * 4;
+
+                for (int deslocamento = 0;
+                     deslocamento <= limiteBusca;
+                     deslocamento++)
+                {
+                    Rectangle faixaChao = new Rectangle(
+                        waveX + 14,
+                        hitboxRainha.Bottom + deslocamento,
+                        68,
+                        1
+                    );
+
+                    // Quando não pode mover, encontrou uma superfície sólida.
+                    if (!map.PodeMover(faixaChao))
+                    {
+                        alturaChao = hitboxRainha.Bottom + deslocamento;
+                        break;
+                    }
+                }
+            }
+
+            // O desenho da onda ocupa 50 dos seus 56 pixels de altura.
+            int waveY = alturaChao - 50;
+
+            int direction = boss.FacingRight ? 1 : -1;
+
+            QueenPoisonWave wave = new QueenPoisonWave(
+                waveX,
+                waveY,
+                direction
+            );
+
+            _queenPoisonWaves.Add(wave);
+
+            wave.Location = new Point(
+                waveX - _cameraX,
+                waveY - _cameraY
+            );
+
+            world1.Controls.Add(wave);
+
+            player.BringToFront();
+            boss.BringToFront();
+
+            // A onda fica visualmente à frente dos personagens.
+            wave.BringToFront();
+        }
+
+        private void AtualizarOndasVenenosasRainha()
+        {
+            if (player == null ||
+                player.IsDisposed ||
+                player.EstaMorto)
+            {
+                foreach (QueenPoisonWave wave in _queenPoisonWaves.ToList())
+                {
+                    if (wave != null && !wave.IsDisposed)
+                    {
+                        world1.Controls.Remove(wave);
+                        wave.Dispose();
+                    }
+                }
+
+                _queenPoisonWaves.Clear();
+                return;
+            }
+
+            Rectangle hitboxJogador = player.GetHitboxAt(
+                _playerWorldX,
+                _playerWorldY
+            );
+
+            int centroJogadorX =
+                hitboxJogador.Left + hitboxJogador.Width / 2;
+
+            for (int i = _queenPoisonWaves.Count - 1; i >= 0; i--)
+            {
+                QueenPoisonWave wave = _queenPoisonWaves[i];
+
+                if (wave == null || wave.IsDisposed)
+                {
+                    _queenPoisonWaves.RemoveAt(i);
+                    continue;
+                }
+
+                // Atualiza o movimento em direção ao jogador.
+                wave.UpdateWave(centroJogadorX);
+
+                // Explode quando chega próximo da Princesa.
+                int centroOndaX = wave.WorldX + wave.Width / 2;
+
+                if (!wave.IsExploding && Math.Abs(centroOndaX - centroJogadorX) <= QueenPoisonWaveTriggerDistance)
+                {
+                    // A Princesa precisa estar no chão para ser atingida.
+                    if (_estaNoChao && _invulnerabilidadeRestante <= 0)
+                    {
+                        // Aplica o dano direto.
+                        AplicarDanoAoJogador(EmeraldBladefallDamage);
+
+                        // Aplica veneno garantido se a Princesa sobreviver.
+                        if (!player.EstaMorto)
+                        {
+                            AplicarVenenoDaRainha();
+                        }
+                    }
+
+                    // A onda explode mesmo quando a Princesa consegue escapar.
+                    wave.StartExplosion();
+                }
+
+                // Remove depois que a animação da explosão termina.
+                if (wave.IsFinished)
+                {
+                    world1.Controls.Remove(wave);
+                    wave.Dispose();
+
+                    _queenPoisonWaves.RemoveAt(i);
+                    continue;
+                }
+
+                // Atualiza a posição considerando a câmera.
+                wave.Location = new Point(
+                    wave.WorldX - _cameraX,
+                    wave.WorldY - _cameraY
+                );
+                wave.BringToFront();
+            }
+        }
+
+        private void AplicarVenenoDaRainha()
+        {
+            if (player == null ||
+                player.IsDisposed ||
+                player.EstaMorto)
+                return;
+
+            // Renova a duração caso o jogador já esteja envenenado.
+            _queenPoisonDurationRemaining = QueenPoisonDurationTicks;
+
+            _queenPoisonTickRemaining = QueenPoisonIntervalTicks;
+
+            // Ativa o efeito visual verde próprio do veneno.
+            player.VenenoAtivo = true;
+        }
+
+        private void AtualizarVenenoJogadorRainha()
+        {
+            if (_queenPoisonDurationRemaining <= 0)
+                return;
+
+            if (player == null ||
+                player.IsDisposed ||
+                player.EstaMorto)
+            {
+                _queenPoisonDurationRemaining = 0;
+                _queenPoisonTickRemaining = 0;
+
+                if (player != null && !player.IsDisposed)
+                    player.VenenoAtivo = false;
+
+                return;
+            }
+
+            // Diminui a duração do envenenamento.
+            _queenPoisonDurationRemaining--;
+
+            if (_queenPoisonDurationRemaining <= 0)
+            {
+                _queenPoisonDurationRemaining = 0;
+                _queenPoisonTickRemaining = 0;
+
+                player.VenenoAtivo = false;
+                return;
+            }
+
+            // Aguarda o próximo dano contínuo.
+            if (_queenPoisonTickRemaining > 0)
+            {
+                _queenPoisonTickRemaining--;
+                return;
+            }
+
+            // Aguarda o fim da invulnerabilidade.
+            if (_invulnerabilidadeRestante > 0)
+                return;
+
+            AplicarDanoAoJogador(QueenPoisonDamagePerTick);
+
+            _queenPoisonTickRemaining = QueenPoisonIntervalTicks;
+        }
+
         private void AtualizarQueimaduraJogador()
         {
             if (_lichBurnDurationRemaining <= 0)
@@ -3753,8 +4112,7 @@ namespace FallenWorld
                     break;
 
                 case Personagem.Princesa:
-                    // A Rainha Gótica será carregada aqui
-                    // quando sua classe estiver implementada.
+                    LoadGothicQueenBoss();
                     break;
 
                 default:
@@ -3762,6 +4120,85 @@ namespace FallenWorld
                         "Personagem selecionado sem chefe final correspondente."
                     );
             }
+        }
+
+        private void LoadGothicQueenBoss()
+        {
+            if (map == null)
+                return;
+
+            // Procura o marcador Spawn=final_boss.
+            List<MapTile> spawns = map.GetEnemySpawns("final_boss");
+
+            if (spawns == null || spawns.Count == 0)
+            {
+                throw new Exception(
+                    "O marcador Spawn=final_boss não foi encontrado na Arena dos Chefes Finais."
+                );
+            }
+
+            MapTile spawn = spawns[0];
+
+            // Cria a Rainha com 100 pontos de vida.
+            GothicQueenBoss boss = new GothicQueenBoss(100);
+
+            // Calcula o ajuste visual dos pés.
+            Rectangle bossBounds = boss.GetVisibleSpriteBounds();
+
+            _gothicQueenBossVisualOffsetY = Math.Max(
+                0,
+                boss.Height - bossBounds.Bottom
+            );
+
+            // Calcula a posição no mundo.
+            int worldX = spawn.x * map.tileSize + (map.tileSize - boss.Width) / 2;
+
+            int worldY = spawn.y * map.tileSize - boss.Height;
+
+            // Define a direção inicial olhando para o jogador.
+            bool facingRight =
+                (_playerWorldX + player.Width / 2) >
+                (worldX + boss.Width / 2);
+
+            boss.SetIdle(facingRight);
+
+            _gothicQueenBossWorldPosition = new Point(worldX, worldY);
+
+            _gothicQueenBoss = boss;
+
+            boss.AttackImpact += GothicQueenBoss_AttackImpact;
+
+            // Configura a HUD inicial da Rainha.
+            PBX_Avatar_Final_Boss.Image =
+                Properties.Resources.ResourceManager.GetObject(
+                    "Fallen_Queen_Avatar_Normal"
+                ) as Bitmap;
+
+            AtualizarHUDGothicQueenBoss();
+
+            PBX_Avatar_Final_Boss.Visible = true;
+            PBX_HealtBar_Final_Boss.Visible = true;
+
+            // Posiciona considerando a câmera.
+            AtualizarPosicaoGothicQueenBossNaTela();
+
+            // Adiciona a Rainha ao cenário.
+            world1.Controls.Add(boss);
+
+            boss.BringToFront();
+        }
+
+        private void AtualizarPosicaoGothicQueenBossNaTela()
+        {
+            if (_gothicQueenBoss == null ||
+                _gothicQueenBoss.IsDisposed)
+                return;
+
+            _gothicQueenBoss.Location = new Point(
+                _gothicQueenBossWorldPosition.X - _cameraX,
+                _gothicQueenBossWorldPosition.Y - _cameraY
+                    + _gothicQueenBossVisualOffsetY
+            );
         }
 
         private void LoadDullahanBoss()
@@ -3860,6 +4297,40 @@ namespace FallenWorld
             {
                 PBX_Avatar_Final_Boss.Image =
                     Properties.Resources.Dullahan_Avatar_Death;
+            }
+        }
+
+        private void AtualizarHUDGothicQueenBoss()
+        {
+            if (_gothicQueenBoss == null ||
+                _gothicQueenBoss.IsDisposed)
+                return;
+
+            int vidaPercentual = _gothicQueenBoss.VidaAtual <= 0
+                ? 0
+                : (_gothicQueenBoss.VidaAtual * 100) /
+                  _gothicQueenBoss.VidaMaxima;
+
+            // Seleciona a barra em intervalos de 5%.
+            int percentualBarra = vidaPercentual == 0
+                ? 0
+                : Math.Min(100, ((vidaPercentual + 4) / 5) * 5);
+
+            string nomeRecurso =
+                "Fallen_Queen_HealthBar_HP" + percentualBarra;
+
+            PBX_HealtBar_Final_Boss.Image =
+                Properties.Resources.ResourceManager.GetObject(
+                    nomeRecurso
+                ) as Bitmap;
+
+            // Troca o avatar quando a Rainha é derrotada.
+            if (_gothicQueenBoss.VidaAtual <= 0)
+            {
+                PBX_Avatar_Final_Boss.Image =
+                    Properties.Resources.ResourceManager.GetObject(
+                        "Fallen_Queen_Avatar_Death"
+                    ) as Bitmap;
             }
         }
 
@@ -4409,6 +4880,155 @@ namespace FallenWorld
             _dullahanBoss.SetWalk(facingRight);
         }
 
+        private void AtualizarIAGothicQueenBoss()
+        {
+            if (_gothicQueenBoss == null ||
+                _gothicQueenBoss.IsDisposed ||
+                _gothicQueenBoss.IsDead)
+                return;
+
+            if (player == null ||
+                player.IsDisposed ||
+                player.EstaMorto ||
+                map == null)
+                return;
+
+            // Atualiza a recarga do ataque.
+            if (_gothicQueenAttackCooldownRemaining > 0)
+                _gothicQueenAttackCooldownRemaining--;
+
+            Rectangle hitboxJogador = player.GetHitboxAt(
+                _playerWorldX,
+                _playerWorldY
+            );
+
+            Rectangle hitboxRainha = _gothicQueenBoss.GetHitboxAt(
+                _gothicQueenBossWorldPosition.X,
+                _gothicQueenBossWorldPosition.Y
+            );
+
+            int centroJogadorX = hitboxJogador.Left + hitboxJogador.Width / 2;
+
+            int centroRainhaX = hitboxRainha.Left + hitboxRainha.Width / 2;
+
+            int diferencaX = centroJogadorX - centroRainhaX;
+
+            int distanciaX = Math.Abs(diferencaX);
+
+            bool facingRight = diferencaX >= 0;
+
+            // Verifica se estão aproximadamente na mesma altura.
+            bool mesmaAltura = Math.Abs(hitboxJogador.Bottom - hitboxRainha.Bottom) <= 28;
+
+            // Não interrompe ataques, dano ou morte.
+            if (_gothicQueenBoss.IsPerformingAction)
+                return;
+
+            // Fora do alcance de percepção.
+            if (distanciaX > GothicQueenDetectionRange || !mesmaAltura)
+            {
+                _gothicQueenBoss.SetIdle(facingRight);
+                return;
+            }
+
+            // Ataca quando a Princesa está próxima.
+            if (distanciaX <= RoyalVenomSlashRange)
+            {
+                if (_gothicQueenAttackCooldownRemaining <= 0)
+                {
+                    _gothicQueenAttackCount++;
+
+                    GothicQueenBoss.TipoAtaque ataqueEscolhido =
+                        (_gothicQueenAttackCount % 3 == 0)
+                        ? GothicQueenBoss.TipoAtaque.EmeraldBladefall
+                        : GothicQueenBoss.TipoAtaque.RoyalVenomSlash;
+
+                    if (_gothicQueenBoss.SetAttack(ataqueEscolhido, facingRight))
+                    {
+                        _gothicQueenAttackCooldownRemaining =
+                            ataqueEscolhido == GothicQueenBoss.TipoAtaque.EmeraldBladefall
+                            ? 180
+                            : RoyalVenomSlashCooldownTicks;
+                    }
+                }
+                else
+                {
+                    _gothicQueenBoss.SetIdle(facingRight);
+                }
+
+                return;
+            }
+
+            // Aproxima a Rainha da Princesa.
+            int movimento = diferencaX > 0
+                ? GothicQueenMoveSpeed
+                : -GothicQueenMoveSpeed;
+
+            int proximoX =
+                _gothicQueenBossWorldPosition.X + movimento;
+
+            Rectangle hitboxProxima = _gothicQueenBoss.GetHitboxAt(
+                proximoX,
+                _gothicQueenBossWorldPosition.Y
+            );
+
+            // Verifica se existe chão à frente.
+            Rectangle faixaDosPes = new Rectangle(
+                hitboxProxima.Left + 2,
+                hitboxProxima.Bottom,
+                Math.Max(1, hitboxProxima.Width - 4),
+                1
+            );
+
+            // Não atravessa paredes nem cai de plataformas.
+            if (!map.PodeMover(hitboxProxima) ||
+                map.PodeMover(faixaDosPes))
+            {
+                _gothicQueenBoss.SetIdle(facingRight);
+                return;
+            }
+
+            // Atualiza a posição real da Rainha.
+            _gothicQueenBossWorldPosition = new Point(
+                proximoX,
+                _gothicQueenBossWorldPosition.Y
+            );
+
+            // Atualiza a posição visual.
+            AtualizarPosicaoGothicQueenBossNaTela();
+
+            _gothicQueenBoss.SetWalk(facingRight);
+        }
+
+        private void AtualizarOrdemDesenhoRainha()
+        {
+            if (player == null ||
+                player.IsDisposed ||
+                _gothicQueenBoss == null ||
+                _gothicQueenBoss.IsDisposed)
+                return;
+
+            Rectangle hitboxJogador = player.GetHitboxAt(
+                _playerWorldX,
+                _playerWorldY
+            );
+
+            Rectangle hitboxRainha = _gothicQueenBoss.GetHitboxAt(
+                _gothicQueenBossWorldPosition.X,
+                _gothicQueenBossWorldPosition.Y
+            );
+
+            // Quem estiver mais abaixo no cenário aparece na frente.
+            if (hitboxJogador.Bottom >= hitboxRainha.Bottom)
+            {
+                player.BringToFront();
+            }
+            else
+            {
+                _gothicQueenBoss.BringToFront();
+            }
+        }
+
         private void IniciarRecuoInimigo(Enemy enemy)
         {
             if (enemy == null || enemy.IsDisposed || enemy.IsDead)
@@ -4763,6 +5383,12 @@ namespace FallenWorld
             AtualizarIALichBoss();
             // Atualiza a inteligência artificial do Dullahan.
             AtualizarIADullahanBoss();
+            // Atualiza a inteligência artificial da Gothic Queen.
+            AtualizarIAGothicQueenBoss();
+            // Atualiza a ordem de desenho entre a Princesa e a Gothic Queen.
+            AtualizarOrdemDesenhoRainha();
+            // Atualiza a onda venenosa da Rainha e verifica colisões com o jogador.
+            AtualizarOndasVenenosasRainha();
             // Atualiza a posição das dark fireballs e verifica colisões.
             AtualizarDarkFireballs();
             // Atualiza o dano contínuo do veneno.
