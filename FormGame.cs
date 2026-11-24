@@ -127,6 +127,8 @@ namespace FallenWorld
         private const int LichBurnIntervalTicks = 120;
 
         private int _lichBossAttackCooldownRemaining = 0;
+        // Indica se a música da batalha do Lich já começou.
+        private bool _lichBossBattleMusicStarted = false;
         private int _lichBurnDurationRemaining = 0;
         private int _lichBurnTickRemaining = 0;
 
@@ -168,6 +170,8 @@ namespace FallenWorld
 
         // Tempo restante do bloqueio.
         private int _dullahanAuraBlockRemaining = 0;
+        // Indica se a música da batalha do Dullahan já começou.
+        private bool _dullahanBossBattleMusicStarted = false;
         #endregion
 
         #region Final Boss - Gothic Queen
@@ -198,7 +202,8 @@ namespace FallenWorld
         private const int QueenPoisonIntervalTicks = 90;
 
         private int _gothicQueenAttackCooldownRemaining = 0;
-
+        // Indica se a música da batalha da Rainha já começou.
+        private bool _gothicQueenBattleMusicStarted = false;
         private int _queenPoisonDurationRemaining = 0;
         private int _queenPoisonTickRemaining = 0;
 
@@ -207,9 +212,7 @@ namespace FallenWorld
         // Contador de ataques da Rainha para alternar entre os ataques.
         private int _gothicQueenAttackCount = 0;
         // Ondas venenosas criadas pelo Emerald Bladefall.
-        private readonly List<QueenPoisonWave> _queenPoisonWaves =
-            new List<QueenPoisonWave>();
-
+        private readonly List<QueenPoisonWave> _queenPoisonWaves = new List<QueenPoisonWave>();
         // Distância para iniciar a explosão ao alcançar o jogador.
         private const int QueenPoisonWaveTriggerDistance = 36;
         // Dano direto do Emerald Bladefall.
@@ -372,6 +375,7 @@ namespace FallenWorld
                 SoundEffects.StopFireballFlight();
                 SoundEffects.StopManaRecovery();
                 SoundEffects.StopKnightAura();
+                SoundEffects.StopQueenPoisonWave();
                 SoundEffects.StopWavLoop();
                 LiberarIconesInventario();
             };
@@ -1505,6 +1509,9 @@ namespace FallenWorld
                 // Interrompe a música e os sons contínuos do mapa anterior.
                 SoundEffects.StopWavLoop();
                 SoundEffects.StopFireballFlight();
+
+                SoundEffects.StopQueenPoisonWave();
+                _gothicQueenBattleMusicStarted = false;
 
                 // Carrega o novo mapa e suas colisões.
                 Load_Map(mapJson, spritesheet);
@@ -3285,9 +3292,11 @@ namespace FallenWorld
                     iniciarImpacto = true;
                 }
 
-                // Inicia a animação roxa de impacto.
+                // Reproduz o impacto quando a bola de fogo explode.
                 if (iniciarImpacto)
                 {
+                    SoundEffects.Play(Properties.Resources.Lich_DarkFireball_Impact,0.95f);
+
                     projectile.StartImpact();
                 }
             }
@@ -3295,49 +3304,49 @@ namespace FallenWorld
 
         private void LichBoss_AttackImpact(LichBoss boss,LichBoss.TipoAtaque attackType)
         {
-            if (boss == null || 
-                boss.IsDisposed ||
-                boss.IsDead ||
-                boss != _lichBoss ||
-                player == null ||
-                player.IsDisposed ||
-                player.EstaMorto ||
-                _invulnerabilidadeRestante > 0)
+            if (boss == null || boss.IsDisposed || boss.IsDead || boss != _lichBoss)
             {
                 return;
             }
 
-            // Dispara o projétil no momento do impacto da animação.
+            // Toca o impacto no momento correto da animação.
+            if (attackType == LichBoss.TipoAtaque.DarkFlameBurst)
+            {
+                SoundEffects.Play(
+                    Properties.Resources.Lich_DarkFlameBurst_Impact,
+                    0.95f
+                );
+            }
+
+            if (player == null || player.IsDisposed || player.EstaMorto || _invulnerabilidadeRestante > 0)
+            {
+                return;
+            }
+
+            // Cria a bola de fogo no momento do lançamento.
             if (attackType == LichBoss.TipoAtaque.DarkFireBall)
             {
-                if (boss == null ||
-                    boss.IsDisposed ||
-                    boss.IsDead ||
-                    boss != _lichBoss ||
-                    player == null ||
-                    player.IsDisposed ||
-                    player.EstaMorto)
-                {
-                    return;
-                }
-
                 CriarDarkFireBall();
                 return;
             }
 
-            // Nesta etapa, somente o ataque de área está implementado.
             if (attackType != LichBoss.TipoAtaque.DarkFlameBurst)
                 return;
 
-            // O Dark Flame Burst não atinge jogadores que estejam no ar.
+            // O Dark Flame Burst não atinge jogadores no ar.
             if (!_estaNoChao)
                 return;
 
-            Rectangle hitboxJogador = player.GetHitboxAt(_playerWorldX,_playerWorldY);
+            Rectangle hitboxJogador = player.GetHitboxAt(
+                _playerWorldX,
+                _playerWorldY
+            );
 
-            Rectangle hitboxBoss = boss.GetHitboxAt(_lichBossWorldPosition.X,_lichBossWorldPosition.Y);
+            Rectangle hitboxBoss = boss.GetHitboxAt(
+                _lichBossWorldPosition.X,
+                _lichBossWorldPosition.Y
+            );
 
-            // Cria uma área de explosão ao redor do Lich.
             Rectangle areaAtaque = new Rectangle(
                 hitboxBoss.Left - LichFlameBurstRadius,
                 hitboxBoss.Top - 24,
@@ -3345,18 +3354,14 @@ namespace FallenWorld
                 hitboxBoss.Height + 24
             );
 
-            // O jogador precisa estar dentro da área da explosão.
             if (!areaAtaque.IntersectsWith(hitboxJogador))
                 return;
 
-            // Dano inicial da explosão.
             AplicarDanoAoJogador(LichMeleeAttackDamage);
 
-            // Não aplica queimadura caso o jogador tenha morrido.
             if (player.EstaMorto)
                 return;
 
-            // 50% de chance de aplicar queimadura.
             if (_darkFireballDebuffRandom.Next(100) < 50)
             {
                 _lichBurnDurationRemaining = LichBurnDurationTicks;
@@ -3370,14 +3375,24 @@ namespace FallenWorld
 
         private void DullahanBoss_AttackImpact(DullahanBoss boss,DullahanBoss.TipoAtaque attackType)
         {
-            if (boss == null ||
-                boss.IsDisposed ||
-                boss.IsDead ||
-                boss != _dullahanBoss ||
-                player == null ||
-                player.IsDisposed ||
-                player.EstaMorto ||
-                _invulnerabilidadeRestante > 0)
+            if (boss == null || boss.IsDisposed || boss.IsDead || boss != _dullahanBoss)
+            {
+                return;
+            }
+
+            // Reproduz o impacto correspondente ao ataque.
+            // O som não depende de o jogador receber dano.
+            if (attackType == DullahanBoss.TipoAtaque.Attack1)
+            {
+                SoundEffects.Play(Properties.Resources.Dullahan_Attack1_Impact,0.85f);
+            }
+            else if (attackType == DullahanBoss.TipoAtaque.Attack2)
+            {
+                SoundEffects.Play(Properties.Resources.Dullahan_Attack2_Impact,1.0f);
+            }
+
+            // Verifica se o jogador pode receber dano.
+            if (player == null || player.IsDisposed || player.EstaMorto || _invulnerabilidadeRestante > 0)
             {
                 return;
             }
@@ -3392,9 +3407,10 @@ namespace FallenWorld
                 _dullahanBossWorldPosition.Y
             );
 
-            bool ataquePesado = attackType == DullahanBoss.TipoAtaque.Attack2;
+            bool ataquePesado =
+                attackType == DullahanBoss.TipoAtaque.Attack2;
 
-            // O ataque em área não atinge jogadores que estejam no ar.
+            // O ataque pesado não atinge jogadores no ar.
             if (ataquePesado && !_estaNoChao)
                 return;
 
@@ -3431,17 +3447,15 @@ namespace FallenWorld
                 );
             }
 
-            // O jogador precisa estar dentro da área do golpe.
             if (!areaAtaque.IntersectsWith(hitboxJogador))
                 return;
 
-            int dano = ataquePesado ? DullahanAttack2Damage : DullahanAttack1Damage;
+            int dano = ataquePesado
+                ? DullahanAttack2Damage
+                : DullahanAttack1Damage;
 
-            // Aplica o dano do golpe.
             AplicarDanoAoJogador(dano);
 
-            // Somente o ataque em área aplica o bloqueio da Aura.
-            // Não aplica o debuff caso o jogador tenha morrido.
             if (ataquePesado && !player.EstaMorto)
             {
                 AplicarBloqueioAuraDullahan();
@@ -3450,13 +3464,29 @@ namespace FallenWorld
 
         private void GothicQueenBoss_AttackImpact(GothicQueenBoss boss,GothicQueenBoss.TipoAtaque attackType)
         {
-            if (boss == null ||
-                boss.IsDisposed ||
-                boss.IsDead ||
-                boss != _gothicQueenBoss ||
-                player == null ||
-                player.IsDisposed ||
-                player.EstaMorto)
+            if (boss == null || boss.IsDisposed || boss.IsDead || boss != _gothicQueenBoss)
+            {
+                return;
+            }
+
+            // Royal Venom Slash: impacto do golpe venenoso.
+            if (attackType == GothicQueenBoss.TipoAtaque.RoyalVenomSlash)
+            {
+                SoundEffects.Play(
+                    Properties.Resources.Fallen_Queen_RoyalVenomSlash_Impact,
+                    0.95f
+                );
+            }
+            // Emerald Bladefall: impacto das espadas no chão.
+            else if (attackType == GothicQueenBoss.TipoAtaque.EmeraldBladefall)
+            {
+                SoundEffects.Play(
+                    Properties.Resources.Fallen_Queen_EmeraldBladefall_SwordImpact,
+                    0.95f
+                );
+            }
+
+            if (player == null || player.IsDisposed || player.EstaMorto)
             {
                 return;
             }
@@ -3471,7 +3501,9 @@ namespace FallenWorld
             // O Royal Venom Slash respeita a invulnerabilidade.
             if (attackType != GothicQueenBoss.TipoAtaque.RoyalVenomSlash ||
                 _invulnerabilidadeRestante > 0)
+            {
                 return;
+            }
 
             Rectangle hitboxJogador = player.GetHitboxAt(
                 _playerWorldX,
@@ -3483,7 +3515,6 @@ namespace FallenWorld
                 _gothicQueenBossWorldPosition.Y
             );
 
-            // Área aproximada do corte diagonal.
             Rectangle areaAtaque;
 
             if (boss.FacingRight)
@@ -3505,17 +3536,14 @@ namespace FallenWorld
                 );
             }
 
-            // O corte não causa dano se a Princesa estiver fora do alcance.
             if (!areaAtaque.IntersectsWith(hitboxJogador))
                 return;
 
-            // Aplica o dano inicial.
             AplicarDanoAoJogador(RoyalVenomSlashDamage);
 
             if (player.EstaMorto)
                 return;
 
-            // 50% de chance de envenenamento.
             if (_gothicQueenRandom.Next(100) <
                 RoyalVenomSlashPoisonChance)
             {
@@ -3596,9 +3624,7 @@ namespace FallenWorld
 
         private void AtualizarOndasVenenosasRainha()
         {
-            if (player == null ||
-                player.IsDisposed ||
-                player.EstaMorto)
+            if (player == null || player.IsDisposed || player.EstaMorto)
             {
                 foreach (QueenPoisonWave wave in _queenPoisonWaves.ToList())
                 {
@@ -3610,6 +3636,9 @@ namespace FallenWorld
                 }
 
                 _queenPoisonWaves.Clear();
+
+                AtualizarSomOndaVenenosaRainha();
+
                 return;
             }
 
@@ -3652,7 +3681,9 @@ namespace FallenWorld
                         }
                     }
 
-                    // A onda explode mesmo quando a Princesa consegue escapar.
+                    // Reproduz a explosão quando a onda alcança o jogador.
+                    SoundEffects.Play(Properties.Resources.Fallen_Queen_EmeraldBladefall_WaveExplosion,1.0f);
+
                     wave.StartExplosion();
                 }
 
@@ -3672,6 +3703,35 @@ namespace FallenWorld
                     wave.WorldY - _cameraY
                 );
                 wave.BringToFront();
+            }
+            AtualizarSomOndaVenenosaRainha();
+        }
+
+        private void AtualizarSomOndaVenenosaRainha()
+        {
+            bool existeOndaPerseguindo = _queenPoisonWaves.Any(
+                wave =>
+                    wave != null &&
+                    !wave.IsDisposed &&
+                    !wave.IsExploding &&
+                    !wave.IsFinished
+            );
+
+            // Enquanto existir uma onda perseguindo, garante que o áudio esteja ativo.
+            if (existeOndaPerseguindo)
+            {
+                if (!SoundEffects.IsQueenPoisonWaveActive)
+                {
+                    SoundEffects.StartQueenPoisonWave(
+                        Properties.Resources.Fallen_Queen_EmeraldBladefall_Wave,
+                        0.32f
+                    );
+                }
+            }
+            // Quando nenhuma onda estiver perseguindo, interrompe o áudio.
+            else if (SoundEffects.IsQueenPoisonWaveActive)
+            {
+                SoundEffects.StopQueenPoisonWave();
             }
         }
 
@@ -4247,6 +4307,7 @@ namespace FallenWorld
             _dullahanBoss = boss;
 
             boss.AttackImpact += DullahanBoss_AttackImpact;
+            boss.DeathAnimationCompleted += DullahanBoss_DeathAnimationCompleted;
 
             // Configura a HUD inicial do chefe.
             PBX_Avatar_Final_Boss.Image = Properties.Resources.Dullahan_Avatar_Normal;
@@ -4335,10 +4396,28 @@ namespace FallenWorld
             }
         }
 
+        private void DullahanBoss_DeathAnimationCompleted(DullahanBoss boss)
+        {
+            if (boss == null || boss.IsDisposed || boss != _dullahanBoss)
+            {
+                return;
+            }
+
+            // Interrompe a música da batalha.
+            SoundEffects.StopWavLoop();
+
+            _dullahanBossBattleMusicStarted = false;
+        }
+
         private void GothicQueenBoss_DeathAnimationCompleted(GothicQueenBoss boss)
         {
             if (boss == null || boss.IsDisposed || boss != _gothicQueenBoss || _gothicQueenDefeated)
                 return;
+
+            // Interrompe a música da batalha.
+            SoundEffects.StopWavLoop();
+
+            _gothicQueenBattleMusicStarted = false;
 
             // Registra que a Rainha foi derrotada.
             _gothicQueenDefeated = true;
@@ -4357,6 +4436,7 @@ namespace FallenWorld
             }
 
             _queenPoisonWaves.Clear();
+            AtualizarSomOndaVenenosaRainha();
 
             // Mantém a HUD no estado final.
             AtualizarHUDGothicQueenBoss();
@@ -4413,6 +4493,7 @@ namespace FallenWorld
             PBX_HealtBar_Final_Boss.Visible = true;
 
             boss.AttackImpact += LichBoss_AttackImpact;
+            boss.DeathAnimationCompleted += LichBoss_DeathAnimationCompleted;
 
             // Posiciona considerando a câmera.
             AtualizarPosicaoLichBossNaTela();
@@ -4462,6 +4543,19 @@ namespace FallenWorld
             }
 
             world1.Invalidate();
+        }
+
+        private void LichBoss_DeathAnimationCompleted(LichBoss boss)
+        {
+            if (boss == null ||  boss.IsDisposed || boss != _lichBoss)
+            {
+                return;
+            }
+
+            // Interrompe a música da batalha.
+            SoundEffects.StopWavLoop();
+
+            _lichBossBattleMusicStarted = false;
         }
 
         private void AtualizarIAInimigos()
@@ -4729,16 +4823,26 @@ namespace FallenWorld
                 return;
             }
 
+            // Inicia a música exclusiva quando o Lich detecta o jogador.
+            if (!_lichBossBattleMusicStarted)
+            {
+                SoundEffects.StopWavLoop();
+
+                SoundEffects.StartMp3Loop(Properties.Resources.Lich_Battle_Music,0.38f);
+
+                _lichBossBattleMusicStarted = true;
+            }
+
             // Utiliza o ataque à distância quando estiver
             // fora do alcance do Dark Flame Burst e sem recarga.
             if (distanciaX > LichMeleeAttackRange &&
                 distanciaX <= LichFireBallAttackRange &&
                 _lichBossAttackCooldownRemaining <= 0)
             {
-                if (_lichBoss.SetAttack(
-                    LichBoss.TipoAtaque.DarkFireBall,
-                    facingRight))
+                if (_lichBoss.SetAttack(LichBoss.TipoAtaque.DarkFireBall,facingRight))
                 {
+                    SoundEffects.Play(Properties.Resources.Lich_DarkFireball_Cast,0.85f);
+
                     _lichBossAttackCooldownRemaining = LichAttackCooldownTicks;
                     return;
                 }
@@ -4751,6 +4855,8 @@ namespace FallenWorld
                 {
                     if (_lichBoss.SetAttack(LichBoss.TipoAtaque.DarkFlameBurst,facingRight))
                     {
+                        SoundEffects.Play(Properties.Resources.Lich_DarkFlameBurst_Cast,0.85f);
+
                         _lichBossAttackCooldownRemaining = LichAttackCooldownTicks;
                     }
                 }
@@ -4836,6 +4942,16 @@ namespace FallenWorld
                 return;
             }
 
+            // Inicia a música exclusiva quando o Dullahan detecta o jogador.
+            if (!_dullahanBossBattleMusicStarted)
+            {
+                SoundEffects.StopWavLoop();
+
+                SoundEffects.StartMp3Loop(Properties.Resources.Dullahan_Battle_Music,0.38f);
+
+                _dullahanBossBattleMusicStarted = true;
+            }
+
             // Escolhe o próximo ataque.
             DullahanBoss.TipoAtaque proximoAtaque =
                 _dullahanNextAttackHeavy
@@ -4912,15 +5028,10 @@ namespace FallenWorld
 
         private void AtualizarIAGothicQueenBoss()
         {
-            if (_gothicQueenBoss == null ||
-                _gothicQueenBoss.IsDisposed ||
-                _gothicQueenBoss.IsDead)
+            if (_gothicQueenBoss == null || _gothicQueenBoss.IsDisposed || _gothicQueenBoss.IsDead)
                 return;
 
-            if (player == null ||
-                player.IsDisposed ||
-                player.EstaMorto ||
-                map == null)
+            if (player == null || player.IsDisposed || player.EstaMorto || map == null)
                 return;
 
             // Atualiza a recarga do ataque.
@@ -4961,6 +5072,16 @@ namespace FallenWorld
                 return;
             }
 
+            // Inicia a música exclusiva quando a Rainha detecta a Princesa.
+            if (!_gothicQueenBattleMusicStarted)
+            {
+                SoundEffects.StopWavLoop();
+
+                SoundEffects.StartMp3Loop(Properties.Resources.Fallen_Queen_Battle_Music,0.38f);
+
+                _gothicQueenBattleMusicStarted = true;
+            }
+
             // Ataca quando a Princesa está próxima.
             if (distanciaX <= RoyalVenomSlashRange)
             {
@@ -4975,6 +5096,15 @@ namespace FallenWorld
 
                     if (_gothicQueenBoss.SetAttack(ataqueEscolhido, facingRight))
                     {
+                        // O som das espadas começa junto da animação Emerald Bladefall.
+                        if (ataqueEscolhido == GothicQueenBoss.TipoAtaque.EmeraldBladefall)
+                        {
+                            SoundEffects.Play(
+                                Properties.Resources.Fallen_Queen_EmeraldBladefall_Swords,
+                                0.90f
+                            );
+                        }
+
                         _gothicQueenAttackCooldownRemaining =
                             ataqueEscolhido == GothicQueenBoss.TipoAtaque.EmeraldBladefall
                             ? 180

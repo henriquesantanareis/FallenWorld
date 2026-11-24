@@ -501,6 +501,107 @@ namespace FallenWorld
         }
         #endregion
 
+        // Controle do som contínuo da onda venenosa da Rainha.
+        private static Playback _queenPoisonWave;
+        private static bool _queenPoisonWaveStarting;
+        private static int _queenPoisonWaveRequestId;
+
+        #region Gothic Queen Poison Wave Sounds
+        public static bool IsQueenPoisonWaveActive
+        {
+            get
+            {
+                lock (_sync)
+                {
+                    // Considera tanto a reprodução ativa quanto a inicialização.
+                    return _queenPoisonWave != null || _queenPoisonWaveStarting;
+                }
+            }
+        }
+        public static void StartQueenPoisonWave(Stream audioResource,float volume = 0.32f)
+        {
+            if (audioResource == null)
+                return;
+
+            int requestId;
+
+            lock (_sync)
+            {
+                if (_queenPoisonWave != null || _queenPoisonWaveStarting)
+                {
+                    audioResource.Dispose();
+                    return;
+                }
+
+                _queenPoisonWaveStarting = true;
+                requestId = ++_queenPoisonWaveRequestId;
+            }
+
+            Task.Run(() =>
+            {
+                Playback playback = CreatePlayback(
+                    audioResource,
+                    volume,
+                    true
+                );
+
+                bool iniciar = false;
+
+                lock (_sync)
+                {
+                    if (requestId == _queenPoisonWaveRequestId &&
+                        _queenPoisonWaveStarting)
+                    {
+                        _queenPoisonWaveStarting = false;
+
+                        if (playback != null)
+                        {
+                            _queenPoisonWave = playback;
+                            _activeSounds.Add(playback);
+                            iniciar = true;
+                        }
+                    }
+                }
+
+                if (!iniciar)
+                {
+                    playback?.ForceFinish();
+                    return;
+                }
+
+                try
+                {
+                    playback.Start();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(
+                        "Erro no som da onda venenosa: " + ex.Message
+                    );
+
+                    playback.ForceFinish();
+                }
+            });
+        }
+
+        public static void StopQueenPoisonWave()
+        {
+            Playback playback;
+
+            lock (_sync)
+            {
+                _queenPoisonWaveRequestId++;
+                _queenPoisonWaveStarting = false;
+
+                playback = _queenPoisonWave;
+                _queenPoisonWave = null;
+            }
+
+            playback?.Stop();
+        }
+
+        #endregion
+
         #region Playback Management
         private static Playback CreatePlayback(Stream audioResource,float volume,bool loop, bool ducksMusic = false)
         {
@@ -616,6 +717,9 @@ namespace FallenWorld
 
                 if (_knightAura == playback)
                     _knightAura = null;
+
+                if (_queenPoisonWave == playback)
+                    _queenPoisonWave = null;
 
                 if (playback.DucksMusic && _duckingSoundCount > 0)
                 {
