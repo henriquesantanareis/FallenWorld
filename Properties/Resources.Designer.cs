@@ -106,8 +106,7 @@ namespace FallenWorld.Properties {
         ///    &quot;pivot&quot;: &quot;cell-center&quot;,
         ///    &quot;rows&quot;: [
         ///      {
-        ///        &quot;row&quot;: 0,
-        ///        &quot;type&quot;: &quot;rota [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///        &quot;row&quot; [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Coin_js {
             get {
@@ -131,6 +130,51 @@ namespace FallenWorld.Properties {
         public static System.IO.UnmanagedMemoryStream Crown_of_Ashes_and_Dawn {
             get {
                 return ResourceManager.GetStream("Crown_of_Ashes_and_Dawn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;object&quot;: {
+        ///    &quot;id&quot;: &quot;e16df36d-b28a-4bc5-ac8b-b5f40fdb3065&quot;,
+        ///    &quot;name&quot;: &quot;base&quot;,
+        ///    &quot;prompt&quot;: &quot;Dark fireball projectile&quot;,
+        ///    &quot;size&quot;: {
+        ///      &quot;width&quot;: 68,
+        ///      &quot;height&quot;: 68
+        ///    },
+        ///    &quot;directions&quot;: 8,
+        ///    &quot;view&quot;: &quot;low top-down&quot;
+        ///  },
+        ///  &quot;spritesheet&quot;: {
+        ///    &quot;path&quot;: &quot;Dark_fireball_projectile.png&quot;,
+        ///    &quot;cell_size&quot;: {
+        ///      &quot;width&quot;: 68,
+        ///      &quot;height&quot;: 68
+        ///    },
+        ///    &quot;sheet_size&quot;: {
+        ///      &quot;width&quot;: 612,
+        ///      &quot;height&quot;: 340
+        ///    },
+        ///    &quot;columns&quot;: 9,
+        ///    &quot;pivot&quot;: &quot;cell-center&quot;,
+        ///    &quot;rows&quot;: [
+        ///      {
+        ///        &quot;r [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Dark_fireball_js {
+            get {
+                return ResourceManager.GetString("Dark_fireball_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dark_fireball_sprite {
+            get {
+                object obj = ResourceManager.GetObject("Dark_fireball_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -604,6 +648,286 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Dullahan_Attack1_Impact {
+            get {
+                return ResourceManager.GetStream("Dullahan_Attack1_Impact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Dullahan_Attack2_Impact {
+            get {
+                return ResourceManager.GetStream("Dullahan_Attack2_Impact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_Avatar_Death {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_Avatar_Death", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_Avatar_Normal {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_Avatar_Normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Dullahan_Battle_Music {
+            get {
+                return ResourceManager.GetStream("Dullahan_Battle_Music", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP0 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP10 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP10", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP100 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP15 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP15", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP20 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP25 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP25", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP30 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP35 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP35", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP40 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP45 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP45", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP5 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP50 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP55 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP55", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP60 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP60", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP65 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP65", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP70 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP70", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP75 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP75", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP80 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP80", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP85 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP85", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP90 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP90", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_HealthBar_HP95 {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_HealthBar_HP95", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;character&quot;: {
+        ///    &quot;id&quot;: &quot;b01c6e1a-e97e-4e0d-ba40-d4eb46dc0d1e&quot;,
+        ///    &quot;name&quot;: &quot;Idle&quot;,
+        ///    &quot;prompt&quot;: &quot;Create the evil final boss version of the reference knight: a headless Dullahan in blackened steel armor, tarnished gold details, torn dark-red cape, and a massive sword. No head or helmet; a hollow neck emits black smoke and faint crimson embers. Preserve recognizable armor shapes and sword design from the original knight. Intimidating, heavy, corrupted appearance. Full body, side-view 2D platformer pixe [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Dullahan_js {
+            get {
+                return ResourceManager.GetString("Dullahan_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dullahan_sprite {
+            get {
+                object obj = ResourceManager.GetObject("Dullahan_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;def170c7-60cb-4479-9c44-2d4ac89f5e95&quot;,
@@ -657,12 +981,338 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_Avatar_Death {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_Avatar_Death", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_Avatar_Normal {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_Avatar_Normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Fallen_Queen_Battle_Music {
+            get {
+                return ResourceManager.GetStream("Fallen_Queen_Battle_Music", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Fallen_Queen_EmeraldBladefall_SwordImpact {
+            get {
+                return ResourceManager.GetStream("Fallen_Queen_EmeraldBladefall_SwordImpact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Fallen_Queen_EmeraldBladefall_Swords {
+            get {
+                return ResourceManager.GetStream("Fallen_Queen_EmeraldBladefall_Swords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Fallen_Queen_EmeraldBladefall_Wave {
+            get {
+                return ResourceManager.GetStream("Fallen_Queen_EmeraldBladefall_Wave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Fallen_Queen_EmeraldBladefall_WaveExplosion {
+            get {
+                return ResourceManager.GetStream("Fallen_Queen_EmeraldBladefall_WaveExplosion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP0 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP10 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP10", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP100 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP15 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP15", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP20 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP25 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP25", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP30 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP35 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP35", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP40 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP45 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP45", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP5 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP50 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP55 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP55", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP60 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP60", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP65 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP65", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP70 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP70", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP75 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP75", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP80 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP80", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP85 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP85", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP90 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP90", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP95 {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_HealthBar_HP95", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;character&quot;: {
+        ///    &quot;id&quot;: &quot;31871d36-b673-414c-8af0-510bbbf8f03c&quot;,
+        ///    &quot;name&quot;: &quot;Idle&quot;,
+        ///    &quot;prompt&quot;: &quot;Dark fantasy corrupted queen, the sinister counterpart of the Princess. Full-body female medieval warrior with an intimidating royal appearance. She has long dark chestnut hair, partially loose and flowing behind her head, with faded pale streaks. She wears a broken dark silver crown instead of a bright royal tiara. Her armor consists of blackened steel, charcoal plates and damaged ivory details, with sub [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Fallen_Queen_js {
+            get {
+                return ResourceManager.GetString("Fallen_Queen_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Fallen_Queen_RoyalVenomSlash_Impact {
+            get {
+                return ResourceManager.GetStream("Fallen_Queen_RoyalVenomSlash_Impact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Fallen_Queen_sprite {
+            get {
+                object obj = ResourceManager.GetObject("Fallen_Queen_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Icon semelhante a (Ícone).
         /// </summary>
         public static System.Drawing.Icon Fallen_World {
             get {
                 object obj = ResourceManager.GetObject("Fallen_World", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {&quot;tileSize&quot;:32,&quot;mapWidth&quot;:73,&quot;mapHeight&quot;:26,&quot;layers&quot;:[{&quot;name&quot;:&quot;floor&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:15,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:16,&quot;y&quot;:17,&quot;attributes&quot;:{&quot;Spawn&quot;:&quot;player&quot;}},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:17,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:18,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:19,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:20,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:21,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:22,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:23,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:24,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:25,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:26,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,....
+        /// </summary>
+        public static string FinalBossMap_js {
+            get {
+                return ResourceManager.GetString("FinalBossMap_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap FinalBossMap_sprite {
+            get {
+                object obj = ResourceManager.GetObject("FinalBossMap_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1236,6 +1886,304 @@ namespace FallenWorld.Properties {
         public static string knight_Spritesheet_Js {
             get {
                 return ResourceManager.GetString("knight_Spritesheet_Js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Lich_Battle_Music {
+            get {
+                return ResourceManager.GetStream("Lich_Battle_Music", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Lich_DarkFireball_Cast {
+            get {
+                return ResourceManager.GetStream("Lich_DarkFireball_Cast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Lich_DarkFireball_Impact {
+            get {
+                return ResourceManager.GetStream("Lich_DarkFireball_Impact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Lich_DarkFlameBurst_Cast {
+            get {
+                return ResourceManager.GetStream("Lich_DarkFlameBurst_Cast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Lich_DarkFlameBurst_Impact {
+            get {
+                return ResourceManager.GetStream("Lich_DarkFlameBurst_Impact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_Avatar_Death {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_Avatar_Death", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_Avatar_Normal {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_Avatar_Normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP0 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP10 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP10", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP100 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP15 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP15", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP20 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP25 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP25", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP30 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP35 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP35", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP40 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP45 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP45", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP5 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP50 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP55 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP55", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP60 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP60", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP65 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP65", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP70 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP70", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP75 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP75", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP80 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP80", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP85 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP85", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP90 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP90", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP95 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP95", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {
+        ///  &quot;character&quot;: {
+        ///    &quot;id&quot;: &quot;6ba2cfee-07fa-4200-b9b0-2e37c41fdd08&quot;,
+        ///    &quot;name&quot;: &quot;Idle&quot;,
+        ///    &quot;prompt&quot;: &quot;Create the evil final boss version of the exact duck fire mage in the reference: a terrifying Black Flame Lich. Preserve his orange duck beak, purple wizard hat, and recognizable staff. Transform his robe into tattered black and dark-purple undead robes.\n\n**Black flames are his main power:** intense, clearly visible black fire engulfs his staff and surrounds his body, with deep violet and crimson edges. [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string LitchBoss_js {
+            get {
+                return ResourceManager.GetString("LitchBoss_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LitchBoss_sprite {
+            get {
+                object obj = ResourceManager.GetObject("LitchBoss_sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -2016,7 +2964,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;ba3af5c4-402e-47aa-866f-3a2530bcc300&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;A magical collectible runestone using the selected reference object as its exact shape, stone material, proportions and pixel-art style. Replace the heart with a clearly recognizable feather symbol surrounded by a wind-shaped magical inscription. The symbol glows with bright cyan-blue energy. Add subtle blue magical particles suggesting speed and agility. Preserve the same stone silhouette, outlines, texture [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;A magical collectible runestone using the selected reference object as its exact shape, stone material, proportions and pixel-art style. Replace the heart with a clearly recognizable feather symbol surrounded by a wind-shaped magical inscription. The symbol glows with bright cyan-blue energy. Add subtle blue magical particles suggesting speed and agility. Preserve the same stone silhouette, outlines, tex [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Rune_Agil_js {
             get {
@@ -2039,7 +2987,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;abee71ee-9e5b-4889-90ee-7fac6ebddb9a&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;A magical collectible runestone using the selected reference object as its exact shape, stone material, proportions and pixel-art style. Replace the heart with a clearly recognizable sword symbol carved into the center. The symbol glows with intense amber-orange magical energy. Add subtle orange magical particles suggesting strength and destructive power. Preserve the same stone silhouette, outlines, texture [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;A magical collectible runestone using the selected reference object as its exact shape, stone material, proportions and pixel-art style. Replace the heart with a clearly recognizable sword symbol carved into the center. The symbol glows with intense amber-orange magical energy. Add subtle orange magical particles suggesting strength and destructive power. Preserve the same stone silhouette, outlines, tex [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Rune_Force_js {
             get {
@@ -2062,7 +3010,7 @@ namespace FallenWorld.Properties {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;33bdd11b-0b9c-45ee-b652-315dd356edf1&quot;,
         ///    &quot;name&quot;: &quot;base&quot;,
-        ///    &quot;prompt&quot;: &quot;A small ancient magical runestone made of dark weathered stone, with a clearly recognizable heart symbol carved into its center. The heart glows with intense crimson red magical energy. Rough stone edges, subtle cracks, ancient engravings and a faint red magical aura with tiny floating embers. Dark fantasy medieval RPG collectible. Front-facing side-scroller game object, centered, compact and clearly readabl [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;A small ancient magical runestone made of dark weathered stone, with a clearly recognizable heart symbol carved into its center. The heart glows with intense crimson red magical energy. Rough stone edges, subtle cracks, ancient engravings and a faint red magical aura with tiny floating embers. Dark fantasy medieval RPG collectible. Front-facing side-scroller game object, centered, compact and clearly rea [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Rune_Life_js {
             get {

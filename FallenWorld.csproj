@@ -176,8 +176,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core.cs" />
+    <Compile Include="DarkFireballProjectile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="DoubleBufferedFlowLayoutPanel.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DullahanBoss.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Enemy.cs">
       <SubType>UserControl</SubType>
@@ -215,7 +221,13 @@
     <Compile Include="FormTransicaoPortal.Designer.cs">
       <DependentUpon>FormTransicaoPortal.cs</DependentUpon>
     </Compile>
+    <Compile Include="GothicQueenBoss.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="GuardianRune.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LichBoss.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Maps.cs" />
@@ -228,6 +240,9 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="PuzzleRune.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="QueenPoisonWave.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="SoundEffects.cs" />

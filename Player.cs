@@ -39,6 +39,15 @@ namespace FallenWorld
         private int _auraBurstTick = 0;
         // Duração da animação da onda em atualizações.
         private const int AuraBurstDurationFrames = 18;
+        // Controle visual da queimadura.
+        private bool _queimaduraAtiva = false;
+        private int _queimaduraVisualTick = 0;
+        // Controle visual do envenenamento.
+        private bool _venenoAtivo = false;
+        private int _venenoVisualTick = 0;
+        // Controle visual do efeito de debuff.
+        private int _debuffVisualTick = 0;
+        private bool _debuffVisualAtivo = false;
         #endregion
 
         #region Sprite Sheet
@@ -281,6 +290,24 @@ namespace FallenWorld
                 DesenharOndaAura(novoFrame);
             }
 
+            // Desenha as chamas da queimadura.
+            if (QueimaduraAtiva && _state != StatePlayer.Death)
+            {
+                DesenharEfeitoQueimadura(novoFrame);
+            }
+
+            // Desenha o efeito visual de veneno.
+            if (VenenoAtivo && _state != StatePlayer.Death)
+            {
+                DesenharEfeitoVeneno(novoFrame);
+            }
+
+            // Desenha o efeito visual vermelho do debuff.
+            if (DebuffVisualAtivo && _state != StatePlayer.Death)
+            {
+                DesenharEfeitoDebuff(novoFrame);
+            }
+
             Image frameAnterior = PBX_PLAYER.Image;
             PBX_PLAYER.Image = novoFrame;
             frameAnterior?.Dispose();
@@ -520,6 +547,49 @@ namespace FallenWorld
             get { return _vidaAtual; }
         }
         public bool AuraAtiva { get; set; }
+        public bool DebuffVisualAtivo
+        {
+            get { return _debuffVisualAtivo; }
+            set
+            {
+                if (_debuffVisualAtivo == value)
+                    return;
+
+                _debuffVisualAtivo = value;
+
+                if (!value)
+                    _debuffVisualTick = 0;
+            }
+        }
+        public bool VenenoAtivo
+        {
+            get { return _venenoAtivo; }
+            set
+            {
+                if (_venenoAtivo == value)
+                    return;
+
+                _venenoAtivo = value;
+
+                if (!value)
+                    _venenoVisualTick = 0;
+            }
+        }
+
+        public bool QueimaduraAtiva
+        {
+            get { return _queimaduraAtiva; }
+            set
+            {
+                if (_queimaduraAtiva == value)
+                    return;
+
+                _queimaduraAtiva = value;
+
+                if (!value)
+                    _queimaduraVisualTick = 0;
+            }
+        }
         #endregion
 
         #region Visible Sprite Bounds
@@ -829,6 +899,341 @@ namespace FallenWorld
                 _auraBurstActive = false;
                 _auraBurstTick = 0;
             }
+        }
+
+        private void DesenharEfeitoQueimadura(Bitmap frame)
+        {
+            if (frame == null || !QueimaduraAtiva)
+                return;
+
+            // Alterna a posição das chamas para criar movimento.
+            int fase = _queimaduraVisualTick % 4;
+            _queimaduraVisualTick++;
+
+            int larguraChama = Math.Max(4, frame.Width / 12);
+            int alturaChama = Math.Max(8, frame.Height / 8);
+
+            int deslocamento = fase % 2 == 0 ? 0 : Math.Max(1, frame.Height / 32);
+
+            int esquerda = frame.Width / 12;
+            int direita = frame.Width - esquerda - larguraChama;
+
+            int baseY = frame.Height - Math.Max(6, frame.Height / 12);
+
+            using (Graphics g = Graphics.FromImage(frame))
+            using (SolidBrush sombra = new SolidBrush(Color.FromArgb(210, 8, 4, 20)))
+            using (SolidBrush chama = new SolidBrush(Color.FromArgb(230, 65, 18, 115)))
+            using (SolidBrush brilho = new SolidBrush(Color.FromArgb(240, 180, 45, 190)))
+            using (SolidBrush brasa = new SolidBrush(Color.FromArgb(245, 240, 95, 210)))
+            {
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+
+                // Chamas na lateral esquerda.
+                g.FillRectangle(
+                    sombra,
+                    esquerda,
+                    baseY - alturaChama,
+                    larguraChama,
+                    alturaChama
+                );
+
+                g.FillRectangle(
+                    chama,
+                    esquerda + larguraChama / 3,
+                    baseY - alturaChama - deslocamento,
+                    Math.Max(2, larguraChama / 2),
+                    alturaChama
+                );
+
+                g.FillRectangle(
+                    brilho,
+                    esquerda + larguraChama / 2,
+                    baseY - alturaChama / 2,
+                    Math.Max(2, larguraChama / 3),
+                    alturaChama / 3
+                );
+
+                // Chamas na lateral direita.
+                g.FillRectangle(
+                    sombra,
+                    direita,
+                    baseY - alturaChama,
+                    larguraChama,
+                    alturaChama
+                );
+
+                g.FillRectangle(
+                    chama,
+                    direita + larguraChama / 3,
+                    baseY - alturaChama + deslocamento,
+                    Math.Max(2, larguraChama / 2),
+                    alturaChama
+                );
+
+                g.FillRectangle(
+                    brilho,
+                    direita + larguraChama / 2,
+                    baseY - alturaChama / 2,
+                    Math.Max(2, larguraChama / 3),
+                    alturaChama / 3
+                );
+
+                // Pequenas chamas próximas aos pés.
+                int tamanhoBrasa = Math.Max(2, frame.Width / 24);
+
+                g.FillRectangle(
+                    chama,
+                    frame.Width / 3 + deslocamento,
+                    baseY - tamanhoBrasa,
+                    tamanhoBrasa * 2,
+                    tamanhoBrasa * 2
+                );
+
+                g.FillRectangle(
+                    brilho,
+                    frame.Width * 2 / 3 - deslocamento,
+                    baseY - tamanhoBrasa * 2,
+                    tamanhoBrasa * 2,
+                    tamanhoBrasa * 2
+                );
+
+                // Brasas flutuando ao redor do personagem.
+                int tamanhoParticula = Math.Max(2, frame.Width / 32);
+
+                g.FillRectangle(
+                    brasa,
+                    frame.Width / 4 + fase * tamanhoParticula,
+                    frame.Height / 3 - fase * tamanhoParticula,
+                    tamanhoParticula,
+                    tamanhoParticula
+                );
+
+                g.FillRectangle(
+                    brasa,
+                    frame.Width * 3 / 4 - fase * tamanhoParticula,
+                    frame.Height / 2 - fase * tamanhoParticula,
+                    tamanhoParticula,
+                    tamanhoParticula
+                );
+            }
+        }
+
+        private void DesenharEfeitoVeneno(Bitmap frame)
+        {
+            if (frame == null || !VenenoAtivo)
+                return;
+
+            int fase = _venenoVisualTick % 8;
+
+            int deslocamento = fase % 4;
+
+            int largura = Math.Max(5, frame.Width / 12);
+
+            int baseY = frame.Height - Math.Max(8, frame.Height / 10);
+
+            using (Graphics g = Graphics.FromImage(frame))
+            using (SolidBrush sombra = new SolidBrush(
+                Color.FromArgb(145, 5, 45, 20)))
+            using (SolidBrush fumaca = new SolidBrush(
+                Color.FromArgb(175, 20, 115, 45)))
+            using (SolidBrush energia = new SolidBrush(
+                Color.FromArgb(215, 55, 190, 65)))
+            using (SolidBrush brilho = new SolidBrush(
+                Color.FromArgb(235, 155, 255, 105)))
+            {
+                g.SmoothingMode =
+                    System.Drawing.Drawing2D.SmoothingMode.None;
+
+                // Nuvem venenosa inferior esquerda.
+                g.FillRectangle(
+                    sombra,
+                    4,
+                    baseY - 17,
+                    largura + 5,
+                    14
+                );
+
+                g.FillRectangle(
+                    fumaca,
+                    8,
+                    baseY - 26 - deslocamento,
+                    largura + 7,
+                    12
+                );
+
+                g.FillRectangle(
+                    energia,
+                    12,
+                    baseY - 20 - deslocamento,
+                    largura / 2,
+                    7
+                );
+
+                // Nuvem venenosa inferior direita.
+                g.FillRectangle(
+                    sombra,
+                    frame.Width - largura - 9,
+                    baseY - 14,
+                    largura + 5,
+                    12
+                );
+
+                g.FillRectangle(
+                    fumaca,
+                    frame.Width - largura - 13,
+                    baseY - 25 + deslocamento,
+                    largura + 7,
+                    11
+                );
+
+                g.FillRectangle(
+                    energia,
+                    frame.Width - largura - 10,
+                    baseY - 20 + deslocamento,
+                    largura / 2,
+                    7
+                );
+
+                // Pequenas partículas quadradas de veneno.
+                for (int i = 0; i < 5; i++)
+                {
+                    int x = (frame.Width / 6 + i * 19 + _venenoVisualTick * 2)
+                        % Math.Max(1, frame.Width - 4);
+
+                    int y = frame.Height / 3
+                        + (i * 13 + _venenoVisualTick * 3)
+                        % Math.Max(1, frame.Height / 2);
+
+                    g.FillRectangle(
+                        energia,
+                        x,
+                        y,
+                        4,
+                        4
+                    );
+
+                    if (i % 2 == 0)
+                    {
+                        g.FillRectangle(
+                            brilho,
+                            x + 1,
+                            y + 1,
+                            2,
+                            2
+                        );
+                    }
+                }
+            }
+
+            _venenoVisualTick++;
+        }
+
+        private void DesenharEfeitoDebuff(Bitmap frame)
+        {
+            if (frame == null || !DebuffVisualAtivo)
+                return;
+
+            int fase = _debuffVisualTick % 8;
+
+            int pulso = fase < 4 ? fase : 7 - fase;
+
+            Color corExterna;
+            Color corInterna;
+            Color corEnergia;
+            Color corBrilho;
+
+            // Define as cores de acordo com o chefe final.
+            switch (_personagem)
+            {
+                case Personagem.Mago:
+                    // Lich: energia roxa.
+                    corExterna = Color.FromArgb(110, 75, 25, 145);
+                    corInterna = Color.FromArgb(220, 175, 105, 255);
+                    corEnergia = Color.FromArgb(210, 105, 40, 190);
+                    corBrilho = Color.FromArgb(240, 220, 185, 255);
+                    break;
+
+                case Personagem.Cavaleiro:
+                    // Dullahan: energia vermelha.
+                    corExterna = Color.FromArgb(110, 120, 15, 20);
+                    corInterna = Color.FromArgb(220, 255, 65, 65);
+                    corEnergia = Color.FromArgb(210, 190, 20, 30);
+                    corBrilho = Color.FromArgb(240, 255, 110, 85);
+                    break;
+
+                case Personagem.Princesa:
+                    // Rainha Gótica: energia verde.
+                    corExterna = Color.FromArgb(110, 10, 65, 30);
+                    corInterna = Color.FromArgb(220, 75, 190, 105);
+                    corEnergia = Color.FromArgb(210, 25, 125, 65);
+                    corBrilho = Color.FromArgb(240, 175, 255, 170);
+                    break;
+
+                default:
+                    corExterna = Color.FromArgb(110, 120, 15, 20);
+                    corInterna = Color.FromArgb(220, 255, 65, 65);
+                    corEnergia = Color.FromArgb(210, 190, 20, 30);
+                    corBrilho = Color.FromArgb(240, 255, 110, 85);
+                    break;
+            }
+
+            using (Graphics g = Graphics.FromImage(frame))
+            using (Pen contornoExterno = new Pen(corExterna, 4))
+            using (Pen contornoInterno = new Pen(corInterna, 2))
+            using (SolidBrush energia = new SolidBrush(corEnergia))
+            using (SolidBrush brilho = new SolidBrush(corBrilho))
+            {
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+
+                int margemX = 5 + pulso;
+                int margemY = 4 + pulso;
+
+                g.DrawEllipse(
+                    contornoExterno,
+                    margemX,
+                    margemY,
+                    frame.Width - margemX * 2,
+                    frame.Height - margemY * 2
+                );
+
+                g.DrawEllipse(
+                    contornoInterno,
+                    margemX + 4,
+                    margemY + 4,
+                    frame.Width - (margemX + 4) * 2,
+                    frame.Height - (margemY + 4) * 2
+                );
+
+                int alturaParticula = (frame.Height / 4) + fase * 3;
+
+                g.FillRectangle(energia, 3, alturaParticula, 5, 5);
+
+                g.FillRectangle(
+                    brilho,
+                    frame.Width - 8,
+                    frame.Height - alturaParticula - 8,
+                    5,
+                    5
+                );
+
+                g.FillRectangle(
+                    brilho,
+                    frame.Width / 3 + fase * 2,
+                    3,
+                    4,
+                    4
+                );
+
+                g.FillRectangle(
+                    energia,
+                    frame.Width * 2 / 3 - fase * 2,
+                    7,
+                    5,
+                    5
+                );
+            }
+
+            _debuffVisualTick++;
         }
         #endregion
     }

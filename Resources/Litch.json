@@ -1,0 +1,141 @@
+{
+  "character": {
+    "id": "6ba2cfee-07fa-4200-b9b0-2e37c41fdd08",
+    "name": "Idle",
+    "prompt": "Create the evil final boss version of the exact duck fire mage in the reference: a terrifying Black Flame Lich. Preserve his orange duck beak, purple wizard hat, and recognizable staff. Transform his robe into tattered black and dark-purple undead robes.\n\n**Black flames are his main power:** intense, clearly visible black fire engulfs his staff and surrounds his body, with deep violet and crimson edges. Flames rise from his shoulders and hands, with black embers and dark fire particles. The fire must visibly look like flames, not smoke or purple energy.\n\nOminous, powerful, corrupted appearance. Full body, 128px character size, side-view 2D platformer pixel art, crisp pixels, transparent background. No realistic 3D, no blur, no extra weapons.",
+    "size": {
+      "width": 128,
+      "height": 128
+    },
+    "directions": 8,
+    "view": "side"
+  },
+  "spritesheet": {
+    "path": "Litch-Idle.png",
+    "cell_size": {
+      "width": 196,
+      "height": 152
+    },
+    "sheet_size": {
+      "width": 1764,
+      "height": 1976
+    },
+    "columns": 9,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Idle",
+        "animation_group_id": "1f271861-4cc3-4e4d-b7b2-04d27ee54d5f",
+        "direction": "east"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Idle",
+        "animation_group_id": "1f271861-4cc3-4e4d-b7b2-04d27ee54d5f",
+        "direction": "west"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Death",
+        "animation_group_id": "3003a49d-bb52-46c3-bee0-f7e6e9c2506a",
+        "direction": "east"
+      },
+      {
+        "row": 4,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Death",
+        "animation_group_id": "3003a49d-bb52-46c3-bee0-f7e6e9c2506a",
+        "direction": "west"
+      },
+      {
+        "row": 5,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Dark Flame Burst",
+        "animation_group_id": "5d36f19f-d0dc-4372-914f-7903128a69ab",
+        "direction": "east"
+      },
+      {
+        "row": 6,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Dark Flame Burst",
+        "animation_group_id": "5d36f19f-d0dc-4372-914f-7903128a69ab",
+        "direction": "west"
+      },
+      {
+        "row": 7,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Walk",
+        "animation_group_id": "7812df61-8456-488b-be63-7d574858e52a",
+        "direction": "east"
+      },
+      {
+        "row": 8,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Walk",
+        "animation_group_id": "7812df61-8456-488b-be63-7d574858e52a",
+        "direction": "west"
+      },
+      {
+        "row": 9,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Dark Fire Ball",
+        "animation_group_id": "7a600e6b-03db-4168-ab92-6f82fea2e7f3",
+        "direction": "east"
+      },
+      {
+        "row": 10,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Dark Fire Ball",
+        "animation_group_id": "7a600e6b-03db-4168-ab92-6f82fea2e7f3",
+        "direction": "west"
+      },
+      {
+        "row": 11,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Hurt",
+        "animation_group_id": "f9d8e00e-9210-4054-ac31-2aca56fe45c3",
+        "direction": "east"
+      },
+      {
+        "row": 12,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Hurt",
+        "animation_group_id": "f9d8e00e-9210-4054-ac31-2aca56fe45c3",
+        "direction": "west"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-23T20:56:14.403575+00:00"
+}
