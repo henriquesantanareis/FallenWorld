@@ -741,6 +741,8 @@ namespace FallenWorld
 
                 SoundEffects.StartMp3Loop(Properties.Resources.RootShrine_Ambient,0.30f);
 
+                SoundEffects.Play(Properties.Resources.Sylvara_RootsSanctuary_Intro,0.9f);
+
                 return true;
             }
             catch (Exception ex)
@@ -5976,6 +5978,12 @@ namespace FallenWorld
             // Evita acessar controles caso o formulário tenha sido fechado.
             if (IsDisposed || Disposing)
                 return;
+
+            // Sylvara celebra a conclusão do puzzle do Santuário.
+            SoundEffects.Play(
+                Properties.Resources.Sylvara_RootsSanctuary_Success,
+                0.9f
+            );
 
             // Revela o baú após o som.
             if (_puzzleChest != null && !_puzzleChest.IsDisposed)
