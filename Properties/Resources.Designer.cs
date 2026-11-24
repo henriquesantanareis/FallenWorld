@@ -1303,6 +1303,236 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_Avatar_Death {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_Avatar_Death", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_Avatar_Normal {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_Avatar_Normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP0 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP10 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP10", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP100 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP15 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP15", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP20 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP25 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP25", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP30 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP35 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP35", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP40 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP45 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP45", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP5 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP50 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP55 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP55", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP60 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP60", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP65 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP65", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP70 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP70", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP75 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP75", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP80 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP80", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP85 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP85", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP90 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP90", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LichBoss_HealthBar_HP95 {
+            get {
+                object obj = ResourceManager.GetObject("LichBoss_HealthBar_HP95", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a {
         ///  &quot;character&quot;: {
         ///    &quot;id&quot;: &quot;6ba2cfee-07fa-4200-b9b0-2e37c41fdd08&quot;,
