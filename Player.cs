@@ -39,6 +39,9 @@ namespace FallenWorld
         private int _auraBurstTick = 0;
         // Duração da animação da onda em atualizações.
         private const int AuraBurstDurationFrames = 18;
+        // Controle visual da queimadura.
+        private bool _queimaduraAtiva = false;
+        private int _queimaduraVisualTick = 0;
         #endregion
 
         #region Sprite Sheet
@@ -281,6 +284,12 @@ namespace FallenWorld
                 DesenharOndaAura(novoFrame);
             }
 
+            // Desenha as chamas da queimadura.
+            if (QueimaduraAtiva && _state != StatePlayer.Death)
+            {
+                DesenharEfeitoQueimadura(novoFrame);
+            }
+
             Image frameAnterior = PBX_PLAYER.Image;
             PBX_PLAYER.Image = novoFrame;
             frameAnterior?.Dispose();
@@ -520,6 +529,20 @@ namespace FallenWorld
             get { return _vidaAtual; }
         }
         public bool AuraAtiva { get; set; }
+        public bool QueimaduraAtiva
+        {
+            get { return _queimaduraAtiva; }
+            set
+            {
+                if (_queimaduraAtiva == value)
+                    return;
+
+                _queimaduraAtiva = value;
+
+                if (!value)
+                    _queimaduraVisualTick = 0;
+            }
+        }
         #endregion
 
         #region Visible Sprite Bounds
@@ -828,6 +851,123 @@ namespace FallenWorld
             {
                 _auraBurstActive = false;
                 _auraBurstTick = 0;
+            }
+        }
+
+        private void DesenharEfeitoQueimadura(Bitmap frame)
+        {
+            if (frame == null || !QueimaduraAtiva)
+                return;
+
+            // Alterna a posição das chamas para criar movimento.
+            int fase = _queimaduraVisualTick % 4;
+            _queimaduraVisualTick++;
+
+            int larguraChama = Math.Max(4, frame.Width / 12);
+            int alturaChama = Math.Max(8, frame.Height / 8);
+
+            int deslocamento = fase % 2 == 0 ? 0 : Math.Max(1, frame.Height / 32);
+
+            int esquerda = frame.Width / 12;
+            int direita = frame.Width - esquerda - larguraChama;
+
+            int baseY = frame.Height - Math.Max(6, frame.Height / 12);
+
+            using (Graphics g = Graphics.FromImage(frame))
+            using (SolidBrush sombra = new SolidBrush(Color.FromArgb(210, 8, 4, 20)))
+            using (SolidBrush chama = new SolidBrush(Color.FromArgb(230, 65, 18, 115)))
+            using (SolidBrush brilho = new SolidBrush(Color.FromArgb(240, 180, 45, 190)))
+            using (SolidBrush brasa = new SolidBrush(Color.FromArgb(245, 240, 95, 210)))
+            {
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+
+                // Chamas na lateral esquerda.
+                g.FillRectangle(
+                    sombra,
+                    esquerda,
+                    baseY - alturaChama,
+                    larguraChama,
+                    alturaChama
+                );
+
+                g.FillRectangle(
+                    chama,
+                    esquerda + larguraChama / 3,
+                    baseY - alturaChama - deslocamento,
+                    Math.Max(2, larguraChama / 2),
+                    alturaChama
+                );
+
+                g.FillRectangle(
+                    brilho,
+                    esquerda + larguraChama / 2,
+                    baseY - alturaChama / 2,
+                    Math.Max(2, larguraChama / 3),
+                    alturaChama / 3
+                );
+
+                // Chamas na lateral direita.
+                g.FillRectangle(
+                    sombra,
+                    direita,
+                    baseY - alturaChama,
+                    larguraChama,
+                    alturaChama
+                );
+
+                g.FillRectangle(
+                    chama,
+                    direita + larguraChama / 3,
+                    baseY - alturaChama + deslocamento,
+                    Math.Max(2, larguraChama / 2),
+                    alturaChama
+                );
+
+                g.FillRectangle(
+                    brilho,
+                    direita + larguraChama / 2,
+                    baseY - alturaChama / 2,
+                    Math.Max(2, larguraChama / 3),
+                    alturaChama / 3
+                );
+
+                // Pequenas chamas próximas aos pés.
+                int tamanhoBrasa = Math.Max(2, frame.Width / 24);
+
+                g.FillRectangle(
+                    chama,
+                    frame.Width / 3 + deslocamento,
+                    baseY - tamanhoBrasa,
+                    tamanhoBrasa * 2,
+                    tamanhoBrasa * 2
+                );
+
+                g.FillRectangle(
+                    brilho,
+                    frame.Width * 2 / 3 - deslocamento,
+                    baseY - tamanhoBrasa * 2,
+                    tamanhoBrasa * 2,
+                    tamanhoBrasa * 2
+                );
+
+                // Brasas flutuando ao redor do personagem.
+                int tamanhoParticula = Math.Max(2, frame.Width / 32);
+
+                g.FillRectangle(
+                    brasa,
+                    frame.Width / 4 + fase * tamanhoParticula,
+                    frame.Height / 3 - fase * tamanhoParticula,
+                    tamanhoParticula,
+                    tamanhoParticula
+                );
+
+                g.FillRectangle(
+                    brasa,
+                    frame.Width * 3 / 4 - fase * tamanhoParticula,
+                    frame.Height / 2 - fase * tamanhoParticula,
+                    tamanhoParticula,
+                    tamanhoParticula
+                );
             }
         }
         #endregion

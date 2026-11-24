@@ -113,8 +113,25 @@ namespace FallenWorld
 
         // Configurações da inteligência artificial do Lich.
         private const int LichDetectionRange = 500;
-        private const int LichPreferredDistance = 220;
         private const int LichMoveSpeed = 2;
+
+        // Configurações do Dark Flame Burst.
+        private const int LichMeleeAttackRange = 150;
+        private const int LichFlameBurstRadius = 130;
+        private const int LichMeleeAttackDamage = 20;
+        private const int LichAttackCooldownTicks = 120;
+
+        // Configurações da queimadura.
+        private const int LichBurnDamagePerTick = 2;
+        private const int LichBurnDurationTicks = 360;
+        private const int LichBurnIntervalTicks = 120;
+
+        private int _lichBossAttackCooldownRemaining = 0;
+        private int _lichBurnDurationRemaining = 0;
+        private int _lichBurnTickRemaining = 0;
+
+        // Distância máxima para utilizar o Dark Fire Ball.
+        private const int LichFireBallAttackRange = 420;
 
         #endregion
 
@@ -145,6 +162,12 @@ namespace FallenWorld
         private readonly List<FireballProjectile> _fireballs = new List<FireballProjectile>();
         // Dano inicial da bola de fogo.
         private const int FireballDamage = 20;
+        #endregion
+
+        #region Dark Fireball
+        private const int LichFireBallDamage = 20;
+        private readonly List<DarkFireballProjectile> _darkFireballs = new List<DarkFireballProjectile>();
+
         #endregion
 
         #region Mage Mana
@@ -2717,12 +2740,9 @@ namespace FallenWorld
             AplicarDanoAoJogador(enemy.DanoAtaque);
         }
 
-
         private void MidBoss_AttackImpact(MidBoss boss,MidBoss.BossAttackType attackType)
         {
-            if (boss == null || boss.IsDisposed || boss.IsDead ||
-                player == null || player.IsDisposed || player.EstaMorto ||
-                _invulnerabilidadeRestante > 0)
+            if (boss == null || boss.IsDisposed || boss.IsDead || player == null || player.IsDisposed || player.EstaMorto || _invulnerabilidadeRestante > 0)
             {
                 return;
             }
@@ -2742,21 +2762,11 @@ namespace FallenWorld
             // Cria a área de ataque conforme a direção do chefe.
             if (boss.FacingRight)
             {
-                areaAtaque = new Rectangle(
-                    hitboxBoss.Right,
-                    ataqueY,
-                    MidBossAttackReach,
-                    alturaAtaque
-                );
+                areaAtaque = new Rectangle(hitboxBoss.Right,ataqueY,MidBossAttackReach,alturaAtaque);
             }
             else
             {
-                areaAtaque = new Rectangle(
-                    hitboxBoss.Left - MidBossAttackReach,
-                    ataqueY,
-                    MidBossAttackReach,
-                    alturaAtaque
-                );
+                areaAtaque = new Rectangle(hitboxBoss.Left - MidBossAttackReach,ataqueY,MidBossAttackReach,alturaAtaque);
             }
 
             // O golpe não causa dano se o jogador estiver fora da área.
@@ -2764,13 +2774,231 @@ namespace FallenWorld
                 return;
 
             // Seleciona o dano de acordo com o ataque executado.
-            int dano = attackType == MidBoss.BossAttackType.Attack1
-                ? boss.DanoAtaque1
-                : boss.DanoAtaque2;
+            int dano = attackType == MidBoss.BossAttackType.Attack1 ? boss.DanoAtaque1 : boss.DanoAtaque2;
 
             AplicarDanoAoJogador(dano);
         }
 
+        private void CriarDarkFireBall()
+        {
+            if (_lichBoss == null ||
+                _lichBoss.IsDisposed ||
+                _lichBoss.IsDead ||
+                player == null ||
+                player.IsDisposed ||
+                player.EstaMorto)
+            {
+                return;
+            }
+
+            bool facingRight = _lichBoss.FacingRight;
+
+            // Limites visíveis do sprite atual do Lich.
+            Rectangle spriteBounds = _lichBoss.GetVisibleSpriteBounds();
+
+            int spriteWorldLeft = _lichBossWorldPosition.X + spriteBounds.Left;
+
+            int spriteWorldRight = _lichBossWorldPosition.X + spriteBounds.Right;
+
+            int spriteWorldTop = _lichBossWorldPosition.Y + _lichBossVisualOffsetY + spriteBounds.Top;
+
+            // Posiciona o projétil próximo à extremidade do cajado.
+            int projectileX = facingRight ? spriteWorldRight - 18 : spriteWorldLeft - 68 + 18;
+
+            // Centraliza o projétil na altura do sprite.
+            int projectileY = spriteWorldTop + (spriteBounds.Height - 68) / 2;
+
+            DarkFireballProjectile projectile = new DarkFireballProjectile(facingRight,projectileX,projectileY);
+
+            _darkFireballs.Add(projectile);
+
+            // Converte as coordenadas do mundo para a tela.
+            projectile.Location = new Point(projectile.WorldX - _cameraX,projectile.WorldY - _cameraY);
+
+            world1.Controls.Add(projectile);
+
+            projectile.BringToFront();
+        }
+
+
+        private void AtualizarDarkFireballs()
+        {
+            for (int i = _darkFireballs.Count - 1; i >= 0; i--)
+            {
+                DarkFireballProjectile projectile = _darkFireballs[i];
+
+                if (projectile == null || projectile.IsDisposed)
+                {
+                    _darkFireballs.RemoveAt(i);
+                    continue;
+                }
+
+                projectile.UpdateProjectile();
+
+                // Remove somente depois que a animação de impacto terminar.
+                if (projectile.IsFinished)
+                {
+                    world1.Controls.Remove(projectile);
+                    _darkFireballs.RemoveAt(i);
+                    projectile.Dispose();
+                    continue;
+                }
+
+                // Atualiza a posição de acordo com a câmera.
+                projectile.Location = new Point(
+                    projectile.WorldX - _cameraX,
+                    projectile.WorldY - _cameraY
+                );
+
+                // Durante a explosão, não verifica novas colisões.
+                if (projectile.IsImpacting)
+                    continue;
+
+                Rectangle hitboxBola = projectile.GetCollisionBounds();
+
+                bool iniciarImpacto = false;
+
+                // Verifica se o projétil saiu dos limites do mapa.
+                if (_imageMap == null ||
+                    projectile.WorldX + projectile.Width < 0 ||
+                    projectile.WorldX > _imageMap.Width ||
+                    projectile.WorldY + projectile.Height < 0 ||
+                    projectile.WorldY > _imageMap.Height)
+                {
+                    iniciarImpacto = true;
+                }
+                // Verifica colisão com o cenário.
+                else if (map == null || !map.PodeMover(hitboxBola))
+                {
+                    iniciarImpacto = true;
+                }
+                else if (player != null && !player.IsDisposed && !player.EstaMorto)
+                {
+                    // Hitbox real do jogador.
+                    Rectangle hitboxJogador = player.GetHitboxAt(_playerWorldX,_playerWorldY);
+
+                    // Colisão entre a bola roxa e o jogador.
+                    if (hitboxBola.IntersectsWith(hitboxJogador))
+                    {
+                        AplicarDanoAoJogador(LichFireBallDamage);
+                        iniciarImpacto = true;
+                    }
+                }
+
+                // Encerra o voo ao atingir a distância máxima.
+                if (!iniciarImpacto && projectile.ExceededMaxDistance)
+                {
+                    iniciarImpacto = true;
+                }
+
+                // Inicia a animação roxa de impacto.
+                if (iniciarImpacto)
+                {
+                    projectile.StartImpact();
+                }
+            }
+        }
+
+
+        private void LichBoss_AttackImpact(LichBoss boss,LichBoss.TipoAtaque attackType)
+        {
+            if (boss == null || 
+                boss.IsDisposed ||
+                boss.IsDead ||
+                boss != _lichBoss ||
+                player == null ||
+                player.IsDisposed ||
+                player.EstaMorto ||
+                _invulnerabilidadeRestante > 0)
+            {
+                return;
+            }
+
+            // Dispara o projétil no momento do impacto da animação.
+            if (attackType == LichBoss.TipoAtaque.DarkFireBall)
+            {
+                if (boss == null ||
+                    boss.IsDisposed ||
+                    boss.IsDead ||
+                    boss != _lichBoss ||
+                    player == null ||
+                    player.IsDisposed ||
+                    player.EstaMorto)
+                {
+                    return;
+                }
+
+                CriarDarkFireBall();
+                return;
+            }
+
+            // Nesta etapa, somente o ataque de área está implementado.
+            if (attackType != LichBoss.TipoAtaque.DarkFlameBurst)
+                return;
+
+            Rectangle hitboxJogador = player.GetHitboxAt(_playerWorldX,_playerWorldY);
+
+            Rectangle hitboxBoss = boss.GetHitboxAt(_lichBossWorldPosition.X,_lichBossWorldPosition.Y);
+
+            // Cria uma área de explosão ao redor do Lich.
+            Rectangle areaAtaque = new Rectangle(
+                hitboxBoss.Left - LichFlameBurstRadius,
+                hitboxBoss.Top - 24,
+                hitboxBoss.Width + (LichFlameBurstRadius * 2),
+                hitboxBoss.Height + 24
+            );
+
+            // O jogador precisa estar dentro da área da explosão.
+            if (!areaAtaque.IntersectsWith(hitboxJogador))
+                return;
+
+            // Dano inicial da explosão.
+            AplicarDanoAoJogador(LichMeleeAttackDamage);
+
+            // Inicia a queimadura no jogador.
+            _lichBurnDurationRemaining = LichBurnDurationTicks;
+            _lichBurnTickRemaining = LichBurnIntervalTicks;
+            player.QueimaduraAtiva = true;
+        }
+
+        private void AtualizarQueimaduraJogador()
+        {
+            if (_lichBurnDurationRemaining <= 0)
+                return;
+
+            if (player == null || player.IsDisposed || player.EstaMorto)
+            {
+                _lichBurnDurationRemaining = 0;
+                _lichBurnTickRemaining = 0;
+                return;
+            }
+
+            // Diminui a duração da queimadura.
+            _lichBurnDurationRemaining--;
+
+            if (_lichBurnDurationRemaining <= 0)
+            {
+                player.QueimaduraAtiva = false;
+                _lichBurnTickRemaining = 0;
+                return;
+            }
+
+            // Aguarda o intervalo entre os danos.
+            if (_lichBurnTickRemaining > 0)
+            {
+                _lichBurnTickRemaining--;
+                return;
+            }
+
+            // Aguarda o fim da invulnerabilidade do jogador.
+            if (_invulnerabilidadeRestante > 0)
+                return;
+
+            // Aplica o dano contínuo.
+            AplicarDanoAoJogador(LichBurnDamagePerTick);
+
+            _lichBurnTickRemaining = LichBurnIntervalTicks;
+        }
 
         private void AplicarDanoAoJogador(int dano)
         {
@@ -3135,6 +3363,8 @@ namespace FallenWorld
 
             _lichBoss = boss;
 
+            boss.AttackImpact += LichBoss_AttackImpact;
+
             // Posiciona considerando a câmera.
             AtualizarPosicaoLichBossNaTela();
 
@@ -3411,6 +3641,10 @@ namespace FallenWorld
             if (player == null || player.IsDisposed || player.EstaMorto || map == null)
                 return;
 
+            // Atualiza o tempo de recarga do ataque.
+            if (_lichBossAttackCooldownRemaining > 0)
+                _lichBossAttackCooldownRemaining--;
+
             // Obtém as hitboxes do jogador e do Lich.
             Rectangle hitboxJogador = player.GetHitboxAt(
                 _playerWorldX,
@@ -3446,17 +3680,45 @@ namespace FallenWorld
                 return;
             }
 
-            // Quando alcança a distância desejada, para de caminhar.
-            if (distanciaX <= LichPreferredDistance)
+            // Utiliza o ataque à distância quando o jogador
+            // estiver fora do alcance do Dark Flame Burst.
+            if (distanciaX > LichMeleeAttackRange && distanciaX <= LichFireBallAttackRange)
             {
-                _lichBoss.SetIdle(facingRight);
+                if (_lichBossAttackCooldownRemaining <= 0)
+                {
+                    if (_lichBoss.SetAttack(LichBoss.TipoAtaque.DarkFireBall,facingRight))
+                    {
+                        _lichBossAttackCooldownRemaining = LichAttackCooldownTicks;
+                    }
+                }
+                else
+                {
+                    _lichBoss.SetIdle(facingRight);
+                }
+
+                return;
+            }
+
+            // Quando estiver próximo, tenta executar o ataque corpo a corpo.
+            if (distanciaX <= LichMeleeAttackRange)
+            {
+                if (_lichBossAttackCooldownRemaining <= 0)
+                {
+                    if (_lichBoss.SetAttack(LichBoss.TipoAtaque.DarkFlameBurst,facingRight))
+                    {
+                        _lichBossAttackCooldownRemaining = LichAttackCooldownTicks;
+                    }
+                }
+                else
+                {
+                    _lichBoss.SetIdle(facingRight);
+                }
+
                 return;
             }
 
             // Calcula o próximo movimento.
-            int movimento = diferencaX > 0
-                ? LichMoveSpeed
-                : -LichMoveSpeed;
+            int movimento = diferencaX > 0 ? LichMoveSpeed : -LichMoveSpeed;
 
             int proximoX = _lichBossWorldPosition.X + movimento;
 
@@ -3826,10 +4088,14 @@ namespace FallenWorld
             AtualizarIAMidBoss();
             // Atualiza a inteligência artificial do Lich.
             AtualizarIALichBoss();
+            // Atualiza a posição das dark fireballs e verifica colisões.
+            AtualizarDarkFireballs();
             // Atualiza o dano contínuo do veneno.
             AtualizarVenenoInimigos();
             // Atualiza o dano contínuo da queimadura.
             AtualizarQueimaduraInimigos();
+            // Atualiza a queimadura causada pelo Lich no jogador.
+            AtualizarQueimaduraJogador();
             // Atualiza a posição das bolas de fogo e verifica colisões.
             AtualizarBolasDeFogo();
             // Atualiza a posição da runa mais próxima do jogador.
