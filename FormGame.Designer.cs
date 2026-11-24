@@ -43,6 +43,8 @@
             this.PBX_MagicBar = new System.Windows.Forms.PictureBox();
             this.PBX_HealthBar = new System.Windows.Forms.PictureBox();
             this.BTN_Skill1 = new System.Windows.Forms.Button();
+            this.PBX_Avatar_Final_Boss = new System.Windows.Forms.PictureBox();
+            this.PBX_HealtBar_Final_Boss = new System.Windows.Forms.PictureBox();
             this.world1.SuspendLayout();
             this.FLP_Inventory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_Rune1)).BeginInit();
@@ -51,6 +53,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.PBX_Avatar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_MagicBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_HealthBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBX_Avatar_Final_Boss)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBX_HealtBar_Final_Boss)).BeginInit();
             this.SuspendLayout();
             // 
             // TMR_Game
@@ -61,6 +65,8 @@
             // 
             // world1
             // 
+            this.world1.Controls.Add(this.PBX_Avatar_Final_Boss);
+            this.world1.Controls.Add(this.PBX_HealtBar_Final_Boss);
             this.world1.Controls.Add(this.FLP_Inventory);
             this.world1.Controls.Add(this.PBX_Avatar);
             this.world1.Controls.Add(this.BTN_Skill3);
@@ -221,6 +227,32 @@
             this.BTN_Skill1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.BTN_Skill1.UseVisualStyleBackColor = false;
             // 
+            // PBX_Avatar_Final_Boss
+            // 
+            this.PBX_Avatar_Final_Boss.BackColor = System.Drawing.Color.Transparent;
+            this.PBX_Avatar_Final_Boss.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.PBX_Avatar_Final_Boss.ErrorImage = null;
+            this.PBX_Avatar_Final_Boss.InitialImage = null;
+            this.PBX_Avatar_Final_Boss.Location = new System.Drawing.Point(692, 508);
+            this.PBX_Avatar_Final_Boss.Name = "PBX_Avatar_Final_Boss";
+            this.PBX_Avatar_Final_Boss.Size = new System.Drawing.Size(103, 87);
+            this.PBX_Avatar_Final_Boss.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.PBX_Avatar_Final_Boss.TabIndex = 7;
+            this.PBX_Avatar_Final_Boss.TabStop = false;
+            // 
+            // PBX_HealtBar_Final_Boss
+            // 
+            this.PBX_HealtBar_Final_Boss.BackColor = System.Drawing.Color.Transparent;
+            this.PBX_HealtBar_Final_Boss.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.PBX_HealtBar_Final_Boss.ErrorImage = null;
+            this.PBX_HealtBar_Final_Boss.InitialImage = null;
+            this.PBX_HealtBar_Final_Boss.Location = new System.Drawing.Point(466, 555);
+            this.PBX_HealtBar_Final_Boss.Name = "PBX_HealtBar_Final_Boss";
+            this.PBX_HealtBar_Final_Boss.Size = new System.Drawing.Size(220, 40);
+            this.PBX_HealtBar_Final_Boss.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.PBX_HealtBar_Final_Boss.TabIndex = 6;
+            this.PBX_HealtBar_Final_Boss.TabStop = false;
+            // 
             // FormGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -247,6 +279,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.PBX_Avatar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_MagicBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBX_HealthBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBX_Avatar_Final_Boss)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBX_HealtBar_Final_Boss)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -265,6 +299,8 @@
         private System.Windows.Forms.PictureBox PBX_Rune1;
         private System.Windows.Forms.PictureBox PBX_Rune2;
         private System.Windows.Forms.PictureBox PBX_Rune3;
+        private System.Windows.Forms.PictureBox PBX_Avatar_Final_Boss;
+        private System.Windows.Forms.PictureBox PBX_HealtBar_Final_Boss;
     }
 }
 
