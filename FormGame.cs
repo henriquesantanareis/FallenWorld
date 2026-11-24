@@ -214,6 +214,8 @@ namespace FallenWorld
         private const int QueenPoisonWaveTriggerDistance = 36;
         // Dano direto do Emerald Bladefall.
         private const int EmeraldBladefallDamage = 18;
+        // Indica se a animação de morte da Rainha já foi concluída.
+        private bool _gothicQueenDefeated = false;
         #endregion
 
         #region Knight Aura
@@ -4167,6 +4169,7 @@ namespace FallenWorld
             _gothicQueenBoss = boss;
 
             boss.AttackImpact += GothicQueenBoss_AttackImpact;
+            boss.DeathAnimationCompleted += GothicQueenBoss_DeathAnimationCompleted;
 
             // Configura a HUD inicial da Rainha.
             PBX_Avatar_Final_Boss.Image =
@@ -4302,8 +4305,7 @@ namespace FallenWorld
 
         private void AtualizarHUDGothicQueenBoss()
         {
-            if (_gothicQueenBoss == null ||
-                _gothicQueenBoss.IsDisposed)
+            if (_gothicQueenBoss == null ||_gothicQueenBoss.IsDisposed)
                 return;
 
             int vidaPercentual = _gothicQueenBoss.VidaAtual <= 0
@@ -4316,8 +4318,7 @@ namespace FallenWorld
                 ? 0
                 : Math.Min(100, ((vidaPercentual + 4) / 5) * 5);
 
-            string nomeRecurso =
-                "Fallen_Queen_HealthBar_HP" + percentualBarra;
+            string nomeRecurso = "Fallen_Queen_HealthBar_HP" + percentualBarra;
 
             PBX_HealtBar_Final_Boss.Image =
                 Properties.Resources.ResourceManager.GetObject(
@@ -4332,6 +4333,35 @@ namespace FallenWorld
                         "Fallen_Queen_Avatar_Death"
                     ) as Bitmap;
             }
+        }
+
+        private void GothicQueenBoss_DeathAnimationCompleted(GothicQueenBoss boss)
+        {
+            if (boss == null || boss.IsDisposed || boss != _gothicQueenBoss || _gothicQueenDefeated)
+                return;
+
+            // Registra que a Rainha foi derrotada.
+            _gothicQueenDefeated = true;
+
+            // Remove ondas venenosas que ainda estiverem no cenário.
+            foreach (QueenPoisonWave wave in _queenPoisonWaves.ToList())
+            {
+                if (wave == null)
+                    continue;
+
+                if (!wave.IsDisposed)
+                {
+                    world1.Controls.Remove(wave);
+                    wave.Dispose();
+                }
+            }
+
+            _queenPoisonWaves.Clear();
+
+            // Mantém a HUD no estado final.
+            AtualizarHUDGothicQueenBoss();
+
+            world1.Invalidate();
         }
 
         private void LoadLichBoss()
