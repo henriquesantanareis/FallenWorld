@@ -648,6 +648,24 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Dullahan_Attack1_Impact {
+            get {
+                return ResourceManager.GetStream("Dullahan_Attack1_Impact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Dullahan_Attack2_Impact {
+            get {
+                return ResourceManager.GetStream("Dullahan_Attack2_Impact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Dullahan_Avatar_Death {
@@ -664,6 +682,15 @@ namespace FallenWorld.Properties {
             get {
                 object obj = ResourceManager.GetObject("Dullahan_Avatar_Normal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Dullahan_Battle_Music {
+            get {
+                return ResourceManager.GetStream("Dullahan_Battle_Music", resourceCulture);
             }
         }
         
@@ -974,6 +1001,51 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Fallen_Queen_Battle_Music {
+            get {
+                return ResourceManager.GetStream("Fallen_Queen_Battle_Music", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Fallen_Queen_EmeraldBladefall_SwordImpact {
+            get {
+                return ResourceManager.GetStream("Fallen_Queen_EmeraldBladefall_SwordImpact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Fallen_Queen_EmeraldBladefall_Swords {
+            get {
+                return ResourceManager.GetStream("Fallen_Queen_EmeraldBladefall_Swords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Fallen_Queen_EmeraldBladefall_Wave {
+            get {
+                return ResourceManager.GetStream("Fallen_Queen_EmeraldBladefall_Wave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Fallen_Queen_EmeraldBladefall_WaveExplosion {
+            get {
+                return ResourceManager.GetStream("Fallen_Queen_EmeraldBladefall_WaveExplosion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Fallen_Queen_HealthBar_HP0 {
@@ -1193,6 +1265,15 @@ namespace FallenWorld.Properties {
         public static string Fallen_Queen_js {
             get {
                 return ResourceManager.GetString("Fallen_Queen_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Fallen_Queen_RoyalVenomSlash_Impact {
+            get {
+                return ResourceManager.GetStream("Fallen_Queen_RoyalVenomSlash_Impact", resourceCulture);
             }
         }
         
@@ -1805,6 +1886,51 @@ namespace FallenWorld.Properties {
         public static string knight_Spritesheet_Js {
             get {
                 return ResourceManager.GetString("knight_Spritesheet_Js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Lich_Battle_Music {
+            get {
+                return ResourceManager.GetStream("Lich_Battle_Music", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Lich_DarkFireball_Cast {
+            get {
+                return ResourceManager.GetStream("Lich_DarkFireball_Cast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Lich_DarkFireball_Impact {
+            get {
+                return ResourceManager.GetStream("Lich_DarkFireball_Impact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Lich_DarkFlameBurst_Cast {
+            get {
+                return ResourceManager.GetStream("Lich_DarkFlameBurst_Cast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Lich_DarkFlameBurst_Impact {
+            get {
+                return ResourceManager.GetStream("Lich_DarkFlameBurst_Impact", resourceCulture);
             }
         }
         

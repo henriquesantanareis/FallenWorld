@@ -952,4 +952,46 @@
   <data name="Fallen_Queen_Avatar_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fallen_Queen_Avatar_Normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Lich_Battle_Music" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Lich_Battle_Music.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Lich_DarkFireball_Impact" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Lich_DarkFireball_Impact.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Lich_DarkFireball_Cast" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Lich_DarkFireball_Cast.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Lich_DarkFlameBurst_Impact" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Lich_DarkFlameBurst_Impact.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Lich_DarkFlameBurst_Cast" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Lich_DarkFlameBurst_Cast.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dullahan_Battle_Music" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_Battle_Music.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dullahan_Attack2_Impact" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_Attack2_Impact.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dullahan_Attack1_Impact" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dullahan_Attack1_Impact.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Fallen_Queen_EmeraldBladefall_SwordImpact" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GothicQueen_EmeraldBladefall_SwordImpact.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Fallen_Queen_EmeraldBladefall_Swords" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GothicQueen_EmeraldBladefall_Swords.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Fallen_Queen_RoyalVenomSlash_Impact" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GothicQueen_RoyalVenomSlash_Impact.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Fallen_Queen_Battle_Music" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GothicQueen_Battle_Music.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Fallen_Queen_EmeraldBladefall_WaveExplosion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GothicQueen_EmeraldBladefall_WaveExplosion.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Fallen_Queen_EmeraldBladefall_Wave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GothicQueen_EmeraldBladefall_Wave.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
