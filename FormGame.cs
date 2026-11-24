@@ -163,6 +163,11 @@ namespace FallenWorld
 
         // Controla a alternância dos ataques.
         private bool _dullahanNextAttackHeavy = false;
+        // Duração do bloqueio da Aura: aproximadamente 6 segundos.
+        private const int DullahanAuraBlockDurationTicks = 360;
+
+        // Tempo restante do bloqueio.
+        private int _dullahanAuraBlockRemaining = 0;
         #endregion
 
         #region Knight Aura
@@ -2948,8 +2953,48 @@ namespace FallenWorld
         // Verifica se determinada habilidade está bloqueada.
         private bool HabilidadeBloqueada(int slot)
         {
-            return _lichSkillBlockRemaining > 0 &&
-                   _lichBlockedSkillSlot == slot;
+            // Bloqueio aleatório aplicado pelo Lich.
+            bool bloqueioLich =
+                _lichSkillBlockRemaining > 0 &&
+                _lichBlockedSkillSlot == slot;
+
+            // Bloqueio específico da Aura aplicado pelo Dullahan.
+            bool bloqueioDullahan =
+                slot == 0 &&
+                _dullahanAuraBlockRemaining > 0;
+
+            return bloqueioLich || bloqueioDullahan;
+        }
+
+        private void AplicarBloqueioAuraDullahan()
+        {
+            if (_personagem != Personagem.Cavaleiro ||
+                player == null ||
+                player.IsDisposed ||
+                player.EstaMorto)
+            {
+                return;
+            }
+
+            // Bloqueia a Aura por aproximadamente 6 segundos.
+            _dullahanAuraBlockRemaining = DullahanAuraBlockDurationTicks;
+
+            // Cancela a Aura caso esteja ativa.
+            _knightAuraRemaining = 0;
+
+            player.AuraAtiva = false;
+
+            SoundEffects.StopKnightAura();
+
+            // Cancela qualquer comando pendente da Aura.
+            _attack0KeyHeld = false;
+            Core.isAttacking0 = false;
+
+            // Atualiza o efeito visual vermelho do Dullahan.
+            AtualizarVisualDebuffJogador();
+
+            // Atualiza a aparência do botão da habilidade.
+            SkillButtonStates(this, EventArgs.Empty);
         }
 
         // Sorteia qual efeito será aplicado pela Dark Fireball.
@@ -2966,6 +3011,7 @@ namespace FallenWorld
                 _lichBurnTickRemaining = LichBurnIntervalTicks;
 
                 player.QueimaduraAtiva = true;
+                AtualizarVisualDebuffJogador();
             }
             else
             {
@@ -2981,6 +3027,7 @@ namespace FallenWorld
             if (_lichSkillBlockRemaining > 0)
             {
                 _lichSkillBlockRemaining = LichSkillBlockDurationTicks;
+                AtualizarVisualDebuffJogador();
                 return;
             }
 
@@ -3034,18 +3081,58 @@ namespace FallenWorld
         // Controla o tempo restante do bloqueio.
         private void AtualizarBloqueioHabilidadeJogador()
         {
-            if (_lichSkillBlockRemaining <= 0)
-                return;
+            bool bloqueioExpirou = false;
 
-            _lichSkillBlockRemaining--;
-
-            if (_lichSkillBlockRemaining <= 0)
+            // Atualiza o bloqueio de habilidade do Lich.
+            if (_lichSkillBlockRemaining > 0)
             {
-                _lichSkillBlockRemaining = 0;
-                _lichBlockedSkillSlot = -1;
+                _lichSkillBlockRemaining--;
+
+                if (_lichSkillBlockRemaining <= 0)
+                {
+                    _lichSkillBlockRemaining = 0;
+                    _lichBlockedSkillSlot = -1;
+
+                    bloqueioExpirou = true;
+                }
+            }
+
+            // Atualiza o bloqueio da Aura do Dullahan.
+            if (_dullahanAuraBlockRemaining > 0)
+            {
+                _dullahanAuraBlockRemaining--;
+
+                if (_dullahanAuraBlockRemaining <= 0)
+                {
+                    _dullahanAuraBlockRemaining = 0;
+
+                    bloqueioExpirou = true;
+                }
+            }
+
+            if (bloqueioExpirou)
+            {
+                // Mantém o efeito visual enquanto houver outro bloqueio.
+                if (player != null && !player.IsDisposed)
+                {
+                    AtualizarVisualDebuffJogador();
+
+                    SkillButtonStates(this, EventArgs.Empty);
+                }
 
                 SkillButtonStates(this, EventArgs.Empty);
             }
+        }
+
+        private void AtualizarVisualDebuffJogador()
+        {
+            if (player == null || player.IsDisposed)
+                return;
+
+            player.DebuffVisualAtivo =
+                _lichBurnDurationRemaining > 0 ||
+                _lichSkillBlockRemaining > 0 ||
+                _dullahanAuraBlockRemaining > 0;
         }
 
         private void AtualizarDarkFireballs()
@@ -3170,6 +3257,10 @@ namespace FallenWorld
             if (attackType != LichBoss.TipoAtaque.DarkFlameBurst)
                 return;
 
+            // O Dark Flame Burst não atinge jogadores que estejam no ar.
+            if (!_estaNoChao)
+                return;
+
             Rectangle hitboxJogador = player.GetHitboxAt(_playerWorldX,_playerWorldY);
 
             Rectangle hitboxBoss = boss.GetHitboxAt(_lichBossWorldPosition.X,_lichBossWorldPosition.Y);
@@ -3189,10 +3280,20 @@ namespace FallenWorld
             // Dano inicial da explosão.
             AplicarDanoAoJogador(LichMeleeAttackDamage);
 
-            // Inicia a queimadura no jogador.
-            _lichBurnDurationRemaining = LichBurnDurationTicks;
-            _lichBurnTickRemaining = LichBurnIntervalTicks;
-            player.QueimaduraAtiva = true;
+            // Não aplica queimadura caso o jogador tenha morrido.
+            if (player.EstaMorto)
+                return;
+
+            // 50% de chance de aplicar queimadura.
+            if (_darkFireballDebuffRandom.Next(100) < 50)
+            {
+                _lichBurnDurationRemaining = LichBurnDurationTicks;
+                _lichBurnTickRemaining = LichBurnIntervalTicks;
+
+                player.QueimaduraAtiva = true;
+
+                AtualizarVisualDebuffJogador();
+            }
         }
 
         private void DullahanBoss_AttackImpact(DullahanBoss boss,DullahanBoss.TipoAtaque attackType)
@@ -3220,6 +3321,10 @@ namespace FallenWorld
             );
 
             bool ataquePesado = attackType == DullahanBoss.TipoAtaque.Attack2;
+
+            // O ataque em área não atinge jogadores que estejam no ar.
+            if (ataquePesado && !_estaNoChao)
+                return;
 
             int alcance = ataquePesado
                 ? DullahanAttack2Range
@@ -3258,11 +3363,17 @@ namespace FallenWorld
             if (!areaAtaque.IntersectsWith(hitboxJogador))
                 return;
 
-            int dano = ataquePesado
-                ? DullahanAttack2Damage 
-                : DullahanAttack1Damage;
+            int dano = ataquePesado ? DullahanAttack2Damage : DullahanAttack1Damage;
 
+            // Aplica o dano do golpe.
             AplicarDanoAoJogador(dano);
+
+            // Somente o ataque em área aplica o bloqueio da Aura.
+            // Não aplica o debuff caso o jogador tenha morrido.
+            if (ataquePesado && !player.EstaMorto)
+            {
+                AplicarBloqueioAuraDullahan();
+            }
         }
 
         private void AtualizarQueimaduraJogador()
@@ -3284,6 +3395,9 @@ namespace FallenWorld
             {
                 player.QueimaduraAtiva = false;
                 _lichBurnTickRemaining = 0;
+
+                AtualizarVisualDebuffJogador();
+
                 return;
             }
 

@@ -42,6 +42,9 @@ namespace FallenWorld
         // Controle visual da queimadura.
         private bool _queimaduraAtiva = false;
         private int _queimaduraVisualTick = 0;
+        // Controle visual do efeito de debuff.
+        private int _debuffVisualTick = 0;
+        private bool _debuffVisualAtivo = false;
         #endregion
 
         #region Sprite Sheet
@@ -290,6 +293,12 @@ namespace FallenWorld
                 DesenharEfeitoQueimadura(novoFrame);
             }
 
+            // Desenha o efeito visual vermelho do debuff.
+            if (DebuffVisualAtivo && _state != StatePlayer.Death)
+            {
+                DesenharEfeitoDebuff(novoFrame);
+            }
+
             Image frameAnterior = PBX_PLAYER.Image;
             PBX_PLAYER.Image = novoFrame;
             frameAnterior?.Dispose();
@@ -529,6 +538,20 @@ namespace FallenWorld
             get { return _vidaAtual; }
         }
         public bool AuraAtiva { get; set; }
+        public bool DebuffVisualAtivo
+        {
+            get { return _debuffVisualAtivo; }
+            set
+            {
+                if (_debuffVisualAtivo == value)
+                    return;
+
+                _debuffVisualAtivo = value;
+
+                if (!value)
+                    _debuffVisualTick = 0;
+            }
+        }
         public bool QueimaduraAtiva
         {
             get { return _queimaduraAtiva; }
@@ -969,6 +992,114 @@ namespace FallenWorld
                     tamanhoParticula
                 );
             }
+        }
+
+        private void DesenharEfeitoDebuff(Bitmap frame)
+        {
+            if (frame == null || !DebuffVisualAtivo)
+                return;
+
+            int fase = _debuffVisualTick % 8;
+
+            int pulso = fase < 4 ? fase : 7 - fase;
+
+            Color corExterna;
+            Color corInterna;
+            Color corEnergia;
+            Color corBrilho;
+
+            // Define as cores de acordo com o chefe final.
+            switch (_personagem)
+            {
+                case Personagem.Mago:
+                    // Lich: energia roxa.
+                    corExterna = Color.FromArgb(110, 75, 25, 145);
+                    corInterna = Color.FromArgb(220, 175, 105, 255);
+                    corEnergia = Color.FromArgb(210, 105, 40, 190);
+                    corBrilho = Color.FromArgb(240, 220, 185, 255);
+                    break;
+
+                case Personagem.Cavaleiro:
+                    // Dullahan: energia vermelha.
+                    corExterna = Color.FromArgb(110, 120, 15, 20);
+                    corInterna = Color.FromArgb(220, 255, 65, 65);
+                    corEnergia = Color.FromArgb(210, 190, 20, 30);
+                    corBrilho = Color.FromArgb(240, 255, 110, 85);
+                    break;
+
+                case Personagem.Princesa:
+                    // Rainha Gótica: energia verde.
+                    corExterna = Color.FromArgb(110, 10, 65, 30);
+                    corInterna = Color.FromArgb(220, 75, 190, 105);
+                    corEnergia = Color.FromArgb(210, 25, 125, 65);
+                    corBrilho = Color.FromArgb(240, 175, 255, 170);
+                    break;
+
+                default:
+                    corExterna = Color.FromArgb(110, 120, 15, 20);
+                    corInterna = Color.FromArgb(220, 255, 65, 65);
+                    corEnergia = Color.FromArgb(210, 190, 20, 30);
+                    corBrilho = Color.FromArgb(240, 255, 110, 85);
+                    break;
+            }
+
+            using (Graphics g = Graphics.FromImage(frame))
+            using (Pen contornoExterno = new Pen(corExterna, 4))
+            using (Pen contornoInterno = new Pen(corInterna, 2))
+            using (SolidBrush energia = new SolidBrush(corEnergia))
+            using (SolidBrush brilho = new SolidBrush(corBrilho))
+            {
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+
+                int margemX = 5 + pulso;
+                int margemY = 4 + pulso;
+
+                g.DrawEllipse(
+                    contornoExterno,
+                    margemX,
+                    margemY,
+                    frame.Width - margemX * 2,
+                    frame.Height - margemY * 2
+                );
+
+                g.DrawEllipse(
+                    contornoInterno,
+                    margemX + 4,
+                    margemY + 4,
+                    frame.Width - (margemX + 4) * 2,
+                    frame.Height - (margemY + 4) * 2
+                );
+
+                int alturaParticula = (frame.Height / 4) + fase * 3;
+
+                g.FillRectangle(energia, 3, alturaParticula, 5, 5);
+
+                g.FillRectangle(
+                    brilho,
+                    frame.Width - 8,
+                    frame.Height - alturaParticula - 8,
+                    5,
+                    5
+                );
+
+                g.FillRectangle(
+                    brilho,
+                    frame.Width / 3 + fase * 2,
+                    3,
+                    4,
+                    4
+                );
+
+                g.FillRectangle(
+                    energia,
+                    frame.Width * 2 / 3 - fase * 2,
+                    7,
+                    5,
+                    5
+                );
+            }
+
+            _debuffVisualTick++;
         }
         #endregion
     }
