@@ -158,9 +158,7 @@ namespace FallenWorld.Properties {
         ///    },
         ///    &quot;columns&quot;: 9,
         ///    &quot;pivot&quot;: &quot;cell-center&quot;,
-        ///    &quot;rows&quot;: [
-        ///      {
-        ///        &quot;r [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;row [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Dark_fireball_js {
             get {
@@ -909,7 +907,7 @@ namespace FallenWorld.Properties {
         ///  &quot;character&quot;: {
         ///    &quot;id&quot;: &quot;b01c6e1a-e97e-4e0d-ba40-d4eb46dc0d1e&quot;,
         ///    &quot;name&quot;: &quot;Idle&quot;,
-        ///    &quot;prompt&quot;: &quot;Create the evil final boss version of the reference knight: a headless Dullahan in blackened steel armor, tarnished gold details, torn dark-red cape, and a massive sword. No head or helmet; a hollow neck emits black smoke and faint crimson embers. Preserve recognizable armor shapes and sword design from the original knight. Intimidating, heavy, corrupted appearance. Full body, side-view 2D platformer pixe [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;Create the evil final boss version of the reference knight: a headless Dullahan in blackened steel armor, tarnished gold details, torn dark-red cape, and a massive sword. No head or helmet; a hollow neck emits black smoke and faint crimson embers. Preserve recognizable armor shapes and sword design from the original knight. Intimidating, heavy, corrupted appearance. Full body, side-view 2D platformer  [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Dullahan_js {
             get {
@@ -1260,7 +1258,7 @@ namespace FallenWorld.Properties {
         ///  &quot;character&quot;: {
         ///    &quot;id&quot;: &quot;31871d36-b673-414c-8af0-510bbbf8f03c&quot;,
         ///    &quot;name&quot;: &quot;Idle&quot;,
-        ///    &quot;prompt&quot;: &quot;Dark fantasy corrupted queen, the sinister counterpart of the Princess. Full-body female medieval warrior with an intimidating royal appearance. She has long dark chestnut hair, partially loose and flowing behind her head, with faded pale streaks. She wears a broken dark silver crown instead of a bright royal tiara. Her armor consists of blackened steel, charcoal plates and damaged ivory details, with sub [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;Dark fantasy corrupted queen, the sinister counterpart of the Princess. Full-body female medieval warrior with an intimidating royal appearance. She has long dark chestnut hair, partially loose and flowing behind her head, with faded pale streaks. She wears a broken dark silver crown instead of a bright royal tiara. Her armor consists of blackened steel, charcoal plates and damaged ivory details, with [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string Fallen_Queen_js {
             get {
@@ -2169,7 +2167,7 @@ namespace FallenWorld.Properties {
         ///  &quot;character&quot;: {
         ///    &quot;id&quot;: &quot;6ba2cfee-07fa-4200-b9b0-2e37c41fdd08&quot;,
         ///    &quot;name&quot;: &quot;Idle&quot;,
-        ///    &quot;prompt&quot;: &quot;Create the evil final boss version of the exact duck fire mage in the reference: a terrifying Black Flame Lich. Preserve his orange duck beak, purple wizard hat, and recognizable staff. Transform his robe into tattered black and dark-purple undead robes.\n\n**Black flames are his main power:** intense, clearly visible black fire engulfs his staff and surrounds his body, with deep violet and crimson edges. [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///    &quot;prompt&quot;: &quot;Create the evil final boss version of the exact duck fire mage in the reference: a terrifying Black Flame Lich. Preserve his orange duck beak, purple wizard hat, and recognizable staff. Transform his robe into tattered black and dark-purple undead robes.\n\n**Black flames are his main power:** intense, clearly visible black fire engulfs his staff and surrounds his body, with deep violet and crimson ed [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         public static string LitchBoss_js {
             get {
@@ -3059,6 +3057,24 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
         /// </summary>
+        public static System.IO.UnmanagedMemoryStream Sylvara_RootsSanctuary_Intro {
+            get {
+                return ResourceManager.GetStream("Sylvara_RootsSanctuary_Intro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Sylvara_RootsSanctuary_Success {
+            get {
+                return ResourceManager.GetStream("Sylvara_RootsSanctuary_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
         public static System.IO.UnmanagedMemoryStream TreasureChest_Open {
             get {
                 return ResourceManager.GetStream("TreasureChest_Open", resourceCulture);
@@ -3081,6 +3097,42 @@ namespace FallenWorld.Properties {
             get {
                 object obj = ResourceManager.GetObject("tutorial_Map_sprite", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Vharzun_Forge_Failure {
+            get {
+                return ResourceManager.GetStream("Vharzun_Forge_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Vharzun_Forge_Intro {
+            get {
+                return ResourceManager.GetStream("Vharzun_Forge_Intro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Vharzun_Forge_Success {
+            get {
+                return ResourceManager.GetStream("Vharzun_Forge_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Vharzun_Forge_Trial_Start {
+            get {
+                return ResourceManager.GetStream("Vharzun_Forge_Trial_Start", resourceCulture);
             }
         }
     }
