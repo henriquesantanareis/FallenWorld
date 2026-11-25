@@ -1024,4 +1024,7 @@
   <data name="Fallen_World_Pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fallen World Pixel.ttf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="Orc_Attack_Swing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Orc_Attack_Swing.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

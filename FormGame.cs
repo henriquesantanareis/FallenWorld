@@ -2958,8 +2958,14 @@ namespace FallenWorld
 
         private void Enemy_AttackImpact(Enemy enemy)
         {
-            if (player == null || player.IsDisposed || player.EstaMorto || enemy == null || enemy.IsDisposed || enemy.IsDead ||
-                _invulnerabilidadeRestante > 0)
+            if (enemy == null || enemy.IsDisposed || enemy.IsDead)
+                return;
+
+            // Reproduz o som do golpe do Orc.
+            SoundEffects.PlayWav(Properties.Resources.Orc_Attack_Swing, 0.8f);
+
+            // Verifica se o jogador pode receber dano.
+            if (player == null || player.IsDisposed || player.EstaMorto || _invulnerabilidadeRestante > 0)
             {
                 return;
             }
