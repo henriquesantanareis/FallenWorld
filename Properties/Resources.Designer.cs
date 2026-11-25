@@ -2228,6 +2228,24 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
         /// </summary>
+        public static System.IO.UnmanagedMemoryStream Mage_Staff_Fire_Impact {
+            get {
+                return ResourceManager.GetStream("Mage_Staff_Fire_Impact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Mage_Staff_Swing {
+            get {
+                return ResourceManager.GetStream("Mage_Staff_Swing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
         public static System.IO.UnmanagedMemoryStream Map1_Ambient {
             get {
                 return ResourceManager.GetStream("Map1_Ambient", resourceCulture);
