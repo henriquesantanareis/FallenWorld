@@ -851,7 +851,7 @@ namespace FallenWorld
                 _volumeProvider = volumeProvider;
                 _output = output;
                 _loop = loop;
-
+                _ducksMusic = ducksMusic;
                 _output.PlaybackStopped += Output_PlaybackStopped;
             }
 

@@ -6553,7 +6553,7 @@ namespace FallenWorld
 
             if (_judgmentForgeTempoLabel != null && !_judgmentForgeTempoLabel.IsDisposed)
             {
-                _judgmentForgeTempoLabel.Text = "TEMPO: 10s";
+                _judgmentForgeTempoLabel.Text = "TEMPO: 5s";
                 _judgmentForgeTempoLabel.Visible = true;
                 _judgmentForgeTempoLabel.BringToFront();
             }
