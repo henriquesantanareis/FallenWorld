@@ -3057,6 +3057,15 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
         /// </summary>
+        public static System.IO.UnmanagedMemoryStream Sylvara_RootsSanctuary_ExitWarning {
+            get {
+                return ResourceManager.GetStream("Sylvara_RootsSanctuary_ExitWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
         public static System.IO.UnmanagedMemoryStream Sylvara_RootsSanctuary_Intro {
             get {
                 return ResourceManager.GetStream("Sylvara_RootsSanctuary_Intro", resourceCulture);

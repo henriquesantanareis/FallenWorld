@@ -356,6 +356,8 @@ namespace FallenWorld
         private bool _judgmentForgeMusicaIniciada = false;
         // Controla se Vharzun já avisou sobre a saída da Forja.
         private bool _vharzunAvisoSaidaReproduzido = false;
+        // Controla se Sylvara já avisou sobre a saída do Santuário.
+        private bool _sylvaraAvisoSaidaReproduzido = false;
         #endregion
 
         #region Damage and Invulnerability
@@ -641,6 +643,9 @@ namespace FallenWorld
 
                 // Carrega o novo mapa e prepara suas colisões.
                 Load_Map(mapJson, spritesheet);
+
+                // Reinicia o aviso de saída da Sylvara ao entrar no Santuário.
+                _sylvaraAvisoSaidaReproduzido = false;
 
                 MapTile spawn = map.GetSpawnPlayer();
 
@@ -5796,12 +5801,16 @@ namespace FallenWorld
             // Impede sair do Santuário sem ativar as três runas.
             if (_santuarioCarregado && !_mapa1Carregado && !_puzzleCompleto)
             {
-                MessageBox.Show(
-                    "Você precisa ativar as três runas do Santuário das Raízes antes de continuar.",
-                    "Santuário das Raízes",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                // Reproduz o aviso de Sylvara somente uma vez.
+                if (!_sylvaraAvisoSaidaReproduzido)
+                {
+                    _sylvaraAvisoSaidaReproduzido = true;
+
+                    SoundEffects.Play(
+                        Properties.Resources.Sylvara_RootsSanctuary_ExitWarning,
+                        0.9f
+                    );
+                }
 
                 return;
             }
