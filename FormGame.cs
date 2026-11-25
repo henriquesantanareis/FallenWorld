@@ -380,6 +380,7 @@ namespace FallenWorld
                 SoundEffects.StopManaRecovery();
                 SoundEffects.StopKnightAura();
                 SoundEffects.StopQueenPoisonWave();
+                SoundEffects.StopVoices();
                 SoundEffects.StopWavLoop();
                 LiberarIconesInventario();
             };
@@ -641,6 +642,9 @@ namespace FallenWorld
                 if (spawnTeste == null)
                     throw new Exception("O Spawn do jogador não foi encontrado no Santuário.");
 
+                // Interrompe as vozes do mapa anterior antes da transição.
+                SoundEffects.StopVoices();
+
                 // Carrega o novo mapa e prepara suas colisões.
                 Load_Map(mapJson, spritesheet);
 
@@ -748,7 +752,7 @@ namespace FallenWorld
 
                 SoundEffects.StartMp3Loop(Properties.Resources.RootShrine_Ambient,0.30f);
 
-                SoundEffects.Play(Properties.Resources.Sylvara_RootsSanctuary_Intro,0.9f);
+                SoundEffects.PlayVoice(Properties.Resources.Sylvara_RootsSanctuary_Intro,0.9f);
 
                 return true;
             }
@@ -800,6 +804,9 @@ namespace FallenWorld
 
                 if (spawnTeste == null)
                     throw new Exception("O Spawn do jogador não foi encontrado no Mapa 1.");
+
+                // Interrompe as vozes do mapa anterior antes da transição.
+                SoundEffects.StopVoices();
 
                 // Remove os objetos do puzzle anterior.
                 LimparPuzzleRunes();
@@ -957,6 +964,9 @@ namespace FallenWorld
 
                 if (spawnTeste == null)
                     throw new Exception("Spawn do jogador não encontrado nas Ruínas.");
+
+                // Interrompe as vozes do mapa anterior antes da transição.
+                SoundEffects.StopVoices();
 
                 // Remove os objetos dos puzzles anteriores.
                 LimparPuzzleRunes();
@@ -1126,6 +1136,9 @@ namespace FallenWorld
 
                 if (spawnTeste == null)
                     throw new Exception("Spawn do jogador não encontrado no Mapa 2.");
+
+                // Interrompe as vozes do mapa anterior antes da transição.
+                SoundEffects.StopVoices();
 
                 // Remove os objetos dos puzzles anteriores.
                 LimparPuzzleRunes();
@@ -1301,6 +1314,9 @@ namespace FallenWorld
                 if (spawnTeste == null)
                     throw new Exception("Spawn do jogador não encontrado na Forja do Julgamento.");
 
+                // Interrompe as vozes do mapa anterior antes da transição.
+                SoundEffects.StopVoices();
+
                 // Remove os objetos dos puzzles anteriores.
                 LimparPuzzleRunes();
                 LimparPuzzleChest();
@@ -1437,7 +1453,7 @@ namespace FallenWorld
                 world1.Invalidate();
 
                 // Vharzun anuncia o desafio ao jogador ao entrar na Forja.
-                SoundEffects.Play(
+                SoundEffects.PlayVoice(
                     Properties.Resources.Vharzun_Forge_Intro,
                     0.9f
                 );
@@ -1494,6 +1510,9 @@ namespace FallenWorld
 
                 if (spawnTeste == null)
                     throw new Exception("Spawn do jogador não encontrado na Arena dos Chefes Finais.");
+
+                // Interrompe as vozes do mapa anterior antes da transição.
+                SoundEffects.StopVoices();
 
                 // Remove os objetos do puzzle anterior.
                 LimparPuzzleRunes();
@@ -1987,27 +2006,27 @@ namespace FallenWorld
             switch (sequencia)
             {
                 case "123": // Tharok -> Elyra -> Vaelis
-                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_01,0.9f);
+                    SoundEffects.PlayVoice(Properties.Resources.GuardianVoice_Sequence_01,0.9f);
                     break;
 
                 case "132": // Tharok -> Vaelis -> Elyra
-                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_02,0.9f);
+                    SoundEffects.PlayVoice(Properties.Resources.GuardianVoice_Sequence_02,0.9f);
                     break;
 
                 case "213": // Elyra -> Tharok -> Vaelis
-                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_03,0.9f);
+                    SoundEffects.PlayVoice(Properties.Resources.GuardianVoice_Sequence_03,0.9f);
                     break;
 
                 case "231": // Elyra -> Vaelis -> Tharok
-                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_04,0.9f);
+                    SoundEffects.PlayVoice(Properties.Resources.GuardianVoice_Sequence_04,0.9f);
                     break;
 
                 case "312": // Vaelis -> Tharok -> Elyra
-                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_05,0.9f);
+                    SoundEffects.PlayVoice(Properties.Resources.GuardianVoice_Sequence_05,0.9f);
                     break;
 
                 case "321": // Vaelis -> Elyra -> Tharok
-                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_06,0.9f);
+                    SoundEffects.PlayVoice(Properties.Resources.GuardianVoice_Sequence_06,0.9f);
                     break;
             }
             
@@ -2141,7 +2160,7 @@ namespace FallenWorld
                                 // Esta fala acontece somente na primeira ativação.
                                 if (primeiraAtivacao)
                                 {
-                                    SoundEffects.Play(
+                                    SoundEffects.PlayVoice(
                                         Properties.Resources.Vharzun_Forge_Trial_Start,
                                         0.9f
                                     );
@@ -5763,7 +5782,8 @@ namespace FallenWorld
                 {
                     _vharzunAvisoSaidaReproduzido = true;
 
-                    SoundEffects.Play(
+
+                    SoundEffects.PlayVoice(
                         Properties.Resources.Vharzun_Forge_ExitWarning,
                         0.9f
                     );
@@ -5806,7 +5826,8 @@ namespace FallenWorld
                 {
                     _sylvaraAvisoSaidaReproduzido = true;
 
-                    SoundEffects.Play(
+
+                    SoundEffects.PlayVoice(
                         Properties.Resources.Sylvara_RootsSanctuary_ExitWarning,
                         0.9f
                     );
@@ -5990,7 +6011,7 @@ namespace FallenWorld
                     return;
 
                 // Vharzun reconhece a conclusão do julgamento.
-                SoundEffects.Play(
+                SoundEffects.PlayVoice(
                     Properties.Resources.Vharzun_Forge_Success,
                     0.9f
                 );
@@ -6021,7 +6042,7 @@ namespace FallenWorld
                 return;
 
             // Sylvara celebra a conclusão do puzzle do Santuário.
-            SoundEffects.Play(
+            SoundEffects.PlayVoice(
                 Properties.Resources.Sylvara_RootsSanctuary_Success,
                 0.9f
             );
@@ -6576,7 +6597,7 @@ namespace FallenWorld
             SoundEffects.StopWavLoop();
 
             // Vharzun repreende o jogador por falhar no julgamento.
-            SoundEffects.Play(
+            SoundEffects.PlayVoice(
                 Properties.Resources.Vharzun_Forge_Failure,
                 0.9f
             );
