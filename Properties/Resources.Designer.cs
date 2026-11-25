@@ -2275,6 +2275,24 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
         /// </summary>
+        public static System.IO.UnmanagedMemoryStream MidBoss_Attack1_Swing {
+            get {
+                return ResourceManager.GetStream("MidBoss_Attack1_Swing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream MidBoss_Attack2_Swing {
+            get {
+                return ResourceManager.GetStream("MidBoss_Attack2_Swing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
         public static System.IO.UnmanagedMemoryStream MidBoss_Battle {
             get {
                 return ResourceManager.GetStream("MidBoss_Battle", resourceCulture);

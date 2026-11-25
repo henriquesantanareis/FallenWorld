@@ -3003,7 +3003,31 @@ namespace FallenWorld
 
         private void MidBoss_AttackImpact(MidBoss boss,MidBoss.BossAttackType attackType)
         {
-            if (boss == null || boss.IsDisposed || boss.IsDead || player == null || player.IsDisposed || player.EstaMorto || _invulnerabilidadeRestante > 0)
+            // Verifica se o Mid-Boss ainda pode executar o ataque.
+            if (boss == null || boss.IsDisposed || boss.IsDead)
+                return;
+
+            // Reproduz o som correspondente ao ataque executado.
+            switch (attackType)
+            {
+                case MidBoss.BossAttackType.Attack1:
+                    SoundEffects.PlayWav(
+                        Properties.Resources.MidBoss_Attack1_Swing,
+                        0.85f
+                    );
+                    break;
+
+                case MidBoss.BossAttackType.Attack2:
+                    SoundEffects.PlayWav(
+                        Properties.Resources.MidBoss_Attack2_Swing,
+                        0.85f
+                    );
+                    break;
+            }
+
+            // Verifica se o jogador pode receber dano.
+            if (player == null || player.IsDisposed || player.EstaMorto ||
+                _invulnerabilidadeRestante > 0)
             {
                 return;
             }
