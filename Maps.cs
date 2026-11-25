@@ -18,7 +18,7 @@ namespace FallenWorld
         #endregion
 
         #region Criar mapa
-        public Bitmap CriarImagem(Bitmap spritesheet)
+        public Bitmap CriarImagem(Bitmap spritesheet,bool mostrarHabilidade3 = true)
         {
             if (spritesheet == null)
                 throw new ArgumentNullException("spritesheet");
@@ -46,7 +46,22 @@ namespace FallenWorld
                     foreach (MapTile tile in camada.tiles)
                     {
                         int id;
-                        
+
+                        // A tecla L só aparece para o Mago,
+                        // que possui uma terceira habilidade.
+                        string marcadorHabilidade;
+
+                        if (!mostrarHabilidade3 &&
+                            tile.attributes != null &&
+                            tile.attributes.TryGetValue("KeysAttack", out marcadorHabilidade) &&
+                            string.Equals(
+                                marcadorHabilidade,
+                                "KeycapL",
+                                StringComparison.OrdinalIgnoreCase))
+                        {
+                            continue;
+                        }
+
                         if (!int.TryParse(tile.id, out id) || id < 0)
                             continue;
 
@@ -271,6 +286,52 @@ namespace FallenWorld
 
             return marcadores;
         }
+        #endregion
+
+        #region Tutorial Markers
+
+        // Localiza as teclas de habilidade e interação utilizadas no tutorial.
+        public List<MapTile> GetTutorialKeyMarkers()
+        {
+            List<MapTile> marcadores = new List<MapTile>();
+
+            if (layers == null)
+                return marcadores;
+
+            foreach (MapLayer camada in layers)
+            {
+                if (camada.tiles == null)
+                    continue;
+
+                foreach (MapTile tile in camada.tiles)
+                {
+                    if (tile.attributes == null)
+                        continue;
+
+                    bool marcadorHabilidade = tile.attributes.Keys.Any(
+                        chave => string.Equals(
+                            chave,
+                            "KeysAttack",
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                    );
+
+                    bool marcadorInteracao = tile.attributes.Keys.Any(
+                        chave => string.Equals(
+                            chave,
+                            "KeysInteract",
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                    );
+
+                    if (marcadorHabilidade || marcadorInteracao)
+                        marcadores.Add(tile);
+                }
+            }
+
+            return marcadores;
+        }
+
         #endregion
 
         #region Colisão

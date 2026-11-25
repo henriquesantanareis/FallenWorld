@@ -319,6 +319,8 @@ namespace FallenWorld
         private bool _judgmentForgeCarregado = false;
         // Indica se a arena dos chefes finais já foi carregada.
         private bool _finalBossArenaCarregada = false;
+        // Armazena os Labels do tutorial e suas posições reais no mapa.
+        private readonly Dictionary<Label, Point> _tutorialLabelsWorldPositions = new Dictionary<Label, Point>();
         #endregion
 
         #region Puzzle Runes
@@ -461,6 +463,7 @@ namespace FallenWorld
             // O baú do tutorial permanece interativo, mas não entrega recompensa.
             LoadPuzzleChest(true, false);
             CriarPromptStage();
+            CriarLabelsTutorial();
         }
         #endregion
 
@@ -603,7 +606,7 @@ namespace FallenWorld
             novoMapa.PrepararColisoes();
 
             // Monta a imagem completa do novo cenário.
-            Bitmap novaImagem = novoMapa.CriarImagem(spritesheet);
+            Bitmap novaImagem = novoMapa.CriarImagem(spritesheet,_personagem == Personagem.Mago);
 
             // Substitui o mapa e a imagem atuais.
             map = novoMapa;
@@ -616,6 +619,237 @@ namespace FallenWorld
             world1.BackgroundImage = null;
             world1.Invalidate();
         }
+
+        #region Tutorial
+
+        // Identifica qual habilidade pertence ao marcador encontrado no mapa.
+        private int ObterSlotTutorial(string marcador)
+        {
+            switch (marcador)
+            {
+                case "KeycapJ":
+                    return 0;
+
+                case "KeycapK":
+                    return 1;
+
+                case "KeycapL":
+                    return 2;
+
+                default:
+                    return -1;
+            }
+        }
+
+        private string ObterTextoTutorialSkill(int slot)
+        {
+            switch (_personagem)
+            {
+                case Personagem.Mago:
+                    switch (slot)
+                    {
+                        case 0:
+                            return "ATAQUE COM CAJADO\nGolpe direto com o cajado.";
+
+                        case 1:
+                            return "BOLA DE FOGO\nDispara um projétil mágico (50 mana).";
+
+                        case 2:
+                            return "RECUPERAR MANA\nFique parado para recuperar mana.";
+                    }
+                    break;
+
+                case Personagem.Cavaleiro:
+                    switch (slot)
+                    {
+                        case 0:
+                            return "AURA DO CAVALEIRO\nFortalece seus ataques temporariamente.";
+
+                        case 1:
+                            return "GOLPE DE ESPADA\nExecuta um ataque com a espada.";
+                    }
+                    break;
+
+                case Personagem.Princesa:
+                    switch (slot)
+                    {
+                        case 0:
+                            return "ATAQUE FORTE\nGolpe de espada de maior dano.";
+
+                        case 1:
+                            return "ATAQUE VENENOSO\nAtaca e aplica veneno ao inimigo.";
+                    }
+                    break;
+            }
+
+            return null;
+        }
+
+        private void AdicionarLabelTutorial(
+    string nome,
+    string texto,
+    Point posicaoTile,
+    int larguraTiles = 1,
+    int larguraLabel = 230)
+        {
+            if (map == null || string.IsNullOrWhiteSpace(texto))
+                return;
+
+            Label label = new Label();
+
+            label.Name = nome;
+            label.Text = texto;
+            label.AutoSize = false;
+
+            label.Size = new Size(larguraLabel, 56);
+
+            label.Font = new Font(
+                "Arial",
+                8.5f,
+                FontStyle.Bold
+            );
+
+            label.ForeColor = Color.FromArgb(245, 225, 170);
+            label.BackColor = Color.FromArgb(24, 33, 26);
+            label.BorderStyle = BorderStyle.FixedSingle;
+            label.TextAlign = ContentAlignment.MiddleCenter;
+            label.Padding = new Padding(5);
+            label.UseMnemonic = false;
+            label.TabStop = false;
+
+            int centroX =
+                posicaoTile.X * map.tileSize +
+                larguraTiles * map.tileSize / 2;
+
+            int posicaoX = centroX - label.Width / 2;
+
+            int posicaoY =
+                posicaoTile.Y * map.tileSize - label.Height - 10;
+
+            _tutorialLabelsWorldPositions.Add(
+                label,
+                new Point(posicaoX, posicaoY)
+            );
+
+            world1.Controls.Add(label);
+            label.BringToFront();
+        }
+
+        private void CriarLabelsTutorial()
+        {
+            RemoverLabelsTutorial();
+
+            if (map == null)
+                return;
+
+            // Instruções gerais de movimentação.
+            AdicionarLabelTutorial(
+                "LBL_TutorialMoveLeft",
+                "MOVIMENTAR PARA ESQUERDA",
+                new Point(33, 17),
+                2,
+                190
+            );
+
+            AdicionarLabelTutorial(
+                "LBL_TutorialMoveRight",
+                "MOVIMENTAR PARA DIREITA",
+                new Point(36, 17),
+                2,
+                190
+            );
+
+            AdicionarLabelTutorial(
+                "LBL_TutorialJump",
+                "PULAR",
+                new Point(44, 17),
+                7,
+                220
+            );
+
+            // Localiza os marcadores J, K e L do mapa.
+            List<MapTile> marcadores = map.GetTutorialKeyMarkers();
+
+            foreach (MapTile marcador in marcadores)
+            {
+                if (marcador == null || marcador.attributes == null)
+                    continue;
+
+                string valor;
+
+                if (!marcador.attributes.TryGetValue(
+                    "KeysAttack",
+                    out valor))
+                    continue;
+
+                int slot = ObterSlotTutorial(valor);
+
+                if (slot < 0)
+                    continue;
+
+                // Cavaleiro e Princesa não possuem terceira habilidade.
+                if (slot == 2 && _personagem != Personagem.Mago)
+                    continue;
+
+                string texto = ObterTextoTutorialSkill(slot);
+
+                AdicionarLabelTutorial(
+                    "LBL_TutorialSkill" + (slot + 1),
+                    texto,
+                    new Point(marcador.x, marcador.y)
+                );
+            }
+
+            // E já está desenhado no mapa.
+            // Usamos sua posição diretamente, sem exigir atributo novo.
+            AdicionarLabelTutorial(
+                "LBL_TutorialInteract",
+                "INTERAGIR\nAbra baús e ative runas e mecanismos.",
+                new Point(165, 17),
+                2,
+                240
+            );
+
+            AtualizarPosicaoLabelsTutorial();
+        }
+
+        // Atualiza os Labels conforme a posição da câmera.
+        private void AtualizarPosicaoLabelsTutorial()
+        {
+            foreach (KeyValuePair<Label, Point> item
+                in _tutorialLabelsWorldPositions)
+            {
+                Label label = item.Key;
+
+                if (label == null || label.IsDisposed)
+                    continue;
+
+                Point posicaoMundo = item.Value;
+
+                label.Location = new Point(
+                    posicaoMundo.X - _cameraX,
+                    posicaoMundo.Y - _cameraY
+                );
+            }
+        }
+
+        // Remove os Labels quando o jogador sair do tutorial.
+        private void RemoverLabelsTutorial()
+        {
+            foreach (Label label in _tutorialLabelsWorldPositions.Keys.ToList())
+            {
+                if (label == null)
+                    continue;
+
+                world1.Controls.Remove(label);
+                label.Dispose();
+            }
+
+            _tutorialLabelsWorldPositions.Clear();
+        }
+
+        #endregion
+
         private bool CarregarSantuarioDasRaizes()
         {
             if (_transicaoEmAndamento || player == null || player.IsDisposed)
@@ -2444,7 +2678,7 @@ namespace FallenWorld
                 return;
 
             player.Location = new Point(_playerWorldX - _cameraX, _playerWorldY - _cameraY + _playerVisualOffsetY);
-
+            AtualizarPosicaoLabelsTutorial();
             AtualizarPosicaoInimigosNaTela();
             AtualizarPosicaoMidBossNaTela();
             AtualizarPosicaoLichBossNaTela();
@@ -5918,8 +6152,10 @@ namespace FallenWorld
             if (!_santuarioCarregado)
             {
                 if (CarregarSantuarioDasRaizes())
+                {
                     _santuarioCarregado = true;
-
+                    RemoverLabelsTutorial();
+                }
                 return;
             }
 
