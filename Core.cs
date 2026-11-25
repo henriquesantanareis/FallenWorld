@@ -18,11 +18,11 @@ namespace FallenWorld
         public static bool isMovingLeft = false;
         public static bool isMovingRight = false;
         public static bool isJumping = false;
-        
-        //keys attack
-        public static readonly Keys Attack0 = Keys.D1;
-        public static readonly Keys Attack1 = Keys.D2;
-        public static readonly Keys Attack2 = Keys.D3;
+
+        // Skill keys
+        public static readonly Keys Attack0 = Keys.J;
+        public static readonly Keys Attack1 = Keys.K;
+        public static readonly Keys Attack2 = Keys.L;
 
         //bools for attack
         public static bool isAttacking0 = false;
