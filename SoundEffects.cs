@@ -13,6 +13,11 @@ namespace FallenWorld
         #region Variáveis GLobais
         private static readonly object _sync = new object();
         private static readonly List<Playback> _activeSounds = new List<Playback>();
+        // Armazena exclusivamente as vozes dos personagens.
+        private static readonly List<Playback> _activeVoices = new List<Playback>();
+
+        // Identifica solicitações de voz que foram canceladas.
+        private static int _voicePlaybackRequestId = 0;
         private static Playback _fireballFlight;
         // Indica se o som de voo está sendo inicializado.
         private static bool _fireballFlightStarting;
@@ -75,6 +80,92 @@ namespace FallenWorld
                     playback.ForceFinish();
                 }
             });
+        }
+
+        public static void PlayVoice(Stream audioResource, float volume = 1f)
+        {
+            if (audioResource == null)
+                return;
+
+            int requestId;
+
+            lock (_sync)
+            {
+                requestId = _voicePlaybackRequestId;
+            }
+
+            // Inicializa a voz fora da thread principal.
+            Task.Run(() =>
+            {
+                Playback playback = CreatePlayback(
+                    audioResource,
+                    volume,
+                    false
+                );
+
+                if (playback == null)
+                    return;
+
+                bool iniciar = false;
+
+                lock (_sync)
+                {
+                    // Impede iniciar uma voz solicitada antes de StopVoices().
+                    if (requestId == _voicePlaybackRequestId)
+                    {
+                        playback.EnableMusicDucking();
+
+                        _activeVoices.Add(playback);
+                        _activeSounds.Add(playback);
+
+                        // Mantém a redução de volume da música ambiente.
+                        RegistrarSomDucking(playback);
+
+                        iniciar = true;
+
+                        try
+                        {
+                            playback.Start();
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine(
+                                "Erro ao reproduzir voz: " + ex.Message
+                            );
+
+                            playback.ForceFinish();
+                        }
+                    }
+                }
+
+                // Libera uma voz cuja reprodução foi cancelada durante a inicialização.
+                if (!iniciar)
+                    playback.ForceFinish();
+            });
+        }
+
+        public static void StopVoices()
+        {
+            Playback[] vozesParaParar;
+
+            lock (_sync)
+            {
+                // Cancela solicitações de voz que ainda estão sendo inicializadas.
+                _voicePlaybackRequestId++;
+
+                // Copia as vozes atualmente registradas.
+                vozesParaParar = _activeVoices.ToArray();
+
+                // Limpa o registro das vozes ativas.
+                _activeVoices.Clear();
+            }
+
+            // Interrompe cada voz fora do bloqueio.
+            foreach (Playback voz in vozesParaParar)
+            {
+                if (voz != null)
+                    voz.Stop();
+            }
         }
 
         public static void PlayWav(Stream audioResource, float volume = 1f)
@@ -708,6 +799,7 @@ namespace FallenWorld
             lock (_sync)
             {
                 _activeSounds.Remove(playback);
+                _activeVoices.Remove(playback);
 
                 if (_fireballFlight == playback)
                     _fireballFlight = null;
@@ -738,11 +830,15 @@ namespace FallenWorld
             private readonly WaveStream _reader;
             private readonly WaveOutEvent _output;
             private readonly VolumeWaveProvider16 _volumeProvider;
-            private readonly bool _ducksMusic;
+            private bool _ducksMusic;
 
             public bool DucksMusic
             {
                 get { return _ducksMusic; }
+            }
+            public void EnableMusicDucking()
+            {
+                _ducksMusic = true;
             }
             private readonly bool _loop;
 
@@ -755,7 +851,7 @@ namespace FallenWorld
                 _volumeProvider = volumeProvider;
                 _output = output;
                 _loop = loop;
-
+                _ducksMusic = ducksMusic;
                 _output.PlaybackStopped += Output_PlaybackStopped;
             }
 

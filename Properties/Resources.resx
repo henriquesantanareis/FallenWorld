@@ -994,4 +994,28 @@
   <data name="Fallen_Queen_EmeraldBladefall_Wave" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GothicQueen_EmeraldBladefall_Wave.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Vharzun_Forge_Intro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Vharzun_Forge_Intro.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Sylvara_RootsSanctuary_Success" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sylvara_RootsSanctuary_Success.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Sylvara_RootsSanctuary_Intro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sylvara_RootsSanctuary_Intro.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Vharzun_Forge_Failure" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Vharzun_Forge_Failure.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Vharzun_Forge_Success" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Vharzun_Forge_Success.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Vharzun_Forge_Trial_Start" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Vharzun_Forge_Trial_Start.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Vharzun_Forge_ExitWarning" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Vharzun_Forge_ExitWarning.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Sylvara_RootsSanctuary_ExitWarning" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sylvara_RootsSanctuary_ExitWarning.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

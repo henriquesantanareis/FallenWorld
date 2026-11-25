@@ -333,7 +333,7 @@ namespace FallenWorld
         private Point _puzzleChestWorldPosition;
         private bool _puzzleChestAoAlcance = false;
         // Tempo limite do Julgamento das Runas.
-        private const int JudgmentForgeTempoLimiteMs = 10000;
+        private const int JudgmentForgeTempoLimiteMs = 5000;
 
         // Tempo restante para ativar as três runas.
         private int _judgmentForgeTempoRestanteMs = JudgmentForgeTempoLimiteMs;
@@ -354,6 +354,10 @@ namespace FallenWorld
         private Label _judgmentForgeTempoLabel;
         // Indica se a música da Forja já foi iniciada.
         private bool _judgmentForgeMusicaIniciada = false;
+        // Controla se Vharzun já avisou sobre a saída da Forja.
+        private bool _vharzunAvisoSaidaReproduzido = false;
+        // Controla se Sylvara já avisou sobre a saída do Santuário.
+        private bool _sylvaraAvisoSaidaReproduzido = false;
         #endregion
 
         #region Damage and Invulnerability
@@ -376,6 +380,7 @@ namespace FallenWorld
                 SoundEffects.StopManaRecovery();
                 SoundEffects.StopKnightAura();
                 SoundEffects.StopQueenPoisonWave();
+                SoundEffects.StopVoices();
                 SoundEffects.StopWavLoop();
                 LiberarIconesInventario();
             };
@@ -637,8 +642,14 @@ namespace FallenWorld
                 if (spawnTeste == null)
                     throw new Exception("O Spawn do jogador não foi encontrado no Santuário.");
 
+                // Interrompe as vozes do mapa anterior antes da transição.
+                SoundEffects.StopVoices();
+
                 // Carrega o novo mapa e prepara suas colisões.
                 Load_Map(mapJson, spritesheet);
+
+                // Reinicia o aviso de saída da Sylvara ao entrar no Santuário.
+                _sylvaraAvisoSaidaReproduzido = false;
 
                 MapTile spawn = map.GetSpawnPlayer();
 
@@ -741,6 +752,8 @@ namespace FallenWorld
 
                 SoundEffects.StartMp3Loop(Properties.Resources.RootShrine_Ambient,0.30f);
 
+                SoundEffects.PlayVoice(Properties.Resources.Sylvara_RootsSanctuary_Intro,0.9f);
+
                 return true;
             }
             catch (Exception ex)
@@ -791,6 +804,9 @@ namespace FallenWorld
 
                 if (spawnTeste == null)
                     throw new Exception("O Spawn do jogador não foi encontrado no Mapa 1.");
+
+                // Interrompe as vozes do mapa anterior antes da transição.
+                SoundEffects.StopVoices();
 
                 // Remove os objetos do puzzle anterior.
                 LimparPuzzleRunes();
@@ -948,6 +964,9 @@ namespace FallenWorld
 
                 if (spawnTeste == null)
                     throw new Exception("Spawn do jogador não encontrado nas Ruínas.");
+
+                // Interrompe as vozes do mapa anterior antes da transição.
+                SoundEffects.StopVoices();
 
                 // Remove os objetos dos puzzles anteriores.
                 LimparPuzzleRunes();
@@ -1117,6 +1136,9 @@ namespace FallenWorld
 
                 if (spawnTeste == null)
                     throw new Exception("Spawn do jogador não encontrado no Mapa 2.");
+
+                // Interrompe as vozes do mapa anterior antes da transição.
+                SoundEffects.StopVoices();
 
                 // Remove os objetos dos puzzles anteriores.
                 LimparPuzzleRunes();
@@ -1292,6 +1314,9 @@ namespace FallenWorld
                 if (spawnTeste == null)
                     throw new Exception("Spawn do jogador não encontrado na Forja do Julgamento.");
 
+                // Interrompe as vozes do mapa anterior antes da transição.
+                SoundEffects.StopVoices();
+
                 // Remove os objetos dos puzzles anteriores.
                 LimparPuzzleRunes();
                 LimparPuzzleChest();
@@ -1309,6 +1334,7 @@ namespace FallenWorld
                 // Interrompe a música da arena anterior.
                 SoundEffects.StopWavLoop();
                 _judgmentForgeMusicaIniciada = false;
+                _vharzunAvisoSaidaReproduzido = false;
 
                 // Carrega o novo mapa e suas colisões.
                 Load_Map(mapJson, spritesheet);
@@ -1426,6 +1452,12 @@ namespace FallenWorld
 
                 world1.Invalidate();
 
+                // Vharzun anuncia o desafio ao jogador ao entrar na Forja.
+                SoundEffects.PlayVoice(
+                    Properties.Resources.Vharzun_Forge_Intro,
+                    0.9f
+                );
+
                 return true;
             }
             catch (Exception ex)
@@ -1478,6 +1510,9 @@ namespace FallenWorld
 
                 if (spawnTeste == null)
                     throw new Exception("Spawn do jogador não encontrado na Arena dos Chefes Finais.");
+
+                // Interrompe as vozes do mapa anterior antes da transição.
+                SoundEffects.StopVoices();
 
                 // Remove os objetos do puzzle anterior.
                 LimparPuzzleRunes();
@@ -1971,27 +2006,27 @@ namespace FallenWorld
             switch (sequencia)
             {
                 case "123": // Tharok -> Elyra -> Vaelis
-                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_01,0.9f);
+                    SoundEffects.PlayVoice(Properties.Resources.GuardianVoice_Sequence_01,0.9f);
                     break;
 
                 case "132": // Tharok -> Vaelis -> Elyra
-                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_02,0.9f);
+                    SoundEffects.PlayVoice(Properties.Resources.GuardianVoice_Sequence_02,0.9f);
                     break;
 
                 case "213": // Elyra -> Tharok -> Vaelis
-                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_03,0.9f);
+                    SoundEffects.PlayVoice(Properties.Resources.GuardianVoice_Sequence_03,0.9f);
                     break;
 
                 case "231": // Elyra -> Vaelis -> Tharok
-                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_04,0.9f);
+                    SoundEffects.PlayVoice(Properties.Resources.GuardianVoice_Sequence_04,0.9f);
                     break;
 
                 case "312": // Vaelis -> Tharok -> Elyra
-                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_05,0.9f);
+                    SoundEffects.PlayVoice(Properties.Resources.GuardianVoice_Sequence_05,0.9f);
                     break;
 
                 case "321": // Vaelis -> Elyra -> Tharok
-                    SoundEffects.Play(Properties.Resources.GuardianVoice_Sequence_06,0.9f);
+                    SoundEffects.PlayVoice(Properties.Resources.GuardianVoice_Sequence_06,0.9f);
                     break;
             }
             
@@ -2102,8 +2137,11 @@ namespace FallenWorld
                         {
                             if (_judgmentForgeCarregado)
                             {
-                                // Inicia a música na primeira ativação.
-                                if (!_judgmentForgeMusicaIniciada)
+                                // Verifica se esta é a primeira runa ativada.
+                                bool primeiraAtivacao = !_judgmentForgeMusicaIniciada;
+
+                                // Inicia a música somente na primeira ativação.
+                                if (primeiraAtivacao)
                                 {
                                     SoundEffects.StartMp3Loop(
                                         Properties.Resources.Judgment_Forge,
@@ -2118,7 +2156,17 @@ namespace FallenWorld
                                     0.8f
                                 );
 
-                                // A primeira runa também inicia o cronômetro.
+                                // Vharzun anuncia o início do julgamento.
+                                // Esta fala acontece somente na primeira ativação.
+                                if (primeiraAtivacao)
+                                {
+                                    SoundEffects.PlayVoice(
+                                        Properties.Resources.Vharzun_Forge_Trial_Start,
+                                        0.9f
+                                    );
+                                }
+
+                                // A contagem começa imediatamente após a primeira runa.
                                 IniciarContagemJulgamento();
                             }
                             else
@@ -5729,12 +5777,17 @@ namespace FallenWorld
             // Impede sair da Forja sem concluir o Julgamento.
             if (_judgmentForgeCarregado && !_finalBossArenaCarregada && !_puzzleCompleto)
             {
-                MessageBox.Show(
-                    "Você precisa concluir o Julgamento das Runas antes de continuar.",
-                    "Forja do Julgamento",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                // Reproduz o aviso de Vharzun somente uma vez.
+                if (!_vharzunAvisoSaidaReproduzido)
+                {
+                    _vharzunAvisoSaidaReproduzido = true;
+
+
+                    SoundEffects.PlayVoice(
+                        Properties.Resources.Vharzun_Forge_ExitWarning,
+                        0.9f
+                    );
+                }
 
                 return;
             }
@@ -5768,12 +5821,17 @@ namespace FallenWorld
             // Impede sair do Santuário sem ativar as três runas.
             if (_santuarioCarregado && !_mapa1Carregado && !_puzzleCompleto)
             {
-                MessageBox.Show(
-                    "Você precisa ativar as três runas do Santuário das Raízes antes de continuar.",
-                    "Santuário das Raízes",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                // Reproduz o aviso de Sylvara somente uma vez.
+                if (!_sylvaraAvisoSaidaReproduzido)
+                {
+                    _sylvaraAvisoSaidaReproduzido = true;
+
+
+                    SoundEffects.PlayVoice(
+                        Properties.Resources.Sylvara_RootsSanctuary_ExitWarning,
+                        0.9f
+                    );
+                }
 
                 return;
             }
@@ -5952,6 +6010,12 @@ namespace FallenWorld
                 if (IsDisposed || Disposing)
                     return;
 
+                // Vharzun reconhece a conclusão do julgamento.
+                SoundEffects.PlayVoice(
+                    Properties.Resources.Vharzun_Forge_Success,
+                    0.9f
+                );
+
                 // Revela o baú após a abertura do mecanismo.
                 if (_puzzleChest != null && !_puzzleChest.IsDisposed)
                 {
@@ -5976,6 +6040,12 @@ namespace FallenWorld
             // Evita acessar controles caso o formulário tenha sido fechado.
             if (IsDisposed || Disposing)
                 return;
+
+            // Sylvara celebra a conclusão do puzzle do Santuário.
+            SoundEffects.PlayVoice(
+                Properties.Resources.Sylvara_RootsSanctuary_Success,
+                0.9f
+            );
 
             // Revela o baú após o som.
             if (_puzzleChest != null && !_puzzleChest.IsDisposed)
@@ -6431,10 +6501,9 @@ namespace FallenWorld
         #region Judgment Forge Countdown
         private void CriarIndicadorTempoJulgamento()
         {
-            if (_judgmentForgeTempoLabel != null &&
-                !_judgmentForgeTempoLabel.IsDisposed)
+            if (_judgmentForgeTempoLabel != null && !_judgmentForgeTempoLabel.IsDisposed)
             {
-                _judgmentForgeTempoLabel.Text = "TEMPO: 10s";
+                _judgmentForgeTempoLabel.Text = "TEMPO: 5s";
                 _judgmentForgeTempoLabel.Visible = false;
                 return;
             }
@@ -6442,7 +6511,7 @@ namespace FallenWorld
             _judgmentForgeTempoLabel = new Label();
 
             _judgmentForgeTempoLabel.Name = "LBL_JudgmentForgeTimer";
-            _judgmentForgeTempoLabel.Text = "TEMPO: 10s";
+            _judgmentForgeTempoLabel.Text = "TEMPO: 5s";
             _judgmentForgeTempoLabel.AutoSize = true;
 
             _judgmentForgeTempoLabel.Font = new Font("Arial", 14, FontStyle.Bold);
@@ -6456,9 +6525,16 @@ namespace FallenWorld
 
             _judgmentForgeTempoLabel.Visible = false;
 
+            // Posiciona o cronômetro acima da caixa de avanço do mapa.
+            int topoPromptStage = (_stagePrompt != null && !_stagePrompt.IsDisposed)
+                ? _stagePrompt.Top
+                : world1.ClientSize.Height - 24;
+
+            int posicaoY = topoPromptStage - _judgmentForgeTempoLabel.Height - 10;
+
             _judgmentForgeTempoLabel.Location = new Point(
                 (world1.ClientSize.Width - _judgmentForgeTempoLabel.Width) / 2,
-                16
+                posicaoY
             );
 
             world1.Controls.Add(_judgmentForgeTempoLabel);
@@ -6467,9 +6543,7 @@ namespace FallenWorld
 
         private void IniciarContagemJulgamento()
         {
-            if (!_judgmentForgeCarregado ||
-                _judgmentForgeContagemAtiva || 
-                _judgmentForgeContagemFalhou)
+            if (!_judgmentForgeCarregado || _judgmentForgeContagemAtiva || _judgmentForgeContagemFalhou)
                 return;
 
             _judgmentForgeTempoRestanteMs = JudgmentForgeTempoLimiteMs;
@@ -6479,7 +6553,7 @@ namespace FallenWorld
 
             if (_judgmentForgeTempoLabel != null && !_judgmentForgeTempoLabel.IsDisposed)
             {
-                _judgmentForgeTempoLabel.Text = "TEMPO: 10s";
+                _judgmentForgeTempoLabel.Text = "TEMPO: 5s";
                 _judgmentForgeTempoLabel.Visible = true;
                 _judgmentForgeTempoLabel.BringToFront();
             }
@@ -6487,9 +6561,7 @@ namespace FallenWorld
 
         private void AtualizarContagemJulgamento()
         {
-            if (!_judgmentForgeCarregado ||
-                !_judgmentForgeContagemAtiva ||
-                _judgmentForgeContagemFalhou)
+            if (!_judgmentForgeCarregado || !_judgmentForgeContagemAtiva || _judgmentForgeContagemFalhou)
                 return;
 
             _judgmentForgeTempoAcumuladoMs += TMR_Game.Interval;
@@ -6523,6 +6595,12 @@ namespace FallenWorld
         {
             // Interrompe a música da Forja.
             SoundEffects.StopWavLoop();
+
+            // Vharzun repreende o jogador por falhar no julgamento.
+            SoundEffects.PlayVoice(
+                Properties.Resources.Vharzun_Forge_Failure,
+                0.9f
+            );
 
             if (player == null || player.IsDisposed || player.EstaMorto)
                 return;
