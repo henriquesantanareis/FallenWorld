@@ -2963,17 +2963,46 @@ namespace FallenWorld
                     break;
 
                 case Personagem.Princesa:
+
+                    // Habilidade 1: Strong Sword Attack.
                     if (state == StatePlayer.Attack)
-                        AplicarDanoAosInimigos(15, 48);
+                    {
+                        // Som do movimento da espada.
+                        SoundEffects.PlayWav(
+                            Properties.Resources.Princess_Sword_Swing,
+                            0.85f
+                        );
+
+                        // Calcula o dano com o bônus das Runas de Poder.
+                        int danoAtaque = CalcularDanoComRunaPoder(40, 25);
+
+                        // Aplica o dano e verifica se algum alvo foi atingido.
+                        bool atingiuAlvo = AplicarDanoAosInimigos(danoAtaque, 48);
+
+                        // Som do impacto somente quando acertar.
+                        if (atingiuAlvo)
+                        {
+                            SoundEffects.PlayWav(
+                                Properties.Resources.Princess_Sword_Impact,
+                                0.90f
+                            );
+                        }
+                    }
+
+                    // Habilidade 2: Poison Attack.
                     else if (state == StatePlayer.Poison_Attack)
                     {
                         // Som do ataque envenenado.
-                        SoundEffects.Play(Properties.Resources.Princess_Poison_Attack, 0.90f);
+                        SoundEffects.Play(
+                            Properties.Resources.Princess_Poison_Attack,
+                            0.90f
+                        );
 
                         int danoVeneno = CalcularDanoComRunaPoder(20, 25);
 
                         AplicarDanoAosInimigos(danoVeneno, 48, true);
                     }
+
                     break;
             }
         }
@@ -3221,7 +3250,7 @@ namespace FallenWorld
                     break;
 
                 case Personagem.Princesa:
-                    habilidadesDisponiveis = new int[] { 1 };
+                    habilidadesDisponiveis = new int[] { 0, 1 };
                     break;
 
                 default:
@@ -5556,16 +5585,21 @@ namespace FallenWorld
                     }
                     break;
                 case Personagem.Princesa:
-                    /*if (Core.isAttack0)
+
+                    // Habilidade 1: Strong Sword Attack.
+                    if (Core.isAttacking0)
                     {
-                        
-                    }*/
-                    //Habilidade 2: Poison Attack
+                        Core.isAttacking0 = false;
+                        player.SetAttack();
+                    }
+
+                    // Habilidade 2: Poison Attack.
                     if (Core.isAttacking1)
                     {
                         Core.isAttacking1 = false;
                         player.SetPoisonAttack();
                     }
+
                     break;
             }
             

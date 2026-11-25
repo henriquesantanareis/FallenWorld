@@ -2751,6 +2751,24 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Princess_Sword_Impact {
+            get {
+                return ResourceManager.GetStream("Princess_Sword_Impact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream Princess_Sword_Swing {
+            get {
+                return ResourceManager.GetStream("Princess_Sword_Swing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a {
         ///  &quot;object&quot;: {
         ///    &quot;id&quot;: &quot;642a3696-c8cb-4bd0-b318-5f245b5529ab&quot;,

@@ -306,7 +306,7 @@ namespace FallenWorld
                             break;
                         case StatePlayer.Attack:
                             _currentRow = _facingRight ? 11 : 12;
-                            _frameCount = 8;
+                            _frameCount = 9;
                             break;
                         case StatePlayer.Poison_Attack:
                             _currentRow = _facingRight ? 1 : 2;
