@@ -241,10 +241,10 @@
     <value>NoControl</value>
   </data>
   <data name="BTN_PLAY.Location" type="System.Drawing.Point, System.Drawing">
-    <value>570, 5</value>
+    <value>280, 454</value>
   </data>
   <data name="BTN_PLAY.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 86</value>
+    <value>240, 82</value>
   </data>
   <data name="BTN_PLAY.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -271,10 +271,10 @@
     <value>NoControl</value>
   </data>
   <data name="BTN_EXIT.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 5</value>
+    <value>12, 12</value>
   </data>
   <data name="BTN_EXIT.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 86</value>
+    <value>240, 82</value>
   </data>
   <data name="BTN_EXIT.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -307,13 +307,67 @@
     <value>True</value>
   </data>
   <data name="PNL_Description_Character.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>None</value>
+    <value>Zoom</value>
+  </data>
+  <data name="LBL_Name_Character.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Fallen World Pixel, 18pt</value>
+  </data>
+  <data name="LBL_Name_Character.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 43</value>
+  </data>
+  <data name="LBL_Name_Character.Size" type="System.Drawing.Size, System.Drawing">
+    <value>236, 26</value>
+  </data>
+  <data name="LBL_Name_Character.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="LBL_Name_Character.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;LBL_Name_Character.Name" xml:space="preserve">
+    <value>LBL_Name_Character</value>
+  </data>
+  <data name="&gt;&gt;LBL_Name_Character.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_Name_Character.Parent" xml:space="preserve">
+    <value>PNL_Description_Character</value>
+  </data>
+  <data name="&gt;&gt;LBL_Name_Character.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="LBL_Description_Character.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Fallen World Pixel, 15.75pt</value>
+  </data>
+  <data name="LBL_Description_Character.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 91</value>
+  </data>
+  <data name="LBL_Description_Character.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 91</value>
+  </data>
+  <data name="LBL_Description_Character.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="LBL_Description_Character.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;LBL_Description_Character.Name" xml:space="preserve">
+    <value>LBL_Description_Character</value>
+  </data>
+  <data name="&gt;&gt;LBL_Description_Character.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_Description_Character.Parent" xml:space="preserve">
+    <value>PNL_Description_Character</value>
+  </data>
+  <data name="&gt;&gt;LBL_Description_Character.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="PNL_Description_Character.Location" type="System.Drawing.Point, System.Drawing">
-    <value>499, 358</value>
+    <value>496, 216</value>
   </data>
   <data name="PNL_Description_Character.Size" type="System.Drawing.Size, System.Drawing">
-    <value>287, 228</value>
+    <value>296, 224</value>
   </data>
   <data name="PNL_Description_Character.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -10489,6 +10543,9 @@
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>798, 598</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Fallen World Pixel, 8.25pt</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

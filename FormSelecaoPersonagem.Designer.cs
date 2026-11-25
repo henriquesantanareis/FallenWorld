@@ -40,6 +40,9 @@ namespace FallenWorld
             this.TMR_Music_Princess = new System.Windows.Forms.Timer(this.components);
             this.TMR_Music_choose_charactes = new System.Windows.Forms.Timer(this.components);
             this.PNL_Description_Character = new System.Windows.Forms.Panel();
+            this.LBL_Name_Character = new System.Windows.Forms.Label();
+            this.LBL_Description_Character = new System.Windows.Forms.Label();
+            this.PNL_Description_Character.SuspendLayout();
             this.SuspendLayout();
             // 
             // RDB_Mage
@@ -106,7 +109,7 @@ namespace FallenWorld
             this.BTN_PLAY.Image = global::FallenWorld.Properties.Resources.BTN_Play_normal;
             this.BTN_PLAY.Name = "BTN_PLAY";
             this.BTN_PLAY.TabStop = false;
-            this.BTN_PLAY.UseVisualStyleBackColor = true;
+            this.BTN_PLAY.UseVisualStyleBackColor = false;
             this.BTN_PLAY.Click += new System.EventHandler(this.BTN_Jogar_Click);
             this.BTN_PLAY.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BTN_PLAY_MouseDown);
             this.BTN_PLAY.MouseEnter += new System.EventHandler(this.BTN_PLAY_MouseEnter);
@@ -122,7 +125,7 @@ namespace FallenWorld
             this.BTN_EXIT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BTN_EXIT.Image = global::FallenWorld.Properties.Resources.BTN_Exit_normal;
             this.BTN_EXIT.Name = "BTN_EXIT";
-            this.BTN_EXIT.UseVisualStyleBackColor = true;
+            this.BTN_EXIT.UseVisualStyleBackColor = false;
             this.BTN_EXIT.Click += new System.EventHandler(this.BTN_EXIT_Click);
             this.BTN_EXIT.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BTN_EXIT_KeyDown);
             this.BTN_EXIT.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BTN_EXIT_MouseDown);
@@ -135,7 +138,21 @@ namespace FallenWorld
             resources.ApplyResources(this.PNL_Description_Character, "PNL_Description_Character");
             this.PNL_Description_Character.BackColor = System.Drawing.Color.Transparent;
             this.PNL_Description_Character.BackgroundImage = global::FallenWorld.Properties.Resources.UI_Character_Description;
+            this.PNL_Description_Character.Controls.Add(this.LBL_Name_Character);
+            this.PNL_Description_Character.Controls.Add(this.LBL_Description_Character);
             this.PNL_Description_Character.Name = "PNL_Description_Character";
+            // 
+            // LBL_Name_Character
+            // 
+            resources.ApplyResources(this.LBL_Name_Character, "LBL_Name_Character");
+            this.LBL_Name_Character.ForeColor = System.Drawing.Color.Gold;
+            this.LBL_Name_Character.Name = "LBL_Name_Character";
+            // 
+            // LBL_Description_Character
+            // 
+            resources.ApplyResources(this.LBL_Description_Character, "LBL_Description_Character");
+            this.LBL_Description_Character.ForeColor = System.Drawing.Color.Gainsboro;
+            this.LBL_Description_Character.Name = "LBL_Description_Character";
             // 
             // FormSelecaoPersonagem
             // 
@@ -155,6 +172,7 @@ namespace FallenWorld
             this.MinimizeBox = false;
             this.Name = "FormSelecaoPersonagem";
             this.Load += new System.EventHandler(this.FormSelecaoPersonagem_Load);
+            this.PNL_Description_Character.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -172,5 +190,7 @@ namespace FallenWorld
         private System.Windows.Forms.Timer TMR_Music_Princess;
         private System.Windows.Forms.Timer TMR_Music_choose_charactes;
         private System.Windows.Forms.Panel PNL_Description_Character;
+        private System.Windows.Forms.Label LBL_Name_Character;
+        private System.Windows.Forms.Label LBL_Description_Character;
     }
 }

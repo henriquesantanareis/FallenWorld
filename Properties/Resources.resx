@@ -1021,4 +1021,7 @@
   <data name="BTN_Play_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BTN_Play_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Fallen_World_Pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fallen World Pixel.ttf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

@@ -78,6 +78,7 @@ namespace FallenWorld
         }
         #endregion
 
+        #region Preview character
         private void MostrarPreviewPersonagem(Personagem personagem)
         {
             // Evita recriar a prévia do mesmo personagem.
@@ -137,6 +138,7 @@ namespace FallenWorld
 
             _personagemPreviewAtual = personagem;
         }
+        #endregion
 
         #region Personagem selection
         private void checkPersonagem(object sender, EventArgs e)
@@ -174,7 +176,35 @@ namespace FallenWorld
             else
             {
                 TipoPersonagem.EscolherPersonagem(Personagem.Nenhum);
-            }                      
+            }
+            // Atualiza as informações do personagem selecionado.
+            AtualizarDescricaoPersonagem(TipoPersonagem.PersonagemEscolhido);
+        }
+        #endregion
+
+        #region Update character description
+        private void AtualizarDescricaoPersonagem(Personagem personagem)
+        {
+            switch (personagem)
+            {
+                case Personagem.Mago:
+                    LBL_Name_Character.Text = "ELDRIC";
+                    LBL_Description_Character.Text =
+                        "Ataca à distância com bolas de fogo que consomem mana.";
+                    break;
+
+                case Personagem.Cavaleiro:
+                    LBL_Name_Character.Text = "ALARIC";
+                    LBL_Description_Character.Text =
+                        "Combate de perto com sua espada e fortalece sua defesa com uma aura.";
+                    break;
+
+                case Personagem.Princesa:
+                    LBL_Name_Character.Text = "LYSANDRA";
+                    LBL_Description_Character.Text =
+                        "Usa uma espada envenenada para enfraquecer seus inimigos.";
+                    break;
+            }
         }
         #endregion
 
@@ -351,29 +381,29 @@ namespace FallenWorld
         
         private void BTN_EXIT_MouseEnter(object sender, EventArgs e)
         {
-            BTN_EXIT.BackgroundImage = Properties.Resources.BTN_Exit_hover;
+            BTN_EXIT.Image = Properties.Resources.BTN_Exit_hover;
         }
 
         private void BTN_EXIT_MouseLeave(object sender, EventArgs e)
         {
-            BTN_EXIT.BackgroundImage = Properties.Resources.BTN_Exit_normal;
+            BTN_EXIT.Image = Properties.Resources.BTN_Exit_normal;
         }
 
         private void BTN_EXIT_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
-                BTN_EXIT.BackgroundImage = Properties.Resources.BTN_Exit_pressed;
+                BTN_EXIT.Image = Properties.Resources.BTN_Exit_pressed;
         }
 
         private void BTN_EXIT_MouseUp(object sender, MouseEventArgs e)
         {
             if (BTN_EXIT.ClientRectangle.Contains(BTN_EXIT.PointToClient(Cursor.Position)))
             {
-                BTN_EXIT.BackgroundImage = Properties.Resources.BTN_Exit_hover;
+                BTN_EXIT.Image = Properties.Resources.BTN_Exit_hover;
             }
             else
             {
-                BTN_EXIT.BackgroundImage = Properties.Resources.BTN_Exit_normal;
+                BTN_EXIT.Image = Properties.Resources.BTN_Exit_normal;
             }
         }
         #endregion

@@ -1326,6 +1326,16 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a 
+        ///� OS/2EDo(`cmapO���glyf�8/�head0���6hhea���$hmtx��Bloca�        ///d�maxpj^ name�d�3��post$���5HFn2��_&lt;��,#��,#��@�@�@�@�OR\��????@ z@�@@� ���@@@@@��@@@�@@@�@@�����@@ [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        public static string Fallen_World_Pixel {
+            get {
+                return ResourceManager.GetString("Fallen_World_Pixel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a {&quot;tileSize&quot;:32,&quot;mapWidth&quot;:73,&quot;mapHeight&quot;:26,&quot;layers&quot;:[{&quot;name&quot;:&quot;floor&quot;,&quot;tiles&quot;:[{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:15,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:16,&quot;y&quot;:17,&quot;attributes&quot;:{&quot;Spawn&quot;:&quot;player&quot;}},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:17,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:18,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:19,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:20,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:21,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:22,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:23,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:24,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:25,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,&quot;x&quot;:26,&quot;y&quot;:17},{&quot;id&quot;:&quot;0&quot;,....
         /// </summary>
         public static string FinalBossMap_js {
