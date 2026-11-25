@@ -1027,4 +1027,10 @@
   <data name="Orc_Attack_Swing" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Orc_Attack_Swing.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="MidBoss_Attack1_Swing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MidBoss_Attack1_Swing.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MidBoss_Attack2_Swing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MidBoss_Attack2_Swing.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
