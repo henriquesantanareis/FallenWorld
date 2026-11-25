@@ -71,6 +71,66 @@ namespace FallenWorld.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap BTN_Exit_hover {
+            get {
+                object obj = ResourceManager.GetObject("BTN_Exit_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap BTN_Exit_normal {
+            get {
+                object obj = ResourceManager.GetObject("BTN_Exit_normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap BTN_Exit_pressed {
+            get {
+                object obj = ResourceManager.GetObject("BTN_Exit_pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap BTN_Play_hover {
+            get {
+                object obj = ResourceManager.GetObject("BTN_Play_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap BTN_Play_normal {
+            get {
+                object obj = ResourceManager.GetObject("BTN_Play_normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap BTN_Play_pressed {
+            get {
+                object obj = ResourceManager.GetObject("BTN_Play_pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
         /// </summary>
         public static System.IO.UnmanagedMemoryStream Cinderwick_s_Crooked_Grin {
@@ -944,36 +1004,6 @@ namespace FallenWorld.Properties {
         public static System.Drawing.Bitmap Enygma_Chest_sprite {
             get {
                 object obj = ResourceManager.GetObject("Enygma_Chest_sprite", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Exit_hover {
-            get {
-                object obj = ResourceManager.GetObject("Exit_hover", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Exit_normal {
-            get {
-                object obj = ResourceManager.GetObject("Exit_normal", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Exit_pressed {
-            get {
-                object obj = ResourceManager.GetObject("Exit_pressed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2290,36 +2320,6 @@ namespace FallenWorld.Properties {
         public static string Orc_Spritesheet_js {
             get {
                 return ResourceManager.GetString("Orc_Spritesheet_js", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Play_hover {
-            get {
-                object obj = ResourceManager.GetObject("Play_hover", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Play_normal {
-            get {
-                object obj = ResourceManager.GetObject("Play_normal", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Play_pressed {
-            get {
-                object obj = ResourceManager.GetObject("Play_pressed", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

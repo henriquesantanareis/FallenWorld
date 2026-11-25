@@ -307,29 +307,29 @@ namespace FallenWorld
 
         private void BTN_PLAY_MouseEnter(object sender, EventArgs e)
         {
-            BTN_PLAY.Image = Properties.Resources.Play_hover;
+            BTN_PLAY.Image = Properties.Resources.BTN_Play_hover;
         }
 
         private void BTN_PLAY_MouseLeave(object sender, EventArgs e)
         {
-            BTN_PLAY.Image = Properties.Resources.Play_normal;
+            BTN_PLAY.Image = Properties.Resources.BTN_Play_normal;
         }
 
         private void BTN_PLAY_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
-                BTN_PLAY.Image = Properties.Resources.Play_pressed;
+                BTN_PLAY.Image = Properties.Resources.BTN_Play_pressed;
         }
 
         private void BTN_PLAY_MouseUp(object sender, MouseEventArgs e)
         {
             if (BTN_PLAY.ClientRectangle.Contains(BTN_PLAY.PointToClient(Cursor.Position)))
             {
-                BTN_PLAY.Image = Properties.Resources.Play_hover;
+                BTN_PLAY.Image = Properties.Resources.BTN_Play_hover;
             }
             else
             {
-                BTN_PLAY.Image = Properties.Resources.Play_normal;
+                BTN_PLAY.Image = Properties.Resources.BTN_Play_normal;
             }
         }
         #endregion
@@ -337,43 +337,43 @@ namespace FallenWorld
         #region Botão Sair
         private void BTN_EXIT_Click(object sender, EventArgs e)
         {
-            BTN_EXIT.Image = Properties.Resources.Exit_pressed;
+            BTN_EXIT.Image = Properties.Resources.BTN_Exit_pressed;
             this.Close();
         }
         private void BTN_EXIT_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Escape)
             {
-                BTN_EXIT.Image = Properties.Resources.Exit_pressed;
+                BTN_EXIT.Image = Properties.Resources.BTN_Exit_pressed;
                 this.Close();
             }
         }
         
         private void BTN_EXIT_MouseEnter(object sender, EventArgs e)
         {
-            BTN_EXIT.BackgroundImage = Properties.Resources.Exit_hover;
+            BTN_EXIT.BackgroundImage = Properties.Resources.BTN_Exit_hover;
         }
 
         private void BTN_EXIT_MouseLeave(object sender, EventArgs e)
         {
-            BTN_EXIT.BackgroundImage = Properties.Resources.Exit_normal;
+            BTN_EXIT.BackgroundImage = Properties.Resources.BTN_Exit_normal;
         }
 
         private void BTN_EXIT_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
-                BTN_EXIT.BackgroundImage = Properties.Resources.Exit_pressed;
+                BTN_EXIT.BackgroundImage = Properties.Resources.BTN_Exit_pressed;
         }
 
         private void BTN_EXIT_MouseUp(object sender, MouseEventArgs e)
         {
             if (BTN_EXIT.ClientRectangle.Contains(BTN_EXIT.PointToClient(Cursor.Position)))
             {
-                BTN_EXIT.BackgroundImage = Properties.Resources.Exit_hover;
+                BTN_EXIT.BackgroundImage = Properties.Resources.BTN_Exit_hover;
             }
             else
             {
-                BTN_EXIT.BackgroundImage = Properties.Resources.Exit_normal;
+                BTN_EXIT.BackgroundImage = Properties.Resources.BTN_Exit_normal;
             }
         }
         #endregion

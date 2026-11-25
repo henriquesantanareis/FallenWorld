@@ -2101,7 +2101,7 @@ namespace FallenWorld
             // Exit game
             if (e.KeyCode == Core.Exit)
             {
-                BTN_EXIT.Image = Properties.Resources.Exit_pressed;
+                BTN_EXIT.Image = Properties.Resources.BTN_Exit_pressed;
                 Core.isExiting = true;
                 return;
             }
@@ -2219,7 +2219,7 @@ namespace FallenWorld
             }
             if (e.KeyCode == Core.Exit)
             {
-                BTN_EXIT.Image = Properties.Resources.Exit_normal;
+                BTN_EXIT.Image = Properties.Resources.BTN_Exit_normal;
                 Core.isExiting = false;
                 this.Close();
                 return;

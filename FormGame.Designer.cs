@@ -178,17 +178,16 @@
             // 
             // BTN_EXIT
             // 
-            this.BTN_EXIT.AutoSize = true;
             this.BTN_EXIT.BackColor = System.Drawing.Color.Transparent;
-            this.BTN_EXIT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BTN_EXIT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BTN_EXIT.FlatAppearance.BorderSize = 0;
             this.BTN_EXIT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BTN_EXIT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BTN_EXIT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_EXIT.Image = global::FallenWorld.Properties.Resources.Exit_normal;
-            this.BTN_EXIT.Location = new System.Drawing.Point(672, 4);
+            this.BTN_EXIT.Image = global::FallenWorld.Properties.Resources.BTN_Exit_normal;
+            this.BTN_EXIT.Location = new System.Drawing.Point(7, 510);
             this.BTN_EXIT.Name = "BTN_EXIT";
-            this.BTN_EXIT.Size = new System.Drawing.Size(109, 46);
+            this.BTN_EXIT.Size = new System.Drawing.Size(216, 86);
             this.BTN_EXIT.TabIndex = 4;
             this.BTN_EXIT.TabStop = false;
             this.BTN_EXIT.UseVisualStyleBackColor = false;
