@@ -3250,7 +3250,7 @@ namespace FallenWorld
                     break;
 
                 case Personagem.Princesa:
-                    habilidadesDisponiveis = new int[] { 1 };
+                    habilidadesDisponiveis = new int[] { 0, 1 };
                     break;
 
                 default:
