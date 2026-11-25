@@ -458,7 +458,8 @@ namespace FallenWorld
             AtualizarCamera();
             AtualizarPosicaoPlayerNaTela();
             player.BringToFront();
-            LoadPuzzleChest(true);
+            // O baú do tutorial permanece interativo, mas não entrega recompensa.
+            LoadPuzzleChest(true, false);
             CriarPromptStage();
         }
         #endregion
@@ -1249,9 +1250,6 @@ namespace FallenWorld
 
                 // Carrega o Mid-Boss.
                 LoadMidBoss();
-
-                // Cria o baú do Mapa 2, inicialmente escondido.
-                LoadPuzzleChest(false);
 
                 AtualizarPosicaoPlayerNaTela();
                 player.BringToFront();
@@ -4578,12 +4576,6 @@ namespace FallenWorld
             // Registra a derrota do chefe.
             _midBossDefeated = true;
 
-            // Revela o baú.
-            if (_puzzleChest != null && !_puzzleChest.IsDisposed)
-            {
-                _puzzleChest.Visible = true;
-            }
-
             // Mantém o jogador à frente dos objetos.
             if (player != null && !player.IsDisposed)
             {
@@ -6254,9 +6246,9 @@ namespace FallenWorld
         #endregion
 
         #region Puzzle Chest
-        private void LoadPuzzleChest(bool visivelInicialmente)
+        private void LoadPuzzleChest(bool visivelInicialmente,bool entregarRecompensa = true)
         {
-            _recompensaBauEntregue = false;
+            _recompensaBauEntregue = !entregarRecompensa;
 
             if (map == null)
                 return;
