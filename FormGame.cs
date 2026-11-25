@@ -649,13 +649,13 @@ namespace FallenWorld
                     switch (slot)
                     {
                         case 0:
-                            return "ATAQUE COM CAJADO\nGolpe direto com o cajado.";
+                            return "ATAQUE COM CAJADO";
 
                         case 1:
-                            return "BOLA DE FOGO\nDispara um projétil mágico (50 mana).";
+                            return "BOLA DE FOGO";
 
                         case 2:
-                            return "RECUPERAR MANA\nFique parado para recuperar mana.";
+                            return "RECUPERAR MANA";
                     }
                     break;
 
@@ -663,10 +663,10 @@ namespace FallenWorld
                     switch (slot)
                     {
                         case 0:
-                            return "AURA DO CAVALEIRO\nFortalece seus ataques temporariamente.";
+                            return "AURA";
 
                         case 1:
-                            return "GOLPE DE ESPADA\nExecuta um ataque com a espada.";
+                            return "GOLPE DE ESPADA";
                     }
                     break;
 
@@ -674,10 +674,10 @@ namespace FallenWorld
                     switch (slot)
                     {
                         case 0:
-                            return "ATAQUE FORTE\nGolpe de espada de maior dano.";
+                            return "ATAQUE FORTE";
 
                         case 1:
-                            return "ATAQUE VENENOSO\nAtaca e aplica veneno ao inimigo.";
+                            return "ATAQUE VENENOSO";
                     }
                     break;
             }
@@ -685,12 +685,7 @@ namespace FallenWorld
             return null;
         }
 
-        private void AdicionarLabelTutorial(
-    string nome,
-    string texto,
-    Point posicaoTile,
-    int larguraTiles = 1,
-    int larguraLabel = 230)
+        private void AdicionarLabelTutorial(string nome,string texto,Point posicaoTile,int larguraTiles = 1)
         {
             if (map == null || string.IsNullOrWhiteSpace(texto))
                 return;
@@ -699,33 +694,93 @@ namespace FallenWorld
 
             label.Name = nome;
             label.Text = texto;
-            label.AutoSize = false;
 
-            label.Size = new Size(larguraLabel, 56);
+            // O Label ocupa somente o espaço necessário para o texto.
+            label.AutoSize = true;
+            label.MaximumSize = new Size(160, 0);
 
             label.Font = new Font(
                 "Arial",
-                8.5f,
+                14f,
                 FontStyle.Bold
             );
 
-            label.ForeColor = Color.FromArgb(245, 225, 170);
-            label.BackColor = Color.FromArgb(24, 33, 26);
-            label.BorderStyle = BorderStyle.FixedSingle;
+            // Apenas texto, sem retângulo de fundo ou borda.
+            label.ForeColor = Color.Black;
+            label.BackColor = Color.Transparent;
+            label.BorderStyle = BorderStyle.None;
+
             label.TextAlign = ContentAlignment.MiddleCenter;
-            label.Padding = new Padding(5);
+            label.Padding = Padding.Empty;
+            label.Margin = Padding.Empty;
             label.UseMnemonic = false;
             label.TabStop = false;
 
+            // Calcula o tamanho real do texto.
+            label.Size = label.GetPreferredSize(
+                new Size(160, 0)
+            );
+
+            // Centraliza o texto sobre a tecla correspondente.
             int centroX =
                 posicaoTile.X * map.tileSize +
                 larguraTiles * map.tileSize / 2;
 
             int posicaoX = centroX - label.Width / 2;
 
-            int posicaoY =
-                posicaoTile.Y * map.tileSize - label.Height - 10;
+            // Coloca o texto imediatamente acima da tecla.
+            int posicaoY = posicaoTile.Y * map.tileSize - label.Height - 4;
 
+            _tutorialLabelsWorldPositions.Add(
+                label,
+                new Point(posicaoX, posicaoY)
+            );
+
+            world1.Controls.Add(label);
+            label.BringToFront();
+        }
+
+        // Desenha visualmente uma tecla de habilidade no mapa.
+        private void AdicionarTeclaTutorial(string nome,string tecla,Point posicaoTile)
+        {
+            if (map == null)
+                return;
+
+            Label label = new Label();
+
+            label.Name = nome;
+            label.Text = tecla;
+
+            // Pequeno formato de tecla.
+            label.AutoSize = false;
+            label.Size = new Size(24, 24);
+
+            label.Font = new Font(
+                "Arial",
+                10f,
+                FontStyle.Bold
+            );
+
+            label.ForeColor = Color.WhiteSmoke;
+            label.BackColor = Color.FromArgb(55, 58, 70);
+            label.BorderStyle = BorderStyle.Fixed3D;
+
+            label.TextAlign = ContentAlignment.MiddleCenter;
+            label.Padding = Padding.Empty;
+            label.Margin = Padding.Empty;
+            label.UseMnemonic = false;
+            label.TabStop = false;
+
+            // Centraliza a tecla dentro do tile correspondente.
+            int posicaoX =
+                posicaoTile.X * map.tileSize +
+                (map.tileSize - label.Width) / 2;
+
+            int posicaoY =
+                posicaoTile.Y * map.tileSize +
+                (map.tileSize - label.Height) / 2;
+
+            // Guarda a posição original para acompanhar a câmera.
             _tutorialLabelsWorldPositions.Add(
                 label,
                 new Point(posicaoX, posicaoY)
@@ -742,29 +797,28 @@ namespace FallenWorld
             if (map == null)
                 return;
 
-            // Instruções gerais de movimentação.
+            // Tecla A
             AdicionarLabelTutorial(
                 "LBL_TutorialMoveLeft",
-                "MOVIMENTAR PARA ESQUERDA",
+                "ESQUERDA",
                 new Point(33, 17),
-                2,
-                190
+                2
             );
 
+            // Tecla D
             AdicionarLabelTutorial(
                 "LBL_TutorialMoveRight",
-                "MOVIMENTAR PARA DIREITA",
+                "DIREITA",
                 new Point(36, 17),
-                2,
-                190
+                2
             );
 
+            // Tecla SPACE
             AdicionarLabelTutorial(
                 "LBL_TutorialJump",
                 "PULAR",
                 new Point(44, 17),
-                7,
-                220
+                7
             );
 
             // Localiza os marcadores J, K e L do mapa.
@@ -793,6 +847,17 @@ namespace FallenWorld
 
                 string texto = ObterTextoTutorialSkill(slot);
 
+                // Desenha o keycap correspondente à habilidade.
+                string tecla = slot == 0 ? "J" :
+                               slot == 1 ? "K" : "L";
+
+                AdicionarTeclaTutorial(
+                    "LBL_TutorialTecla" + tecla,
+                    tecla,
+                    new Point(marcador.x, marcador.y)
+                );  
+
+
                 AdicionarLabelTutorial(
                     "LBL_TutorialSkill" + (slot + 1),
                     texto,
@@ -800,16 +865,12 @@ namespace FallenWorld
                 );
             }
 
-            // E já está desenhado no mapa.
-            // Usamos sua posição diretamente, sem exigir atributo novo.
             AdicionarLabelTutorial(
                 "LBL_TutorialInteract",
-                "INTERAGIR\nAbra baús e ative runas e mecanismos.",
+                "INTERAGIR",
                 new Point(165, 17),
-                2,
-                240
+                2
             );
-
             AtualizarPosicaoLabelsTutorial();
         }
 
