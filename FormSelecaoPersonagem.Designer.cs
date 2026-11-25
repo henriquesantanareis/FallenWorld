@@ -39,8 +39,6 @@ namespace FallenWorld
             this.TMR_Music_Knight = new System.Windows.Forms.Timer(this.components);
             this.TMR_Music_Princess = new System.Windows.Forms.Timer(this.components);
             this.TMR_Music_choose_charactes = new System.Windows.Forms.Timer(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.PNL_Description_Character = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // RDB_Mage
@@ -131,26 +129,12 @@ namespace FallenWorld
             this.BTN_EXIT.MouseLeave += new System.EventHandler(this.BTN_EXIT_MouseLeave);
             this.BTN_EXIT.MouseUp += new System.Windows.Forms.MouseEventHandler(this.BTN_EXIT_MouseUp);
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Name = "panel1";
-            // 
-            // PNL_Description_Character
-            // 
-            resources.ApplyResources(this.PNL_Description_Character, "PNL_Description_Character");
-            this.PNL_Description_Character.BackColor = System.Drawing.Color.Transparent;
-            this.PNL_Description_Character.Name = "PNL_Description_Character";
-            // 
             // FormSelecaoPersonagem
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ControlBox = false;
-            this.Controls.Add(this.PNL_Description_Character);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.BTN_EXIT);
             this.Controls.Add(this.BTN_PLAY);
             this.Controls.Add(this.RDB_Princess);
@@ -178,7 +162,5 @@ namespace FallenWorld
         private System.Windows.Forms.Timer TMR_Music_Knight;
         private System.Windows.Forms.Timer TMR_Music_Princess;
         private System.Windows.Forms.Timer TMR_Music_choose_charactes;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel PNL_Description_Character;
     }
 }

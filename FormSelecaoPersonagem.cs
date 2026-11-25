@@ -25,11 +25,18 @@ namespace FallenWorld
             RDB_Princess.Checked = false;
         }
 
-        #region Varriáveis globais
+        #region Variáveis globais
         private SoundPlayer musicChooseCharacters;
         private SoundPlayer selectionMusicMage;
         private SoundPlayer selectionMusicKnight;
         private SoundPlayer selectionMusicPrincess;
+
+        // Prévia animada do personagem selecionado.
+        private Player _previewPersonagem;
+        // Identifica qual personagem está sendo exibido.
+        private Personagem _personagemPreviewAtual = Personagem.Nenhum;
+        // Área reservada para exibir o personagem selecionado.
+        private readonly Rectangle _areaPreviewPersonagem = new Rectangle(317, 216, 171, 220);
         #endregion
 
         #region Load Form
@@ -71,6 +78,66 @@ namespace FallenWorld
         }
         #endregion
 
+        private void MostrarPreviewPersonagem(Personagem personagem)
+        {
+            // Evita recriar a prévia do mesmo personagem.
+            if (_personagemPreviewAtual == personagem &&
+                _previewPersonagem != null &&
+                !_previewPersonagem.IsDisposed)
+            {
+                return;
+            }
+
+            // Remove e libera a prévia anterior.
+            if (_previewPersonagem != null)
+            {
+                this.Controls.Remove(_previewPersonagem);
+                _previewPersonagem.Dispose();
+                _previewPersonagem = null;
+            }
+
+            // Cria o personagem com sua animação Idle.
+            _previewPersonagem = new Player(personagem);
+
+            // Ajusta o tamanho visual de cada personagem na seleção.
+            if (personagem == Personagem.Mago)
+            {
+                _previewPersonagem.DefinirEscalaVisual(3f);
+            }
+            else if (personagem == Personagem.Cavaleiro)
+            {
+                _previewPersonagem.DefinirEscalaVisual(2f);
+            }
+            else if (personagem == Personagem.Princesa)
+            {
+                _previewPersonagem.DefinirEscalaVisual(1.5f);
+            }
+
+            // Obtém os limites dos pixels realmente visíveis.
+            Rectangle spriteBounds = _previewPersonagem.GetVisibleSpriteBounds();
+
+            // Centraliza o personagem na área reservada.
+            int posicaoX =
+                _areaPreviewPersonagem.X +
+                (_areaPreviewPersonagem.Width - spriteBounds.Width) / 2 -
+                spriteBounds.Left;
+
+            // Alinha os pés do personagem à base da área.
+            int posicaoY = _areaPreviewPersonagem.Bottom - spriteBounds.Bottom;
+
+            _previewPersonagem.Location = new Point(posicaoX, posicaoY);
+
+            // Adiciona diretamente ao formulário.
+            this.Controls.Add(_previewPersonagem);
+
+            _previewPersonagem.BringToFront();
+
+            // Mantém o botão Jogar sempre na frente.
+            BTN_PLAY.BringToFront();
+
+            _personagemPreviewAtual = personagem;
+        }
+
         #region Personagem selection
         private void checkPersonagem(object sender, EventArgs e)
         {
@@ -80,6 +147,7 @@ namespace FallenWorld
                 RDB_Knight.Image = Properties.Resources.knight_Avatar_normal;
                 RDB_Princess.Image = Properties.Resources.Princess_Avatar_normal;
                 TipoPersonagem.EscolherPersonagem(Personagem.Mago);
+                MostrarPreviewPersonagem(Personagem.Mago);
                 TocarMusicaPersonagem(Personagem.Mago);
                 // mostrar a imagem do personagem selecionado
             }
@@ -89,6 +157,7 @@ namespace FallenWorld
                 RDB_Mage.Image = Properties.Resources.duckMage_Avatar_normal;
                 RDB_Princess.Image = Properties.Resources.Princess_Avatar_normal;
                 TipoPersonagem.EscolherPersonagem(Personagem.Cavaleiro);
+                MostrarPreviewPersonagem(Personagem.Cavaleiro);
                 TocarMusicaPersonagem(Personagem.Cavaleiro);
                 // mostrar a imagem idle do personagem selecionado
             }
@@ -98,6 +167,7 @@ namespace FallenWorld
                 RDB_Knight.Image = Properties.Resources.knight_Avatar_normal;
                 RDB_Mage.Image = Properties.Resources.duckMage_Avatar_normal;
                 TipoPersonagem.EscolherPersonagem(Personagem.Princesa);
+                MostrarPreviewPersonagem(Personagem.Princesa);
                 TocarMusicaPersonagem(Personagem.Princesa);
                 // mostrar a imagem idle do personagem selecionado
             }
@@ -134,8 +204,7 @@ namespace FallenWorld
             {
                 RDB_Mage.Image = Properties.Resources.duckMage_Avatar_selected;
             }
-            else if (RDB_Mage.ClientRectangle.Contains(
-                RDB_Mage.PointToClient(Cursor.Position)))
+            else if (RDB_Mage.ClientRectangle.Contains(RDB_Mage.PointToClient(Cursor.Position)))
             {
                 RDB_Mage.Image = Properties.Resources.duckMage_Avatar_hover;
             }
@@ -169,8 +238,7 @@ namespace FallenWorld
             {
                 RDB_Knight.Image = Properties.Resources.knight_Avatar_selected;
             }
-            else if (RDB_Knight.ClientRectangle.Contains(
-                RDB_Knight.PointToClient(Cursor.Position)))
+            else if (RDB_Knight.ClientRectangle.Contains(RDB_Knight.PointToClient(Cursor.Position)))
             {
                 RDB_Knight.Image = Properties.Resources.knight_Avatar_hover;
             }
@@ -204,8 +272,7 @@ namespace FallenWorld
             {
                 RDB_Princess.Image = Properties.Resources.Princess_Avatar_selected;
             }
-            else if (RDB_Princess.ClientRectangle.Contains(
-                RDB_Princess.PointToClient(Cursor.Position)))
+            else if (RDB_Princess.ClientRectangle.Contains(RDB_Princess.PointToClient(Cursor.Position)))
             {
                 RDB_Princess.Image = Properties.Resources.Princess_Avatar_hover;
             }
@@ -256,8 +323,7 @@ namespace FallenWorld
 
         private void BTN_PLAY_MouseUp(object sender, MouseEventArgs e)
         {
-            if (BTN_PLAY.ClientRectangle.Contains(
-                BTN_PLAY.PointToClient(Cursor.Position)))
+            if (BTN_PLAY.ClientRectangle.Contains(BTN_PLAY.PointToClient(Cursor.Position)))
             {
                 BTN_PLAY.Image = Properties.Resources.Play_hover;
             }
@@ -301,8 +367,7 @@ namespace FallenWorld
 
         private void BTN_EXIT_MouseUp(object sender, MouseEventArgs e)
         {
-            if (BTN_EXIT.ClientRectangle.Contains(
-                BTN_EXIT.PointToClient(Cursor.Position)))
+            if (BTN_EXIT.ClientRectangle.Contains(BTN_EXIT.PointToClient(Cursor.Position)))
             {
                 BTN_EXIT.BackgroundImage = Properties.Resources.Exit_hover;
             }
