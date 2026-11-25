@@ -154,7 +154,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;RDB_Mage.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="RDB_Knight.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -190,7 +190,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;RDB_Knight.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="RDB_Princess.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -226,10 +226,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;RDB_Princess.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="BTN_PLAY.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Center</value>
+    <value>None</value>
   </data>
   <data name="BTN_PLAY.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -241,10 +241,10 @@
     <value>NoControl</value>
   </data>
   <data name="BTN_PLAY.Location" type="System.Drawing.Point, System.Drawing">
-    <value>346, 454</value>
+    <value>280, 454</value>
   </data>
   <data name="BTN_PLAY.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 42</value>
+    <value>240, 82</value>
   </data>
   <data name="BTN_PLAY.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -259,10 +259,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BTN_PLAY.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="BTN_EXIT.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Center</value>
+    <value>None</value>
   </data>
   <data name="BTN_EXIT.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -271,10 +271,10 @@
     <value>NoControl</value>
   </data>
   <data name="BTN_EXIT.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 23</value>
+    <value>12, 12</value>
   </data>
   <data name="BTN_EXIT.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 41</value>
+    <value>240, 82</value>
   </data>
   <data name="BTN_EXIT.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -289,7 +289,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BTN_EXIT.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <metadata name="TMR_Duck_Mage.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>60, 27</value>
@@ -303,44 +303,74 @@
   <metadata name="TMR_Music_choose_charactes.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>555, 21</value>
   </metadata>
-  <data name="panel1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>317, 216</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 220</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="panel1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="PNL_Description_Character.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="PNL_Description_Character.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="LBL_Name_Character.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Fallen World Pixel, 18pt</value>
+  </data>
+  <data name="LBL_Name_Character.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 43</value>
+  </data>
+  <data name="LBL_Name_Character.Size" type="System.Drawing.Size, System.Drawing">
+    <value>236, 26</value>
+  </data>
+  <data name="LBL_Name_Character.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="LBL_Name_Character.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;LBL_Name_Character.Name" xml:space="preserve">
+    <value>LBL_Name_Character</value>
+  </data>
+  <data name="&gt;&gt;LBL_Name_Character.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_Name_Character.Parent" xml:space="preserve">
+    <value>PNL_Description_Character</value>
+  </data>
+  <data name="&gt;&gt;LBL_Name_Character.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="LBL_Description_Character.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Fallen World Pixel, 15.75pt</value>
+  </data>
+  <data name="LBL_Description_Character.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 91</value>
+  </data>
+  <data name="LBL_Description_Character.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 91</value>
+  </data>
+  <data name="LBL_Description_Character.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="LBL_Description_Character.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;LBL_Description_Character.Name" xml:space="preserve">
+    <value>LBL_Description_Character</value>
+  </data>
+  <data name="&gt;&gt;LBL_Description_Character.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_Description_Character.Parent" xml:space="preserve">
+    <value>PNL_Description_Character</value>
+  </data>
+  <data name="&gt;&gt;LBL_Description_Character.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="PNL_Description_Character.Location" type="System.Drawing.Point, System.Drawing">
-    <value>553, 349</value>
+    <value>496, 216</value>
   </data>
   <data name="PNL_Description_Character.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 100</value>
+    <value>296, 224</value>
   </data>
   <data name="PNL_Description_Character.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;PNL_Description_Character.Name" xml:space="preserve">
     <value>PNL_Description_Character</value>
@@ -10512,7 +10542,10 @@
     <value>None</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>784, 561</value>
+    <value>798, 598</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Fallen World Pixel, 8.25pt</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

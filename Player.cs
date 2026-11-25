@@ -58,6 +58,8 @@ namespace FallenWorld
         private int _currentRow = 0;
         private int _frameCount = 0;
         private bool _facingRight = true;
+        // Escala visual utilizada na exibição do personagem.
+        private float _escalaVisual = 1f;
         #endregion
 
         #region Player Stats
@@ -110,6 +112,68 @@ namespace FallenWorld
                 PBX_PLAYER.Image = GetFrame(_currentRow, 0);
         }
         #endregion
+
+
+        public void DefinirEscalaVisual(float escala)
+        {
+            if (escala <= 0f || float.IsNaN(escala) || float.IsInfinity(escala))
+                throw new ArgumentOutOfRangeException("escala");
+
+            _escalaVisual = escala;
+
+            // Ajusta o tamanho do controle.
+            Size tamanho = new Size(
+                (int)Math.Round(FrameWidth * escala),
+                (int)Math.Round(FrameHeight * escala)
+            );
+
+            this.Size = tamanho;
+            this.MinimumSize = tamanho;
+            this.MaximumSize = tamanho;
+
+            // Redimensiona o primeiro frame já exibido.
+            Bitmap frameAtual = PBX_PLAYER.Image as Bitmap;
+
+            if (frameAtual != null)
+            {
+                Bitmap frameEscalado = EscalarFramePixelArt(frameAtual, escala);
+
+                PBX_PLAYER.Image = frameEscalado;
+                frameAtual.Dispose();
+            }
+        }
+
+        private Bitmap EscalarFramePixelArt(Bitmap imagemOriginal, float escala)
+        {
+            int largura = (int)Math.Round(imagemOriginal.Width * escala);
+            int altura = (int)Math.Round(imagemOriginal.Height * escala);
+
+            Bitmap imagemEscalada = new Bitmap(
+                largura,
+                altura,
+                System.Drawing.Imaging.PixelFormat.Format32bppArgb
+            );
+
+            using (Graphics g = Graphics.FromImage(imagemEscalada))
+            {
+                // Mantém as bordas dos pixels bem definidas.
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+
+                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+
+                g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+
+                g.DrawImage(
+                    imagemOriginal,
+                    new Rectangle(0, 0, largura, altura),
+                    new Rectangle(0, 0, imagemOriginal.Width, imagemOriginal.Height),
+                    GraphicsUnit.Pixel
+                );
+            }
+
+            return imagemEscalada;
+        }
+
 
         #region Character Configuration
         private void configCharacter()
@@ -306,6 +370,16 @@ namespace FallenWorld
             if (DebuffVisualAtivo && _state != StatePlayer.Death)
             {
                 DesenharEfeitoDebuff(novoFrame);
+            }
+
+            // Aplica a escala visual mantendo a qualidade pixel art.
+            if (_escalaVisual != 1f)
+            {
+                Bitmap frameEscalado =
+                    EscalarFramePixelArt(novoFrame, _escalaVisual);
+
+                novoFrame.Dispose();
+                novoFrame = frameEscalado;
             }
 
             Image frameAnterior = PBX_PLAYER.Image;
