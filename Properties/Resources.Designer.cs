@@ -3103,6 +3103,15 @@ namespace FallenWorld.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
         /// </summary>
+        public static System.IO.UnmanagedMemoryStream Vharzun_Forge_ExitWarning {
+            get {
+                return ResourceManager.GetStream("Vharzun_Forge_ExitWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
         public static System.IO.UnmanagedMemoryStream Vharzun_Forge_Failure {
             get {
                 return ResourceManager.GetStream("Vharzun_Forge_Failure", resourceCulture);
