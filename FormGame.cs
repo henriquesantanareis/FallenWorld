@@ -2774,10 +2774,10 @@ namespace FallenWorld
             }
         }
 
-        private void AplicarDanoAosInimigos(int dano, int alcance, bool aplicarVeneno = false)
+        private bool AplicarDanoAosInimigos(int dano, int alcance, bool aplicarVeneno = false)
         {
             if (player == null || player.EstaMorto)
-                return;
+                return false;
 
             Rectangle hitboxPlayer = player.GetHitboxAt(_playerWorldX, _playerWorldY);
 
@@ -2796,6 +2796,7 @@ namespace FallenWorld
             }
 
             bool atingiuInimigo = false;
+            bool atingiuAlvo = false;
 
             foreach (KeyValuePair<Enemy, Point> item in _enemyWorldPositions)
             {
@@ -2828,6 +2829,7 @@ namespace FallenWorld
                 }
 
                 atingiuInimigo = true;
+                atingiuAlvo = true;
                 break;
             }
 
@@ -2845,6 +2847,7 @@ namespace FallenWorld
                 {
                     _midBoss.ReceberDano(dano);
                     atingiuChefe = true;
+                    atingiuAlvo = true;
 
                     // Aplica veneno quando o golpe for da habilidade da Princesa.
                     if (aplicarVeneno && !_midBoss.IsDead)
@@ -2870,6 +2873,7 @@ namespace FallenWorld
                 {
                     _lichBoss.ReceberDano(dano);
                     AtualizarHUDLichBoss();
+                    atingiuAlvo = true;
                 }
             }
             // Verifica se o ataque atingiu o Dullahan.
@@ -2883,8 +2887,8 @@ namespace FallenWorld
                 if (hitboxAtaque.IntersectsWith(hitboxDullahan))
                 {
                     _dullahanBoss.ReceberDano(dano);
-
                     AtualizarHUDDullahanBoss();
+                    atingiuAlvo = true;
                 }
             }
             // Verifica se o ataque atingiu a Rainha Gótica.
@@ -2908,8 +2912,10 @@ namespace FallenWorld
                     );
 
                     atingiuChefe = true;
+                    atingiuAlvo = true;
                 }
             }
+            return atingiuAlvo;
         }
 
         private void Player_AttackImpact(StatePlayer state)
@@ -2918,8 +2924,24 @@ namespace FallenWorld
             {
                 case Personagem.Mago:
                     if (state == StatePlayer.Attack)
-                    { 
-                        AplicarDanoAosInimigos(10, 44);
+                    {
+                        // Som do cajado cortando o ar com magia de fogo.
+                        SoundEffects.PlayWav(
+                            Properties.Resources.Mage_Staff_Swing,
+                            0.80f
+                        );
+
+                        // Aplica o dano e verifica se algum alvo foi atingido.
+                        bool atingiuAlvo = AplicarDanoAosInimigos(10, 44);
+
+                        // Som de impacto flamejante somente quando acertar.
+                        if (atingiuAlvo)
+                        {
+                            SoundEffects.PlayWav(
+                                Properties.Resources.Mage_Staff_Fire_Impact,
+                                0.90f
+                            );
+                        }
                     }
                     else if (state == StatePlayer.Fireball)
                     {
